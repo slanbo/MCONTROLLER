@@ -20,16 +20,16 @@ bool setDefaults(uint16_t param)
 
 bool clearCounters(uint16_t param)
 {
-	dayPCounterFirstByte.val = 0;
+	dayPCounterFirstByte._setVal(0);
 	dayPCounterFirstByte.save();
 	
-	dayPCounterSecondByte.val = 0;
+	dayPCounterSecondByte._setVal(0);
 	dayPCounterSecondByte.save();
 
-	nightPCounterFirstByte.val = 0;
+	nightPCounterFirstByte._setVal(0);
 	nightPCounterFirstByte.save();
 	
-	nightPCounterSecondByte.val = 0;
+	nightPCounterSecondByte._setVal(0);
 	nightPCounterSecondByte.save();
 	
 	RTC_TimeTypeDef sTime = { 0 };
@@ -38,19 +38,19 @@ bool clearCounters(uint16_t param)
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 
 	
-	PCounterBeginDate.val = sDate.Date;
+	PCounterBeginDate._setVal(sDate.Date);
 	PCounterBeginDate.save();
 	
-	PCounterBeginMonth.val = sDate.Month;
+	PCounterBeginMonth._setVal(sDate.Month) ;
 	PCounterBeginMonth.save();
 	
-	PCounterBeginYear.val = sDate.Year;
+	PCounterBeginYear._setVal(sDate.Year);
 	PCounterBeginYear.save();
 	
-	PCounterBeginHour.val = sTime.Hours;
+	PCounterBeginHour._setVal(sTime.Hours);
 	PCounterBeginHour.save();
 	
-	PCounterBeginMinute.val = sTime.Minutes;
+	PCounterBeginMinute._setVal(sTime.Minutes);
 	PCounterBeginMinute.save();
 	
 	return true;
@@ -127,21 +127,21 @@ bool setWeekDay(uint16_t param)
 
 bool setUpSocketLoadPower(uint16_t param)
 {
-	upSocket.loadPowerVT = param;
+	upSocket._setLoadPowerVT(param);
 	return true;
 }
 ;
 
 bool setDownSocketLoadPower(uint16_t param)
 {
-	downSocket.loadPowerVT = param;
+	downSocket._setLoadPowerVT(param);
 	return true;
 }
 ;
 
 bool setV12SocketLoadPower(uint16_t param)
 {
-	V12_Socket.loadPowerVT = param;
+	V12_Socket._setLoadPowerVT(param);
 	return true;
 }
 ;

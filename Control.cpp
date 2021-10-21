@@ -141,8 +141,8 @@ void SensorsSocketsControl::ExecuteStep()
 	uint16_t sumT = 0;
 	for (auto term : SensorsVector)
 	{
-		term->getTemperature();
-		sumT += term->temp; 
+		term->getSensorUnits();
+		sumT += term->getSensorUnits(); 
 	}
 	uint16_t current_t = sumT / SensorsVector.size();
 	

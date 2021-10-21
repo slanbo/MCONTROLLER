@@ -100,7 +100,7 @@ MenuElement::MenuElement(std::string name,
 
 void MenuElement::saveParametr()
 {
-	Tune->val = Parametr;
+	Tune->_setVal(Parametr) ;
 	Tune->save();
 }
 

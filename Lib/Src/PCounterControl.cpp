@@ -18,7 +18,7 @@ PCounterControl::PCounterControl(
 	uint8_t beginMinute, 
 	uint8_t endHour, 
 	uint8_t endMinute)
-	: SocketsControl(name, onOffTune, socketsTune)
+	: SocketsControl(name, onOffTune,socketsTune)
 	, BeginHour(beginHour)
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)
@@ -75,11 +75,11 @@ void PCounterControl::ExecuteStep()
 			Current_Step_After_FlashWrite = 0;
 			saveToFlash();
 		}
-		for (auto sock: Sockets)
+		for (auto sock: SocketsVector)
 		{
 			if (sock->getSocketState())
 			{
-				VTToAdd += sock->loadPowerVT;
+				VTToAdd += sock->getLoadpowerVT();
 			}
 		}
 		VT_After_FlashWrite += VTToAdd;
