@@ -7,7 +7,7 @@
 #include "vector"
 #include "Control.hpp"
 
-class PCounterControl : public ControlBase
+class PCounterControl : public SocketsControl
 {
 private:
 	uint8_t BeginHour = 0;
@@ -30,7 +30,7 @@ public:
 	
 	PCounterControl(std::string pcName,
 		intTune* onOffTune,
-		std::vector<plugSocket*> &sockets, 
+		IntVectorTune* socketsTune, 
 		uint16_t address, 
 		uint8_t beginHour, 
 		uint8_t beginMinute, 

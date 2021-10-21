@@ -49,7 +49,13 @@ SocketsControl::SocketsControl(uint16_t id,
 	:ControlBase(id, name, onOffTune), 
 	SocketsTune()
 {
-	_fillVector(SocketsVector, BaseUnitSocketsV, SocketsTune);
+	
+	SocketsVector.clear();
+	for (auto inItem : BaseUnitSocketsV)
+		for (auto tuneval : SocketsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				SocketsVector.push_back(inItem);
+	
 }
 
 SocketsControl::SocketsControl(std::string name, 
@@ -59,8 +65,13 @@ SocketsControl::SocketsControl(std::string name,
 	, SocketsTune()
 
 {
-	_fillVector(SocketsVector, BaseUnitSocketsV, SocketsTune);
 
+	SocketsVector.clear();
+	for (auto inItem : BaseUnitSocketsV)
+		for (auto tuneval : SocketsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				SocketsVector.push_back(inItem);
+	
 }
 
 //sensors sockets control
@@ -74,15 +85,25 @@ SensorsSocketsControl::SensorsSocketsControl(
 	intTune* timeProfileTune,
 	createTimeProfileFnc ctpFnc
 	)
-	: ControlBase(id, name, onOffTune)
+	: SocketsControl(id, name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
 	ctpFnc(tProfile, timeProfileTune);
-	_fillVector(UpSocketsVector, BaseUnitSocketsV, UpSocketsTune);
-	_fillVector(DownSocketsVector, BaseUnitSocketsV, DownSocketsTune);
-	_fillVector(SensorsVector, ADCSensorsV, SensorsTune);
+	
+	DownSocketsVector.clear();
+	for (auto inItem : BaseUnitSocketsV)
+		for (auto tuneval : DownSocketsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				DownSocketsVector.push_back(inItem);
+	
+	SensorsVector.clear();
+	for (auto inItem : ADCSensorsV)
+		for (auto tuneval : SensorsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				SensorsVector.push_back(inItem);
+	
 }
 
 SensorsSocketsControl::SensorsSocketsControl(
@@ -93,15 +114,24 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
 	createTimeProfileFnc ctpFnc)
-	: ControlBase(name, onOffTune)
+	: SocketsControl(name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
 	ctpFnc(tProfile, timeProfileTune);
-	_fillVector(UpSocketsVector, BaseUnitSocketsV, UpSocketsTune);
-	_fillVector(DownSocketsVector, BaseUnitSocketsV, DownSocketsTune);
-	_fillVector(SensorsVector, ADCSensorsV, SensorsTune);
+	
+	DownSocketsVector.clear();
+	for (auto inItem : BaseUnitSocketsV)
+		for (auto tuneval : DownSocketsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				DownSocketsVector.push_back(inItem);
+	
+	SensorsVector.clear();
+	for (auto inItem : ADCSensorsV)
+		for (auto tuneval : SensorsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				SensorsVector.push_back(inItem);
 }
 
 void SensorsSocketsControl::ExecuteStep()

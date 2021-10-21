@@ -12,13 +12,13 @@
 PCounterControl::PCounterControl(
 	std::string name,
 	intTune* onOffTune,
-	std::vector<plugSocket*> &sockets, 
+	IntVectorTune* socketsTune, 
 	uint16_t address, 
 	uint8_t beginHour, 
 	uint8_t beginMinute, 
 	uint8_t endHour, 
 	uint8_t endMinute)
-	: ControlBase(name, onOffTune)
+	: SocketsControl(name, onOffTune, socketsTune)
 	, BeginHour(beginHour)
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)
@@ -114,19 +114,19 @@ void PCounterControl::FillScreen()
 	Info_FirstString.SetText("Начало отсчета: ", true);
 	
 	strcpy(dateString, "");
-	inttoabase10(PCounterBeginDate.val, intString);
+	inttoabase10(PCounterBeginDate._getVal(), intString);
 	strcat(dateString, intString);	
 	strcat(dateString, "/");
-	inttoabase10(PCounterBeginMonth.val, intString);
+	inttoabase10(PCounterBeginMonth._getVal(), intString);
 	strcat(dateString, intString);	
 	strcat(dateString, "/");
-	inttoabase10(PCounterBeginYear.val, intString);
+	inttoabase10(PCounterBeginYear._getVal(), intString);
 	strcat(dateString, intString);	
 	strcat(dateString, " ");
-	inttoabase10(PCounterBeginHour.val, intString);
+	inttoabase10(PCounterBeginHour._getVal(), intString);
 	strcat(dateString, intString);	
 	strcat(dateString, ":");
-	inttoabase10(PCounterBeginMinute.val, intString);
+	inttoabase10(PCounterBeginMinute._getVal(), intString);
 	strcat(dateString, intString);	
 	Info_SecondString.SetText(dateString, true);
 	

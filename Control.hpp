@@ -6,6 +6,9 @@
 #include "Tune.hpp"
 #include <string>
 #include "BaseObject.hpp"
+#include "TimeProfile.hpp"
+#include "Socket.hpp"
+#include "ADCSensorDev.hpp"
 
 class ControlBase: public BaseObject
 {
@@ -66,7 +69,7 @@ protected:
 using createTimeProfileFnc = void(*)(TimeProfile*, intTune*);
 
 
-class SensorsSocketsControl : public ControlBase
+class SensorsSocketsControl : public SocketsControl
 {
 public:
 	SensorsSocketsControl(
