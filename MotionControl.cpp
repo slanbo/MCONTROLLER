@@ -16,8 +16,8 @@ void MotionControl::FillScreen()
 
 void MotionControl::ExecuteStep()
 {
-	uint16_t analizePeriod = AnalizeMotionsPeriod->val;
-	if (OnOffTune->val == 2)
+	uint16_t analizePeriod = AnalizeMotionsPeriod->_getVal();
+	if (OnOffTune->_getVal() == 2)
 	{
 		for (auto sens : Sensors) 
 		{

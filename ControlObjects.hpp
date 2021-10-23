@@ -1,12 +1,6 @@
 #include "TuneObjectsExt.hpp"
 #include "DateControl.hpp"
 #include "MotionControl.hpp"
-#include "TempControl.hpp"
-#include "HumidityControl.hpp"
-#include "COControl.hpp"
-#include "LightControl.hpp"
-#include "MashingControl.hpp"
-#include "BoilingControl.hpp"
 #include "MixControl.hpp"
 #include "TimeProfiles.hpp"
 #include <vector>

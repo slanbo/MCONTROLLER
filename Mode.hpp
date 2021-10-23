@@ -60,10 +60,10 @@ class Habitat : public ControlsMode
 	
 protected:
 	
-	TempControl* airTempControl;
-	TempControl* batTempControl;
-	LightControl* lightControl;
-	COControl* coControl;
+	SensorsSocketsControl* airTempControl;
+	SensorsSocketsControl* batTempControl;
+	SensorsSocketsControl* lightControl;
+	SensorsSocketsControl* coControl;
 	
 	
 	

@@ -34,8 +34,6 @@ public:
 	
 	char Name[NAME_LENGHT] = { 0 };
 	
-protected:
-	
 	BaseItemLPfnc DownLongPressFnc = nullptr;
 	MenuElementBase* PrevInListItem = nullptr;
 	MenuElementBase* NextInListItem = nullptr;
@@ -43,6 +41,10 @@ protected:
 	MenuElementBase* ChildItem = nullptr;
 	MenuElementBase* PrevItem = nullptr;
 	MenuElementBase* NextItem = nullptr;
+	
+protected:
+	
+	
 };
 
 class MenuElement : public MenuElementBase

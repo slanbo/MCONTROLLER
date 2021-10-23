@@ -149,10 +149,10 @@ bool setV12SocketLoadPower(uint16_t param)
 void postInitStaticMenuElements(MenuElement* lastElement)
 {
 	
-	MenuElement* firstItem = nullptr;
-	MenuElement* lastItem = lastElement;
-	MenuElement* currItem = lastElement;
-	MenuElement* cursor = nullptr;
+	MenuElementBase* firstItem = nullptr;
+	MenuElementBase* lastItem = lastElement;
+	MenuElementBase* currItem = lastElement;
+	MenuElementBase* cursor = nullptr;
 	
 	//nextinlist
 	while(currItem != nullptr)

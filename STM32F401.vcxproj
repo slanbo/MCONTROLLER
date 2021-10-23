@@ -218,7 +218,6 @@
     <ClInclude Include="Devices\Inc\Button.hpp" />
     <ClInclude Include="Devices\Inc\Buttons.hpp" />
     <ClInclude Include="Lib\Inc\TimeProfile.hpp" />
-    <ClInclude Include="MashingControl.hpp" />
     <ClInclude Include="SocketObjectsExt.hpp" />
     <ClInclude Include="TempPauses.hpp" />
     <ClInclude Include="DateControl.hpp" />
