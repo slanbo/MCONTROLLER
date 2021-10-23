@@ -129,26 +129,38 @@ intTune nightPCounterOnOffTune(&dayPCounterOnOffTune);
 //air Temp control sensors & sockets
 
 IntVectorTune airTempControlSensors(&nightPCounterOnOffTune, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
-IntVectorTune airTempControlSockets(&airTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune airTempControlUpSockets(&airTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune airTempControlDownSockets(&airTempControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+intTune airTempControlTimeProfile(&airTempControlDownSockets);
 
 //bat Temp control sensors & sockets
-IntVectorTune batTempControlSensors(&airTempControlSockets, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
-IntVectorTune batTempControlSockets(&batTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune batTempControlSensors(&airTempControlTimeProfile, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune batTempControlUpSockets(&batTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune batTempControlDownSockets(&batTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+intTune batTempControlTimeProfile(&batTempControlDownSockets);
+
 
 //light control sensors & sockets
-IntVectorTune lightControlSensors(&batTempControlSockets, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
-IntVectorTune lightControlSockets(&lightControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune lightControlSensors(&batTempControlTimeProfile, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune lightControlUpSockets(&lightControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune lightControlDownSockets(&lightControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+intTune lightControlTimeProfile(&lightControlDownSockets);
+
 
 //co control sensors sockets
-IntVectorTune COControlSensors(&lightControlSockets, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
-IntVectorTune COControlSockets(&COControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune COControlSensors(&lightControlTimeProfile, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune COControlUpSockets(&COControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune COControlDownSockets(&COControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+intTune COControlTimeProfile(&COControlDownSockets);
 
 //humodity control sensors sockets
-IntVectorTune humidityControlSensors(&COControlSockets, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
-IntVectorTune humidityControlSockets(&humidityControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune humidityControlSensors(&COControlTimeProfile, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune humidityControlUpSockets(&humidityControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune humidityControlDownSockets(&humidityControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+intTune humidityControlTimeProfile(&humidityControlDownSockets);
 
 //begin date
-intTune delayBeginYear(&humidityControlSockets);
+intTune delayBeginYear(&humidityControlTimeProfile);
 intTune delayBeginMonth(&delayBeginYear);
 intTune delayBeginDate(&delayBeginMonth);
 intTune delayBeginHour(&delayBeginDate);	

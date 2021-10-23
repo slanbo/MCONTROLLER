@@ -129,23 +129,35 @@ extern intTune dayPCounterOnOffTune;
 extern intTune nightPCounterOnOffTune;
 
 extern IntVectorTune airTempControlSensors;
-extern IntVectorTune airTempControlSockets;
+extern IntVectorTune airTempControlUpSockets;
+extern IntVectorTune airTempControlDownSockets;
+extern intTune airTempControlTimeProfile;
+
 
 //bat Temp control sensors & sockets
 extern IntVectorTune batTempControlSensors;
-extern IntVectorTune batTempControlSockets;
+extern IntVectorTune batTempControlUpSockets;
+extern IntVectorTune batTempControlDownSockets;
+extern intTune batTempControlTimeProfile;
+
 
 //light control sensors & sockets
 extern IntVectorTune lightControlSensors;
-extern IntVectorTune lightControlSockets;
+extern IntVectorTune lightControlUpSockets;
+extern IntVectorTune lightControlDownSockets;
+extern intTune lightControlTimeProfile;
 
 //co control sensors sockets
 extern IntVectorTune COControlSensors;
-extern IntVectorTune COControlSockets;
+extern IntVectorTune COControlUpSockets;
+extern IntVectorTune COControlDownSockets;
+extern intTune COControlTimeProfile;
 
 //humodity control sensors sockets
 extern IntVectorTune humidityControlSensors;
-extern IntVectorTune humidityControlSockets;
+extern IntVectorTune humidityControlUpSockets;
+extern IntVectorTune humidityControlDownSockets;
+extern intTune humidityControlTimeProfile;
 
 extern intTune delayBeginYear;
 extern intTune delayBeginMonth;
