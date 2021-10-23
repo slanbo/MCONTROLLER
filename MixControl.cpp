@@ -6,15 +6,13 @@
 
 MixControl::MixControl(std::string name,
 	intTune* onOffTune,
-	std::vector<plugSocket*> &sockets,
-	intTune * modeTune,
-	std::vector<plugSocket*> &heatingSockets)
+	IntVectorTune* socketsTune,
+	intTune * modeTune)
 	: SocketsControl(name,
 	onOffTune,
-	sockets
+	socketsTune
 	)
 	, ModeTune(modeTune)
-	, HeatingSockets(heatingSockets)
 {
 }
 

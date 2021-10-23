@@ -9,14 +9,13 @@
 #include <string>
 #include <vector>
 
-class MixControl : public ControlBase
+class MixControl : public SocketsControl
 {
 public:
 	MixControl(std::string name,
 		intTune* onOffTune,
-		std::vector<plugSocket*> &sockets,
-		intTune * modeTune,
-		std::vector<plugSocket*> &heatingSockets);
+		IntVectorTune* socketsTune,
+		intTune * modeTune);
 	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
@@ -28,7 +27,6 @@ private:
 	intTune * ModeTune;
 	uint16_t stepsSwitchedOn = 0;
 	uint16_t stepsSwitchedOff = 0;
-	std::vector<plugSocket*> &HeatingSockets;
 };
 	
 
