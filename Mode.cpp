@@ -1,5 +1,6 @@
 #include "Mode.hpp"
 #include "ScreenObjectsExt.hpp"
+#include "TimeProfileObjects.hpp"
 
 ModeBase::ModeBase(uint16_t ID, std::string name)
 	: BaseObject(ID, name) 
@@ -45,6 +46,14 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
-	airTempControl = new TempControl()
+	airTempControl = new SensorsSocketsControl
+		(
+		"air control", 
+		&airTempControlOnOffTune,
+		&airTempControlSensors,
+		&airTempControlUpSockets,
+		&airTempControlDownSockets,
+		&airTempControlTimeProfile,
+		createAirTempTimeProfile);
 	
 }

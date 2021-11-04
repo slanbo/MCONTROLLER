@@ -223,7 +223,7 @@ bool SensorsSocketsControl::isActive()
 	return false;
 }
 
-void SensorsSocketsControl::SwitchSockets(uint16_t powerVT)
+void SensorsSocketsControl::SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT)
 {
 }
 

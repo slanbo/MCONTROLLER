@@ -47,7 +47,7 @@ public:
 	virtual void ExecuteStep();
 	
 protected:	
-	//std::vector<ControlBase *> Controls;
+	std::vector<ControlBase *> Controls;
 };
 
 
