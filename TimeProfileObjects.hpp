@@ -79,7 +79,7 @@ void createLightTimeProfile(TimeProfile* tp, intTune* timeProfile)
 }
 
 
-TimeProfile* createDryingTimeProfile(TimeProfile* tp, intTune* timeProfile)
+void createDryingTimeProfile(TimeProfile* tp, intTune* timeProfile)
 {
 
 	switch (timeProfile->_getVal())

@@ -37,7 +37,6 @@ protected:
 	uint16_t BackColor = 0;
 };
 	
-#endif	
 
 class SocketsControl : public ControlBase
 {
@@ -56,6 +55,9 @@ public:
 		intTune* onOffTune,
 		IntVectorTune* socketsTune
 		);
+	
+	void SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT);
+
 	
 private:
 	
@@ -97,7 +99,6 @@ public:
 	virtual bool isActive();
 	
 	void _fillVector(std::vector<BaseObject*> &vectorOut, std::vector<BaseObject*> &vectorIn, IntVectorTune* tune);
-	void SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT);
 	
 	virtual uint16_t _get_aim_val();
 	virtual uint16_t _get_current_val();
@@ -126,3 +127,5 @@ protected:
 	uint16_t aim_val = 0;
 	
 };
+
+#endif	

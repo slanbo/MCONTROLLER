@@ -74,6 +74,10 @@ SocketsControl::SocketsControl(std::string name,
 	
 }
 
+void SocketsControl::SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT)
+{
+}
+
 //sensors sockets control
 SensorsSocketsControl::SensorsSocketsControl(
 	uint16_t id,
@@ -223,9 +227,7 @@ bool SensorsSocketsControl::isActive()
 	return false;
 }
 
-void SensorsSocketsControl::SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT)
-{
-}
+
 
 
 

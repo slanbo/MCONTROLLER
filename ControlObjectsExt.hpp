@@ -1,6 +1,10 @@
-#ifndef __CONTROLS__H
-#define __CONTROLS__H
+#ifndef __CONTROLOBJECTS__H
+#define __CONTROLOBJECTS__H
 
+#include "Control.hpp"
+#include "MixControl.hpp"
+#include "DateControl.hpp"
+#include "MotionControl.hpp"
 
 void InitControls();
 

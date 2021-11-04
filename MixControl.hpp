@@ -1,5 +1,5 @@
-#ifndef __MIXPCONTROL__H
-#define __MIXPCONTROL__H
+#ifndef __MIXCONTROL__H
+#define __MIXCONTROL__H
 
 #include "Control.hpp"
 #include "SocketObjectsExt.hpp"

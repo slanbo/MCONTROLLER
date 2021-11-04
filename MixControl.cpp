@@ -31,7 +31,7 @@ void MixControl::FillScreen()
 	Info_SecondString.SetText("Режим работы:", true);
 	
 	char modestr[MAX_CHARS_IN_SCREEN * 2] = { 0 };
-	switch (ModeTune->val)
+	switch (ModeTune->_getVal())
 	{
 	case 0:	//always on
 		{
@@ -69,43 +69,18 @@ void MixControl::FillScreen()
 
 void MixControl::ExecuteStep()
 {
-	assert(ModeTune->val < 3);
+	assert(ModeTune->_getVal() < 3);
 	
 	if (isActive())
 	{
-		switch (ModeTune->val)
+		switch (ModeTune->_getVal())
 		{
 		case 0:	//always on
 			{
-				for (auto sock : Sockets)
-					SwitchSockets(9999);
+				SwitchSockets(SocketsVector, 9999);
 				break;
 			}	
-		case 1:	//switch on if heating
-			{
-				bool isHeating = false;
-				for (auto heatingsock : HeatingSockets)
-					if(heatingsock->getSocketState())
-						isHeating = true;
-				if (isHeating)
-					SwitchSockets(9999);
-				else
-					SwitchSockets(0);
-				break;
-			}
-		case 2:	//switch on if not heating
-			{
-				bool isHeating;
-				for (auto heatingsock : HeatingSockets)
-					if (heatingsock->getSocketState())
-						isHeating = true;
-				if (isHeating)
-					SwitchSockets(0);
-				else
-					SwitchSockets(9999);
-				break;
-			}	
-		case 3:	//pauses
+		case 1:	//pauses
 			{
 				bool SwitchedOn = getState();
 			
@@ -113,18 +88,18 @@ void MixControl::ExecuteStep()
 				{
 					stepsSwitchedOff = 0;
 					stepsSwitchedOn += 1;
-					if (stepsSwitchedOn >= SwitchedOnPumpTime.val)
+					if (stepsSwitchedOn >= SwitchedOnPumpTime._getVal())
 					{
-						SwitchSockets(0);
+						SwitchSockets(SocketsVector, 0);
 					}
 				}
 				else
 				{
 					stepsSwitchedOn = 0;
 					stepsSwitchedOff += 1;
-					if (stepsSwitchedOff >= SwitchedOffPumpTime.val)
+					if (stepsSwitchedOff >= SwitchedOffPumpTime._getVal())
 					{
-						SwitchSockets(9999);
+						SwitchSockets(SocketsVector, 9999);
 					}
 
 				}
@@ -132,14 +107,14 @@ void MixControl::ExecuteStep()
 			}
 		default: //allways off
 			{
-				SwitchSockets(0);
+				SwitchSockets(SocketsVector, 0);
 				break;
 			}
 		}
 	}	
 	else
 	{
-		SwitchSockets(0);
+		SwitchSockets(SocketsVector, 0);
 	}
 	return;		
 }
@@ -148,7 +123,7 @@ bool MixControl::getState()
 {
 	bool SwitchedOn = false;
 			
-	for (auto sock : Sockets)
+	for (auto sock : SocketsVector)
 		if (sock->getSocketState())
 			SwitchedOn = true;
 	
