@@ -600,9 +600,6 @@
     <ClCompile Include="Lib\Src\GUI.c">
       <Filter>Source files\Lib</Filter>
     </ClCompile>
-    <ClCompile Include="MashingControl.cpp">
-      <Filter>Source files\Controls</Filter>
-    </ClCompile>
     <ClCompile Include="Control.cpp">
       <Filter>Source files\Controls</Filter>
     </ClCompile>

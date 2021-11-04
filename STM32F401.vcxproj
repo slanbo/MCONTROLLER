@@ -156,7 +156,6 @@
     <ClCompile Include="Lib\Src\GUI.c" />
     <ClCompile Include="Lib\Src\TimeProfile.cpp" />
     <ClCompile Include="Lib\Src\utf8_to_cp1251.c" />
-    <ClCompile Include="MashingControl.cpp" />
     <ClCompile Include="MenuClass.cpp" />
     <ClCompile Include="Middlewares\Third_Party\FreeRTOS\Source\croutine.c" />
     <ClCompile Include="Middlewares\Third_Party\FreeRTOS\Source\event_groups.c" />

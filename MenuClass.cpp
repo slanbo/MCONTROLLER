@@ -16,12 +16,12 @@ void Menu::moveCurrentToChild()
 {
 	if (CurrentItem->ChildItem != nullptr)
 	{
-		MenuElement* arrow = CurrentItem->ChildItem;
-		MenuElement* cursor = CurrentItem->ChildItem;
+		MenuElement* arrow = (MenuElement*)CurrentItem->ChildItem;
+		MenuElement* cursor = (MenuElement*)CurrentItem->ChildItem;
 	
 		if (arrow->Tune != nullptr) 
 		{
-			if (arrow->MaxIntParametr == 0xffff & arrow->MinIntParametr == 0xffff)
+			/*if (arrow->MaxIntParametr == 0xffff & arrow->MinIntParametr == 0xffff)
 			{
 				do 
 				{	
@@ -31,23 +31,23 @@ void Menu::moveCurrentToChild()
 					}
 					cursor = cursor->GetNextItem();
 				} while (cursor != arrow);
-			}
-			else
-			{
-				cursor->Tune->restore();
+			}*/
+		}
+		else
+		{
+				/*cursor->Tune->restore();
 				cursor->IntParametr = cursor->Tune->val;
 				cursor->GetPrevIntParametr();
-				cursor->GetNextIntParametr();
-			}
-		}	
-		CurrentItem = cursor;
-	}
+				cursor->GetNextIntParametr();*/
+		}
+	}	
+		//CurrentItem = cursor;
 	else
 	{
-		if (!CurrentItem->selected)
+		/*if (!CurrentItem->selected)
 			CurrentItem->selected = true;
 		else
-			CurrentItem->selected = false;
+			CurrentItem->selected = false;*/
 	}
 }
 
@@ -56,7 +56,7 @@ void Menu::moveCurrentToParent()
 	CurrentItem->selected = false;
 	if (CurrentItem->ParentItem != nullptr)
 	{
-		CurrentItem = CurrentItem->ParentItem;
+		CurrentItem = (MenuElement*)CurrentItem->ParentItem;
 	}
 }
 
@@ -64,19 +64,19 @@ void Menu::moveCurrentToParent()
 void Menu::moveCurrentToPrev()
 {
 	CurrentItem->selected = false;
-	CurrentItem = CurrentItem->GetPrevItem();
+	CurrentItem = (MenuElement*)CurrentItem->GetPrevItem();
 }
 
 
 void Menu::moveCurrentToNext()
 {
 	CurrentItem->selected = false;
-	CurrentItem = CurrentItem->GetNextItem();
+	CurrentItem = (MenuElement*)CurrentItem->GetNextItem();
 }
 
 void Menu::FillScreen()
 {
-	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
+	/*char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
 	Menu_Header.SetText("Меню настроек:", 16);
 	
@@ -114,7 +114,7 @@ void Menu::FillScreen()
 	CurrentItem->GetNextItemName(str);
 	Menu_NextString.SetText(str, 16);
 	
-	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
+	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);*/
 	
 }
 

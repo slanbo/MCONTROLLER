@@ -45,13 +45,13 @@ void setDefaultTuneVals()
 		airTempControlSensors._setVal(defs);	
 	}
 		
-	if (airTempControlSockets.undefined())
+	if (airTempControlUpSockets.undefined())
 	{
 		defs[0] = 1;
 		defs[1] = 0;
-		airTempControlSockets._setVal(defs);
+		airTempControlUpSockets._setVal(defs);
 	}
-
+	
 	//bat Temp control sensors & sockets
 	if (batTempControlSensors.undefined())
 	{
@@ -59,11 +59,11 @@ void setDefaultTuneVals()
 		defs[1] = 0;
 		batTempControlSensors._setVal(defs);
 	}
-	if (batTempControlSockets.undefined())
+	if (batTempControlUpSockets.undefined())
 	{
 		defs[0] = 2;
 		defs[1] = 0;
-		batTempControlSockets._setVal(defs);	
+		batTempControlUpSockets._setVal(defs);	
 	}
 
 	//light control sensors & sockets
@@ -73,11 +73,11 @@ void setDefaultTuneVals()
 		defs[1] = 0;
 		lightControlSensors._setVal(defs);	
 	}
-	if (lightControlSockets.undefined())
+	if (lightControlUpSockets.undefined())
 	{
 		defs[0] = 2;
 		defs[1] = 0;
-		lightControlSensors._setVal(defs);	
+		lightControlUpSockets._setVal(defs);	
 	}
 
 	//co control sensors sockets
@@ -87,11 +87,11 @@ void setDefaultTuneVals()
 		defs[1] = 0;
 		COControlSensors._setVal(defs);	
 	}
-	if (COControlSockets.undefined())
+	if (COControlUpSockets.undefined())
 	{
 		defs[0] = 3;
 		defs[1] = 0;
-		COControlSockets._setVal(defs);	
+		COControlUpSockets._setVal(defs);	
 	}
 
 	//humodity control sensors sockets
@@ -99,7 +99,7 @@ void setDefaultTuneVals()
 	{
 		
 	}
-	if (humidityControlSockets.undefined())
+	if (humidityControlUpSockets.undefined())
 	{
 		
 	}

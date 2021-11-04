@@ -20,6 +20,7 @@ public:
 	TempPauseTemplate(uint16_t temperature, uint16_t time);
 	uint16_t Time;
 	uint16_t Temperature;
+	char * prefixStr;
 };
 
 enum PauseState
@@ -40,8 +41,8 @@ public:
 	TempPause
 		(
 		uint8_t index,
-		std::vector < NTC_10K_B3950*> &termistors,
-		std::vector<plugSocket*> &heaterSockets
+		IntVectorTune* sensorsTune,
+		IntVectorTune* socketsTune
 		);
 	
 	void RenderLCD();

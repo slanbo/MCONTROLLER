@@ -200,7 +200,7 @@ void TempPause::initTempTime(TempPauseTemplate* tempTime)
 	Steps_Heating = 0;
 	Steps_Cooling = 0;
 	active = false;
-	Time_StayOn_Tune->val = 0;
+	Time_StayOn_Tune->_setVal(0);
 	Time_StayOn_Tune->save();
 }
 
@@ -208,13 +208,12 @@ void TempPause::initTempTime(TempPauseTemplate* tempTime)
 TempPause::TempPause
 	(
 	uint8_t index,
-	std::vector < NTC_10K_B3950*> &termistors,
-	std::vector<plugSocket*> &heaterSockets
+	IntVectorTune* sensorsTune,
+	IntVectorTune* socketsTune
 	):
 	Index(index)
-	,Termistors(termistors)
-	,HeaterSockets(heaterSockets)
 {
+	
 }
 ;
 
