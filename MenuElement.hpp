@@ -51,18 +51,28 @@ class MenuElement : public MenuElementBase
 {
 public:
 	
-	MenuElement(std::string name,
+	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		uint16_t parametr, 
-		intTune* tune);
+		std::string name
+		);
 	
-	MenuElement(std::string name,
+	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
+		std::string name,
+		uint16_t parametr, 
+		intTune* tune
+		);
+	
+	MenuElement(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
 		IntParamItemLPfnc downLongPressFnc,
 		uint16_t parametr, 
-		intTune* tune);
+		intTune* tune
+		);
 	
 	void invokeDownLongPress();
 	
@@ -82,7 +92,21 @@ private:
 
 //menu int selector
 
-
+class MenuElementIntSelector : public MenuElementBase
+{
+public:
+	MenuElementIntSelector(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		uint16_t initVal, 
+		uint16_t minVal, 
+		uint16_t maxVal,
+		uint16_t step,
+		intTune* tune,
+		IntParamItemLPfnc downLongPressFnc);
+}
+;
 
 //menu objects selector
 

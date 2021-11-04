@@ -77,8 +77,6 @@ private:
 	intTune* TempTune;
 	intTune* TimeTune;
 	intTune* Time_StayOn_Tune;
-	std::vector <NTC_10K_B3950*> &Termistors;
-	std::vector <plugSocket*> &HeaterSockets;
 	
 };
 	

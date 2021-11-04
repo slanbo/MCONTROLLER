@@ -69,9 +69,20 @@ void MenuElementBase::invokeDownLongPress()
 }
 //Menu element
 
-MenuElement::MenuElement(std::string name, 
+MenuElement::MenuElement( 
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
+	std::string name)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+{
+}
+
+MenuElement::MenuElement( 
+	MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name,
 	uint16_t parametr, 
 	intTune* tune)
 	: MenuElementBase(name,
@@ -82,9 +93,10 @@ MenuElement::MenuElement(std::string name,
 {
 }
 
-MenuElement::MenuElement(std::string name, 
+MenuElement::MenuElement(
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
+	std::string name, 
 	IntParamItemLPfnc downLongPressFnc, 
 	uint16_t parametr, 
 	intTune* tune)
@@ -108,4 +120,19 @@ void MenuElement::invokeDownLongPress()
 {
 	saveParametr();
 	DownLongPressFnc(Parametr);
+}
+
+MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	uint16_t initVal, 
+	uint16_t minVal, 
+	uint16_t maxVal, 
+	uint16_t step, 
+	intTune* tune, 
+	IntParamItemLPfnc downLongPressFnc)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+{
 }

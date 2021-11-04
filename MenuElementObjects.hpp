@@ -14,7 +14,7 @@ MenuElement mi_6(&mi_0, &mi_5, "Контр. бани", 3, &modeIndex);
 	
 //дата и время
 MenuElement mi_7(&mi_1, &mi_6, "Дата");
-MenuElement mi_8(&mi_7, &mi_7, "Знач. даты", 1, 1, 31, 1, &dateTune, setDate);
+MenuElementIntSelector mi_8(&mi_7, &mi_7, "Знач. даты", 1, 1, 31, 1, &dateTune, setDate);
 
 MenuElement mi_9(&mi_1, &mi_8, "Месяц");
 MenuElement mi_10(&mi_9, &mi_9, "Знач. месяца", 1, 1, 12, 1, &monthTune, setMonth);

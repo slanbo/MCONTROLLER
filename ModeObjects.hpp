@@ -4,7 +4,7 @@
 #include <vector>
 
 
-std::vector<ControlBase *> HabitatControls = { 
+/*std::vector<ControlBase *> HabitatControls = { 
 	&airTempContr,
 	&batTempContr,
 	&coContr,
@@ -48,4 +48,4 @@ void ModeObjectsInit()
 		mode->init(counter);
 		counter++;
 	}
-}
+}*/

@@ -73,7 +73,7 @@ bool TempPause::ExecuteStep()
 
 void TempPause::FillScreen()
 {
-
+	char prefixStr[40];
 	char header[40] = "ПАУЗА ";
 	strcat(header, Name);
 	Info_SubHeader.SetText(header, false);
@@ -131,13 +131,13 @@ void TempPause::FillScreen()
 void TempPause::RestoreTunes()
 {
 	TempTune->restore();
-	TempTime->Temperature = TempTune->val;
+	TempTime->Temperature = TempTune->_getVal();
 	
 	TimeTune->restore();
-	TempTime->Time = TimeTune->val;
+	TempTime->Time = TimeTune->_getVal();
 	
 	Time_StayOn_Tune->restore();
-	Steps_StayOn = (uint16_t)Time_StayOn_Tune->val / EXECUTE_STEP_PERIOD_SEC;
+	Steps_StayOn = (uint16_t)Time_StayOn_Tune->_getVal() / EXECUTE_STEP_PERIOD_SEC;
 
 }
 
@@ -147,9 +147,9 @@ void TempPause::SwitchSockets()
 	PauseState state = GetState();
 	if (state == HEATING_MAX)
 	{
-		for (uint8_t i = 0; i < MASHING_SOCKETS_SIZE; i++)
+		for (uint8_t i = 0; i < 2; i++)
 		{
-			HeaterSockets[i]->SwitchOn();
+			//HeaterSockets[i]->SwitchOn();
 		}
 	}
 	if (state == HEATING_MIN)
@@ -157,31 +157,31 @@ void TempPause::SwitchSockets()
 		plugSocket* minSocket;
 		uint16_t minLoadPower = 0xffff;
 		
-		for (uint8_t i = 0; i < MASHING_SOCKETS_SIZE; i++)
+		for (uint8_t i = 0; i < 2; i++)
 		{
-			if (HeaterSockets[i]->loadPowerVT < minLoadPower & HeaterSockets[i]->loadPowerVT > 0) 
-			{
-				minSocket = HeaterSockets[i];
-				minLoadPower = HeaterSockets[i]->loadPowerVT;
-			}
+			//if (HeaterSockets[i]->getLoadpowerVT() < minLoadPower & HeaterSockets[i]->getLoadpowerVT() > 0) 
+			//{
+			//	minSocket = HeaterSockets[i];
+			//	minLoadPower = HeaterSockets[i]->getLoadpowerVT();
+			//}
 		}
-		for (uint8_t i = 0; i < MASHING_SOCKETS_SIZE; i++)
+		for (uint8_t i = 0; i < 2; i++)
 		{
-			if (HeaterSockets[i] == minSocket)
-			{
-				HeaterSockets[i]->SwitchOn();
-			}
-			else
-			{
-				HeaterSockets[i]->SwitchOff();
-			}
+			//if (HeaterSockets[i] == minSocket)
+			//{
+			//	HeaterSockets[i]->SwitchOn();
+			//}
+			//else
+			//{
+			//	HeaterSockets[i]->SwitchOff();
+			//}
 		}
 	}
 	if (state != HEATING_MAX | state != HEATING_MIN) 
 	{
-		for (uint8_t i = 0; i < MASHING_SOCKETS_SIZE; i++)
+		for (uint8_t i = 0; i < 2; i++)
 		{
-			HeaterSockets[i]->SwitchOff();
+			//HeaterSockets[i]->SwitchOff();
 		}
 	}
 }
@@ -189,8 +189,8 @@ void TempPause::SwitchSockets()
 void TempPause::init(std::vector<NTC_10K_B3950*> &termistors,
 	std::vector<plugSocket*> &heaterSockets)
 {
-	Termistors = termistors;
-	HeaterSockets = heaterSockets;
+	//Termistors = termistors;
+	//HeaterSockets = heaterSockets;
 }
 
 void TempPause::initTempTime(TempPauseTemplate* tempTime)
