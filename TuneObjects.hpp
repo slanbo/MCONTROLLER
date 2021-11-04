@@ -13,12 +13,6 @@ intTune mashingProfileIndex(&airTempProfileIndex);
 intTune boilingProfileIndex(&mashingProfileIndex);
 intTune airFixTemp(&boilingProfileIndex);
 
-DateTune yearTune(DateTimeParts::YEAR);
-DateTune monthTune(DateTimeParts::MONTH);
-DateTune dateTune(DateTimeParts::DATE);
-DateTune hourTune(DateTimeParts::HOUR);
-DateTune minuteTune(DateTimeParts::MINUTE);
-DateTune weekDayTune(DateTimeParts::WEEKDAY);
 intTune CONullLevel(&airFixTemp);
 intTune batFixTemp(&CONullLevel);
 intTune airTempControlOnOffTune(&batFixTemp);
@@ -172,5 +166,14 @@ intTune delayEndMonth(&delayEndYear);
 intTune delayEndDate(&delayEndMonth);
 intTune delayEndHour(&delayEndDate);	
 intTune delayEndMinute(&delayEndHour);	
+
+intTune yearTune(&delayEndMinute);
+intTune monthTune(&yearTune);
+intTune dateTune(&monthTune);
+intTune hourTune(&dateTune);
+intTune minuteTune(&hourTune);
+intTune weekDayTune(&minuteTune);
+
+
 
 FlashTune* lastFlashTune = &delayEndMinute;

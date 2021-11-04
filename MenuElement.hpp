@@ -74,6 +74,13 @@ public:
 		intTune* tune
 		);
 	
+	MenuElement(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		IntParamItemLPfnc downLongPressFnc
+		);
+	
 	void invokeDownLongPress();
 	
 	virtual void saveParametr();
@@ -95,6 +102,17 @@ private:
 class MenuElementIntSelector : public MenuElementBase
 {
 public:
+	
+	MenuElementIntSelector(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		uint16_t initVal, 
+		uint16_t minVal, 
+		uint16_t maxVal,
+		uint16_t step,
+		intTune* tune);
+	
 	MenuElementIntSelector(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,

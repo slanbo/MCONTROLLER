@@ -79,6 +79,16 @@ MenuElement::MenuElement(
 {
 }
 
+MenuElement::MenuElement(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	IntParamItemLPfnc downLongPressFnc)
+	:MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+{
+}
+
 MenuElement::MenuElement( 
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
@@ -129,6 +139,20 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t minVal, 
 	uint16_t maxVal, 
 	uint16_t step, 
+	intTune* tune)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+{
+}
+
+MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	uint16_t initVal, 
+	uint16_t minVal, 
+	uint16_t maxVal, 
+	uint16_t step, 
 	intTune* tune, 
 	IntParamItemLPfnc downLongPressFnc)
 	: MenuElementBase(name,
@@ -136,3 +160,6 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	prevInListItem)
 {
 }
+
+
+
