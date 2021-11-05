@@ -14,7 +14,7 @@ bool ModeBase::isActive()
 
 
 //controls mode
-ControlsMode::ControlsMode(uint16_t ID, std::string name, std::vector<ControlBase *> controls)
+ControlsMode::ControlsMode(uint16_t ID, std::string name)
 	: ModeBase(ID, name)
 {
 	
@@ -37,15 +37,11 @@ void ControlsMode::ExecuteStep()
 			control->ExecuteStep();
 }
 
-
-
-
 // habitat
 
 Habitat::Habitat(uint16_t ID, 
-	std::string name,
-	std::vector<ControlBase *> controls)
-	: ControlsMode(ID, name, controls)
+	std::string name)
+	: ControlsMode(ID, name)
 {
 	airTempControl = new SensorsSocketsControl
 		(
@@ -56,5 +52,15 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlDownSockets,
 		&airTempControlTimeProfile,
 		createAirTempTimeProfile);
+	
+	batTempControl = new SensorsSocketsControl
+		(
+		"bat control", 
+		&batTempControlOnOffTune,
+		&batTempControlSensors,
+		&batTempControlUpSockets,
+		&batTempControlDownSockets,
+		&batTempControlTimeProfile,
+		createBatTempTimeProfile);
 	
 }

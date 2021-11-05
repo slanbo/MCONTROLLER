@@ -23,5 +23,6 @@ std::vector<ADCSensor*> ADCSensorsV = { &COSens, &Termistor_1, &Termistor_2, &li
 
 char IRMSensorName[16] = "IRM SENSOR ";
 IRMotionSensor  IRMSensor(IRMSensorName, IR_MOTION_SENSOR_GPIO_Port, IR_MOTION_SENSOR_Pin);
+std::vector<IRMotionSensor*> IRMotionSensorsV = { &IRMSensor };
 
 #endif

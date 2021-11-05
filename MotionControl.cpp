@@ -1,13 +1,20 @@
 #include "MotionControl.hpp"
+#include "SensorObjectsExt.hpp"
 
 MotionControl::MotionControl(std::string name, 
 	intTune* onOff, 
 	intTune* analizeMotionsPeriod, 
-	std::vector<IRMotionSensor*> &sensors)
-	: ControlBase(name,  onOff)
-	,AnalizeMotionsPeriod(analizeMotionsPeriod)
-	, Sensors(sensors)
+	IntVectorTune* sensorsTune)
+	: ControlBase(name,  onOff),
+	AnalizeMotionsPeriod(analizeMotionsPeriod)
 {
+	Sensors.clear();
+	for (auto inItem : IRMotionSensorsV)
+		for (auto tuneval : sensorsTune->_getVal())
+			if (tuneval == inItem->_getId())
+				Sensors.push_back(inItem);
+
+	
 }
 
 void MotionControl::FillScreen()

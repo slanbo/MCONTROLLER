@@ -7,7 +7,7 @@
 #include "Control.hpp"
 #include "PCounterControl.hpp"
 
-DateControl delayBeginControl(
+/*DateControl delayBeginControl(
 	"Отлож. старт:",
 	&delayBeginOnOffTune,
 	&delayBeginYear,
@@ -27,21 +27,43 @@ DateControl delayEndControl("Отлож. стоп:",
 MotionControl motionControl("Контр. движ.:",
 	&MotionControlOnOffTune,
 	&OnIfMotionPeriod,
-	IRMSensorsV);
+	&IRMSensorsTune);
 
-//SensorsSocketsControl airTempContr("Темпер. возд.:", 
-//	&airTempControlOnOffTune,
-//	&airTempControlSensors,
-//	&airTempControlUpSockets,
-//	&airTempControlDownSockets,
-//	&airTempControlTimeProfile,
-//	
-//);
-//SensorsSocketsControl batTempContr("Темпер. бат.:", &batTempControlOnOffTune, batTempControlSocketsV, &batTempProfileIndex, batTProfiles, batTermistorsV);
+SensorsSocketsControl airTempContr("Темпер. возд.:", 
+	&airTempControlOnOffTune,
+	&airTempControlSensors,
+	&airTempControlUpSockets,
+	&airTempControlDownSockets,
+	&airTempControlTimeProfile,
+	createAirTempTimeProfile
+);
+
+SensorsSocketsControl batTempContr("Темпер. бат.:",
+	&batTempControlOnOffTune,
+	&batTempControlSensors,
+	&batTempControlUpSockets,
+	&batTempControlDownSockets,
+	&batTempControlTimeProfile,
+	createBatTempTimeProfile);
+
+SensorsSocketsControl coContr("Уровень CO:",
+	&coControlOnOffTune,
+	&COControlSensors,
+	&COControlUpSockets,
+	&COControlDownSockets,
+	&COControlTimeProfile,
+	createLightTimeProfile);
+
+SensorsSocketsControl lightControl("Освещение:",
+	&lightControlOnOffTune,
+	&lightControlSensors,
+	&lightControlUpSockets,
+	&lightControlDownSockets,
+	&lightControlTimeProfile,
+	createLightTimeProfile);*/
+
 //SensorsSocketsControl dryingTempContr("Темпер. сушки.:", &dryingTempOnOffTune, dryingTempControlSocketsV, &dryingTempProfileIndex, dryingTempProfiles, dryingTermistorsV);
 //SensorsSocketsControl dryingHumidityContr("Влажн. сушки.:", &dryingHumidityOnOffTune, dryingHumidityControlSocketsV, HumiditySensorsV, &humiditiNullLevelTune);
-//SensorsSocketsControl coContr("Уровень CO:", &coControlOnOffTune, airQualityControlSocketsV, COSensorsV, &CONullLevel);
-//SensorsSocketsControl lightControl("Освещение:", &lightControlOnOffTune, lightSocketsV, &LightProfileIndex, &LightSwitchOffDelay, lightEdgeProfiles, lightSensorsV);
 //SensorsSocketsControl mashingControl("Температ. паузы:", &MashingOnOffTune, mashingSocketsV, MashingPausesV, mashTermistorsV);
 //SensorsSocketsControl boilingControl("Варка пива:", &BoilingOnOffTune, boilingSocketsV, BoilingPausesV, boilTermistorsV);
 //MixControl pumpControl("Насос:", &PumpOnOffTune, pumpSocketsV, &PumpMode, mashingSocketsV);
@@ -55,16 +77,16 @@ MotionControl motionControl("Контр. движ.:",
 	&motionControl,
 	&airTempContr,
 	&batTempContr,
-	&dryingTempContr,
-	&dryingHumidityContr,
+	//&dryingTempContr,
+	//&dryingHumidityContr,
 	&coContr,
 	&lightControl,
-	&mashingControl,
-	&boilingControl,
-	&pumpControl,
-	&dryingVentControl,
-	&dayPCounter,
-	&nightPCounter	
+	//&mashingControl,
+	//&boilingControl,
+	//&pumpControl,
+	//&dryingVentControl,
+	//&dayPCounter,
+	//&nightPCounter	
 };*/
 
 /*void ControlObjectsInit()

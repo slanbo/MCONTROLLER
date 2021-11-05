@@ -3,25 +3,25 @@
 #include "Control.hpp"
 #include <vector>
 
-
-std::vector<ControlBase *> HabitatControls = { 
+/*std::vector<ControlBase *> HabitatControls = 
+{ 
 	&airTempContr,
 	&batTempContr,
 	&coContr,
-	&lightControl,
+	&lightControl
 	//&dayPCounter,
 	//&nightPCounter
 };
 
 ControlsMode HabitatMode(modeIndex._getVal(), "Контр. среды:",  HabitatControls);
 
-/*std::vector<ControlBase *> MashingControls = { 
+std::vector<ControlBase *> MashingControls = { 
 	&mashingControl,
 	&pumpControl,
 	&dayPCounter,
 	&nightPCounter
-
 };
+
 ControlsMode BeerMashingMode("Пиво: ПАУЗЫ", &modeIndex, MashingControls);
 
 std::vector<ControlBase *> BoilingControls = { 

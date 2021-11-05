@@ -917,6 +917,9 @@
     <ClInclude Include="TimeProfileObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="SensorObjectsExt.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <LinkerScript Include="STM32F401CC_flash.lds">

@@ -44,7 +44,7 @@ protected:
 class ControlsMode : public ModeBase
 {
 public:
-	ControlsMode(uint16_t ID, std::string name, std::vector<ControlBase *> controls);
+	ControlsMode(uint16_t ID, std::string name);
 	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
@@ -58,8 +58,7 @@ class Habitat : public ControlsMode
 {
 	public: 
 	Habitat(uint16_t ID,
-		std::string name,
-		std::vector<ControlBase *> controls);
+		std::string name);
 	~Habitat();
 	
 	

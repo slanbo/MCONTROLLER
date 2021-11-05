@@ -11,7 +11,7 @@ public:
 	MotionControl(std::string name,
 		intTune* onOff,
 		intTune* analizeMotionsPeriod,
-		std::vector<IRMotionSensor*> &sensors);
+		IntVectorTune* sensorsTune);
 
 	virtual void FillScreen();
 	virtual void ExecuteStep();
@@ -22,10 +22,10 @@ public:
 private:
 	
 	intTune* AnalizeMotionsPeriod;
-	std::vector<IRMotionSensor*> &Sensors;
 	
 protected:
-	
+		std::vector<IRMotionSensor*> &Sensors;
+
 };
 
 #endif

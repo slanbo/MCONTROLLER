@@ -64,6 +64,23 @@ void createBatTempTimeProfile(TimeProfile* tp, intTune* timeProfile)
 }
 
 
+void createCOTimeProfile(TimeProfile* tp, intTune* timeProfile)
+{
+
+	switch (timeProfile->_getVal())
+	{
+	case 1:
+		{
+			createAllTimeTunedProfile(tp, &CONullLevel);
+			break;
+		}
+	default:
+		{
+			break;
+		}
+	}
+}
+
 void createLightTimeProfile(TimeProfile* tp, intTune* timeProfile)
 {
 

@@ -203,6 +203,7 @@
     <ClInclude Include="ScreenObjects.hpp" />
     <ClInclude Include="ScreenObjectsExt.hpp" />
     <ClInclude Include="SensorObjects.hpp" />
+    <ClInclude Include="SensorObjectsExt.hpp" />
     <ClInclude Include="SocketObjects.hpp" />
     <ClInclude Include="TempPause.hpp" />
     <ClInclude Include="IRMotionSensor.h" />
