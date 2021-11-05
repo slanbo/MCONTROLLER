@@ -1,3 +1,6 @@
+#ifndef __SCREENELEMENT__H
+#define __SCREENELEMENT__H
+
 #include "main.h"
 #include <string>
 #include "LCDFont.hpp"
@@ -107,3 +110,5 @@ protected:
 
 	
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef __TIMEPROFILEOBJECTS__H
+#define __TIMEPROFILEOBJECTS__H
+
 #include "TimeProfile.hpp"
 
 //FIX TEMP PROFILE
@@ -259,3 +262,4 @@ TimeProfile dryingNightOnTempProfile("NIGHT ON DRYING TEMP", &dryingNightOnTempW
 TimeProfile* dryingTempProfiles[2] = { &dryingAllDayTempProfile, &dryingNightOnTempProfile };
 std::vector< TimeProfile *> dryingTempProfilesV; */
 
+#endif

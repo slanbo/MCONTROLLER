@@ -3,6 +3,8 @@
 
 #include <string>
 #include "TuneObjectsExt.hpp"
+#include "ScreenObjectsExt.hpp"
+
 
 #define NAME_LENGHT 32
 

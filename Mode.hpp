@@ -7,6 +7,9 @@
 #include <vector>
 #include "Control.hpp"
 #include "BaseObject.hpp"
+#include "ScreenObjectsExt.hpp"
+#include "TimeProfileObjects.hpp"
+
 
 #define MODE_HEADER_BOARD_GAP 2
 
