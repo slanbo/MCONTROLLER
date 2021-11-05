@@ -1,3 +1,6 @@
+#ifndef __SCREENOBJECTS__H
+#define __SCREENOBJECTS__H
+
 #include "ScreenElement.hpp"
 #include "Lcd_Driver.h"
 #include <vector>
@@ -104,3 +107,5 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 	}
 	
 }
+
+#endif

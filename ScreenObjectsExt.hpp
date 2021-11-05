@@ -1,4 +1,8 @@
+
+#pragma once
+
 #include "ScreenElement.hpp"
+#include <vector>
 
 extern Text_ScreenElement Date_FirstPart;
 extern Text_ScreenElement Date_SecondPart;
