@@ -36,8 +36,8 @@ std::vector<ControlBase *> DryingControls = {
 	&dryingHumidityContr,
 	&dryingVentControl
 };
-ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);*/
-
+ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
+*/
 
 std::vector<ModeBase *> Modes = { &HabitatMode };
 

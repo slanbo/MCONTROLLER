@@ -1,6 +1,6 @@
 #include "MenuElement.hpp"
 #include "MenuElements.hpp"
-#include "IRMotionSensor.h"
+#include "IRMotionSensor.hpp"
 
 MenuElement mi_0(nullptr, nullptr, "Режим работы");
 MenuElement mi_1(nullptr, &mi_0, "Дата время");	

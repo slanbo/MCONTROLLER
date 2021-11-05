@@ -2,7 +2,7 @@
 #include "string.h"
 #include "rtc.h"
 #include "eeprom.h"
-#include "MQ7.h"
+#include "MQ7.hpp"
 
 extern MQ7 CO2Sens;
 

@@ -1,4 +1,4 @@
-#include "IRMotionSensor.h"
+#include "IRMotionSensor.hpp"
 #include "string.h"
 
 void IRMotionSensor::ExecuteStep()
@@ -36,24 +36,28 @@ void IRMotionSensor::ExecuteStep()
 	
 }
 
-IRMotionSensor::IRMotionSensor(const char* name, 
+IRMotionSensor::IRMotionSensor(uint16_t ID,
+	const char* name, 
 	GPIO_TypeDef* gPIOx, 
 	uint16_t gPIO_Pin)
-	: GPIOx(gPIOx)
+	: BaseObject(ID, name)
+	, 
+	
+	GPIOx(gPIOx)
 	, GPIO_Pin(gPIO_Pin)
 {
-	strcpy(Name, name);
 }
 
-IRMotionSensor::IRMotionSensor(const char* name, 
+IRMotionSensor::IRMotionSensor(uint16_t ID,
+	const char* name, 
 	GPIO_TypeDef* gPIOx, 
 	uint16_t gPIO_Pin,
 	uint16_t stepsInBufferElement)
-	: GPIOx(gPIOx)
+	: BaseObject(ID, name)
+	, GPIOx(gPIOx)
 	, GPIO_Pin(gPIO_Pin)
 	, StepsInBufferElement(stepsInBufferElement)
 {
-	strcpy(Name, name);
 }
 
 

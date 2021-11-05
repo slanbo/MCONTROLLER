@@ -206,11 +206,11 @@
     <ClInclude Include="SensorObjectsExt.hpp" />
     <ClInclude Include="SocketObjects.hpp" />
     <ClInclude Include="TempPause.hpp" />
-    <ClInclude Include="IRMotionSensor.h" />
+    <ClInclude Include="IRMotionSensor.hpp" />
     <ClInclude Include="LCDFont.hpp" />
     <ClInclude Include="LCDFonts.hpp" />
     <ClInclude Include="Lib\Inc\PCounterControl.hpp" />
-    <ClInclude Include="LightSensor.h" />
+    <ClInclude Include="LightSensor.hpp" />
     <ClInclude Include="Mode.hpp" />
     <ClInclude Include="ModeObjectsExt.hpp" />
     <ClInclude Include="PCounters.hpp" />
@@ -247,7 +247,7 @@
     <ClInclude Include="Devices\Inc\ADCSensorDev.hpp" />
     <ClInclude Include="Devices\Inc\Bizzer.hpp" />
     <ClInclude Include="Devices\Inc\Lcd_Driver.h" />
-    <ClInclude Include="Devices\Inc\MQ7.h" />
+    <ClInclude Include="Devices\Inc\MQ7.hpp" />
     <ClInclude Include="Devices\Inc\NTC_10K_B3950.hpp" />
     <ClInclude Include="Devices\Inc\stm32_ds3231.h" />
     <ClInclude Include="Drivers\CMSIS\Include\core_cm4.h" />

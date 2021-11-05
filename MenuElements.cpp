@@ -3,7 +3,7 @@
 #include "TuneObjectsExt.hpp"
 #include "rtc.h"
 #include "SocketObjectsExt.hpp"
-#include "IRMotionSensor.h"
+#include "IRMotionSensor.hpp"
 #include "MenuElement.hpp"
 
 #ifdef _MENU_

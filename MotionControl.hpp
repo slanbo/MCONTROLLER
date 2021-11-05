@@ -24,7 +24,7 @@ private:
 	intTune* AnalizeMotionsPeriod;
 	
 protected:
-		std::vector<IRMotionSensor*> &Sensors;
+		std::vector<IRMotionSensor*> Sensors;
 
 };
 

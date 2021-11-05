@@ -872,19 +872,10 @@
     <ClInclude Include="FillScreenThread.hpp">
       <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
-    <ClInclude Include="LightSensor.h">
-      <Filter>Header files\Sensors</Filter>
-    </ClInclude>
-    <ClInclude Include="Devices\Inc\MQ7.h">
-      <Filter>Header files\Sensors</Filter>
-    </ClInclude>
     <ClInclude Include="Devices\Inc\NTC_10K_B3950.hpp">
       <Filter>Header files\Sensors</Filter>
     </ClInclude>
     <ClInclude Include="Devices\Inc\ADCSensorDev.hpp">
-      <Filter>Header files\Sensors</Filter>
-    </ClInclude>
-    <ClInclude Include="IRMotionSensor.h">
       <Filter>Header files\Sensors</Filter>
     </ClInclude>
     <ClInclude Include="SocketObjectsExt.hpp">
@@ -919,6 +910,15 @@
     </ClInclude>
     <ClInclude Include="SensorObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IRMotionSensor.hpp">
+      <Filter>Header files\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="LightSensor.hpp">
+      <Filter>Header files\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="Devices\Inc\MQ7.hpp">
+      <Filter>Header files\Sensors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,9 +2,9 @@
 #define __SENSORS__H
 	
 #include "NTC_10K_B3950.hpp"	
-#include "MQ7.h"
-#include "IRMotionSensor.h"
-#include "LightSensor.h"
+#include "MQ7.hpp"
+#include "IRMotionSensor.hpp"
+#include "LightSensor.hpp"
 #include <vector>
 	
 #define AIR_TERMISTOR_QUANTITY 1
