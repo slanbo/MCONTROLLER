@@ -5,6 +5,7 @@
 #include "adc.h"
 #include "Sensors.hpp"
 #include <vector>
+#include "ADCDevObjects.hpp"
 
 //extern std::vector<ADCDev*> ADCDevs;
 
@@ -39,13 +40,13 @@ protected:
 			HAL_ADC_PollForConversion(&hadc1, 100);
 			
 			uint32_t R1_Val = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_1);
-			ADCDevs[0].addAdcResult(R1_Val);  //CO
+			ADCDevises[0]->addAdcResult(R1_Val);   //CO
 			uint32_t R2_Val = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_2);
-			ADCDevs[1].addAdcResult(R2_Val);  //termistor 1
+			ADCDevises[1]->addAdcResult(R2_Val);   //termistor 1
 			uint32_t R3_Val = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_3);
-			ADCDevs[2].addAdcResult(R3_Val);   //termistor 2
+			ADCDevises[2]->addAdcResult(R3_Val);    //termistor 2
 			uint32_t R4_Val = HAL_ADCEx_InjectedGetValue(&hadc1, ADC_INJECTED_RANK_4);
-			ADCDevs[3].addAdcResult(R4_Val);   //light sens
+			ADCDevises[3]->addAdcResult(R4_Val);    //light sens
 
 			HAL_ADCEx_InjectedStop(&hadc1);
 						
