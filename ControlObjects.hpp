@@ -7,9 +7,28 @@
 #include "Control.hpp"
 #include "PCounterControl.hpp"
 
-//DateControl delayBeginControl("Отлож. старт:", &delayBeginOnOffTune, &delayBegin);
-//DateControl delayEndControl("Отлож. стоп:", &delayEndOnOffTune, &delayEnd);
-//MotionControl motionControl("Контр. движ.:", &MotionControlOnOffTune, &OnIfMotionPeriod, IRMSensorsV);
+DateControl delayBeginControl(
+	"Отлож. старт:",
+	&delayBeginOnOffTune,
+	&delayBeginYear,
+	&delayBeginMonth,
+	&delayBeginDate,
+	&delayBeginHour,
+	&delayBeginMinute);
+
+DateControl delayEndControl("Отлож. стоп:",
+	&delayBeginOnOffTune,
+	&delayBeginYear,
+	&delayBeginMonth,
+	&delayBeginDate,
+	&delayBeginHour,
+	&delayBeginMinute);
+
+MotionControl motionControl("Контр. движ.:",
+	&MotionControlOnOffTune,
+	&OnIfMotionPeriod,
+	IRMSensorsV);
+
 //SensorsSocketsControl airTempContr("Темпер. возд.:", 
 //	&airTempControlOnOffTune,
 //	&airTempControlSensors,

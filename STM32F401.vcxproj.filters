@@ -914,6 +914,9 @@
     <ClInclude Include="LCDFont.hpp">
       <Filter>Header files\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="TimeProfileObjectsExt.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <LinkerScript Include="STM32F401CC_flash.lds">

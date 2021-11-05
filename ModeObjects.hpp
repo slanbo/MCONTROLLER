@@ -4,18 +4,18 @@
 #include <vector>
 
 
-/*std::vector<ControlBase *> HabitatControls = { 
+std::vector<ControlBase *> HabitatControls = { 
 	&airTempContr,
 	&batTempContr,
 	&coContr,
 	&lightControl,
-	&dayPCounter,
-	&nightPCounter
+	//&dayPCounter,
+	//&nightPCounter
 };
 
-ControlsMode HabitatMode("Контр. среды:", &modeIndex, HabitatControls);
+ControlsMode HabitatMode(modeIndex._getVal(), "Контр. среды:",  HabitatControls);
 
-std::vector<ControlBase *> MashingControls = { 
+/*std::vector<ControlBase *> MashingControls = { 
 	&mashingControl,
 	&pumpControl,
 	&dayPCounter,
@@ -36,9 +36,11 @@ std::vector<ControlBase *> DryingControls = {
 	&dryingHumidityContr,
 	&dryingVentControl
 };
-ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
+ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);*/
 
-std::vector<ModeBase *> Modes = { &HabitatMode, &BeerMashingMode, &BeerBoilingMode, &DryingMode};
+
+std::vector<ModeBase *> Modes = { &HabitatMode };
+
 
 void ModeObjectsInit()
 {
@@ -48,4 +50,4 @@ void ModeObjectsInit()
 		mode->init(counter);
 		counter++;
 	}
-}*/
+}

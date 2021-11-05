@@ -6,6 +6,7 @@
 #include "DateControl.hpp"
 #include "MotionControl.hpp"
 
+
 void InitControls();
 
 extern SensorsSocketsControl airTempContr;

@@ -12,12 +12,11 @@ public:
 		(
 		std::string name,
 		intTune* onOff,
-		DateTune* yearTune,
-		DateTune* monthTune,
-		DateTune* dataTune,
-		DateTune* hourTune,
-		DateTune* minuteTune,
-		DateTune* secondsTune
+		intTune* yearTune,
+		intTune* monthTune,
+		intTune* dataTune,
+		intTune* hourTune,
+		intTune* minuteTune
 		);
 
 	virtual void FillScreen();
@@ -31,12 +30,11 @@ private:
 	
 protected:
 	
-	DateTune *YearTune;
-	DateTune *MonthTune;
-	DateTune *DataTune;
-	DateTune *HourTune;
-	DateTune *MinuteTune;
-	DateTune *SecondsTune;
+	intTune *YearTune;
+	intTune *MonthTune;
+	intTune *DataTune;
+	intTune *HourTune;
+	intTune *MinuteTune;
 	
 };
 

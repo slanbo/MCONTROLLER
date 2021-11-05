@@ -222,6 +222,7 @@
     <ClInclude Include="DateControl.hpp" />
     <ClInclude Include="TempPausesObjects.hpp" />
     <ClInclude Include="TimeProfileObjects.hpp" />
+    <ClInclude Include="TimeProfileObjectsExt.hpp" />
     <ClInclude Include="TimeProfiles.hpp" />
     <ClInclude Include="TuneObjects.hpp" />
     <ClInclude Include="TuneObjectsExt.hpp" />

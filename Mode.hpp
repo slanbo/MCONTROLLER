@@ -8,7 +8,7 @@
 #include "Control.hpp"
 #include "BaseObject.hpp"
 #include "ScreenObjectsExt.hpp"
-#include "TimeProfileObjects.hpp"
+#include "TimeProfileObjectsExt.hpp"
 
 
 #define MODE_HEADER_BOARD_GAP 2
@@ -25,7 +25,7 @@ public:
 	
 	virtual bool isActive();
 	
-	virtual void init(uint8_t index);
+	virtual void init(uint8_t index) = 0;
 	
 private:
 protected:
@@ -44,7 +44,7 @@ protected:
 class ControlsMode : public ModeBase
 {
 public:
-	ControlsMode(uint16_t ID, std::string name);
+	ControlsMode(uint16_t ID, std::string name, std::vector<ControlBase *> controls);
 	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
@@ -57,7 +57,9 @@ protected:
 class Habitat : public ControlsMode
 {
 	public: 
-	Habitat(uint16_t ID, std::string name);
+	Habitat(uint16_t ID,
+		std::string name,
+		std::vector<ControlBase *> controls);
 	~Habitat();
 	
 	

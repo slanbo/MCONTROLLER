@@ -72,12 +72,11 @@ void DateControl::ExecuteStep()
 
 DateControl::DateControl(std::string name, 
 	intTune* onOff, 
-	DateTune* yearTune,
-	DateTune* monthTune,
-	DateTune* dataTune,
-	DateTune* hourTune,
-	DateTune* minuteTune,
-	DateTune* secondsTune) 
+	intTune* yearTune,
+	intTune* monthTune,
+	intTune* dataTune,
+	intTune* hourTune,
+	intTune* minuteTune) 
 	: ControlBase(name, onOff)
 	, YearTune(yearTune)
 	
