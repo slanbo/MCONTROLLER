@@ -24,7 +24,7 @@ public:
 		MenuElementBase* prevInListItem,
 		BaseItemLPfnc downLongPressFnc);
 	
-	~MenuElementBase();
+	//~MenuElementBase();
 		
 	virtual void FillScreen();
 	

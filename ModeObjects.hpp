@@ -39,15 +39,16 @@ std::vector<ControlBase *> DryingControls = {
 ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
 */
 
-std::vector<ModeBase *> Modes = { &HabitatMode };
+Habitat HabitatMode(1, "Habitat");
 
+std::vector<ModeBase *> Modes = { &HabitatMode };
 
 void ModeObjectsInit()
 {
 	uint8_t counter = 0;
 	for (auto mode : Modes)
 	{
-		mode->init(counter);
+		//mode->init(counter);
 		counter++;
 	}
 }

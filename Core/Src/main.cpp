@@ -234,8 +234,8 @@ int main(void)
 	readTunesFromFlash();
 	
 	postInitStaticMenuElements(&mi_167);
-	ControlObjectsInit();
-	ModeObjectsInit();
+	//ControlObjectsInit();
+	//ModeObjectsInit();
 	
 	/*uint8_t rsvdt[80];
 	

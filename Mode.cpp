@@ -64,3 +64,19 @@ Habitat::Habitat(uint16_t ID,
 		createBatTempTimeProfile);
 	
 }
+
+
+void Habitat::FillScreen()
+{
+}
+
+
+void Habitat::ExecuteStep()
+{
+}
+
+
+bool Habitat::isActive()
+{
+	return true;
+}

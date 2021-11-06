@@ -4,11 +4,13 @@
 #include "main.h"
 #include "Mode.hpp"
 
-/*extern ControlsMode HabitatMode;
-extern ControlsMode BeerMashingMode;
-extern ControlsMode BeerBoilingMode;
-extern ControlsMode DryingMode;
+extern Habitat HabitatMode;
+void ModeObjectsInit();
 extern std::vector<ModeBase *> Modes;
-void ModeObjectsInit();*/
+
+
+/*extern ControlsMode BeerMashingMode;
+extern ControlsMode BeerBoilingMode;
+extern ControlsMode DryingMode;*/
 
 #endif	

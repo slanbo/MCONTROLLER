@@ -180,7 +180,7 @@ bool DateTune::undefined()
 //############ int vector tune
 IntVectorTune::IntVectorTune(FlashTune * prevFlashTune, 
 	uint16_t Size)
-	: FlashTune(prevFlashTune, Size)
+	: FlashTune(prevFlashTune)
 {
 	val.resize(size);
 	for (auto item : val)
@@ -190,7 +190,7 @@ IntVectorTune::IntVectorTune(FlashTune * prevFlashTune,
 IntVectorTune::IntVectorTune(FlashTune * prevFlashTune, 
 	uint16_t Size, 
 	std::vector<uint16_t> &defs)
-	: FlashTune(prevFlashTune, Size)
+	: FlashTune(prevFlashTune)
 
 
 {

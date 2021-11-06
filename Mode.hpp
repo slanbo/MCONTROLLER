@@ -23,9 +23,8 @@ public:
 	virtual void FillScreen() = 0;
 	virtual void ExecuteStep() = 0;
 	
-	virtual bool isActive();
+	virtual bool isActive() = 0;
 	
-	virtual void init(uint8_t index) = 0;
 	
 private:
 protected:
@@ -57,20 +56,21 @@ protected:
 class Habitat : public ControlsMode
 {
 	public: 
-	Habitat(uint16_t ID,
-		std::string name);
-	~Habitat();
+	Habitat(uint16_t ID, std::string name);
+	virtual void FillScreen();
+	virtual void ExecuteStep();
+	
+	virtual bool isActive();
+	
+	//~Habitat();
 	
 	
-protected:
+	protected:
 	
 	SensorsSocketsControl* airTempControl;
 	SensorsSocketsControl* batTempControl;
 	SensorsSocketsControl* lightControl;
 	SensorsSocketsControl* coControl;
-	
-	
-	
 };
 
 class Drying : public ControlsMode

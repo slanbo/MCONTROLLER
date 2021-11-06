@@ -33,15 +33,15 @@ protected:
 		{
 			if (SETUP_MODE == 0)
 			{
-				if (delayBeginControl.isOn())
-					delayBeginControl.ExecuteStep();
-				if (delayEndControl.isOn())
-					delayEndControl.ExecuteStep();
-				if (motionControl.isOn())
-					motionControl.ExecuteStep();
+				//if (delayBeginControl.isOn())
+				//	delayBeginControl.ExecuteStep();
+				//if (delayEndControl.isOn())
+				//	delayEndControl.ExecuteStep();
+				//if (motionControl.isOn())
+				//	motionControl.ExecuteStep();
 				
 				HabitatMode.ExecuteStep();
-				DryingMode.ExecuteStep();
+				//DryingMode.ExecuteStep();
 			}
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
