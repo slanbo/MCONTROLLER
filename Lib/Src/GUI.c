@@ -431,7 +431,6 @@ uint8_t PutChangedCharsToLCD(uint8_t ix, uint8_t iy, uint16_t fc, uint16_t bc, c
 					}
 				}
 			}
-	    //}
         xpos += symbol[0] + gap;
     }
 	

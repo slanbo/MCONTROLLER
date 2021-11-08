@@ -1,5 +1,6 @@
+#ifndef __SCREENOBJECTSEXT__H
+#define __SCREENOBJECTSEXT__H
 
-#pragma once
 
 #include "ScreenElement.hpp"
 #include <vector>
@@ -37,3 +38,5 @@ extern std::vector<BaseScreenElement*> Menu_Screen;
 extern std::vector<BaseScreenElement*> Menu_Screen_Selected; 
 
 void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x, uint8_t &top_y, uint8_t &right_x, uint8_t &bottom_y);
+
+#endif

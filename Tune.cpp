@@ -265,7 +265,14 @@ bool IntVectorTune::undefined()
 
 std::vector<uint16_t>&  IntVectorTune::_getVal()
 {
-	restore();
+	uint16_t Status;
+	uint8_t offset = 0;
+	for (auto item : val)
+	{
+		Status = EE_ReadVariable(FlashAddress, &item);
+		offset++;
+	}
+	//Status = restore();
 	return val;
 }
 

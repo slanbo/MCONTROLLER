@@ -846,7 +846,7 @@ HAL_StatusTypeDef HAL_RTC_SetTime(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTim
   *            @arg RTC_FORMAT_BCD: BCD data format
   * @note  You can use SubSeconds and SecondFraction (sTime structure fields returned) to convert SubSeconds
   *        value in second fraction ratio with time unit following generic formula:
-  *        Second fraction ratio * timeBaseObject= [(SecondFraction-SubSeconds)/(SecondFraction+1)] * timeBaseObject
+  *        Second fraction ratio * time_unit= [(SecondFraction-SubSeconds)/(SecondFraction+1)] * time_unit
   *        This conversion can be performed only if no shift operation is pending (ie. SHFP=0) when PREDIV_S >= SS
   * @note You must call HAL_RTC_GetDate() after HAL_RTC_GetTime() to unlock the values
   *        in the higher-order calendar shadow registers to ensure consistency between the time and date values.

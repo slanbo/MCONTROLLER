@@ -1,3 +1,7 @@
+#ifndef __MENU_ELEMENTS_OBJECTS__H
+#define __MENU_ELEMENTS_OBJECTS__H
+
+
 #include "MenuElement.hpp"
 #include "MenuElements.hpp"
 #include "IRMotionSensor.hpp"
@@ -287,3 +291,5 @@ MenuElement mi_177(&mi_175, &mi_176, "Выключен", 0, &longPeriodMotionCon
 
 MenuElement mi_178(&mi_174, &mi_177, "Анализ. движ за.");
 MenuElementIntSelector mi_179(&mi_178, &mi_178, "Время сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &longPeriodOnIfMotionPeriod);
+
+#endif

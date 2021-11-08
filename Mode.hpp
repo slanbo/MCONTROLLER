@@ -52,7 +52,6 @@ protected:
 	std::vector<ControlBase *> Controls;
 };
 
-
 class Habitat : public ControlsMode
 {
 	public: 
@@ -82,5 +81,4 @@ class BeerPreparing : public ControlsMode
 {
 	
 };
-
 #endif

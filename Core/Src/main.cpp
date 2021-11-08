@@ -102,6 +102,8 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 char CO[3] = { 67, 176, 0 };
+char prefixStr[40];
+
 uint8_t SETUP_MODE = 0;     // 
 Bizzer alarmBizzer("Aloarm bizzer", BIZZER_GPIO_Port, BIZZER_Pin);
 

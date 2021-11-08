@@ -174,48 +174,43 @@ void addIntStr(char* str, int dnum, uint8_t lenght)
 
 void GetWeekDayStr(uint8_t weekDayNumber, char* outStr)
 {
+	char tmp[4] = "";
+	
 	switch (weekDayNumber)
 	{
 	case 1:
 		{
-			char sunStr[5] = "ВС";
-			strcpy(outStr, sunStr); 
+			strcpy(outStr, "ВС"); 
 			break;
 		}
 	case 2:
 		{
-			char monStr[5] = "ПН";
-			strcpy(outStr, monStr); 
+			strcpy(outStr, "MON"); 
 			break;
 		}	
 	case 3:
 		{
-			char tueStr[5] = "ВТ";
-			strcpy(outStr, tueStr); 
+			strcpy(outStr, "ВТ"); 
 			break;
 		}	
 	case 4:
 		{
-			char wedStr[5] = "СР";
-			strcpy(outStr, wedStr); 
+			strcpy(outStr, "СР"); 
 			break;
 		}
 	case 5:
 		{
-			char thuStr[5] = "ЧТ";
-			strcpy(outStr, thuStr); 
+			strcpy(outStr, "ЧТ"); 
 			break;
 		}
 	case 6:
 		{
-			char fryStr[5] = "ПТ";
-			strcpy(outStr, fryStr); 
+			strcpy(outStr, "ПТ"); 
 			break;
 		}	
 	case 7:
 		{
-			char satStr[5] = "СБ";
-			strcpy(outStr, satStr); 
+			strcpy(outStr, "СБ"); 
 			break;
 		}	
 		

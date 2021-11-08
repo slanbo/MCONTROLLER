@@ -1,5 +1,4 @@
 #include "Tune.hpp"
-#include "TuneObjectsExt.hpp"
 #include <vector>
 
 #define MAX_CONTROL_CONNECTED_SOCKETS_SIZE 2

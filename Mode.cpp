@@ -63,6 +63,26 @@ Habitat::Habitat(uint16_t ID,
 		&batTempControlTimeProfile,
 		createBatTempTimeProfile);
 	
+	coControl = new SensorsSocketsControl
+		(
+		"CO control", 
+		&coControlOnOffTune,
+		&COControlSensors,
+		&COControlUpSockets,
+		&COControlDownSockets,
+		&COControlTimeProfile,
+		createCOTimeProfile);	
+	
+	lightControl = new SensorsSocketsControl
+		(
+		"Light control", 
+		&lightControlOnOffTune,
+		&lightControlSensors,
+		&lightControlUpSockets,
+		&lightControlDownSockets,
+		&lightControlTimeProfile,
+		createLightTimeProfile);	
+	
 }
 
 

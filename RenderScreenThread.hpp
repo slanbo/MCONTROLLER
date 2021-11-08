@@ -36,7 +36,7 @@ protected:
 	{
 		while (true)
 		{
-			/*strcpy(prefixStr, "");
+			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
 			Date.SetText( prefixStr, 9);
 			
@@ -53,7 +53,7 @@ protected:
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
-				DelayUntil(ticks);*/
+				DelayUntil(ticks);
 			
 		}
 	}
