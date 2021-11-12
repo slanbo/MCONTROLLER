@@ -39,4 +39,6 @@ extern std::vector<BaseScreenElement*> Menu_Screen_Selected;
 
 void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x, uint8_t &top_y, uint8_t &right_x, uint8_t &bottom_y);
 
+extern char prefixStr[16];
+
 #endif

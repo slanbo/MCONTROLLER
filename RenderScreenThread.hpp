@@ -4,8 +4,10 @@
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "task.h"
+#include "Auxiliary.h"
 //#include "ModeObjectsExt.hpp"
-//#include "ScreenObjectsExt.hpp"
+#include "ScreenObjectsExt.hpp"
+#include "string.h"
 
 
 //extern LCDMenu mainMenu;
@@ -50,7 +52,7 @@ protected:
 			Time.SetText(prefixStr, false);
 			//Time.Render();
 			
-			for (auto tbscrElement : TopBottom_Screen)
+			for (auto tbscrElement : TopBottom_FirstScreen)
 				tbscrElement->Render();
 			
 			//.for (auto iscrElement : Info_Screen)

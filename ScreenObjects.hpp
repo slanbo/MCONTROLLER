@@ -36,8 +36,8 @@ Text_ScreenElement Buttom_Right(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - LETTER_WID
 	&YELLOW_BLACK_VERANDA12,
 	4);
 
-std::vector<BaseScreenElement*> TopBottom_Screen = { &Date_FirstPart, &Time, &Buttom_Left, &Buttom_Right };
-std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens = { TopBottom_Screen };
+std::vector<BaseScreenElement*> TopBottom_FirstScreen = { &Date_FirstPart, &Time, &Buttom_Left, &Buttom_Right };
+std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens = { TopBottom_FirstScreen };
 
 //info screen 
 Text_ScreenElement Info_Header(
@@ -114,5 +114,7 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 	}
 	
 }
+
+char prefixStr[16];
 
 //#endif

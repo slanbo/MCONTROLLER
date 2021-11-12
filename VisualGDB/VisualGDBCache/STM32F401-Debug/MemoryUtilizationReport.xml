@@ -8,7 +8,7 @@
     </MemoryUtilization>
     <MemoryUtilization>
       <MemoryName>SRAM</MemoryName>
-      <Used>35736</Used>
+      <Used>35712</Used>
       <Total>65536</Total>
     </MemoryUtilization>
   </Memories>

@@ -102,7 +102,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 char CO[3] = { 67, 176, 0 };
-char prefixStr[40];
+
 
 uint8_t SETUP_MODE = 0;     // 
 Bizzer alarmBizzer("Aloarm bizzer", BIZZER_GPIO_Port, BIZZER_Pin);
@@ -114,10 +114,6 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "TuneObjects.hpp"
 //+++++++++++++ SCREEN ELEMENTS ++++++++++++++++
 #include "ScreenObjects.hpp"
-
-//Text_ScreenElement Date_FirstPart(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 9);
-
-
 //++++++++++++++ LCD Elements ++++++++++++++++++++
 #include "SensorObjects.hpp"
 //++++++++++++++++++ SOCKETS ++++++++++++++++++++++++++++++++
