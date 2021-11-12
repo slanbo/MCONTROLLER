@@ -1,8 +1,12 @@
+#pragma once
+
 #include "FreeRTOS.h"
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "task.h"
-#include "ModeObjectsExt.hpp"
+//#include "ModeObjectsExt.hpp"
+//#include "ScreenObjectsExt.hpp"
+
 
 //extern LCDMenu mainMenu;
 
@@ -38,17 +42,19 @@ protected:
 		{
 			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
-			Date.SetText( prefixStr, 9);
+			Date_FirstPart.SetText(prefixStr, false);
+			//Date_FirstPart.Render();
 			
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
-			Time.SetText( prefixStr, 10);
+			Time.SetText(prefixStr, false);
+			//Time.Render();
 			
 			for (auto tbscrElement : TopBottom_Screen)
 				tbscrElement->Render();
 			
-			for (auto iscrElement : Info_Screen)
-				iscrElement->Render();
+			//.for (auto iscrElement : Info_Screen)
+			//	iscrElement->Render();
 			
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

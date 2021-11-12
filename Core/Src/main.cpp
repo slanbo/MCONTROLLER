@@ -114,6 +114,10 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "TuneObjects.hpp"
 //+++++++++++++ SCREEN ELEMENTS ++++++++++++++++
 #include "ScreenObjects.hpp"
+
+//Text_ScreenElement Date_FirstPart(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 9);
+
+
 //++++++++++++++ LCD Elements ++++++++++++++++++++
 #include "SensorObjects.hpp"
 //++++++++++++++++++ SOCKETS ++++++++++++++++++++++++++++++++
@@ -143,14 +147,14 @@ Menu mainMenu(&mi_0);
 #include "ProcessButtonPressedThread.hpp"
 
 RenderScreen rscr("rscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
-getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
-processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
-ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
-menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
-bizzerExecuteStep bes("bes", 7, 100, 2);
-MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
-PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
-FillScreen fscr("fscr", 10, 5, 6) ;
+//getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
+//processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
+//ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
+//menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+//bizzerExecuteStep bes("bes", 7, 100, 2);
+//MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
+//PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
+//FillScreen fscr("fscr", 10, 5, 1) ;
 
 /* USER CODE END 0 */
 
@@ -227,6 +231,8 @@ int main(void)
 	
 	//INITS 
 	Lcd_Init();	
+	Lcd_Init();	
+	Lcd_Clear(BLACK);
 	Lcd_Clear(BLACK);
 	
 	HAL_FLASH_Unlock();

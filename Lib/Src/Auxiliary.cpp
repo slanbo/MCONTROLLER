@@ -180,37 +180,37 @@ void GetWeekDayStr(uint8_t weekDayNumber, char* outStr)
 	{
 	case 1:
 		{
-			strcpy(outStr, "ВС"); 
+			strcpy(outStr, "SN"); 
 			break;
 		}
 	case 2:
 		{
-			strcpy(outStr, "MON"); 
+			strcpy(outStr, "MN"); 
 			break;
 		}	
 	case 3:
 		{
-			strcpy(outStr, "ВТ"); 
+			strcpy(outStr, "TU"); 
 			break;
 		}	
 	case 4:
 		{
-			strcpy(outStr, "СР"); 
+			strcpy(outStr, "WD"); 
 			break;
 		}
 	case 5:
 		{
-			strcpy(outStr, "ЧТ"); 
+			strcpy(outStr, "TH"); 
 			break;
 		}
 	case 6:
 		{
-			strcpy(outStr, "ПТ"); 
+			strcpy(outStr, "FR"); 
 			break;
 		}	
 	case 7:
 		{
-			strcpy(outStr, "СБ"); 
+			strcpy(outStr, "SA"); 
 			break;
 		}	
 		

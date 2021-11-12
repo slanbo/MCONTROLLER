@@ -1,5 +1,5 @@
-#ifndef __SCREENOBJECTS__H
-#define __SCREENOBJECTS__H
+//#ifndef __SCREENOBJECTS__H
+//#define __SCREENOBJECTS__H
 
 #include "ScreenElement.hpp"
 #include "Lcd_Driver.h"
@@ -22,8 +22,9 @@ screenStyle RED_BLACK_VERANDA12 = { RED, BLACK, Verdana12x12 };
 
 //top bottom screen
 
-Text_ScreenElement Date(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 8);
-Text_ScreenElement Time((uint8_t)HORIZONTAL_SCREEN_SIZE / 2, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GRAY0_BLACK_VERANDA12, 8);
+Text_ScreenElement Date_FirstPart(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 9);
+
+Text_ScreenElement Time((uint8_t)HORIZONTAL_SCREEN_SIZE / 2, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GRAY0_BLACK_VERANDA12, 9);
 Text_ScreenElement Buttom_Left(SCREEN_GAP,
 	VERTICAL_SCREEN_SIZE - SCREEN_GAP - Verdana12x12.Size,
 	&GRAY0_BLACK_VERANDA12,
@@ -35,11 +36,17 @@ Text_ScreenElement Buttom_Right(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - LETTER_WID
 	&YELLOW_BLACK_VERANDA12,
 	4);
 
-std::vector<BaseScreenElement*> TopBottom_Screen = { &Date, &Time, &Buttom_Left, &Buttom_Right };
+std::vector<BaseScreenElement*> TopBottom_Screen = { &Date_FirstPart, &Time, &Buttom_Left, &Buttom_Right };
 std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens = { TopBottom_Screen };
 
 //info screen 
-Text_ScreenElement Info_Header(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP), &YELLOW_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+Text_ScreenElement Info_Header(
+	SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP),
+	&YELLOW_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	16);
+
 Rect_ScreenElement Info_Header_Border(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) - BORDER_GAP,
@@ -108,4 +115,4 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 	
 }
 
-#endif
+//#endif

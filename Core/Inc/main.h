@@ -31,6 +31,8 @@ extern "C" {
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal.h"
 
+//#include "ScreenObjectsExt.hpp"	
+	
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 	
