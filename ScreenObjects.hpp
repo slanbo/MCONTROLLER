@@ -6,9 +6,10 @@
 #include <vector>
 #include "LCDFonts.hpp"
 
+
 #define VERTICAL_SCREEN_SIZE 130
 #define HORIZONTAL_SCREEN_SIZE 130
-#define LETTER_WIDTH 16
+#define LETTER_WIDTH 7
 
 #define SCREEN_GAP 3
 #define STRINGS_GAP 4
@@ -16,7 +17,7 @@
 
 screenStyle GRAY0_BLACK_VERANDA12 = { GRAY0, BLACK, Verdana12x12 };
 screenStyle GREEN_BLACK_VERANDA12 = { GREEN, BLACK, Verdana12x12 };
-screenStyle YELLOW_BLACK_VERANDA12 = { GREEN, BLACK, Verdana12x12 };
+screenStyle YELLOW_BLACK_VERANDA12 = { YELLOW, BLACK, Verdana12x12 };
 screenStyle RED_BLACK_VERANDA12 = { RED, BLACK, Verdana12x12 };
 
 
@@ -24,17 +25,21 @@ screenStyle RED_BLACK_VERANDA12 = { RED, BLACK, Verdana12x12 };
 
 Text_ScreenElement Date_FirstPart(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 9);
 
-Text_ScreenElement Time((uint8_t)HORIZONTAL_SCREEN_SIZE / 2, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GRAY0_BLACK_VERANDA12, 9);
+Text_ScreenElement Time(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - LETTER_WIDTH * 8,
+	SCREEN_GAP,
+	&GREEN_BLACK_VERANDA12,
+	&GRAY0_BLACK_VERANDA12,
+	9);
 Text_ScreenElement Buttom_Left(SCREEN_GAP,
 	VERTICAL_SCREEN_SIZE - SCREEN_GAP - Verdana12x12.Size,
-	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	4);
+	&GRAY0_BLACK_VERANDA12,
+	6);
 Text_ScreenElement Buttom_Right(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - LETTER_WIDTH * 4,
 	VERTICAL_SCREEN_SIZE - SCREEN_GAP - Verdana12x12.Size,
-	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	4);
+	&GRAY0_BLACK_VERANDA12,
+	6);
 
 std::vector<BaseScreenElement*> TopBottom_FirstScreen = { &Date_FirstPart, &Time, &Buttom_Left, &Buttom_Right };
 std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens = { TopBottom_FirstScreen };

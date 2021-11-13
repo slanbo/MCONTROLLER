@@ -150,7 +150,7 @@ RenderScreen rscr("rscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
 //bizzerExecuteStep bes("bes", 7, 100, 2);
 //MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
-//FillScreen fscr("fscr", 10, 5, 1) ;
+FillScreen fscr("fscr", 10, EXECUTE_STEP_PERIOD_SEC, 1);
 
 /* USER CODE END 0 */
 

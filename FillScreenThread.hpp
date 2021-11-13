@@ -35,8 +35,9 @@ protected:
 	{
 		while (true)
 		{
-			for (auto mode : Modes)
-				mode->FillScreen();
+			for (auto tbscrElement : TopBottom_FirstScreen)
+				tbscrElement->Render();
+			
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

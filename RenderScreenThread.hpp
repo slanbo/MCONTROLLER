@@ -45,15 +45,19 @@ protected:
 			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
 			Date_FirstPart.SetText(prefixStr, false);
-			//Date_FirstPart.Render();
 			
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
 			Time.SetText(prefixStr, false);
-			//Time.Render();
 			
-			for (auto tbscrElement : TopBottom_FirstScreen)
-				tbscrElement->Render();
+			//strcpy(prefixStr, "Menu");
+			Buttom_Left.SetText("Menu", false);
+			
+			//strcpy(prefixStr, "Menu");
+			Buttom_Right.SetText("Menu", true);
+			
+			//for (auto tbscrElement : TopBottom_FirstScreen)
+			//	tbscrElement->Render();
 			
 			//.for (auto iscrElement : Info_Screen)
 			//	iscrElement->Render();
