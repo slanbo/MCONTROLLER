@@ -6,7 +6,7 @@
 //FIX TEMP PROFILE
 
 
-void createAllTimeTunedProfile(TimeProfile* tp, intTune* fixLevelTume)
+TimeProfile* createAllTimeTunedProfile(intTune* fixLevelTume)
 {
 	TimePeriod* all_time_tuned_T = new TimePeriod(0, 1, 23, 59, fixLevelTume);
 	
@@ -25,95 +25,105 @@ void createAllTimeTunedProfile(TimeProfile* tp, intTune* fixLevelTume)
 
 	WeekProfile* all_time_tuned_WeekTProfile = new WeekProfile(all_time_tuned_DaysTProfiles);
 
-	tp = new TimeProfile("ALL TIME TUNED", all_time_tuned_WeekTProfile);
+	return new TimeProfile("ALL TIME TUNED", all_time_tuned_WeekTProfile);
 	
 }
 
-void createAirTempTimeProfile(TimeProfile* tp, intTune* timeProfile)
+TimeProfile* createAirTempTimeProfile(intTune* timeProfile)
 {
 
 	switch (timeProfile->_getVal())
 	{
 	case 1:
 		{
-			createAllTimeTunedProfile(tp, &airFixTemp);
+			return createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	default:
 		{
-				break;
-		}
-	}
-}
-
-void createBatTempTimeProfile(TimeProfile* tp, intTune* timeProfile)
-{
-
-	switch (timeProfile->_getVal())
-	{
-	case 1:
-		{
-			createAllTimeTunedProfile(tp, &airFixTemp);
-			break;
-		}
-	default:
-		{
+			return createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	}
 }
 
-
-void createCOTimeProfile(TimeProfile* tp, intTune* timeProfile)
+TimeProfile* createBatTempTimeProfile(intTune* timeProfile)
 {
 
 	switch (timeProfile->_getVal())
 	{
 	case 1:
 		{
-			createAllTimeTunedProfile(tp, &CONullLevel);
+			return createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	default:
 		{
+			return createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	}
-}
-
-void createLightTimeProfile(TimeProfile* tp, intTune* timeProfile)
-{
-
-	switch (timeProfile->_getVal())
-	{
-	case 1:
-		{
-			createAllTimeTunedProfile(tp, &LightEdge);
-			break;
-		}
-	default:
-		{
-			break;
-		}
-	}
+	return createAllTimeTunedProfile(&airFixTemp);
 }
 
 
-void createDryingTimeProfile(TimeProfile* tp, intTune* timeProfile)
+TimeProfile* createCOTimeProfile(intTune* timeProfile)
 {
 
 	switch (timeProfile->_getVal())
 	{
 	case 1:
 		{
-			createAllTimeTunedProfile(tp, &dryingFixTemp);
+			return createAllTimeTunedProfile(&CONullLevel);
 			break;
 		}
 	default:
 		{
+			return createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	}
+	return createAllTimeTunedProfile(&airFixTemp);
+}
+
+TimeProfile* createLightTimeProfile( intTune* timeProfile)
+{
+
+	switch (timeProfile->_getVal())
+	{
+	case 1:
+		{
+			return createAllTimeTunedProfile(&LightEdge);
+			break;
+		}
+	default:
+		{
+			return createAllTimeTunedProfile(&airFixTemp);
+			break;
+		}
+	}
+	return createAllTimeTunedProfile(&airFixTemp);
+
+}
+
+
+TimeProfile* createDryingTimeProfile(intTune* timeProfile)
+{
+
+	switch (timeProfile->_getVal())
+	{
+	case 1:
+		{
+			return createAllTimeTunedProfile(&dryingFixTemp);
+			break;
+		}
+	default:
+		{
+			return createAllTimeTunedProfile(&airFixTemp);
+			break;
+		}
+	}
+	return createAllTimeTunedProfile(&airFixTemp);
 }
 
 void deleteProfile(TimeProfile* tp)

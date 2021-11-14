@@ -143,7 +143,7 @@ Menu mainMenu(&mi_0);
 #include "ProcessButtonPressedThread.hpp"
 
 RenderScreen rscr("rscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
-//getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
+getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
 //ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);

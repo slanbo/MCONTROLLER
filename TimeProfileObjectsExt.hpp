@@ -1,10 +1,10 @@
 #pragma once
 #include "TimeProfile.hpp"
 
-extern void createAllTimeTunedProfile(TimeProfile* tp, intTune* fixLevelTume);
-extern void createAirTempTimeProfile(TimeProfile* tp, intTune* timeProfile);
-extern void createBatTempTimeProfile(TimeProfile* tp, intTune* timeProfile);
-extern void createCOTimeProfile(TimeProfile* tp, intTune* timeProfile);
-extern void createLightTimeProfile(TimeProfile* tp, intTune* timeProfile);
-extern void createDryingTimeProfile(TimeProfile* tp, intTune* timeProfile);
+extern TimeProfile* createAllTimeTunedProfile(intTune* fixLevelTume);
+extern TimeProfile* createAirTempTimeProfile(intTune* timeProfile);
+extern TimeProfile* createBatTempTimeProfile(intTune* timeProfile);
+extern TimeProfile* createCOTimeProfile(intTune* timeProfile);
+extern TimeProfile* createLightTimeProfile(intTune* timeProfile);
+extern TimeProfile* createDryingTimeProfile(intTune* timeProfile);
 extern void deleteProfile(TimeProfile* tp);

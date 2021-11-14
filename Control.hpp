@@ -68,7 +68,7 @@ protected:
 	
 };
 
-using createTimeProfileFnc = void(*)(TimeProfile*, intTune*);
+using createTimeProfileFnc = TimeProfile*(*)(intTune*);
 
 
 class SensorsSocketsControl : public SocketsControl

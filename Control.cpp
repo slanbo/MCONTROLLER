@@ -94,7 +94,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
-	ctpFnc(tProfile, timeProfileTune);
+	tProfile = ctpFnc(timeProfileTune);
 	
 	DownSocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)
@@ -123,7 +123,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
-	ctpFnc(tProfile, timeProfileTune);
+	tProfile = ctpFnc(timeProfileTune);
 	
 	DownSocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)

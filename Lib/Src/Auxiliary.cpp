@@ -233,8 +233,9 @@ void addCurrentDateString(char* str)
 	addIntStr(str, sDate.Month, 2);
 	strcat(str, "/");
 		
-	//addIntStr(str, sDate.Year, 2);
-	//strcat(str, "/");
+	addIntStr(str, sDate.Year, 2);
+	strcat(str, "/");
+
 	GetWeekDayStr(sDate.WeekDay, wdstr);
 	strcat(str, wdstr);
 	

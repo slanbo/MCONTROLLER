@@ -44,17 +44,15 @@ protected:
 		{
 			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
-			Date_FirstPart.SetText(prefixStr, false);
+			Date_FirstPart.SetText(prefixStr, true);
 			
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
 			Time.SetText(prefixStr, false);
 			
-			//strcpy(prefixStr, "Menu");
-			Buttom_Left.SetText("Menu", false);
+			Buttom_Left.SetText("Меню", true);
 			
-			//strcpy(prefixStr, "Menu");
-			Buttom_Right.SetText("Menu", true);
+			Buttom_Right.SetText("Меню", true);
 			
 			//for (auto tbscrElement : TopBottom_FirstScreen)
 			//	tbscrElement->Render();
