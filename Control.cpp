@@ -52,7 +52,7 @@ SocketsControl::SocketsControl(uint16_t id,
 	
 	SocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : SocketsTune->_getVal())
+		for (auto tuneval : SocketsTune->val)
 			if (tuneval == inItem->_getId())
 				SocketsVector.push_back(inItem);
 	
@@ -68,7 +68,7 @@ SocketsControl::SocketsControl(std::string name,
 
 	SocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : SocketsTune->_getVal())
+		for (auto tuneval : SocketsTune->val)
 			if (tuneval == inItem->_getId())
 				SocketsVector.push_back(inItem);
 	
@@ -98,13 +98,13 @@ SensorsSocketsControl::SensorsSocketsControl(
 	
 	DownSocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : DownSocketsTune->_getVal())
+		for (auto tuneval : DownSocketsTune->val)
 			if (tuneval == inItem->_getId())
 				DownSocketsVector.push_back(inItem);
 	
 	SensorsVector.clear();
 	for (auto inItem : ADCSensorsV)
-		for (auto tuneval : SensorsTune->_getVal())
+		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
 	
@@ -123,19 +123,24 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
-	tProfile = ctpFnc(timeProfileTune);
+	
 	
 	DownSocketsVector.clear();
+	DownSocketsTune->_getVal();
+	
 	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : DownSocketsTune->_getVal())
+		for (auto tuneval : DownSocketsTune->val)
 			if (tuneval == inItem->_getId())
 				DownSocketsVector.push_back(inItem);
 	
+	
 	SensorsVector.clear();
 	for (auto inItem : ADCSensorsV)
-		for (auto tuneval : SensorsTune->_getVal())
+		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
+	
+	tProfile = ctpFnc(timeProfileTune);
 }
 
 void SensorsSocketsControl::ExecuteStep()
@@ -186,7 +191,7 @@ void SensorsSocketsControl::FillScreen()
 	Info_FirstString.Set_Prefix_IntVal_Postfix_Text("Текущ.: ", _get_current_val(), 3, CO, true);
 	Info_SecondString.Set_Prefix_IntVal_Postfix_Text("Целев.: ", _get_aim_val(), 3, CO, true);
 	Info_ThirdString.Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
-	Info_FourthString.SetText("", false);
+	Info_FourthString.SetText("****************", false);
 	
 }
 
@@ -196,7 +201,7 @@ void SensorsSocketsControl::_fillVector(std::vector<BaseObject*> &vectorOut, std
 	
 	vectorOut.clear();
 	for (auto inItem : vectorIn)
-		for (auto tuneval : tune->_getVal())
+		for (auto tuneval : tune->val)
 			if (tuneval == inItem->_getId())
 				vectorOut.push_back(inItem);
 }

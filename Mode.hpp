@@ -29,7 +29,6 @@ public:
 private:
 protected:
 	
-	char Name[MAX_OBJECT_NAME_LENGHT];
 	uint8_t Index = 0;
 	intTune* ModeTune;
 	
@@ -58,11 +57,9 @@ class Habitat : public ControlsMode
 	Habitat(uint16_t ID, std::string name);
 	virtual void FillScreen();
 	virtual void ExecuteStep();
-	
 	virtual bool isActive();
 	
 	//~Habitat();
-	
 	
 	protected:
 	
@@ -70,6 +67,12 @@ class Habitat : public ControlsMode
 	SensorsSocketsControl* batTempControl;
 	SensorsSocketsControl* lightControl;
 	SensorsSocketsControl* coControl;
+	
+	std::vector<SocketsControl*> controlsVector = { airTempControl };
+	
+	private:
+	
+	uint8_t currentControlIndex = 0;
 };
 
 class Drying : public ControlsMode

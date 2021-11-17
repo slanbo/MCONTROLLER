@@ -38,6 +38,11 @@ protected:
 			for (auto tbscrElement : TopBottom_FirstScreen)
 				tbscrElement->Render();
 			
+			HabitatMode.FillScreen();
+			
+			for (auto iscrElement : Info_Screen)
+				iscrElement->Render();
+
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

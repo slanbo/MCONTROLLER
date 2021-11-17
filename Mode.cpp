@@ -53,7 +53,8 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlTimeProfile,
 		createAirTempTimeProfile);
 	
-	batTempControl = new SensorsSocketsControl
+	
+	/*batTempControl = new SensorsSocketsControl
 		(
 		"bat control", 
 		&batTempControlOnOffTune,
@@ -81,18 +82,27 @@ Habitat::Habitat(uint16_t ID,
 		&lightControlUpSockets,
 		&lightControlDownSockets,
 		&lightControlTimeProfile,
-		createLightTimeProfile);	
+		createLightTimeProfile);	*/
 	
 }
 
 
 void Habitat::FillScreen()
 {
+	/*currentControlIndex++;
+	if (currentControlIndex == controlsVector.size())
+		currentControlIndex = 0;
+		
+	controlsVector.at(currentControlIndex)->FillScreen();*/
+	Info_Header.SetText(Name, true);
+	airTempControl->FillScreen();
+	
 }
 
 
 void Habitat::ExecuteStep()
 {
+	airTempControl->ExecuteStep();
 }
 
 

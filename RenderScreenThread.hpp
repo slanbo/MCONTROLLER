@@ -51,15 +51,7 @@ protected:
 			Time.SetText(prefixStr, false);
 			
 			Buttom_Left.SetText("Меню", true);
-			
 			Buttom_Right.SetText("Меню", true);
-			
-			//for (auto tbscrElement : TopBottom_FirstScreen)
-			//	tbscrElement->Render();
-			
-			//.for (auto iscrElement : Info_Screen)
-			//	iscrElement->Render();
-			
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

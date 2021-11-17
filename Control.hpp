@@ -17,8 +17,6 @@ public:
 	ControlBase(uint16_t id, std::string name, intTune* onOffTune);
 	ControlBase(std::string name, intTune* onOffTune);
 	
-	char Name[MAX_OBJECT_NAME_LENGHT];
-	
 	virtual void init(uint8_t index);
 	virtual void ExecuteStep() = 0;
 	virtual bool isOn();

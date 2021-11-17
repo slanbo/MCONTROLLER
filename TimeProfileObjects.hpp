@@ -13,6 +13,7 @@ TimeProfile* createAllTimeTunedProfile(intTune* fixLevelTume)
 	std::vector<TimePeriod*> all_time_tuned_TPeriods = { all_time_tuned_T };
 
 	DayProfile* all_time_tuned_DayTProfile = new DayProfile(all_time_tuned_TPeriods);
+	
 	std::vector<DayProfile*> all_time_tuned_DaysTProfiles = {
 		all_time_tuned_DayTProfile,
 		all_time_tuned_DayTProfile,
@@ -25,31 +26,35 @@ TimeProfile* createAllTimeTunedProfile(intTune* fixLevelTume)
 
 	WeekProfile* all_time_tuned_WeekTProfile = new WeekProfile(all_time_tuned_DaysTProfiles);
 
-	return new TimeProfile("ALL TIME TUNED", all_time_tuned_WeekTProfile);
+	TimeProfile* tp = new TimeProfile("ALL TIME TUNED", all_time_tuned_WeekTProfile);
 	
+	return tp;
 }
 
 TimeProfile* createAirTempTimeProfile(intTune* timeProfile)
 {
 
+	TimeProfile* tp;
+	
 	switch (timeProfile->_getVal())
 	{
 	case 1:
 		{
-			return createAllTimeTunedProfile(&airFixTemp);
+			tp = createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	default:
 		{
-			return createAllTimeTunedProfile(&airFixTemp);
+			tp = createAllTimeTunedProfile(&airFixTemp);
 			break;
 		}
 	}
+	return tp;
 }
 
 TimeProfile* createBatTempTimeProfile(intTune* timeProfile)
 {
-
+	
 	switch (timeProfile->_getVal())
 	{
 	case 1:

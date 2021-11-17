@@ -145,7 +145,7 @@ Menu mainMenu(&mi_0);
 RenderScreen rscr("rscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
 getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
-//ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
+ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //bizzerExecuteStep bes("bes", 7, 100, 2);
 //MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);

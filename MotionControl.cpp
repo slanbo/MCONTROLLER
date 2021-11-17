@@ -10,7 +10,7 @@ MotionControl::MotionControl(std::string name,
 {
 	Sensors.clear();
 	for (auto inItem : IRMotionSensorsV)
-		for (auto tuneval : sensorsTune->_getVal())
+		for (auto tuneval : sensorsTune->val)
 			if (tuneval == inItem->_getId())
 				Sensors.push_back(inItem);
 

@@ -108,13 +108,15 @@ public:
 	//getters setters
 	
 	uint16_t _getVal(uint16_t index);
-	std::vector<uint16_t>& _getVal();
+	void _getVal();
 	void _setVal(uint16_t Val, uint16_t index);
 	void _setVal(std::vector<uint16_t> &Val);
 	
+	std::vector<uint16_t> val;
+
+	
 protected:
 	
-	std::vector<uint16_t> val;
 	
 };
 
