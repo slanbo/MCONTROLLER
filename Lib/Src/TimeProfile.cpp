@@ -142,3 +142,149 @@ uint16_t WeekProfile::getVal()
 	uint16_t aimTemp = DayProfiles[dayOfWeek - 1]->getVal();
 	return aimTemp;	
 }
+
+DatePeriodValue::DatePeriodValue(uint8_t hourBegin, 
+	uint8_t minuteBegin, 
+	uint8_t hourEnd, 
+	uint8_t minuteEnd, 
+	uint8_t date, 
+	uint8_t weekDay, 
+	uint8_t week, 
+	uint8_t month, 
+	uint8_t year, 
+	uint16_t val)
+	: HourBegin(minuteBegin)
+	, MinuteBegin(hourEnd)
+	, HourEnd(minuteEnd)
+	, MinuteEnd(minuteEnd)
+	, Date(date)
+	, WeekDay(weekDay)
+	, Week(week)
+	, Month(month)
+	, Year(year)
+	, val(val)
+	, tune()
+{
+}
+
+DatePeriodValue::DatePeriodValue(uint8_t hourBegin, 
+	uint8_t minuteBegin, 
+	uint8_t hourEnd, 
+	uint8_t minuteEnd, 
+	uint8_t date, 
+	uint8_t weekDay, 
+	uint8_t week, 
+	uint8_t month, 
+	uint8_t year, 
+	intTune* tune)
+	: HourBegin(minuteBegin)
+	, MinuteBegin(hourEnd)
+	, HourEnd(minuteEnd)
+	, MinuteEnd(minuteEnd)
+	, Date(date)
+	, WeekDay(weekDay)
+	, Week(week)
+	, Month(month)
+	, Year(year)
+	, tune(tune)
+{
+	
+}
+
+void DatePeriodValuesCollection::addPeriodValue
+	(
+	uint8_t HourBegin, 
+	uint8_t MinuteBegin, 
+	uint8_t HourEnd, 
+	uint8_t MinuteEnd, 
+	uint8_t Date, 
+	uint8_t WeekDay, 
+	uint8_t Week, 
+	uint8_t Month, 
+	uint8_t Year, 
+	uint8_t val
+	)
+{
+	DatePeriodValue* pval = new DatePeriodValue(
+		HourBegin, 
+		MinuteBegin, 
+		HourEnd, 
+		MinuteEnd, 
+		Date, 
+		WeekDay, 
+		Week, 
+		Month, 
+		Year, 
+		val);
+	
+	periodValues.push_back(pval);
+}
+
+
+void DatePeriodValuesCollection::addPeriodTune
+	(
+	uint8_t HourBegin, 
+	uint8_t MinuteBegin, 
+	uint8_t HourEnd, 
+	uint8_t MinuteEnd, 
+	uint8_t Date, 
+	uint8_t WeekDay, 
+	uint8_t Week, 
+	uint8_t Month, 
+	uint8_t Year, 
+	intTune* tune
+	)
+{
+	DatePeriodValue* pval = new DatePeriodValue(
+		HourBegin, 
+		MinuteBegin, 
+		HourEnd, 
+		MinuteEnd, 
+		Date, 
+		WeekDay, 
+		Week, 
+		Month, 
+		Year, 
+		tune
+		);
+	
+	pval->val = 0xffff;
+	periodValues.push_back(pval);
+}
+
+uint16_t DatePeriodValuesCollection::getVlue()
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	
+	uint16_t retVal;
+	
+	//find period concrete date
+	for(auto pval : periodValues)
+	{
+		if (pval->Date == sDate.Date & pval->Month == sDate.Month & pval->Year == sDate.Year)
+		{
+			
+			uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
+			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+			
+			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+			{
+				if (pval->val == 0xffff)
+					retVal = pval->tune->_getVal();
+				else
+					retVal = pval->val;
+			}
+		}
+	}
+	//find period weekday
+	
+	
+	//find period eachday
+	
+	
+};
+
