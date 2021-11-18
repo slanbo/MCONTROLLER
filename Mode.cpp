@@ -43,6 +43,9 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
+	DatePeriodValuesCollection* dpvc = new DatePeriodValuesCollection();
+	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	
 	airTempControl = new SensorsSocketsControl
 		(
 		"air control", 
@@ -51,7 +54,7 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlUpSockets,
 		&airTempControlDownSockets,
 		&airTempControlTimeProfile,
-		createAirTempTimeProfile);
+		dpvc);
 	
 	
 	/*batTempControl = new SensorsSocketsControl

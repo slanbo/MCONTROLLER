@@ -87,14 +87,13 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
-	createTimeProfileFnc ctpFnc
+	DatePeriodValuesCollection* dpvcollection
 	)
 	: SocketsControl(id, name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
 {
-	tProfile = ctpFnc(timeProfileTune);
 	
 	DownSocketsVector.clear();
 	for (auto inItem : BaseUnitSocketsV)
@@ -117,11 +116,12 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
-	createTimeProfileFnc ctpFnc)
+	DatePeriodValuesCollection* dpvcollection)
 	: SocketsControl(name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
+	, DPVCollection(dpvcollection)
 {
 	
 	
@@ -140,13 +140,12 @@ SensorsSocketsControl::SensorsSocketsControl(
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
 	
-	tProfile = ctpFnc(timeProfileTune);
 }
 
 void SensorsSocketsControl::ExecuteStep()
 {
 	
-	uint16_t aim_t = tProfile->getVal();
+	uint16_t aim_t = DPVCollection->getValue(TimeProfileTune->_getVal());
 	uint16_t sumT = 0;
 	for (auto term : SensorsVector)
 	{

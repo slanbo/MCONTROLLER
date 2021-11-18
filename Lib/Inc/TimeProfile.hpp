@@ -16,6 +16,7 @@ class DatePeriodValue
 private:
 public:
 	DatePeriodValue(
+		uint8_t variant,
 		uint8_t hourBegin,
 		uint8_t minuteBegin,
 		uint8_t hourEnd,
@@ -28,6 +29,7 @@ public:
 		uint16_t val);
 	
 	DatePeriodValue(
+		uint8_t variant,
 		uint8_t hourBegin,
 		uint8_t minuteBegin,
 		uint8_t hourEnd,
@@ -41,6 +43,7 @@ public:
 	
 	~DatePeriodValue();
 	
+	uint8_t Variant;
 	uint8_t HourBegin;
 	uint8_t MinuteBegin;
 	uint8_t HourEnd;
@@ -59,7 +62,11 @@ class DatePeriodValuesCollection
 {
 private:
 public:
+	
+	DatePeriodValuesCollection();
+	
 	void addPeriodValue(
+		uint8_t Variant,
 		uint8_t HourBegin,
 		uint8_t MinuteBegin,
 		uint8_t HourEnd,
@@ -73,6 +80,7 @@ public:
 		);
 	
 	void addPeriodTune(
+		uint8_t Variant,
 		uint8_t HourBegin,
 		uint8_t MinuteBegin,
 		uint8_t HourEnd,
@@ -85,7 +93,7 @@ public:
 		intTune* tune
 		);
 	
-	uint16_t getVlue();
+	uint16_t getValue(uint8_t variant);
 	std::vector<DatePeriodValue*> periodValues;
 };
 

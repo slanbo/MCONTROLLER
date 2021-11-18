@@ -68,7 +68,6 @@ protected:
 
 using createTimeProfileFnc = TimeProfile*(*)(intTune*);
 
-
 class SensorsSocketsControl : public SocketsControl
 {
 public:
@@ -80,7 +79,7 @@ public:
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,
 		intTune* timeProfileTune,
-		createTimeProfileFnc ctpFnc
+		DatePeriodValuesCollection* dpvcollection
 		);
 	
 	SensorsSocketsControl(
@@ -90,7 +89,7 @@ public:
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,
 		intTune* timeProfileTune,
-		createTimeProfileFnc ctpFnc);
+		DatePeriodValuesCollection* dpvcollection);
 	
 	virtual void ExecuteStep();
 	virtual void FillScreen();
@@ -115,7 +114,7 @@ protected:
 	
 	intTune* TimeProfileTune;
 
-	TimeProfile* tProfile;
+	DatePeriodValuesCollection* DPVCollection;
 	
 	std::vector< plugSocket*> UpSocketsVector;
 	std::vector< plugSocket*> DownSocketsVector;

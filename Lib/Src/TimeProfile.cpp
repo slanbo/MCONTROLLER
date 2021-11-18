@@ -143,7 +143,9 @@ uint16_t WeekProfile::getVal()
 	return aimTemp;	
 }
 
-DatePeriodValue::DatePeriodValue(uint8_t hourBegin, 
+DatePeriodValue::DatePeriodValue(
+	uint8_t variant,
+	uint8_t hourBegin, 
 	uint8_t minuteBegin, 
 	uint8_t hourEnd, 
 	uint8_t minuteEnd, 
@@ -153,7 +155,8 @@ DatePeriodValue::DatePeriodValue(uint8_t hourBegin,
 	uint8_t month, 
 	uint8_t year, 
 	uint16_t val)
-	: HourBegin(minuteBegin)
+	: Variant(variant)
+	, HourBegin(minuteBegin)
 	, MinuteBegin(hourEnd)
 	, HourEnd(minuteEnd)
 	, MinuteEnd(minuteEnd)
@@ -167,7 +170,9 @@ DatePeriodValue::DatePeriodValue(uint8_t hourBegin,
 {
 }
 
-DatePeriodValue::DatePeriodValue(uint8_t hourBegin, 
+DatePeriodValue::DatePeriodValue(
+	uint8_t variant,
+	uint8_t hourBegin, 
 	uint8_t minuteBegin, 
 	uint8_t hourEnd, 
 	uint8_t minuteEnd, 
@@ -177,7 +182,8 @@ DatePeriodValue::DatePeriodValue(uint8_t hourBegin,
 	uint8_t month, 
 	uint8_t year, 
 	intTune* tune)
-	: HourBegin(minuteBegin)
+	: Variant(variant)
+	, HourBegin(minuteBegin)
 	, MinuteBegin(hourEnd)
 	, HourEnd(minuteEnd)
 	, MinuteEnd(minuteEnd)
@@ -193,6 +199,7 @@ DatePeriodValue::DatePeriodValue(uint8_t hourBegin,
 
 void DatePeriodValuesCollection::addPeriodValue
 	(
+	uint8_t Variant,
 	uint8_t HourBegin, 
 	uint8_t MinuteBegin, 
 	uint8_t HourEnd, 
@@ -206,6 +213,7 @@ void DatePeriodValuesCollection::addPeriodValue
 	)
 {
 	DatePeriodValue* pval = new DatePeriodValue(
+		Variant,
 		HourBegin, 
 		MinuteBegin, 
 		HourEnd, 
@@ -223,6 +231,7 @@ void DatePeriodValuesCollection::addPeriodValue
 
 void DatePeriodValuesCollection::addPeriodTune
 	(
+	uint8_t Variant,
 	uint8_t HourBegin, 
 	uint8_t MinuteBegin, 
 	uint8_t HourEnd, 
@@ -236,6 +245,7 @@ void DatePeriodValuesCollection::addPeriodTune
 	)
 {
 	DatePeriodValue* pval = new DatePeriodValue(
+		Variant,
 		HourBegin, 
 		MinuteBegin, 
 		HourEnd, 
@@ -252,39 +262,89 @@ void DatePeriodValuesCollection::addPeriodTune
 	periodValues.push_back(pval);
 }
 
-uint16_t DatePeriodValuesCollection::getVlue()
+uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
 {
 	RTC_TimeTypeDef sTime = { 0 };
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 	
-	uint16_t retVal;
+	uint16_t retVal = 0xffff;
 	
-	//find period concrete date
+	DatePeriodValue* foundpval = nullptr;
+	
+	
 	for(auto pval : periodValues)
 	{
-		if (pval->Date == sDate.Date & pval->Month == sDate.Month & pval->Year == sDate.Year)
+		if (
+			pval->Date == sDate.Date
+			& pval->Month == sDate.Month
+			& pval->Year == sDate.Year
+			& pval->WeekDay == 0
+			& pval->Week == 0
+			& pval->Variant == variant
+			)
 		{
-			
-			uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
-			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
-			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
-			
-			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
-			{
-				if (pval->val == 0xffff)
-					retVal = pval->tune->_getVal();
-				else
-					retVal = pval->val;
-			}
+			foundpval = pval;
+			break;
 		}
 	}
-	//find period weekday
 	
+	//find period weekday
+	if (foundpval == nullptr)
+	for(auto pval : periodValues)
+	{
+		if (
+			pval->Date == 0
+			& pval->Month == 0
+			& pval->Year == 0
+			& pval->WeekDay == sDate.WeekDay
+			& pval->Week == 0
+			& pval->Variant == variant
+			)
+		{
+			foundpval = pval;
+			break;
+		}
+	}
 	
 	//find period eachday
+	if(foundpval == nullptr)
+	for(auto pval : periodValues)
+	{
+		if (
+			pval->Date == 0
+			& pval->Month == 0
+			& pval->Year == 0
+			& pval->WeekDay == 0
+			& pval->Week == 0
+			& pval->Variant == variant
+			)
+		{
+			foundpval = pval;
+			break;
+		}
+	}
 	
-	
+	if (foundpval != nullptr)
+	{
+		uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
+		uint16_t minutesBegin = foundpval->HourBegin * 60 + foundpval->MinuteBegin;
+		uint16_t minutesEnd = foundpval->HourEnd * 60 + foundpval->MinuteEnd;
+			
+		if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+		{
+			if (foundpval->val == 0xffff)
+				retVal = foundpval->tune->_getVal();
+			else
+				retVal = foundpval->val;
+		}	
+	}
+	return retVal;
 };
 
+
+
+DatePeriodValuesCollection::DatePeriodValuesCollection()
+{
+}
