@@ -237,6 +237,7 @@ int main(void)
 	
 	readTunesFromFlash();
 	setDefaultTuneVals();
+	HabitatMode.init();
 	
 	postInitStaticMenuElements(&mi_167);
 	//ControlObjectsInit();

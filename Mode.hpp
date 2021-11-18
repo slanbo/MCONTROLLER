@@ -22,7 +22,7 @@ public:
 	
 	virtual void FillScreen() = 0;
 	virtual void ExecuteStep() = 0;
-	
+	virtual void init() = 0;
 	virtual bool isActive() = 0;
 	
 	
@@ -46,6 +46,7 @@ public:
 	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
+	virtual void init();
 	
 protected:	
 	std::vector<ControlBase *> Controls;
@@ -57,6 +58,7 @@ class Habitat : public ControlsMode
 	Habitat(uint16_t ID, std::string name);
 	virtual void FillScreen();
 	virtual void ExecuteStep();
+	virtual void init();
 	virtual bool isActive();
 	
 	//~Habitat();

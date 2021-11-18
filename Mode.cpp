@@ -43,6 +43,42 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
+	
+	
+}
+
+void Habitat::FillScreen()
+{
+	/*currentControlIndex++;
+	if (currentControlIndex == controlsVector.size())
+		currentControlIndex = 0;
+		
+	controlsVector.at(currentControlIndex)->FillScreen();*/
+	Info_Header.SetText(Name, true);
+	airTempControl->FillScreen();
+	
+}
+
+
+void Habitat::ExecuteStep()
+{
+	airTempControl->ExecuteStep();
+}
+
+
+bool Habitat::isActive()
+{
+	return true;
+}
+
+
+void ControlsMode::init()
+{
+}
+
+
+void Habitat::init()
+{
 	DatePeriodValuesCollection* dpvc = new DatePeriodValuesCollection();
 	airFixTemp._setVal(23);
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
@@ -88,29 +124,4 @@ Habitat::Habitat(uint16_t ID,
 		&lightControlTimeProfile,
 		createLightTimeProfile);	*/
 	
-}
-
-
-void Habitat::FillScreen()
-{
-	/*currentControlIndex++;
-	if (currentControlIndex == controlsVector.size())
-		currentControlIndex = 0;
-		
-	controlsVector.at(currentControlIndex)->FillScreen();*/
-	Info_Header.SetText(Name, true);
-	airTempControl->FillScreen();
-	
-}
-
-
-void Habitat::ExecuteStep()
-{
-	airTempControl->ExecuteStep();
-}
-
-
-bool Habitat::isActive()
-{
-	return true;
 }
