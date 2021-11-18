@@ -177,5 +177,6 @@ extern FlashTune* lastFlashTune;
 void writesTunesToFlash();
 void readTunesFromFlash();
 void clearTunesInFlash();
+void setDefaultTuneVals();
 	
 #endif 

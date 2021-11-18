@@ -32,6 +32,22 @@ FlashTune::FlashTune(FlashTune * prevFlashTune)
 
 }
 
+FlashTune::FlashTune(FlashTune * prevFlashTune, uint8_t Size)
+	: PrevFlashTune(prevFlashTune),
+	size(Size)
+{
+	if (prevFlashTune == nullptr)
+	{
+		FlashAddress = FIRST_FLASH_ADDRESS;
+	}
+	
+	if (prevFlashTune != nullptr & prevFlashTune->FlashAddress != 0)
+	{
+		FlashAddress = prevFlashTune->FlashAddress + prevFlashTune->size;
+	}
+
+}
+
 uint8_t FlashTune::getSize()
 {
 	return size;
@@ -179,8 +195,8 @@ bool DateTune::undefined()
 
 //############ int vector tune
 IntVectorTune::IntVectorTune(FlashTune * prevFlashTune, 
-	uint16_t Size)
-	: FlashTune(prevFlashTune)
+	uint8_t Size)
+	: FlashTune(prevFlashTune, Size)
 {
 	val.resize(size);
 	for (auto item : val)
@@ -188,9 +204,9 @@ IntVectorTune::IntVectorTune(FlashTune * prevFlashTune,
 }
 
 IntVectorTune::IntVectorTune(FlashTune * prevFlashTune, 
-	uint16_t Size, 
+	uint8_t Size, 
 	std::vector<uint16_t> &defs)
-	: FlashTune(prevFlashTune)
+	: FlashTune(prevFlashTune, Size)
 
 
 {
@@ -282,7 +298,11 @@ void IntVectorTune::_setVal(std::vector<uint16_t> &Val)
 	
 	uint8_t counter = 0;
 	for (auto item : Val)
+	{
 		val[counter] = item;
+		counter++;
+	}
+	
 	save();
 		
 }

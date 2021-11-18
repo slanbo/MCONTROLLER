@@ -236,6 +236,7 @@ int main(void)
 	HAL_FLASH_Lock();
 	
 	readTunesFromFlash();
+	setDefaultTuneVals();
 	
 	postInitStaticMenuElements(&mi_167);
 	//ControlObjectsInit();

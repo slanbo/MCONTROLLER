@@ -44,6 +44,7 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	DatePeriodValuesCollection* dpvc = new DatePeriodValuesCollection();
+	airFixTemp._setVal(23);
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
 	airTempControl = new SensorsSocketsControl

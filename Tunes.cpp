@@ -41,8 +41,9 @@ void setDefaultTuneVals()
 	if (airTempControlSensors.undefined())
 	{
 		defs[0] = 2;
-		defs[1] = 0;
+		defs[1] = 3;
 		airTempControlSensors._setVal(defs);	
+		airTempControlSensors.save();
 	}
 		
 	if (airTempControlUpSockets.undefined())

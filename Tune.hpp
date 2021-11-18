@@ -95,9 +95,9 @@ private:
 class IntVectorTune : public FlashTune
 {
 public:
-	IntVectorTune(FlashTune * prevFlashTune, uint16_t Size);
+	IntVectorTune(FlashTune * prevFlashTune, uint8_t Size);
 	
-	IntVectorTune(FlashTune * prevFlashTune, uint16_t Size, std::vector<uint16_t> &defs);
+	IntVectorTune(FlashTune * prevFlashTune, uint8_t Size, std::vector<uint16_t> &defs);
 	
 	virtual uint16_t save();
 	virtual uint16_t restore();
