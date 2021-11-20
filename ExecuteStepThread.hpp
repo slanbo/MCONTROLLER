@@ -31,6 +31,7 @@ protected:
 	virtual void Run() {
 		while (true)
 		{
+			
 			if (SETUP_MODE == 0)
 			{
 				//if (delayBeginControl.isOn())
@@ -43,11 +44,9 @@ protected:
 				HabitatMode.ExecuteStep();
 				//DryingMode.ExecuteStep();
 			}
-			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);
-			
 		}
 	}
 	;

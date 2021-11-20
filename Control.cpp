@@ -6,6 +6,8 @@
 #include "SocketObjectsExt.hpp"
 #include "Sensors.hpp"
 #include "ScreenObjectsExt.hpp"
+#include "ADCDevObjectsExt.hpp"
+
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune)
 	: BaseObject(id, name)
@@ -91,8 +93,9 @@ SensorsSocketsControl::SensorsSocketsControl(
 	)
 	: SocketsControl(id, name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
-	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
+	, TimeProfileTune(timeProfileTune)
+	, DPVCollection(dpvcollection)
 {
 	
 	DownSocketsVector.clear();
@@ -102,7 +105,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 				DownSocketsVector.push_back(inItem);
 	
 	SensorsVector.clear();
-	for (auto inItem : ADCSensorsV)
+	for (auto inItem : ADCDevises)
 		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
@@ -119,8 +122,8 @@ SensorsSocketsControl::SensorsSocketsControl(
 	DatePeriodValuesCollection* dpvcollection)
 	: SocketsControl(name, onOffTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
-	, UpSocketsTune(upSocketsTune)
 	, DownSocketsTune(downSocketsTune)
+	, TimeProfileTune(timeProfileTune)
 	, DPVCollection(dpvcollection)
 {
 	
@@ -135,7 +138,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	
 	
 	SensorsVector.clear();
-	for (auto inItem : ADCSensorsV)
+	for (auto inItem : ADCDevises)
 		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
@@ -145,32 +148,31 @@ SensorsSocketsControl::SensorsSocketsControl(
 void SensorsSocketsControl::ExecuteStep()
 {
 	
-	uint16_t aim_t = DPVCollection->getValue(TimeProfileTune->_getVal());
-	uint16_t sumT = 0;
-	for (auto term : SensorsVector)
+	aim_val = DPVCollection->getValue(TimeProfileTune->_getVal());
+	uint16_t sum = 0;
+	for (auto sens : SensorsVector)
 	{
-		term->getSensorUnits();
-		sumT += term->getSensorUnits(); 
+		sum += sens->getAverageAdcResult(); 
 	}
-	uint16_t current_t = sumT / SensorsVector.size();
+	current_val = sum / SensorsVector.size();
 	
 	if (isActive())
 	{
-		if (current_t < aim_t - 2) 
+		if (current_val < aim_val - 2) 
 		{
 			SwitchSockets(DownSocketsVector, 0xffff);
 			return;
 		}
-		if (current_t < aim_t - 1)
+		if (current_val < aim_val - 1)
 		{
 			SwitchSockets(DownSocketsVector, 2000);
 			return;
 		}
-		if (current_t < aim_t)
+		if (current_val < aim_val)
 		{
 			SwitchSockets(DownSocketsVector, 1000);
 			return;
-		}if (current_t >= aim_t)
+		}if (current_val >= aim_val)
 		{
 			SwitchSockets(DownSocketsVector, 0);
 			return;

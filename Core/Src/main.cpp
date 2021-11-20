@@ -115,7 +115,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++ SCREEN ELEMENTS ++++++++++++++++
 #include "ScreenObjects.hpp"
 //++++++++++++++ LCD Elements ++++++++++++++++++++
-#include "SensorObjects.hpp"
+//#include "SensorObjects.hpp"
+#include "ADCDevObjects.hpp"
 //++++++++++++++++++ SOCKETS ++++++++++++++++++++++++++++++++
 #include "SocketObjects.hpp"
 //+++++++++++++++++ TIME PROFILES ++++++++++++++++++++++
@@ -142,15 +143,17 @@ Menu mainMenu(&mi_0);
 #include "BizzerThread.hpp"
 #include "ProcessButtonPressedThread.hpp"
 
-RenderScreen rscr("rscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
-getADCVols gADCV("gADCV", 3, EXECUTE_STEP_PERIOD_SEC, 5);
+FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
+RenderScreen rscr("rscr", 2, EXECUTE_STEP_PERIOD_SEC, 5);
+ExecuteModeStep ems("ems", 3, EXECUTE_STEP_PERIOD_SEC, 4);
+getADCVols gADCV("gADCV", 4, EXECUTE_STEP_PERIOD_SEC, 3);
+
+
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
-ExecuteModeStep ems("ems", 5, EXECUTE_STEP_PERIOD_SEC, 2);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //bizzerExecuteStep bes("bes", 7, 100, 2);
 //MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
-FillScreen fscr("fscr", 10, EXECUTE_STEP_PERIOD_SEC, 1);
 
 /* USER CODE END 0 */
 

@@ -920,6 +920,9 @@
     <ClInclude Include="Devices\Inc\MQ7.hpp">
       <Filter>Header files\Sensors</Filter>
     </ClInclude>
+    <ClInclude Include="ADCDevObjectsExt.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <LinkerScript Include="STM32F401CC_flash.lds">

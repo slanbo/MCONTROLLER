@@ -109,16 +109,12 @@ private:
 protected:
 	
 	IntVectorTune* SensorsTune;
-	IntVectorTune* UpSocketsTune;
 	IntVectorTune* DownSocketsTune;
-	
 	intTune* TimeProfileTune;
 
 	DatePeriodValuesCollection* DPVCollection;
-	
-	std::vector< plugSocket*> UpSocketsVector;
 	std::vector< plugSocket*> DownSocketsVector;
-	std::vector< ADCSensor*> SensorsVector;
+	std::vector< ADCDev*> SensorsVector;
 	
 	uint16_t current_val = 0;
 	uint16_t aim_val = 0;

@@ -181,6 +181,7 @@
     <ClCompile Include="Tune.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClInclude Include="ADCDevObjects.hpp" />
+    <ClInclude Include="ADCDevObjectsExt.hpp" />
     <ClInclude Include="ADCThread.hpp" />
     <ClInclude Include="BizzerThread.hpp" />
     <ClInclude Include="ControlObjects.hpp" />

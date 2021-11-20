@@ -42,16 +42,12 @@ protected:
 	{
 		while (true)
 		{
-			strcpy(prefixStr, "");
-			addCurrentDateString(prefixStr);
-			Date_FirstPart.SetText(prefixStr, true);
+			for (auto tbscrElement : TopBottom_FirstScreen)
+				tbscrElement->Render();
 			
-			strcpy(prefixStr, "");
-			addCurrentTimeString(prefixStr);
-			Time.SetText(prefixStr, false);
 			
-			Buttom_Left.SetText("Меню", true);
-			Buttom_Right.SetText("Меню", true);
+			for (auto iscrElement : Info_Screen)
+				iscrElement->Render();
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
