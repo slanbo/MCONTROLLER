@@ -41,7 +41,7 @@ protected:
 				//if (motionControl.isOn())
 				//	motionControl.ExecuteStep();
 				
-				HabitatMode->ExecuteStep();
+				HabitatMode.ExecuteStep();
 				//DryingMode.ExecuteStep();
 			}
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

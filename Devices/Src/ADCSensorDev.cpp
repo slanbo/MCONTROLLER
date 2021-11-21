@@ -17,6 +17,7 @@ ADCSensor::ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID)
 
 uint16_t ADCSensor::getSensorUnits()
 {
-	assert(adcDev != nullptr);
+	//assert(adcDev != nullptr);
 	return adcDev->getAverageAdcResult();
+	//return 100;
 }

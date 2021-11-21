@@ -155,7 +155,7 @@ void SensorsSocketsControl::ExecuteStep()
 	}
 	current_val = sum / SensorsVector.size();
 	
-	if (isActive())
+	/*if (isActive())
 	{
 		if (current_val < aim_val - 2) 
 		{
@@ -181,7 +181,7 @@ void SensorsSocketsControl::ExecuteStep()
 	{
 		SwitchSockets(DownSocketsVector, 0);
 		return;
-	}
+	}*/
 
 }
 
