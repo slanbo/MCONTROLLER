@@ -45,7 +45,6 @@ protected:
 			for (auto tbscrElement : TopBottom_FirstScreen)
 				tbscrElement->Render();
 			
-			
 			for (auto iscrElement : Info_Screen)
 				iscrElement->Render();
 			
@@ -56,7 +55,5 @@ protected:
 		}
 	}
 	;
-	
-
 };
 

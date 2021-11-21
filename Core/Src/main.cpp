@@ -115,8 +115,10 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++ SCREEN ELEMENTS ++++++++++++++++
 #include "ScreenObjects.hpp"
 //++++++++++++++ LCD Elements ++++++++++++++++++++
-//#include "SensorObjects.hpp"
+
 #include "ADCDevObjects.hpp"
+#include "SensorObjects.hpp"
+
 //++++++++++++++++++ SOCKETS ++++++++++++++++++++++++++++++++
 #include "SocketObjects.hpp"
 //+++++++++++++++++ TIME PROFILES ++++++++++++++++++++++
@@ -143,10 +145,12 @@ Menu mainMenu(&mi_0);
 #include "BizzerThread.hpp"
 #include "ProcessButtonPressedThread.hpp"
 
-FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
-RenderScreen rscr("rscr", 2, EXECUTE_STEP_PERIOD_SEC, 5);
-ExecuteModeStep ems("ems", 3, EXECUTE_STEP_PERIOD_SEC, 4);
-getADCVols gADCV("gADCV", 4, EXECUTE_STEP_PERIOD_SEC, 3);
+FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 7);
+RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 6);
+getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
+ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 2);
+
+
 
 
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);

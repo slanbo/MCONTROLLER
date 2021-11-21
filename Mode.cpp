@@ -1,4 +1,5 @@
 #include "Mode.hpp"
+#include "portable.h"
 
 ModeBase::ModeBase(uint16_t ID, std::string name)
 	: BaseObject(ID, name) 
@@ -55,7 +56,13 @@ void Habitat::FillScreen()
 		
 	controlsVector.at(currentControlIndex)->FillScreen();*/
 	Info_Header.SetText(Name, true);
-	airTempControl->FillScreen();
+	Info_SubHeader.SetText(Name, false);
+	Info_FirstString.Set_Prefix_IntVal_Postfix_Text("Текущ.: ", airTempControl->_get_current_val(), 3, CO, true);
+	Info_SecondString.Set_Prefix_IntVal_Postfix_Text("Целев.: ", airTempControl->_get_aim_val(), 3, CO, true);
+	Info_ThirdString.Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
+	Info_FourthString.SetText("****************", false);
+	
+	//airTempControl->FillScreen();
 	
 }
 
@@ -79,11 +86,16 @@ void ControlsMode::init()
 
 void Habitat::init()
 {
-	DatePeriodValuesCollection* dpvc = new DatePeriodValuesCollection();
+	
+	DatePeriodValuesCollection* dpvc = (DatePeriodValuesCollection*) pvPortMalloc(sizeof(DatePeriodValuesCollection));
 	airFixTemp._setVal(23);
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
-	airTempControl = new SensorsSocketsControl
+	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	//SensorsSocketsControl* airTempControl = (SensorsSocketsControl*)ptr;
+	
+	
+	airTempControl = new (atcptr) SensorsSocketsControl
 		(
 		"air control", 
 		&airTempControlOnOffTune,

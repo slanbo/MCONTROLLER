@@ -114,7 +114,7 @@ protected:
 
 	DatePeriodValuesCollection* DPVCollection;
 	std::vector< plugSocket*> DownSocketsVector;
-	std::vector< ADCDev*> SensorsVector;
+	std::vector< ADCSensor*> SensorsVector;
 	
 	uint16_t current_val = 0;
 	uint16_t aim_val = 0;

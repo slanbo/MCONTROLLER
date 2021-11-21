@@ -4,9 +4,8 @@
 #include "GUI.h"
 #include "Lcd_Driver.h"
 #include "SocketObjectsExt.hpp"
-#include "Sensors.hpp"
 #include "ScreenObjectsExt.hpp"
-#include "ADCDevObjectsExt.hpp"
+#include "SensorObjectsExt.hpp"
 
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune)
@@ -105,7 +104,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 				DownSocketsVector.push_back(inItem);
 	
 	SensorsVector.clear();
-	for (auto inItem : ADCDevises)
+	for (auto inItem : ADCSensorsV)
 		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
@@ -138,7 +137,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	
 	
 	SensorsVector.clear();
-	for (auto inItem : ADCDevises)
+	for (auto inItem : ADCSensorsV)
 		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
@@ -152,7 +151,7 @@ void SensorsSocketsControl::ExecuteStep()
 	uint16_t sum = 0;
 	for (auto sens : SensorsVector)
 	{
-		sum += sens->getAverageAdcResult(); 
+		sum += sens->getSensorUnits(); 
 	}
 	current_val = sum / SensorsVector.size();
 	

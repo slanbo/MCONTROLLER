@@ -3,13 +3,14 @@
 #include "BaseObject.hpp"
 #include "vector"
 #include <cassert>
+#include "ADCDevObjectsExt.hpp"
 
-std::vector<ADCDev*> ADCDevs;
+
 
 ADCSensor::ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID)
 	: BaseObject(ID, name)
 {
-	for (auto dev : ADCDevs)
+	for (auto dev : ADCDevises)
 		if (dev->_getId() == ADCDevID)
 			adcDev = dev;
 }

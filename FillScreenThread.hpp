@@ -48,6 +48,8 @@ protected:
 			
 			HabitatMode.FillScreen();
 			
+			
+			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

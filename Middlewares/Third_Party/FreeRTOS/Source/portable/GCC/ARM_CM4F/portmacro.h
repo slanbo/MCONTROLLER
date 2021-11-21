@@ -43,6 +43,9 @@ extern "C" {
  *-----------------------------------------------------------
  */
 
+#include "projdefs.h"
+#include "FreeRTOSConfig.h"
+	
 /* Type definitions. */
 #define portCHAR		char
 #define portFLOAT		float

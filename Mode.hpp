@@ -61,16 +61,18 @@ class Habitat : public ControlsMode
 	virtual void init();
 	virtual bool isActive();
 	
-	//~Habitat();
-	
-	protected:
-	
 	SensorsSocketsControl* airTempControl;
 	SensorsSocketsControl* batTempControl;
 	SensorsSocketsControl* lightControl;
 	SensorsSocketsControl* coControl;
 	
 	std::vector<SocketsControl*> controlsVector = { airTempControl };
+
+	
+	//~Habitat();
+	
+	protected:
+	
 	
 	private:
 	
