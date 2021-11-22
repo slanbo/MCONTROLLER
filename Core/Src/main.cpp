@@ -146,11 +146,12 @@ Menu mainMenu(&mi_0);
 #include "ProcessButtonPressedThread.hpp"
 
 
-FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 6);
-RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 5);
-ExecuteModeStep ems("ems", 1, 1, 4);
-getADCVols gADCV("gADCV", 2, 5, 4);
+FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 2);
+ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
+getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
 MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
+RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 1);
+
 
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
@@ -169,7 +170,6 @@ int main(void)
 	
 	
 	/* USER CODE BEGIN 1 */
-	
 	
 
 	/* USER CODE END 1 */
@@ -238,8 +238,26 @@ int main(void)
 	//INITS 
 	Lcd_Init();	
 	Lcd_Init();	
+	Lcd_Init();	
+	Lcd_Clear(RED);
+	Lcd_Clear(YELLOW);
+	Lcd_Clear(GREEN);
 	Lcd_Clear(BLACK);
-	Lcd_Clear(BLACK);
+	
+	strcpy(prefixStr, "");
+	addCurrentDateString(prefixStr);
+	Date_FirstPart.SetText(prefixStr, true);
+			
+	strcpy(prefixStr, "");
+	addCurrentTimeString(prefixStr);
+	Time.SetText(prefixStr, false);
+			
+	Buttom_Left.SetText("Меню", true);
+	Buttom_Right.SetText("Меню", true);
+	
+	for (auto tbscrElement : TopBottom_FirstScreen)
+		tbscrElement->Render();
+
 	
 	HAL_FLASH_Unlock();
 	EE_Init();

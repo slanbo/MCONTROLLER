@@ -152,6 +152,10 @@ void Error_Handler(void);
 #define _PCOUNTERS_
 #define _MENU_
 	
+#define TERMISTOR_TYPE_INDEX 1
+#define CO_SENSOR_TYPE_INDEX 2
+#define LIGHT_SENSOR_TYPE_INDEX 3
+#define HUMIDITY_SENSOR_TYPE_INDEX 4	
 	
 /* USER CODE END Private defines */
 

@@ -7,9 +7,9 @@
 
 
 
-ADCSensor::ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID)
+ADCSensor::ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID, uint8_t SensorTypeIndex)
 	: BaseObject(ID, name),
-	adcDevID(ADCDevID)
+	sensorTypeIndex(SensorTypeIndex)
 {
 	for (auto dev : ADCDevises)
 		if (dev->_getId() == ADCDevID)

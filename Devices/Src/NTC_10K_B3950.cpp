@@ -2,14 +2,14 @@
 #include "ADCDevObjectsExt.hpp"
 
 NTC_10K_B3950::NTC_10K_B3950(uint16_t ID,std::string name, uint8_t ADCDevID)
-	: ADCSensor(ID, name, ADCDevID)
+	: ADCSensor(ID, name, ADCDevID, TERMISTOR_TYPE_INDEX)
 {
 	
 }
 
 uint16_t NTC_10K_B3950::getSensorBaseUnits()
 {
-	return calc_temperature(ADCDevises[adcDevID]->getAverageAdcResult());
+	return calc_temperature(adcDev->getAverageAdcResult());
 }
 
 uint16_t NTC_10K_B3950::calc_temperature(temperature_table_entry_type adcsum)

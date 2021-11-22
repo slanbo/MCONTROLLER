@@ -77,11 +77,8 @@ const temperature_table_entry_type termo_table[] = {
 class NTC_10K_B3950 : public ADCSensor
 {
 private:
-	
 	uint16_t calc_temperature(temperature_table_entry_type adcsum);
-	
 public:
-	
 	NTC_10K_B3950(uint16_t ID, std::string name, uint8_t ADCDevID);
 	virtual uint16_t getSensorBaseUnits();
 };

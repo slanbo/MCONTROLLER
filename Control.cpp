@@ -6,6 +6,7 @@
 #include "SocketObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
 #include "SensorObjectsExt.hpp"
+#include "NTC_10K_B3950.hpp"
 
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune)
@@ -151,7 +152,13 @@ void SensorsSocketsControl::ExecuteStep()
 	uint16_t sum = 0;
 	for (auto sens : SensorsVector)
 	{
-		sum += sens->getSensorUnits(); 
+		if (sens->sensorTypeIndex == TERMISTOR_TYPE_INDEX)
+		{
+			NTC_10K_B3950* termistorptr = (NTC_10K_B3950*)sens;
+			sum += sens->getSensorUnits(); 
+		}
+		else
+			sum += sens->getSensorUnits(); 
 	}
 	current_val = sum / SensorsVector.size();
 	
