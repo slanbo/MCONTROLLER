@@ -4,7 +4,8 @@
 #include "ticks.hpp"
 #include "task.h"
 #include "ModeObjectsExt.hpp"
-#include "ControlObjectsExt.hpp"
+//#include "ADCDevObjects.hpp"
+
 
 using namespace cpp_freertos;
 using namespace std;
@@ -32,8 +33,8 @@ protected:
 		while (true)
 		{
 			
-			if (SETUP_MODE == 0)
-			{
+			//if (SETUP_MODE == 0)
+			//{
 				//if (delayBeginControl.isOn())
 				//	delayBeginControl.ExecuteStep();
 				//if (delayEndControl.isOn())
@@ -42,8 +43,11 @@ protected:
 				//	motionControl.ExecuteStep();
 				
 				HabitatMode.ExecuteStep();
+				//ADCDevises[1]->getAverageAdcResult();
+				//ADCDevises[2]->getAverageAdcResult();	
+				
 				//DryingMode.ExecuteStep();
-			}
+			//}
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

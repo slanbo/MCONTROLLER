@@ -188,8 +188,8 @@ void SensorsSocketsControl::ExecuteStep()
 void SensorsSocketsControl::FillScreen()
 {
 	Info_SubHeader.SetText(Name, false);
-	Info_FirstString.Set_Prefix_IntVal_Postfix_Text("Текущ.: ", _get_current_val(), 3, CO, true);
-	Info_SecondString.Set_Prefix_IntVal_Postfix_Text("Целев.: ", _get_aim_val(), 3, CO, true);
+	Info_FirstString.Set_Prefix_IntVal_Postfix_Text("Текущ.: ", _get_current_val(), 4, CO, true);
+	Info_SecondString.Set_Prefix_IntVal_Postfix_Text("Целев.: ", _get_aim_val(), 4, CO, true);
 	Info_ThirdString.Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
 	Info_FourthString.SetText("****************", false);
 	

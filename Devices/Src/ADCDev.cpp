@@ -48,34 +48,34 @@ void ADCDev::shiftAdcResultArray()
 
 uint16_t ADCDev::getAverageAdcResult()
 {
-	//uint16_t maxValue = getMaxVol();
-	//uint16_t minValue = getMinVol();
+	uint16_t maxValue = getMaxVol();
+	uint16_t minValue = getMinVol();
 	
-	//uint8_t valCounter = 0;
-	//uint16_t sum = 0;
+	uint8_t valCounter = 0;
+	uint16_t sum = 0;
 	
-	//if (maxValue == minValue)
-	//{
-	//	return maxValue;
-	//}
+	if (maxValue == minValue)
+	{
+		return maxValue;
+	}
 	
-	//for (uint8_t i = 0; i < MAX_RESULTS_ARRAY - 1; i++)
-	//{
-		//if (adcResults[i] != maxValue & adcResults[i] != minValue & adcResults[i] != 0)
-		//{
-			//sum += adcResults[i];
-			//valCounter += 1;
-		//}
-	//}
+	for (uint8_t i = 0; i < MAX_RESULTS_ARRAY - 1; i++)
+	{
+		if (adcResults[i] != maxValue & adcResults[i] != minValue & adcResults[i] != 0)
+		{
+			sum += adcResults[i];
+			valCounter += 1;
+		}
+	}
 	
-	/*if (valCounter == 0)
+	if (valCounter == 0)
 	{
 		return (maxValue + minValue) / 2;
-	}*/
+	}
 	
-	//uint16_t averageVal = 100;//sum / valCounter;
+	uint16_t averageVal = sum / valCounter;
 	
-	return 100;
+	return averageVal;
 }
 void ADCDev::addAdcResult(uint16_t adcResult)
 {

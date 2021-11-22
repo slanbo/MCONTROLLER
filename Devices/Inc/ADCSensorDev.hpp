@@ -18,6 +18,7 @@ public:
 	
 protected:
 	
+	uint8_t adcDevID;
 	ADCDev* adcDev;
 
 };
