@@ -146,11 +146,13 @@ Menu mainMenu(&mi_0);
 #include "ProcessButtonPressedThread.hpp"
 
 
-FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 2);
-ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
-getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
-MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
-RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 1);
+FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 7);
+RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 6);
+
+//ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
+//getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
+
+MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 5);
 
 
 //processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);

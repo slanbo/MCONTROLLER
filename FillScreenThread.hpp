@@ -38,10 +38,12 @@ protected:
 			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
 			Date_FirstPart.SetText(prefixStr, true);
+
 			
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
 			Time.SetText(prefixStr, false);
+			//Time.Render();
 			
 			Buttom_Left.SetText("Меню", true);
 			Buttom_Right.SetText("Меню", true);
