@@ -147,16 +147,17 @@ Menu mainMenu(&mi_0);
 #include "ProcessButtonPressedThread.hpp"
 
 
-FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 7);
-RenderInfoScreen ris("ris", 4, 5, 6);
-RenderTopBottomScreen rtbs("rtbs", 4, 1, 5);
-ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
-getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
-MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
+FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
+RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 5);
+RenderInfoScreen ris("ris", 2, 5, 6);
+ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 4);
+getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
+MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 2);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 1);
 
-processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 1);
+bizzerExecuteStep bes("bes", 8, 100, 1);
+
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
-//bizzerExecuteStep bes("bes", 7, 100, 2);
 
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
 
