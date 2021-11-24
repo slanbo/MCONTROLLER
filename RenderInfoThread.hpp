@@ -39,7 +39,7 @@ protected:
 		while (true)
 		{
 			
-			
+			if (SETUP_MODE == 0)
 			for (auto element : Info_Screen)
 				element->Render();
 			

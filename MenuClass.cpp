@@ -6,72 +6,49 @@
 #include "TuneObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
 
-Menu::Menu(MenuElement* currentItem)
-	: CurrentItem(currentItem)
+Menu::Menu(MenuElementBase* currentItem)
+	: CurrentItemBase(currentItem)
 {
 }
 ;
 
 void Menu::moveCurrentToChild()
 {
-	if (CurrentItem->ChildItem != nullptr)
+	if (CurrentItemBase->ChildItem != nullptr)
 	{
-		MenuElement* arrow = (MenuElement*)CurrentItem->ChildItem;
-		MenuElement* cursor = (MenuElement*)CurrentItem->ChildItem;
-	
-		if (arrow->Tune != nullptr) 
-		{
-			/*if (arrow->MaxIntParametr == 0xffff & arrow->MinIntParametr == 0xffff)
-			{
-				do 
-				{	
-					if (cursor->Tune->val == cursor->IntParametr) 
-					{
-						break;
-					}
-					cursor = cursor->GetNextItem();
-				} while (cursor != arrow);
-			}*/
-		}
-		else
-		{
-				/*cursor->Tune->restore();
-				cursor->IntParametr = cursor->Tune->val;
-				cursor->GetPrevIntParametr();
-				cursor->GetNextIntParametr();*/
-		}
+		CurrentItemBase = CurrentItemBase->ChildItem;
+		
 	}	
-		//CurrentItem = cursor;
 	else
 	{
-		/*if (!CurrentItem->selected)
-			CurrentItem->selected = true;
+		if (!CurrentItemBase->selected)
+			CurrentItemBase->selected = true;
 		else
-			CurrentItem->selected = false;*/
+			CurrentItemBase->selected = false;
 	}
 }
 
 void Menu::moveCurrentToParent()
 {
-	CurrentItem->selected = false;
-	if (CurrentItem->ParentItem != nullptr)
+	CurrentItemBase->selected = false;
+	if (CurrentItemBase->ParentItem != nullptr)
 	{
-		CurrentItem = (MenuElement*)CurrentItem->ParentItem;
+		CurrentItemBase = CurrentItemBase->ParentItem;
 	}
 }
 
 
 void Menu::moveCurrentToPrev()
 {
-	CurrentItem->selected = false;
-	CurrentItem = (MenuElement*)CurrentItem->GetPrevItem();
+	CurrentItemBase->selected = false;
+	CurrentItemBase = CurrentItemBase->GetPrevItem();
 }
 
 
 void Menu::moveCurrentToNext()
 {
-	CurrentItem->selected = false;
-	CurrentItem = (MenuElement*)CurrentItem->GetNextItem();
+	CurrentItemBase->selected = false;
+	CurrentItemBase = CurrentItemBase->GetNextItem();
 }
 
 void Menu::FillScreen()
@@ -81,38 +58,83 @@ void Menu::FillScreen()
 	Menu_Header.SetText("Меню настроек:", 16);
 	
 	// sub menu header
-	if(CurrentItem->ParentItem == nullptr)
+	if(CurrentItemBase->ParentItem == nullptr)
 		strcpy(str, "Корень меню:");
 	else
 	{
-		if (CurrentItem->MaxIntParametr == 0xffff & CurrentItem->MinIntParametr == 0xffff)
-			strcpy(str, CurrentItem->ParentItem->Name);
+		if (CurrentItemBase->MenuElementTypeIndex == MENU_ELEMENT_TYPE_INDEX)
+			strcpy(str, CurrentItemBase->ParentItem->Name);
+		else if(CurrentItemBase->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
+			strcpy(str, CurrentItemBase->Name);
 		else
-			strcpy(str, CurrentItem->Name);
+			strcpy(str, CurrentItemBase->Name);
 	}
 	Menu_SubHeader.SetText(str, 16);
 	
-	if (CurrentItem->MinIntParametr != 0xffff & CurrentItem->MaxIntParametr != 0xffff)
+	switch (CurrentItemBase->MenuElementTypeIndex)
 	{
-		Menu_PrevString.selected = CurrentItem->prevIntParametr != CurrentItem->Tune->val;
-		Menu_CurrentString.selected = CurrentItem->IntParametr != CurrentItem->Tune->val;
-		Menu_NextString.selected = CurrentItem->nextIntParametr != CurrentItem->Tune->val;
+	case MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElement* CurrentItem = (MenuElement*)CurrentItemBase;
+			CurrentItem->fillTextScreenElement(&Menu_CurrentString);
+			break;
+		}
+	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElementIntSelector* CurrentItem = (MenuElementIntSelector*)CurrentItemBase;
+			CurrentItem->fillTextScreenElement(&Menu_CurrentString);
+			break;
+		}
+	default:
+		{
+			MenuElement* CurrentItem = (MenuElement*)CurrentItemBase;
+			break;
+		}
 	}
-	else
+	
+	switch (CurrentItemBase->PrevItem->MenuElementTypeIndex)
 	{
-		Menu_PrevString.selected =  CurrentItem->PrevItem->Tune!=nullptr & CurrentItem->PrevItem->Tune->val != CurrentItem->PrevItem->IntParametr;
-		Menu_CurrentString.selected = CurrentItem->Tune != nullptr & CurrentItem->Tune->val != CurrentItem->IntParametr;
-		Menu_NextString.selected =  CurrentItem->NextItem->Tune != nullptr & CurrentItem->NextItem->Tune->val != CurrentItem->NextItem->IntParametr;
-	}
-	CurrentItem->GetPrevItemName(str);
-	Menu_PrevString.SetText(str, 16);
-	
-	CurrentItem->GetCurrItemName(str);
-	Menu_CurrentString.SetText(str, 16);
-	Menu_CurrentScreen_Border.selected = CurrentItem->selected;
-	
-	CurrentItem->GetNextItemName(str);
-	Menu_NextString.SetText(str, 16);
+	case MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElement* PrevItem = (MenuElement*)CurrentItemBase->PrevItem;
+			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			break;
+		}
+	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElementIntSelector* PrevItem = (MenuElementIntSelector*)CurrentItemBase->PrevItem;
+			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			break;
+		}
+	default:
+		{
+			MenuElement* PrevItem = (MenuElement*)CurrentItemBase->PrevItem;
+			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			break;
+		}
+	}		
+		
+	switch (CurrentItemBase->NextItem->MenuElementTypeIndex)
+	{
+	case MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem;
+			NextItem->fillTextScreenElement(&Menu_NextString);
+			break;
+		}
+	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElementIntSelector* NextItem = (MenuElementIntSelector*)CurrentItemBase->NextItem;
+			NextItem->fillTextScreenElement(&Menu_NextString);
+			break;
+		}
+	default:
+		{
+			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem;
+			NextItem->fillTextScreenElement(&Menu_NextString);
+			break;
+		}
+	}		
 	
 	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 	

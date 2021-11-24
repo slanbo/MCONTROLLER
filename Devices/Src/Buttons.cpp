@@ -24,7 +24,7 @@ void leftButton_Long_Long_Press::processButtonPress()
 
 void rightButton_Long_Press::processButtonPress()
 {
-	mainMenu.CurrentItem->invokeDownLongPress();
+	mainMenu.CurrentItemBase->invokeDownLongPress();
 	mainMenu.moveCurrentToChild();
 }
 

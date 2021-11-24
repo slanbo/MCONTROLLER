@@ -37,7 +37,7 @@ class Menu : MenuBase
 {
 public:
 	
-	Menu(MenuElement* currentItem);
+	Menu(MenuElementBase* currentItem);
 	
 	virtual void moveCurrentToChild();
 	virtual void moveCurrentToParent();
@@ -46,7 +46,7 @@ public:
 	virtual void FillScreen();
 	virtual void clearLCD();
 	
-	MenuElementBase* CurrentItem;
+	MenuElementBase* CurrentItemBase;
 	
 private:
 	

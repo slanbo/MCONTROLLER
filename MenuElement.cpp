@@ -165,8 +165,10 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	prevInListItem)
 {
 	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
-
 }
 
-
-
+void MenuElementBase::fillTextScreenElement(Text_ScreenElement* element)
+{
+	element->SetText(Name, 16);
+	element->selected = selected;
+}

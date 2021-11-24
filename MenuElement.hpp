@@ -33,6 +33,8 @@ public:
 	virtual MenuElementBase* GetPrevItem();
 	virtual MenuElementBase* GetNextItem();	
 	
+	virtual void fillTextScreenElement(Text_ScreenElement* element);
+	
 	
 	char Name[NAME_LENGHT] = { 0 };
 	
@@ -45,6 +47,7 @@ public:
 	MenuElementBase* NextItem = nullptr;
 	
 	uint8_t MenuElementTypeIndex = 0;
+	bool selected = false;
 
 	
 protected:
@@ -91,10 +94,9 @@ public:
 	virtual void saveParametr();
 	
 	intTune* Tune = nullptr;
-	bool selected = false;
+	uint16_t Parametr;
 	
 protected:	
-	uint16_t Parametr;
 	IntParamItemLPfnc DownLongPressFnc = nullptr;
 
 	

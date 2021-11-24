@@ -154,7 +154,6 @@ ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
 getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
 MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
 
-
 processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 1);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //bizzerExecuteStep bes("bes", 7, 100, 2);

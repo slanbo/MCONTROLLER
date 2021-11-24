@@ -58,7 +58,7 @@ protected:
 				SETUP_MODE = 1;
 				Buttom_Left.SetText( "Верх", true);
 				Buttom_Right.SetText( "Вниз", true);
-				mainMenu.CurrentItem = &mi_0;
+				mainMenu.CurrentItemBase = &mi_0;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;
@@ -115,10 +115,10 @@ protected:
 			}
 			if (processed)
 			{
+				mainMenu.FillScreen();
 				for (auto scrElement : Menu_Screen)
 					scrElement->Render();
 			}
-			
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
