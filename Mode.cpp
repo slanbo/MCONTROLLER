@@ -50,26 +50,20 @@ Habitat::Habitat(uint16_t ID,
 
 void Habitat::FillScreen()
 {
-	/*currentControlIndex++;
+	Info_Header.SetText(Name, true);
+	controlsVector[currentControlIndex]->FillScreen();
+	
+	currentControlIndex++;
+	
 	if (currentControlIndex == controlsVector.size())
 		currentControlIndex = 0;
-		
-	controlsVector.at(currentControlIndex)->FillScreen();*/
-	Info_Header.SetText(Name, true);
-	//Info_SubHeader.SetText(Name, false);
-	//Info_FirstString.Set_Prefix_IntVal_Postfix_Text("Текущ.: ", airTempControl->_get_current_val(), 3, CO, true);
-	//Info_SecondString.Set_Prefix_IntVal_Postfix_Text("Целев.: ", airTempControl->_get_aim_val(), 3, CO, true);
-	//Info_ThirdString.Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
-	//Info_FourthString.SetText("****************", false);
-	
-	airTempControl->FillScreen();
-	
 }
-
 
 void Habitat::ExecuteStep()
 {
 	airTempControl->ExecuteStep();
+	coControl->ExecuteStep();
+	lightControl->ExecuteStep();
 }
 
 
@@ -92,8 +86,6 @@ void Habitat::init()
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
 	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-	//SensorsSocketsControl* airTempControl = (SensorsSocketsControl*)ptr;
-	
 	
 	airTempControl = new (atcptr) SensorsSocketsControl
 		(
@@ -105,17 +97,6 @@ void Habitat::init()
 		&airTempControlTimeProfile,
 		dpvc);
 	
-	
-	/*batTempControl = new SensorsSocketsControl
-		(
-		"bat control", 
-		&batTempControlOnOffTune,
-		&batTempControlSensors,
-		&batTempControlUpSockets,
-		&batTempControlDownSockets,
-		&batTempControlTimeProfile,
-		createBatTempTimeProfile);
-	
 	coControl = new SensorsSocketsControl
 		(
 		"CO control", 
@@ -124,7 +105,8 @@ void Habitat::init()
 		&COControlUpSockets,
 		&COControlDownSockets,
 		&COControlTimeProfile,
-		createCOTimeProfile);	
+		dpvc);	
+	
 	
 	lightControl = new SensorsSocketsControl
 		(
@@ -134,6 +116,20 @@ void Habitat::init()
 		&lightControlUpSockets,
 		&lightControlDownSockets,
 		&lightControlTimeProfile,
-		createLightTimeProfile);	*/
+		dpvc);
+	
+	/*batTempControl = new SensorsSocketsControl
+		(
+		"bat control", 
+		&batTempControlOnOffTune,
+		&batTempControlSensors,
+		&batTempControlUpSockets,
+		&batTempControlDownSockets,
+		&batTempControlTimeProfile,
+		createBatTempTimeProfile);*/
+	
+	controlsVector.push_back(airTempControl);
+	controlsVector.push_back(coControl);
+	controlsVector.push_back(lightControl);
 	
 }

@@ -866,9 +866,6 @@
     <ClInclude Include="ModeObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="RenderScreenThread.hpp">
-      <Filter>Header files\FREERTOSThreads</Filter>
-    </ClInclude>
     <ClInclude Include="FillScreenThread.hpp">
       <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
@@ -922,6 +919,12 @@
     </ClInclude>
     <ClInclude Include="ADCDevObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTopBottomThread.hpp">
+      <Filter>Header files\FREERTOSThreads</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderInfoThread.hpp">
+      <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

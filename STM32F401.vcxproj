@@ -199,7 +199,8 @@
     <ClInclude Include="PCounterThread.hpp" />
     <ClInclude Include="ProcessButtonPressedThread.hpp" />
     <ClInclude Include="MixControl.hpp" />
-    <ClInclude Include="RenderScreenThread.hpp" />
+    <ClInclude Include="RenderInfoThread.hpp" />
+    <ClInclude Include="RenderTopBottomThread.hpp" />
     <ClInclude Include="ScreenElement.hpp" />
     <ClInclude Include="ScreenObjects.hpp" />
     <ClInclude Include="ScreenObjectsExt.hpp" />

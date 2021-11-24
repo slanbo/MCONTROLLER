@@ -135,7 +135,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 Menu mainMenu(&mi_0);
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
-#include "RenderScreenThread.hpp"
+#include "RenderInfoThread.hpp"
+#include "RenderTopBottomThread.hpp"
 #include "FillScreenThread.hpp"
 #include "ADCThread.hpp"
 #include "MotionDetectionThread.hpp"
@@ -147,15 +148,14 @@ Menu mainMenu(&mi_0);
 
 
 FillScreen fscr("fscr", 3, EXECUTE_STEP_PERIOD_SEC, 7);
-RenderScreen rscr("rscr", 4, EXECUTE_STEP_PERIOD_SEC, 6);
+RenderInfoScreen ris("ris", 4, 5, 6);
+RenderTopBottomScreen rtbs("rtbs", 4, 1, 5);
+ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
+getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
+MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 2);
 
-//ExecuteModeStep ems("ems", 1, EXECUTE_STEP_PERIOD_SEC, 4);
-//getADCVols gADCV("gADCV", 2, EXECUTE_STEP_PERIOD_SEC, 3);
 
-MotionDetection md("md", 8, EXECUTE_STEP_PERIOD_SEC, 5);
-
-
-//processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 6);
+processButtonsPressed pbp("pbp", 4, EXECUTE_STEP_PERIOD_SEC, 1);
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //bizzerExecuteStep bes("bes", 7, 100, 2);
 

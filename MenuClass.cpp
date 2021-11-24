@@ -76,7 +76,7 @@ void Menu::moveCurrentToNext()
 
 void Menu::FillScreen()
 {
-	/*char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
+	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
 	Menu_Header.SetText("Меню настроек:", 16);
 	
@@ -114,7 +114,7 @@ void Menu::FillScreen()
 	CurrentItem->GetNextItemName(str);
 	Menu_NextString.SetText(str, 16);
 	
-	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);*/
+	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 	
 }
 

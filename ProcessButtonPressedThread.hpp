@@ -47,8 +47,8 @@ protected:
 			if(SETUP_MODE != 0 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 0;
-				Buttom_Left.SetText("меню", true);
-				Buttom_Right.SetText("меню", true);
+				Buttom_Left.SetText("Mеню", true);
+				Buttom_Right.SetText("Mеню", true);
 				set_DS_From_RTC();
 				bothButtonsPressCounter -= 1;
 				mainMenu.clearLCD();
@@ -56,8 +56,8 @@ protected:
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 1;
-				Buttom_Left.SetText( "вверх", true);
-				Buttom_Right.SetText( "вниз", true);
+				Buttom_Left.SetText( "Верх", true);
+				Buttom_Right.SetText( "Вниз", true);
 				mainMenu.CurrentItem = &mi_0;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;

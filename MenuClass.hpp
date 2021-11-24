@@ -22,6 +22,7 @@ public:
 	
 	uint8_t Index = 0;
 	
+	
 protected:
 	
 	uint8_t Left_X = 0;
@@ -45,7 +46,7 @@ public:
 	virtual void FillScreen();
 	virtual void clearLCD();
 	
-	MenuElement* CurrentItem;
+	MenuElementBase* CurrentItem;
 	
 private:
 	

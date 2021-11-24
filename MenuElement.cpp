@@ -76,6 +76,7 @@ MenuElement::MenuElement(
 	parentItem, 
 	prevInListItem)
 {
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
 
 MenuElement::MenuElement(MenuElementBase* parentItem, 
@@ -86,6 +87,7 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 	parentItem, 
 	prevInListItem)
 {
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
 
 MenuElement::MenuElement( 
@@ -100,6 +102,8 @@ MenuElement::MenuElement(
 	, Tune(tune)
 	, Parametr(parametr)
 {
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
+
 }
 
 MenuElement::MenuElement(
@@ -116,6 +120,7 @@ MenuElement::MenuElement(
 	, Parametr(parametr)
 	, DownLongPressFnc(downLongPressFnc)
 {
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
 
 
@@ -143,6 +148,7 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	parentItem, 
 	prevInListItem)
 {
+	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
 }
 
 MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
@@ -158,6 +164,8 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	parentItem, 
 	prevInListItem)
 {
+	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
+
 }
 
 

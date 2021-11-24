@@ -44,6 +44,9 @@ public:
 	MenuElementBase* PrevItem = nullptr;
 	MenuElementBase* NextItem = nullptr;
 	
+	uint8_t MenuElementTypeIndex = 0;
+
+	
 protected:
 	
 	

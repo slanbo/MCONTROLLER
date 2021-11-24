@@ -66,7 +66,7 @@ class Habitat : public ControlsMode
 	SensorsSocketsControl* lightControl;
 	SensorsSocketsControl* coControl;
 	
-	std::vector<SocketsControl*> controlsVector = { airTempControl };
+	std::vector<SensorsSocketsControl*> controlsVector;
 
 	
 	//~Habitat();

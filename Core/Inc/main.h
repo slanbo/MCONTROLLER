@@ -155,6 +155,10 @@ void Error_Handler(void);
 #define LIGHT_SENSOR_TYPE_INDEX 3
 #define HUMIDITY_SENSOR_TYPE_INDEX 4	
 	
+#define MENU_ELEMENT_TYPE_INDEX 1
+#define INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 2
+#define OCJECT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 3
+	
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -31,7 +31,7 @@ protected:
 		while (true)
 		{
 
-			//IRMSensor.ExecuteStep();
+			IRMSensor.ExecuteStep();
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

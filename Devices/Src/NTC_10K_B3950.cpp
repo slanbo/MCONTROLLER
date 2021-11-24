@@ -7,7 +7,7 @@ NTC_10K_B3950::NTC_10K_B3950(uint16_t ID,std::string name, uint8_t ADCDevID)
 	
 }
 
-uint16_t NTC_10K_B3950::getSensorBaseUnits()
+uint16_t NTC_10K_B3950::getSensorUnits()
 {
 	return calc_temperature(adcDev->getAverageAdcResult());
 }

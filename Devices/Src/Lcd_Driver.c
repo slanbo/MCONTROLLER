@@ -41,7 +41,7 @@ void Lcd_WriteData_16Bit(uint16_t Data)
 	HAL_SPI_Transmit(&hspi1, &sByte, 1, 5000);
 	//LCD_CS_SET;
 	HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
-    US_DELAY(100);
+    //US_DELAY(100);
 }
 
 
