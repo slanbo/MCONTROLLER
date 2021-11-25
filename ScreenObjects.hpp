@@ -89,48 +89,57 @@ std::vector<BaseScreenElement*> Info_Screen = {
 std::vector<std::vector<BaseScreenElement*>> Info_Screens = { Info_Screen };
 
 //menu screen
-Text_ScreenElement Menu_Header(
+Text_ScreenElement* Menu_Header = new Text_ScreenElement(
 	SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP),
-	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	16);
-Text_ScreenElement Menu_SubHeader(
+Text_ScreenElement* Menu_SubHeader = new Text_ScreenElement(
 	SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
-	&GRAY0_BLACK_VERANDA12,
-	&YELLOW_BLACK_VERANDA12,
+	&GREEN_BLACK_VERANDA12,
+	&GREEN_BLACK_VERANDA12,
 	16);
-Text_ScreenElement Menu_PrevString(SCREEN_GAP,
+Text_ScreenElement* Menu_PrevString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	16);
-Text_ScreenElement Menu_CurrentString(SCREEN_GAP,
+Text_ScreenElement* Menu_CurrentString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	16);
-Rect_ScreenElement Menu_CurrentScreen_Border(
+	14);
+Rect_ScreenElement* Menu_CurrentScreen_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,
 	HORIZONTAL_SCREEN_SIZE - SCREEN_GAP + BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 + Verdana12x12.Size + BORDER_GAP,
 	&GREEN_BLACK_VERANDA12,
 	&RED_BLACK_VERANDA12);
-Text_ScreenElement Menu_NextString(SCREEN_GAP,
+Text_ScreenElement* Menu_NextString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	16);
+Rect_ScreenElement* Menu_Header_Border = new Rect_ScreenElement(
+	SCREEN_GAP - BORDER_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) - BORDER_GAP,
+	HORIZONTAL_SCREEN_SIZE - SCREEN_GAP + BORDER_GAP,
+	SCREEN_GAP + Verdana12x12.Size * 2 + STRINGS_GAP,
+	&YELLOW_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12);
 
 std::vector<BaseScreenElement*> Menu_Screen = {
-	&Menu_Header,
-	&Menu_SubHeader,
-	&Menu_PrevString,
-	&Menu_CurrentString,
-	&Menu_NextString,
-	&Menu_CurrentScreen_Border
+	Menu_Header,
+	Menu_SubHeader,
+	Menu_PrevString,
+	Menu_CurrentString,
+	Menu_NextString,
+	Menu_CurrentScreen_Border,
+	Menu_Header_Border
+		
 };
 
 void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x, uint8_t &top_y, uint8_t &right_x, uint8_t &bottom_y)

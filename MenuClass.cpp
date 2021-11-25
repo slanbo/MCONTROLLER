@@ -55,7 +55,7 @@ void Menu::FillScreen()
 {
 	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
-	Menu_Header.SetText("Меню настроек:", true);
+	Menu_Header->SetText("Меню настроек:", true);
 	
 	// sub menu header
 	if(CurrentItemBase->ParentItem == nullptr)
@@ -69,20 +69,20 @@ void Menu::FillScreen()
 		else
 			strcpy(str, CurrentItemBase->Name);
 	}
-	Menu_SubHeader.SetText(str, true);
+	Menu_SubHeader->SetText(str, true);
 	
 	switch (CurrentItemBase->MenuElementTypeIndex)
 	{
 	case MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElement* CurrentItem = (MenuElement*)CurrentItemBase;
-			CurrentItem->fillTextScreenElement(&Menu_CurrentString);
+			CurrentItem->fillTextScreenElement(Menu_CurrentString);
 			break;
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElementIntSelector* CurrentItem = (MenuElementIntSelector*)CurrentItemBase;
-			CurrentItem->fillTextScreenElement(&Menu_CurrentString);
+			CurrentItem->fillTextScreenElement(Menu_CurrentString);
 			break;
 		}
 	default:
@@ -98,19 +98,19 @@ void Menu::FillScreen()
 	case MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElement* PrevItem = (MenuElement*)CurrentItemBase->PrevItem;
-			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			PrevItem->fillTextScreenElement(Menu_PrevString);
 			break;
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElementIntSelector* PrevItem = (MenuElementIntSelector*)CurrentItemBase->PrevItem;
-			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			PrevItem->fillTextScreenElement(Menu_PrevString);
 			break;
 		}
 	default:
 		{
 			MenuElement* PrevItem = (MenuElement*)CurrentItemBase->PrevItem;
-			PrevItem->fillTextScreenElement(&Menu_PrevString);
+			PrevItem->fillTextScreenElement(Menu_PrevString);
 			break;
 		}
 	}		
@@ -120,19 +120,19 @@ void Menu::FillScreen()
 	case MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem;
-			NextItem->fillTextScreenElement(&Menu_NextString);
+			NextItem->fillTextScreenElement(Menu_NextString);
 			break;
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
 		{
 			MenuElementIntSelector* NextItem = (MenuElementIntSelector*)CurrentItemBase->NextItem;
-			NextItem->fillTextScreenElement(&Menu_NextString);
+			NextItem->fillTextScreenElement(Menu_NextString);
 			break;
 		}
 	default:
 		{
 			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem;
-			NextItem->fillTextScreenElement(&Menu_NextString);
+			NextItem->fillTextScreenElement(Menu_NextString);
 			break;
 		}
 	}		

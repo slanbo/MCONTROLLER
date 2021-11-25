@@ -28,12 +28,12 @@ extern std::vector<BaseScreenElement*> Info_Screen;
 extern std::vector<std::vector<BaseScreenElement*>> Info_Screens;
 
 //menu screen
-extern Text_ScreenElement Menu_Header;
-extern Text_ScreenElement Menu_SubHeader;
-extern Text_ScreenElement Menu_PrevString;
-extern Text_ScreenElement Menu_CurrentString;
-extern Rect_ScreenElement Menu_CurrentScreen_Border;
-extern Text_ScreenElement Menu_NextString;
+extern Text_ScreenElement* Menu_Header;
+extern Text_ScreenElement* Menu_SubHeader;
+extern Text_ScreenElement* Menu_PrevString;
+extern Text_ScreenElement* Menu_CurrentString;
+extern Rect_ScreenElement* Menu_CurrentScreen_Border;
+extern Text_ScreenElement* Menu_NextString;
 extern std::vector<BaseScreenElement*> Menu_Screen;
 extern std::vector<BaseScreenElement*> Menu_Screen_Selected; 
 

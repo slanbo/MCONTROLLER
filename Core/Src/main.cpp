@@ -157,16 +157,13 @@ uint8_t bothButtonsPressCounter = 0;
 
 FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
 RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 6);
-processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 5);
-RenderInfoScreen ris("ris", 2, 5, 4);
+RenderInfoScreen ris("ris", 2, 5, 5);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
 ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 3);
 getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 2);
 MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 1);
-
-
 bizzerExecuteStep bes("bes", 8, 100, 1);
-
-menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+menuButtonPressBizzer mbpb("mbpb", 6, 100, 1);
 
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
 
