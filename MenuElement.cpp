@@ -132,7 +132,9 @@ void MenuElement::saveParametr()
 
 void MenuElement::invokeDownLongPress()
 {
+	if (Tune != nullptr)
 	saveParametr();
+	if (DownLongPressFnc != nullptr)
 	DownLongPressFnc(Parametr);
 }
 
@@ -169,6 +171,6 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 
 void MenuElementBase::fillTextScreenElement(Text_ScreenElement* element)
 {
-	element->SetText(Name, 16);
+	element->SetText(Name, true);
 	element->selected = selected;
 }

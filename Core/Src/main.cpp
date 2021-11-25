@@ -146,18 +146,27 @@ Menu mainMenu(&mi_0);
 #include "BizzerThread.hpp"
 #include "ProcessButtonPressedThread.hpp"
 
+uint32_t lastTimeTicksButtonsPressed = 0;
+uint8_t leftButtonShortPressCounter = 0;
+uint8_t leftButtonLongPressCounter = 0;
+uint8_t leftButtonLongLongPressCounter = 0;
+uint8_t rightButtonShortPressCounter = 0;
+uint8_t rightButtonLongPressCounter = 0;
+uint8_t rightButtonLongLongPressCounter = 0;
+uint8_t bothButtonsPressCounter = 0;
 
 FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
-RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 5);
-RenderInfoScreen ris("ris", 2, 5, 6);
-ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 4);
-getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
-MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 2);
-processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 1);
+RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 6);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 5);
+RenderInfoScreen ris("ris", 2, 5, 4);
+ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 3);
+getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 2);
+MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 1);
+
 
 bizzerExecuteStep bes("bes", 8, 100, 1);
 
-//menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
 

@@ -44,15 +44,7 @@ void bothButtons_Short_Press::processButtonPress()
 
 double ticksKey1Pressed = 0;
 double ticksKey2Pressed = 0;
-uint32_t lastTimeTicksButtonsPressed = 0;
 
-uint8_t leftButtonShortPressCounter = 0;
-uint8_t leftButtonLongPressCounter = 0;
-uint8_t leftButtonLongLongPressCounter = 0;
-uint8_t rightButtonShortPressCounter = 0;
-uint8_t rightButtonLongPressCounter = 0;
-uint8_t rightButtonLongLongPressCounter = 0;
-uint8_t bothButtonsPressCounter = 0;
 leftButton_Short_Press LeftButton_Short_Press("lbsp");
 rightButton_Short_Press RightButton_Short_Press("rbsp");
 leftButton_Long_Press LeftButton_Long_Press("lblp");

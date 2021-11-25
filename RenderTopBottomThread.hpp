@@ -43,6 +43,11 @@ protected:
 			for (auto element : TopBottom_FirstScreen)
 				element->Render();
 			
+			if (SETUP_MODE == 1)
+				for (auto scrElement : Menu_Screen)
+					scrElement->Render();
+
+			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

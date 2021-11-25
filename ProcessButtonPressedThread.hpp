@@ -115,9 +115,6 @@ protected:
 			}
 			if (processed)
 			{
-				mainMenu.FillScreen();
-				for (auto scrElement : Menu_Screen)
-					scrElement->Render();
 			}
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

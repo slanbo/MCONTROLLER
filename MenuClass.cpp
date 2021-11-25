@@ -55,7 +55,7 @@ void Menu::FillScreen()
 {
 	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
-	Menu_Header.SetText("Меню настроек:", 16);
+	Menu_Header.SetText("Меню настроек:", true);
 	
 	// sub menu header
 	if(CurrentItemBase->ParentItem == nullptr)
@@ -69,7 +69,7 @@ void Menu::FillScreen()
 		else
 			strcpy(str, CurrentItemBase->Name);
 	}
-	Menu_SubHeader.SetText(str, 16);
+	Menu_SubHeader.SetText(str, true);
 	
 	switch (CurrentItemBase->MenuElementTypeIndex)
 	{
@@ -92,6 +92,7 @@ void Menu::FillScreen()
 		}
 	}
 	
+		
 	switch (CurrentItemBase->PrevItem->MenuElementTypeIndex)
 	{
 	case MENU_ELEMENT_TYPE_INDEX:

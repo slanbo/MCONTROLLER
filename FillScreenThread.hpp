@@ -39,16 +39,22 @@ protected:
 			addCurrentDateString(prefixStr);
 			Date_FirstPart.SetText(prefixStr, true);
 
-			
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
 			Time.SetText(prefixStr, false);
-			//Time.Render();
 			
-			Buttom_Left.SetText("Меню", true);
-			Buttom_Right.SetText("Меню", true);
-			
-			HabitatMode.FillScreen();
+			if (SETUP_MODE == 0)
+			{
+				Buttom_Left.SetText("Меню", true);
+				Buttom_Right.SetText("Меню", true);
+				HabitatMode.FillScreen();	
+			}
+			else
+			{
+				Buttom_Left.SetText("Вверх", true);
+				Buttom_Right.SetText("Вниз", true);
+				mainMenu.FillScreen();
+			}
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

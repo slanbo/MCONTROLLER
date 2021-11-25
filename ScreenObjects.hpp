@@ -13,7 +13,7 @@
 
 #define SCREEN_GAP 2
 #define STRINGS_GAP 4
-#define BORDER_GAP 2
+#define BORDER_GAP 1
 
 screenStyle GRAY0_BLACK_VERANDA12 = { GRAY0, BLACK, Verdana12x12 };
 screenStyle GREEN_BLACK_VERANDA12 = { GREEN, BLACK, Verdana12x12 };
@@ -59,11 +59,21 @@ Rect_ScreenElement Info_Header_Border(
 	SCREEN_GAP + Verdana12x12.Size * 2 + STRINGS_GAP,
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12);
-Text_ScreenElement Info_SubHeader(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2, &GREEN_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_FirstString(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3, &GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_SecondString(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4, &GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_ThirdString(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5, &GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_FourthString(SCREEN_GAP, SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 6, &GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+Text_ScreenElement Info_SubHeader(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
+	&GREEN_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12,	16);
+Text_ScreenElement Info_FirstString(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3,
+	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+Text_ScreenElement Info_SecondString(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
+	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+Text_ScreenElement Info_ThirdString(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
+	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+Text_ScreenElement Info_FourthString(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 6,
+	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
 
 
 std::vector<BaseScreenElement*> Info_Screen = { 
@@ -103,9 +113,9 @@ Text_ScreenElement Menu_CurrentString(SCREEN_GAP,
 	16);
 Rect_ScreenElement Menu_CurrentScreen_Border(
 	SCREEN_GAP - BORDER_GAP,
-	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5 - BORDER_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,
 	HORIZONTAL_SCREEN_SIZE - SCREEN_GAP + BORDER_GAP,
-	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5 + Verdana12x12.Size + STRINGS_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 + Verdana12x12.Size + BORDER_GAP,
 	&GREEN_BLACK_VERANDA12,
 	&RED_BLACK_VERANDA12);
 Text_ScreenElement Menu_NextString(SCREEN_GAP,

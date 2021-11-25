@@ -40,8 +40,9 @@ protected:
 		{
 			
 			if (SETUP_MODE == 0)
-			for (auto element : Info_Screen)
-				element->Render();
+				for (auto element : Info_Screen)
+					element->Render();
+
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
