@@ -48,9 +48,6 @@ protected:
 			ADCDevises[3]->addAdcResult(R4_Val);    //light sens
 
 			HAL_ADCEx_InjectedStop(&hadc1);
-					
-			//HabitatMode.ExecuteStep();
-			
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

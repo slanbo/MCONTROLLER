@@ -19,7 +19,7 @@ MixControl::MixControl(std::string name,
 
 void MixControl::FillScreen()
 {
-	Info_SubHeader.SetText(Name, false);
+	Info_SubHeader->SetText(Name, false);
 	
 	char statestr[MAX_CHARS_IN_SCREEN * 2] = "Cост:";
 	if(getState())
@@ -27,8 +27,8 @@ void MixControl::FillScreen()
 	else
 		strcat(statestr, " ВЫКЛ");
 	
-	Info_FirstString.SetText(statestr, true);
-	Info_SecondString.SetText("Режим работы:", true);
+	Info_FirstString->SetText(statestr, true);
+	Info_SecondString->SetText("Режим работы:", true);
 	
 	char modestr[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	switch (ModeTune->_getVal())
@@ -60,8 +60,8 @@ void MixControl::FillScreen()
 		}
 	}
 	
-	Info_ThirdString.SetText(modestr, true);
-	Info_FourthString.SetText("", false);
+	Info_ThirdString->SetText(modestr, true);
+	Info_FourthString->SetText("", false);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 

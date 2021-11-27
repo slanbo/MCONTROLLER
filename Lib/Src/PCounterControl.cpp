@@ -110,8 +110,8 @@ void PCounterControl::FillScreen()
 	char intString[MAX_CHARS_IN_SCREEN] = { 0 };
 	char dateString[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
-	Info_SubHeader.SetText(Name, false);
-	Info_FirstString.SetText("Начало отсчета: ", true);
+	Info_SubHeader->SetText(Name, false);
+	Info_FirstString->SetText("Начало отсчета: ", true);
 	
 	strcpy(dateString, "");
 	inttoabase10(PCounterBeginDate._getVal(), intString);
@@ -128,10 +128,10 @@ void PCounterControl::FillScreen()
 	strcat(dateString, ":");
 	inttoabase10(PCounterBeginMinute._getVal(), intString);
 	strcat(dateString, intString);	
-	Info_SecondString.SetText(dateString, true);
+	Info_SecondString->SetText(dateString, true);
 	
-	Info_ThirdString.Set_Prefix_IntVal_Postfix_Text("ВТ ЧАС: ", getCurrentVtHour(), 4, "", true);
-	Info_FourthString.SetText("", false);
+	Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("ВТ ЧАС: ", getCurrentVtHour(), 4, "", true);
+	Info_FourthString->SetText("", false);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 

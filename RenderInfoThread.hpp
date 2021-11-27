@@ -40,8 +40,11 @@ protected:
 		{
 			
 			if (SETUP_MODE == 0)
+			{
+				HabitatMode->FillScreen();
 				for (auto element : Info_Screen)
 					element->Render();
+			}
 
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

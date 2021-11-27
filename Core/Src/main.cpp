@@ -155,17 +155,21 @@ uint8_t rightButtonLongPressCounter = 0;
 uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
-FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
-RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 6);
-RenderInfoScreen ris("ris", 2, 5, 5);
-processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
-ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 3);
-getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 2);
-MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 1);
-bizzerExecuteStep bes("bes", 8, 100, 1);
-menuButtonPressBizzer mbpb("mbpb", 6, 100, 1);
 
-//PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 3);
+
+FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
+getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 6);
+RenderInfoScreen ris("ris", 2, 5, 5);
+
+//RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 2);
+
+
+//ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 7);
+//processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 3);
+//menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+//MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 2);
+//bizzerExecuteStep bes("bes", 8, 100, 1);
+//PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 
 /* USER CODE END 0 */
 
@@ -254,14 +258,14 @@ int main(void)
 	
 	strcpy(prefixStr, "");
 	addCurrentDateString(prefixStr);
-	Date_FirstPart.SetText(prefixStr, true);
+	Date_FirstPart->SetText(prefixStr, true);
 			
 	strcpy(prefixStr, "");
 	addCurrentTimeString(prefixStr);
-	Time.SetText(prefixStr, false);
+	Time->SetText(prefixStr, false);
 			
-	Buttom_Left.SetText("Меню", true);
-	Buttom_Right.SetText("Меню", true);
+	Buttom_Left->SetText("Меню", true);
+	Buttom_Right->SetText("Меню", true);
 	
 	for (auto tbscrElement : TopBottom_FirstScreen)
 		tbscrElement->Render();

@@ -39,9 +39,9 @@ std::vector<ControlBase *> DryingControls = {
 ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
 */
 
-Habitat HabitatMode(1, "Habitat");
+Habitat* HabitatMode = new Habitat(1, "Habitat");
 
-std::vector<ModeBase *> Modes = { &HabitatMode };
+std::vector<ModeBase *> Modes = { HabitatMode };
 
 void ModeObjectsInit()
 {

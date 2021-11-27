@@ -5,24 +5,24 @@
 #include "ScreenElement.hpp"
 #include <vector>
 
-extern Text_ScreenElement Date_FirstPart;
-extern Text_ScreenElement Date_SecondPart;
-extern Text_ScreenElement Time;
-extern Text_ScreenElement Buttom_Left;
-extern Text_ScreenElement Buttom_Right;
+extern Text_ScreenElement* Date_FirstPart;
+extern Text_ScreenElement* Date_SecondPart;
+extern Text_ScreenElement* Time;
+extern Text_ScreenElement* Buttom_Left;
+extern Text_ScreenElement* Buttom_Right;
 
 extern std::vector<BaseScreenElement*> TopBottom_FirstScreen;
 extern std::vector<BaseScreenElement*> TopBottom_SecondScreen; 
 extern std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens;
 
 //info screen 
-extern Text_ScreenElement Info_Header;
-extern Rect_ScreenElement Info_Header_Border;
-extern Text_ScreenElement Info_SubHeader;
-extern Text_ScreenElement Info_FirstString;
-extern Text_ScreenElement Info_SecondString;
-extern Text_ScreenElement Info_ThirdString;
-extern Text_ScreenElement Info_FourthString;
+extern Text_ScreenElement* Info_Header;
+extern Rect_ScreenElement* Info_Header_Border;
+extern Text_ScreenElement* Info_SubHeader;
+extern Text_ScreenElement* Info_FirstString;
+extern Text_ScreenElement* Info_SecondString;
+extern Text_ScreenElement* Info_ThirdString;
+extern Text_ScreenElement* Info_FourthString;
 
 extern std::vector<BaseScreenElement*> Info_Screen;
 extern std::vector<std::vector<BaseScreenElement*>> Info_Screens;

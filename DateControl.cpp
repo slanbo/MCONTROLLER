@@ -8,7 +8,7 @@
 
 void DateControl::FillScreen()
 {
-	Info_SubHeader.SetText(Name, false);
+	Info_SubHeader->SetText(Name, false);
 	
 	char statestr[MAX_CHARS_IN_SCREEN] = { 0 };
 	strcpy(statestr, "Сост:");
@@ -16,8 +16,8 @@ void DateControl::FillScreen()
 	strcat(statestr, "АКТИВЕН");
 	else
 	strcat(statestr, "ОЖИДАНИЕ");
-	Info_FirstString.SetText(statestr, true);
-	Info_SecondString.SetText("Дата:", true);
+	Info_FirstString->SetText(statestr, true);
+	Info_SecondString->SetText("Дата:", true);
 	
 	char datestring[MAX_CHARS_IN_SCREEN] = { 0 };
 	char intstring[MAX_CHARS_IN_SCREEN] = { 0 };
@@ -37,8 +37,8 @@ void DateControl::FillScreen()
 	strcat(datestring, ":");
 	inttoabase10(MinuteTune->_getVal(), intstring);
 	strcat(datestring, intstring);	
-	Info_ThirdString.SetText(datestring, true);
-	Info_FourthString.SetText("", false);
+	Info_ThirdString->SetText(datestring, true);
+	Info_FourthString->SetText("", false);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 

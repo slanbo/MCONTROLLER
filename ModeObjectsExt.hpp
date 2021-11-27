@@ -4,7 +4,7 @@
 #include "main.h"
 #include "Mode.hpp"
 
-extern Habitat HabitatMode;
+extern Habitat* HabitatMode;
 void ModeObjectsInit();
 extern std::vector<ModeBase *> Modes;
 

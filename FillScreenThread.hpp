@@ -3,6 +3,8 @@
 #include "ticks.hpp"
 #include "task.h"
 #include "ModeObjectsExt.hpp"
+#include "Auxiliary.h"
+#include "string.h"
 
 
 using namespace cpp_freertos;
@@ -37,24 +39,26 @@ protected:
 		{
 			strcpy(prefixStr, "");
 			addCurrentDateString(prefixStr);
-			Date_FirstPart.SetText(prefixStr, true);
+			Date_FirstPart->SetText(prefixStr, true);
 
 			strcpy(prefixStr, "");
 			addCurrentTimeString(prefixStr);
-			Time.SetText(prefixStr, false);
+			Time->SetText(prefixStr, false);
 			
 			if (SETUP_MODE == 0)
 			{
-				Buttom_Left.SetText("Меню", true);
-				Buttom_Right.SetText("Меню", true);
-				HabitatMode.FillScreen();	
+				Buttom_Left->SetText("Меню", true);
+				Buttom_Right->SetText("Меню", true);
 			}
 			else
 			{
-				Buttom_Left.SetText("Вверх", true);
-				Buttom_Right.SetText("Вниз", true);
-				mainMenu.FillScreen();
+				Buttom_Left->SetText("Вверх", true);
+				Buttom_Right->SetText("Вниз", true);
 			}
+			
+			for (auto element : TopBottom_FirstScreen)
+				element->Render();
+
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

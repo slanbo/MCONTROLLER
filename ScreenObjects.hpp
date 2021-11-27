@@ -23,67 +23,69 @@ screenStyle RED_BLACK_VERANDA12 = { RED, BLACK, Verdana12x12 };
 
 //top bottom screen
 
-Text_ScreenElement Date_FirstPart(SCREEN_GAP, SCREEN_GAP, &GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 12);
+Text_ScreenElement* Date_FirstPart = new Text_ScreenElement(SCREEN_GAP,
+	SCREEN_GAP,
+	&GRAY0_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12, 12);
 
-Text_ScreenElement Time(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - 47,
+Text_ScreenElement* Time = new Text_ScreenElement(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - 47,
 	SCREEN_GAP,
 	&GREEN_BLACK_VERANDA12,
 	&GRAY0_BLACK_VERANDA12,
 	9);
-Text_ScreenElement Buttom_Left(SCREEN_GAP,
+Text_ScreenElement* Buttom_Left = new Text_ScreenElement(SCREEN_GAP,
 	VERTICAL_SCREEN_SIZE - SCREEN_GAP - Verdana12x12.Size,
 	&YELLOW_BLACK_VERANDA12,
 	&GRAY0_BLACK_VERANDA12,
 	6);
-Text_ScreenElement Buttom_Right(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - 30,
+Text_ScreenElement* Buttom_Right = new Text_ScreenElement(HORIZONTAL_SCREEN_SIZE - SCREEN_GAP - 30,
 	VERTICAL_SCREEN_SIZE - SCREEN_GAP - Verdana12x12.Size,
 	&YELLOW_BLACK_VERANDA12,
 	&GRAY0_BLACK_VERANDA12,
 	6);
 
-std::vector<BaseScreenElement*> TopBottom_FirstScreen = { &Date_FirstPart, &Time, &Buttom_Left, &Buttom_Right };
+std::vector<BaseScreenElement*> TopBottom_FirstScreen = { Date_FirstPart, Time, Buttom_Left, Buttom_Right };
 std::vector<std::vector<BaseScreenElement*>> TopBottom_Screens = { TopBottom_FirstScreen };
 
 //info screen 
-Text_ScreenElement Info_Header(
+Text_ScreenElement* Info_Header = new Text_ScreenElement(
 	SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP),
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	16);
 
-Rect_ScreenElement Info_Header_Border(
+Rect_ScreenElement* Info_Header_Border = new  Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) - BORDER_GAP,
 	HORIZONTAL_SCREEN_SIZE - SCREEN_GAP + BORDER_GAP,
 	SCREEN_GAP + Verdana12x12.Size * 2 + STRINGS_GAP,
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12);
-Text_ScreenElement Info_SubHeader(SCREEN_GAP,
+Text_ScreenElement* Info_SubHeader = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
 	&GREEN_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12,	16);
-Text_ScreenElement Info_FirstString(SCREEN_GAP,
+Text_ScreenElement* Info_FirstString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3,
 	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_SecondString(SCREEN_GAP,
+Text_ScreenElement* Info_SecondString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
 	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_ThirdString(SCREEN_GAP,
+Text_ScreenElement* Info_ThirdString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
 	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
-Text_ScreenElement Info_FourthString(SCREEN_GAP,
+Text_ScreenElement* Info_FourthString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 6,
 	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
 
 
 std::vector<BaseScreenElement*> Info_Screen = { 
-	&Info_Header,
-	&Info_Header_Border,
-	&Info_SubHeader,
-	&Info_FirstString,
-	&Info_SecondString,
-	&Info_ThirdString,
-	&Info_FourthString
+	Info_Header,
+	Info_Header_Border,
+	Info_SubHeader,
+	Info_FirstString,
+	Info_SecondString,
+	Info_ThirdString,
+	Info_FourthString
 };
 
 std::vector<std::vector<BaseScreenElement*>> Info_Screens = { Info_Screen };

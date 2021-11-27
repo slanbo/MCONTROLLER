@@ -43,6 +43,7 @@ protected:
 				//	motionControl.ExecuteStep();
 				
 				HabitatMode.ExecuteStep();
+				//IRMSensor.ExecuteStep();
 				
 				//DryingMode.ExecuteStep();
 			}

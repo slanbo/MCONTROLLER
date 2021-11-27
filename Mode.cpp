@@ -25,7 +25,7 @@ void ControlsMode::FillScreen()
 {
 	if (isActive())
 	{
-		Info_Header.SetText(Name, false);
+		Info_Header->SetText(Name, false);
 		for (auto control : Controls)
 			control->FillScreen();
 	}
@@ -50,7 +50,7 @@ Habitat::Habitat(uint16_t ID,
 
 void Habitat::FillScreen()
 {
-	Info_Header.SetText(Name, true);
+	Info_Header->SetText(Name, true);
 	controlsVector[currentControlIndex]->FillScreen();
 	
 	currentControlIndex++;
