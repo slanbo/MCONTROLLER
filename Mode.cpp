@@ -51,7 +51,15 @@ Habitat::Habitat(uint16_t ID,
 void Habitat::FillScreen()
 {
 	Info_Header->SetText(Name, true);
-	controlsVector[currentControlIndex]->FillScreen();
+	//controlsVector.at(currentControlIndex)->FillScreen();
+	Info_SubHeader->SetText(controlsVector.at(currentControlIndex)->Name, true);
+	Info_FirstString->SetText("Текущ.: ", true);
+	Info_FirstString->AddIntStr(controlsVector.at(currentControlIndex)->_get_current_val(), 5);
+	Info_SecondString->SetText("Целев.: ", true);
+	Info_SecondString->AddIntStr(controlsVector.at(currentControlIndex)->_get_aim_val(), 5);
+	Info_ThirdString->SetText("Нагр.: ", true);
+	Info_FourthString->SetText("______________", false);
+	
 	
 	currentControlIndex++;
 	

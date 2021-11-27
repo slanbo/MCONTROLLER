@@ -10,7 +10,7 @@ void Lcd_WriteIndex(uint8_t Index)
 {
    LCD_CS_CLR;
    LCD_RS_CLR; 
-   HAL_SPI_Transmit(&hspi1, &Index, 1, 5000);
+   HAL_SPI_Transmit(&hspi1, &Index, 1, 0xfff);
    LCD_CS_SET;
 }
 
@@ -19,7 +19,7 @@ void Lcd_WriteData(uint8_t Data)
 {
    LCD_CS_CLR;
    LCD_RS_SET; 
-	HAL_SPI_Transmit(&hspi1, &Data, 1, 5000);
+	HAL_SPI_Transmit(&hspi1, &Data, 1, 0xfff);
    LCD_CS_SET;
 }
 
@@ -36,12 +36,10 @@ void Lcd_WriteData_16Bit(uint16_t Data)
 	LCD_CS_CLR;
 	LCD_RS_SET;
 	uint8_t fByte = Data >> 8;
-	uint8_t sByte = Data;
-	HAL_SPI_Transmit(&hspi1, &fByte, 1, 5000);
-	HAL_SPI_Transmit(&hspi1, &sByte, 1, 5000);
-	//LCD_CS_SET;
-	HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
-    //US_DELAY(100);
+	uint8_t sByte = Data & 0xFF;
+	HAL_SPI_Transmit(&hspi1, &fByte, 1, 0xfff);
+	HAL_SPI_Transmit(&hspi1, &sByte, 1, 0xfff);
+	LCD_CS_SET;
 }
 
 
@@ -134,11 +132,27 @@ void Lcd_SetRegion(uint8_t xStar, uint8_t yStar, uint8_t xEnd, uint8_t yEnd)
 	Lcd_SetXY(xStar,yStar);
 }
 
-	
+void Lcd_SetRegion_(uint16_t x_start, uint16_t y_start, uint16_t x_end, uint16_t y_end)
+{        
+	Lcd_WriteIndex(0x2a);
+	Lcd_WriteData(0x00);
+	Lcd_WriteData(x_start + 2);
+	Lcd_WriteData(0x00);
+	Lcd_WriteData(x_end + 2);
+
+	Lcd_WriteIndex(0x2b);
+	Lcd_WriteData(0x00);
+	Lcd_WriteData(y_start + 3);
+	Lcd_WriteData(0x00);
+	Lcd_WriteData(y_end + 3);
+  
+	Lcd_WriteIndex(0x2c);
+}	
 
 void Gui_DrawPoint(uint16_t x, uint16_t y, uint16_t Data)
 {
 	Lcd_SetXY(x,y);
+	//Lcd_SetRegion_(x, y, x + 1, y + 1);
 	Lcd_WriteData_16Bit(Data);
 
 }    

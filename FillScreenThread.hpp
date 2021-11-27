@@ -5,7 +5,7 @@
 #include "ModeObjectsExt.hpp"
 #include "Auxiliary.h"
 #include "string.h"
-
+#include "ScreenObjectsExt.hpp"
 
 using namespace cpp_freertos;
 using namespace std;
@@ -37,29 +37,39 @@ protected:
 	{
 		while (true)
 		{
-			strcpy(prefixStr, "");
-			addCurrentDateString(prefixStr);
-			Date_FirstPart->SetText(prefixStr, true);
+			xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+					strcpy(prefixStr, "");
+					addCurrentDateString(prefixStr);
+					Date_FirstPart->SetText(prefixStr, true);
 
-			strcpy(prefixStr, "");
-			addCurrentTimeString(prefixStr);
-			Time->SetText(prefixStr, false);
+					strcpy(prefixStr, "");
+					addCurrentTimeString(prefixStr);
+					Time->SetText(prefixStr, false);
 			
-			if (SETUP_MODE == 0)
-			{
-				Buttom_Left->SetText("Меню", true);
-				Buttom_Right->SetText("Меню", true);
-			}
-			else
-			{
-				Buttom_Left->SetText("Вверх", true);
-				Buttom_Right->SetText("Вниз", true);
-			}
+					if (SETUP_MODE == 0)
+					{
+				
+						Buttom_Left->SetText("Меню", true);
+						Buttom_Right->SetText("Меню", true);
+					}
+					else
+					{
+						Buttom_Left->SetText("Вверх", true);
+						Buttom_Right->SetText("Вниз", true);
+					}
 			
-			for (auto element : TopBottom_FirstScreen)
-				element->Render();
+					for (auto element : TopBottom_FirstScreen)
+						element->Render();
+			
+					if (SETUP_MODE == 1)
+					{
+						for (auto element : Menu_Screen)
+							element->Render();
+						
+					}
+			xSemaphoreGive(lcdmut_handle); 
+			
 
-			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

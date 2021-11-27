@@ -8,8 +8,11 @@
 #include "ScreenObjectsExt.hpp"
 #include "string.h"
 
+
+	
 using namespace cpp_freertos;
 using namespace std;
+
 
 class RenderInfoScreen : public Thread {
 
@@ -38,14 +41,14 @@ protected:
 	{
 		while (true)
 		{
-			
 			if (SETUP_MODE == 0)
 			{
-				HabitatMode->FillScreen();
-				for (auto element : Info_Screen)
+				xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+					HabitatMode->FillScreen();
+					for (auto element : Info_Screen)
 					element->Render();
-			}
-
+				xSemaphoreGive(lcdmut_handle); 
+				}
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

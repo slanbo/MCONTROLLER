@@ -31,6 +31,7 @@
 #include "FreeRTOS.h"
 #include "thread.hpp"
 #include "ticks.hpp"
+#include "semaphore.hpp"
 #include "task.h"
 #include "stm32_ds3231.h"
 #include "ds1307_for_stm32_hal.h"
@@ -115,10 +116,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++ SCREEN ELEMENTS ++++++++++++++++
 #include "ScreenObjects.hpp"
 //++++++++++++++ LCD Elements ++++++++++++++++++++
-
 #include "ADCDevObjects.hpp"
 #include "SensorObjects.hpp"
-
 //++++++++++++++++++ SOCKETS ++++++++++++++++++++++++++++++++
 #include "SocketObjects.hpp"
 //+++++++++++++++++ TIME PROFILES ++++++++++++++++++++++
@@ -133,6 +132,7 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++
 #include "MenuElementObjects.hpp"
 Menu mainMenu(&mi_0);
+
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
 #include "RenderInfoThread.hpp"
@@ -156,20 +156,24 @@ uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
 
-
 FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
 getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 6);
 RenderInfoScreen ris("ris", 2, 5, 5);
+ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 4);
 
-//RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 2);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 3);
 
 
-//ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 7);
-//processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 3);
+
 //menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 2);
 //bizzerExecuteStep bes("bes", 8, 100, 1);
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
+
+//RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 2);
+
+ SemaphoreHandle_t lcdmut_handle;
+
 
 /* USER CODE END 0 */
 
@@ -228,21 +232,21 @@ int main(void)
 	
 #endif //USE_DS1307 
 
-#ifdef USE_DS3231
+//#ifdef USE_DS3231
 	DS3231_Init(&hi2c1);
 	
-	_RTC rtc;
-	rtc.Year = 21;
-	rtc.Month = 4;
-	rtc.Date = 7;
-	rtc.Hour = 21;
-	rtc.Min = 25;
-	rtc.Sec = 0;
-	rtc.DaysOfWeek = 5;
+	//_RTC rtc;
+	//rtc.Year = 21;
+	//rtc.Month = 11;
+	//rtc.Date = 27;
+	//rtc.Hour = 22;
+	//rtc.Min = 44;
+	//rtc.Sec = 0;
+	//rtc.DaysOfWeek = 6;
 	
 	//DS3231_SetTime(&rtc);
 	
-#endif //USE_DS3231 
+//#endif //USE_DS3231 
 	
 	set_RTC_From_DS();
 		
@@ -277,9 +281,14 @@ int main(void)
 	
 	readTunesFromFlash();
 	setDefaultTuneVals();
-	HabitatMode.init();
+	HabitatMode->init();
 	
 	postInitStaticMenuElements(&mi_167);
+	
+	lcdmut_handle = xSemaphoreCreateMutex();
+	
+	//lcd_mutex.Unlock();
+	//lcd_mutex->Unlock();
 	//ControlObjectsInit();
 	//ModeObjectsInit();
 	

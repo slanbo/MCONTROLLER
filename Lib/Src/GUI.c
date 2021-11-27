@@ -419,16 +419,13 @@ uint8_t PutChangedCharsToLCD(uint8_t ix, uint8_t iy, uint16_t fc, uint16_t bc, c
 			{
 				for(uint8_t y = 0; y < fontSize; ++y)
 				{
+					endxpos = xpos + x;
+					uint16_t cc = bc;
 					if (symbol[1 + y / 8 + x * 2] & (0x01 << (y % 8)))
 					{
-						endxpos = xpos + x;
-						Gui_DrawPoint(endxpos, iy + y, fc);
+						cc = fc;
 					}
-					else
-					{
-						endxpos = xpos + x;
-						Gui_DrawPoint(endxpos, iy + y, bc);
-					}
+					Gui_DrawPoint(endxpos, iy + y, cc);
 				}
 			}
         xpos += symbol[0] + gap;

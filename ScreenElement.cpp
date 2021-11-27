@@ -93,6 +93,8 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 {
 	const char* charptr = text.c_str();
 	uint8_t lenght = 0;
+	textLenght = 0;
+	
 	if (convertToCp1251)
 	{
 		convertUtf8ToCp1251(charptr, Text);
@@ -109,9 +111,54 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 			lenght++;
 		}
 		Text[lenght + 1] = '\0';
-		textLenght = lenght + 2;
+		textLenght = lenght + 1;
 	}
 }
+
+void Text_ScreenElement::AddIntStr(int dnum, uint8_t lenght)
+{
+	char dstr[lenght];
+	
+	uint16_t udint = dnum;
+	uint16_t rsigns = 0;
+	
+	if (dnum != 0)
+	{
+		{
+			udint = udint / 10;
+			rsigns += 1;
+		}
+	
+		inttoabase10(dnum, dstr);
+	
+		uint8_t zeros = lenght - rsigns;
+		for (uint8_t i = 0; i < zeros; i++)
+		{
+			Text[textLenght - 2 + i] = ' ';
+		}
+		textLenght = textLenght - 2 + zeros;
+	
+		for (uint8_t i = 0; i < rsigns; i++)
+		{
+			Text[textLenght + i] = dstr[i];
+		}
+		textLenght = textLenght + rsigns;
+		Text[textLenght + 1] = '\0';
+		textLenght++;
+		textLenght++;
+	}
+	else
+	{
+		for (uint8_t i = 0; i < lenght; i++)
+			Text[textLenght - 2 + i] = ' ';	
+			textLenght = textLenght - 2 + lenght;
+			Text[textLenght + 1] = '\0';
+			textLenght++;
+			textLenght++;
+
+	}
+}
+
 
 /*void Text_ScreenElement::SetText(char* text, bool convertToCp1251)
 {
@@ -179,7 +226,7 @@ void Text_ScreenElement::Set_Prefix_IntVal_Postfix_Text(std::string prefix,
 			}
 		Text[lenght + 1] = '\0';
 		textLenght = lenght + 2;
-			}
+		}
 }
 
 Rect_ScreenElement::Rect_ScreenElement(uint8_t left_x, 

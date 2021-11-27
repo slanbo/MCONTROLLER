@@ -4,6 +4,7 @@
 
 #include "ScreenElement.hpp"
 #include <vector>
+#include "mutex.hpp"
 
 extern Text_ScreenElement* Date_FirstPart;
 extern Text_ScreenElement* Date_SecondPart;
@@ -40,5 +41,8 @@ extern std::vector<BaseScreenElement*> Menu_Screen_Selected;
 void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x, uint8_t &top_y, uint8_t &right_x, uint8_t &bottom_y);
 
 extern char prefixStr[16];
+
+//extern cpp_freertos::MutexStandard* lcd_mutex;
+extern SemaphoreHandle_t lcdmut_handle;
 
 #endif

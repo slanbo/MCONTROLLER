@@ -5,6 +5,8 @@
 #include "Lcd_Driver.h"
 #include <vector>
 #include "LCDFonts.hpp"
+#include "mutex.hpp"
+
 
 
 #define VERTICAL_SCREEN_SIZE 130
@@ -161,5 +163,12 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 }
 
 char prefixStr[16];
+
+//void* mutptr = pvPortMalloc(sizeof(cpp_freertos::MutexStandard));
+
+
+//cpp_freertos::MutexStandard* lcd_mutex =   new(mutptr)cpp_freertos::MutexStandard();
+
+
 
 //#endif

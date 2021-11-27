@@ -7,6 +7,7 @@
 #include "ScreenObjectsExt.hpp"
 #include "SensorObjectsExt.hpp"
 #include "NTC_10K_B3950.hpp"
+#include "Auxiliary.h"
 
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune)
@@ -203,10 +204,19 @@ void SensorsSocketsControl::ExecuteStep()
 void SensorsSocketsControl::FillScreen()
 {
 	Info_SubHeader->SetText(Name, false);
-	Info_FirstString->Set_Prefix_IntVal_Postfix_Text("Текущ.: ", _get_current_val(), 5, CO, true);
-	Info_SecondString->Set_Prefix_IntVal_Postfix_Text("Целев.: ", _get_aim_val(), 5, CO, true);
-	Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
-	Info_FourthString->SetText("****************", false);
+	
+	//Info_FirstString->Set_Prefix_IntVal_Postfix_Text("Текущ.: ", _get_current_val(), 5, CO, true);
+	//Info_SecondString->Set_Prefix_IntVal_Postfix_Text("Целев.: ", _get_aim_val(), 5, CO, true);
+	//Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("Нагр.(ВТ): ", 10, 4, "", true);
+	//Info_FourthString->SetText("------", false);
+	
+	
+	
+	//Info_FirstString->Set_Prefix_IntVal_Postfix_Text("Now.: ", 10, 5, CO, false);
+	//Info_SecondString->Set_Prefix_IntVal_Postfix_Text("Aim.: ", 10, 5, CO, false);
+	//Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("VT : ", 10, 4, "", false);
+	
+	
 	
 }
 

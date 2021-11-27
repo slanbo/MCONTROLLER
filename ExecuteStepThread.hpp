@@ -42,7 +42,7 @@ protected:
 				//if (motionControl.isOn())
 				//	motionControl.ExecuteStep();
 				
-				HabitatMode.ExecuteStep();
+				HabitatMode->ExecuteStep();
 				//IRMSensor.ExecuteStep();
 				
 				//DryingMode.ExecuteStep();

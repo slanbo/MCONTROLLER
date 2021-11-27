@@ -34,6 +34,8 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 	
+	
+	
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -159,10 +161,13 @@ void Error_Handler(void);
 #define INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 2
 #define OCJECT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 3
 	
+	
+	
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
+
 #endif
 
 #endif /* __MAIN_H */

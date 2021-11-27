@@ -68,6 +68,7 @@ class Habitat : public ControlsMode
 	
 	std::vector<SensorsSocketsControl*> controlsVector;
 
+	uint8_t currentControlIndex = 0;
 	
 	//~Habitat();
 	
@@ -76,7 +77,6 @@ class Habitat : public ControlsMode
 	
 	private:
 	
-	uint8_t currentControlIndex = 0;
 };
 
 class Drying : public ControlsMode
