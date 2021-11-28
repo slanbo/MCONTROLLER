@@ -50,13 +50,21 @@ Habitat::Habitat(uint16_t ID,
 
 void Habitat::FillScreen()
 {
-	Info_Header->SetText(Name, true);
+	char blank[2] = { ' ', 0};
+	
+	Info_Header->SetText(Name, false);
 	//controlsVector.at(currentControlIndex)->FillScreen();
-	Info_SubHeader->SetText(controlsVector.at(currentControlIndex)->Name, true);
-	Info_FirstString->SetText("Текущ.: ", true);
-	Info_FirstString->AddIntStr(controlsVector.at(currentControlIndex)->_get_current_val(), 5);
-	Info_SecondString->SetText("Целев.: ", true);
-	Info_SecondString->AddIntStr(controlsVector.at(currentControlIndex)->_get_aim_val(), 5);
+	Info_SubHeader->SetText(controlsVector.at(currentControlIndex)->Name, false);
+	
+	Info_FirstString->SetText("Тек.: ", true);
+	Info_FirstString->AddIntStr(controlsVector.at(currentControlIndex)->_get_current_val(), 4);
+	Info_FirstString->AddChars(blank);
+	Info_FirstString->AddChars(controlsVector.at(currentControlIndex)->GetSensorsUnit());
+		
+	Info_SecondString->SetText("Цель: ", true);
+	Info_SecondString->AddIntStr(controlsVector.at(currentControlIndex)->_get_aim_val(), 4);
+	Info_SecondString->AddChars(controlsVector.at(currentControlIndex)->GetSensorsUnit());
+	
 	Info_ThirdString->SetText("Нагр.: ", true);
 	Info_FourthString->SetText("______________", false);
 	
@@ -97,7 +105,7 @@ void Habitat::init()
 	
 	airTempControl = new (atcptr) SensorsSocketsControl
 		(
-		"air control", 
+		"Температура:", 
 		&airTempControlOnOffTune,
 		&airTempControlSensors,
 		&airTempControlUpSockets,
@@ -107,7 +115,7 @@ void Habitat::init()
 	
 	coControl = new SensorsSocketsControl
 		(
-		"CO control", 
+		"Газ:", 
 		&coControlOnOffTune,
 		&COControlSensors,
 		&COControlUpSockets,
@@ -118,7 +126,7 @@ void Habitat::init()
 	
 	lightControl = new SensorsSocketsControl
 		(
-		"Light control", 
+		"Освещение:", 
 		&lightControlOnOffTune,
 		&lightControlSensors,
 		&lightControlUpSockets,

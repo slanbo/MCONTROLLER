@@ -45,8 +45,16 @@ protected:
 			{
 				xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 					HabitatMode->FillScreen();
-					for (auto element : Info_Screen)
-					element->Render();
+					//for (auto element : Info_Screen)
+					//element->Render();
+					Info_Header->Render();
+					Info_Header_Border->Render();
+					Info_SubHeader->Render();
+					Info_FirstString->Render();
+					Info_SecondString->Render();
+					Info_ThirdString->Render();
+					Info_FourthString->Render();
+				
 				xSemaphoreGive(lcdmut_handle); 
 				}
 			

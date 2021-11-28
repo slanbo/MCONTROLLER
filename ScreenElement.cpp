@@ -97,7 +97,7 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 	
 	if (convertToCp1251)
 	{
-		convertUtf8ToCp1251(charptr, Text);
+	convertUtf8ToCp1251(charptr, Text);
 	while (Text[lenght] != 0)
 		lenght++;
 	textLenght = lenght + 1;
@@ -115,6 +115,28 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 	}
 }
 
+void Text_ScreenElement::AddChars(const char* charptr)
+{
+	uint8_t lenght = 0;
+	while (charptr[lenght] != 0)
+		lenght++;
+	
+	uint8_t tlenght = 0;
+	while (Text[tlenght] != 0)
+		tlenght++;
+	
+	uint8_t i = 0;
+	while (charptr[i] != 0)
+		{
+			Text[tlenght + i - 1] = charptr[i];
+			i++;
+		}
+		Text[tlenght + lenght + 1] = '\0';
+		textLenght = tlenght + lenght;
+
+}
+
+
 void Text_ScreenElement::AddIntStr(int dnum, uint8_t lenght)
 {
 	char dstr[lenght];
@@ -124,9 +146,10 @@ void Text_ScreenElement::AddIntStr(int dnum, uint8_t lenght)
 	
 	if (dnum != 0)
 	{
+		while (udint > 0)
 		{
 			udint = udint / 10;
-			rsigns += 1;
+			rsigns ++;
 		}
 	
 		inttoabase10(dnum, dstr);
@@ -158,30 +181,6 @@ void Text_ScreenElement::AddIntStr(int dnum, uint8_t lenght)
 
 	}
 }
-
-
-/*void Text_ScreenElement::SetText(char* text, bool convertToCp1251)
-{
-	uint8_t lenght = 0;
-	if (convertToCp1251)
-	{
-		convertUtf8ToCp1251(text, Text);
-	while (Text[lenght] != 0)
-		lenght++;
-	textLenght = lenght + 1;
-	}
-
-	else
-	{
-		while (text[lenght] != 0)
-		{
-			Text[lenght] = text[lenght];
-			lenght++;
-		}
-		Text[lenght + 1] = '\0';
-	textLenght = lenght + 2;
-	}
-}*/
 
 void Text_ScreenElement::Set_Prefix_IntVal_Postfix_Text(std::string prefix,
 	uint16_t intVal, uint8_t untValLenght, std::string postfix, bool convertToCp1251)

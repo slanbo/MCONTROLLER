@@ -103,6 +103,8 @@ public:
 	virtual void _set_aim_val(uint16_t val);
 	virtual void _set_current_val(uint16_t val);
 	
+	virtual char* GetSensorsUnit();
+	
 private:
 	
 	

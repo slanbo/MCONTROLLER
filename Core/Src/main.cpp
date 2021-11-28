@@ -43,27 +43,6 @@
 #include "MenuClass.hpp"
 
 
-/*#include "MenuElement.hpp"
-#include "MenuElements.hpp"
-
-
-#include "MQ7.h"
-#include "NTC_10K_B3950.hpp"
-#include "IRMotionSensor.h"
-#include "LightSensor.h"
-#include "TimeProfile.hpp"
-#include "TempPause.hpp"
-
-#include "MotionControl.hpp"
-#include "DateControl.hpp"
-#include "TempControl.hpp"
-#include "LightControl.hpp"
-#include "COControl.hpp"
-#include "MashingControl.hpp"
-#include "BoilingControl.hpp"
-#include "MixControl.hpp"
-#include "HumidityControl.hpp"*/
-
 #include "Font.h"
 #include "LCDFonts.hpp"
 
@@ -102,8 +81,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-char CO[3] = { 67, 176, 0 };
-
 
 uint8_t SETUP_MODE = 0;     // 
 Bizzer alarmBizzer("Aloarm bizzer", BIZZER_GPIO_Port, BIZZER_Pin);
@@ -131,7 +108,6 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 
 //++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++
 #include "MenuElementObjects.hpp"
-Menu mainMenu(&mi_0);
 
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
@@ -160,20 +136,16 @@ FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
 getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 6);
 RenderInfoScreen ris("ris", 2, 5, 5);
 ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 4);
-
 processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 3);
+menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+bizzerExecuteStep bes("bes", 8, 100, 1);
 
-
-
-//menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
-//MotionDetection md("md", 7, EXECUTE_STEP_PERIOD_SEC, 2);
-//bizzerExecuteStep bes("bes", 8, 100, 1);
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 
-//RenderTopBottomScreen rtbs("rtbs", 3, EXECUTE_STEP_PERIOD_SEC, 2);
 
  SemaphoreHandle_t lcdmut_handle;
 
+ Menu mainMenu(&mi_0);
 
 /* USER CODE END 0 */
 

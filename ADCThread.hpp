@@ -49,6 +49,8 @@ protected:
 
 			HAL_ADCEx_InjectedStop(&hadc1);
 			
+			IRMSensor.ExecuteStep();
+			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

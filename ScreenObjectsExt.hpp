@@ -35,6 +35,8 @@ extern Text_ScreenElement* Menu_PrevString;
 extern Text_ScreenElement* Menu_CurrentString;
 extern Rect_ScreenElement* Menu_CurrentScreen_Border;
 extern Text_ScreenElement* Menu_NextString;
+extern Rect_ScreenElement* Menu_Header_Border;
+
 extern std::vector<BaseScreenElement*> Menu_Screen;
 extern std::vector<BaseScreenElement*> Menu_Screen_Selected; 
 

@@ -6,9 +6,13 @@
 #include "Auxiliary.h"
 #include "string.h"
 #include "ScreenObjectsExt.hpp"
+#include "MenuClass.hpp"
+
 
 using namespace cpp_freertos;
 using namespace std;
+
+extern Menu mainMenu;
 
 class FillScreen : public Thread {
 
@@ -63,8 +67,17 @@ protected:
 			
 					if (SETUP_MODE == 1)
 					{
-						for (auto element : Menu_Screen)
-							element->Render();
+						mainMenu.FillScreen();
+						//for (auto element : Menu_Screen)
+						//	element->Render();
+						
+						Menu_Header->Render();
+						Menu_SubHeader->Render();
+						Menu_PrevString->Render();
+						Menu_CurrentString->Render();
+						Menu_NextString->Render();
+						Menu_CurrentScreen_Border->Render();
+						Menu_Header_Border->Render();
 						
 					}
 			xSemaphoreGive(lcdmut_handle); 
