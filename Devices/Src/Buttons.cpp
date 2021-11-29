@@ -1,21 +1,21 @@
 #include "Buttons.hpp"
 #include "MenuClass.hpp"
 
-extern Menu mainMenu;
+extern Menu* mainMenu;
 
 void leftButton_Short_Press::processButtonPress()
 {
-	mainMenu.moveCurrentToPrev();
+	mainMenu->moveCurrentToPrev();
 }
 
 void rightButton_Short_Press::processButtonPress()
 {
-	mainMenu.moveCurrentToNext();
+	mainMenu->moveCurrentToNext();
 }
 
 void leftButton_Long_Press::processButtonPress()
 {
-	mainMenu.moveCurrentToParent();
+	mainMenu->moveCurrentToParent();
 }
 
 void leftButton_Long_Long_Press::processButtonPress()
@@ -24,8 +24,8 @@ void leftButton_Long_Long_Press::processButtonPress()
 
 void rightButton_Long_Press::processButtonPress()
 {
-	mainMenu.CurrentItemBase->invokeDownLongPress();
-	mainMenu.moveCurrentToChild();
+	mainMenu->CurrentItemBase->invokeDownLongPress();
+	mainMenu->moveCurrentToChild();
 }
 
 void rightButton_Long_Long_Press::processButtonPress()

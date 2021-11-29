@@ -22,16 +22,12 @@ std::vector<ControlBase *> DryingControls = {
 ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
 */
 
-Habitat* HabitatMode = new Habitat(1, "Контр. среды");
+//ModeBase* CurrentMode = nullptr;
+Habitat* HabitatMode = nullptr;
 
-std::vector<ModeBase *> Modes = { HabitatMode };
+//Habitat* HabitatMode = new Habitat(1, "Контр. среды");
+//std::vector<ModeBase *> Modes = { HabitatMode };
 
 void ModeObjectsInit()
 {
-	uint8_t counter = 0;
-	for (auto mode : Modes)
-	{
-		//mode->init(counter);
-		counter++;
-	}
 }

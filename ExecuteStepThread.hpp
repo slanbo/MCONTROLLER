@@ -33,20 +33,33 @@ protected:
 		while (true)
 		{
 			
+	//		xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+
 			if (SETUP_MODE == 0)
 			{
-				//if (delayBeginControl.isOn())
-				//	delayBeginControl.ExecuteStep();
-				//if (delayEndControl.isOn())
-				//	delayEndControl.ExecuteStep();
-				//if (motionControl.isOn())
-				//	motionControl.ExecuteStep();
+				switch (modeIndex._getVal())
+				{
+				case 0:
+					{
+						//Habitat* HabitatMode = (Habitat*)CurrentMode;
+						//HabitatMode->ExecuteStep();
+						//break;
+					}
+				default:
+					{
+						//Habitat* HabitatMode = (Habitat*)CurrentMode;
+						//HabitatMode->ExecuteStep();
+						//break;
+					}
+				}
+				;
 				
-				HabitatMode->ExecuteStep();
-				//IRMSensor.ExecuteStep();
+			HabitatMode->ExecuteStep();
 				
-				//DryingMode.ExecuteStep();
 			}
+			
+			//xSemaphoreGive(lcdmut_handle); 
+			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

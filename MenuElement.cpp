@@ -146,9 +146,12 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t maxVal, 
 	uint16_t step, 
 	intTune* tune)
-	: MenuElementBase(name,
-	parentItem, 
-	prevInListItem)
+	: MenuElement(parentItem, prevInListItem, name)
+	, InitVal(initVal)
+	, MinVal(minVal)
+	, MaxVal(maxVal)
+	, Step(step) 
+	
 {
 	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
 }
@@ -162,9 +165,11 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t step, 
 	intTune* tune, 
 	IntParamItemLPfnc downLongPressFnc)
-	: MenuElementBase(name,
-	parentItem, 
-	prevInListItem)
+	: MenuElement(parentItem, prevInListItem, name, downLongPressFnc, 0, tune),
+	InitVal(initVal), 
+	MinVal(minVal), 
+	MaxVal(maxVal), 
+	Step(step) 
 {
 	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
 }
@@ -173,4 +178,70 @@ void MenuElementBase::fillTextScreenElement(Text_ScreenElement* element)
 {
 	element->SetText(Name, true);
 	element->selected = selected;
+}
+
+
+void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
+{
+	element->SetText(Name, true);
+	if (Tune != nullptr)
+	{
+		if (Tune->_getVal() == Parametr)
+			element->selected = true;
+		else
+			element->selected = false;		
+	}
+	else
+		element->selected = false;		
+		}
+
+
+void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
+{
+	if (State == 0)
+		base:fillTextScreenElement(element);
+	else
+		
+		if(Parametr - Step >= MinVal) 
+			Menu_PrevString->AddIntStr(Parametr - Step, true);
+	   else
+			Menu_PrevString->AddIntStr(MaxVal, true);
+	
+		Menu_CurrentString->AddIntStr(Parametr, 3);
+	
+	if (Parametr + Step <= MaxVal) 
+		Menu_NextString->AddIntStr(Parametr + Step, true);
+	else
+		Menu_NextString->AddIntStr(MinVal, true);
+	}
+
+
+MenuElementBase* MenuElementIntSelector::GetPrevItem()
+{
+	if (State == 0)
+	{
+		if (Parametr - Step >= MinVal) 
+			Parametr = 	Parametr - Step;
+		else
+			Parametr = 	MaxVal;
+		return this;
+	}
+	else
+		return PrevItem;
+}
+
+
+MenuElementBase* MenuElementIntSelector::GetNextItem()
+{
+	if (State == 0)
+	{
+		if (Parametr + Step <= MaxVal) 
+			Parametr = Parametr + Step;
+		else
+			Parametr = MinVal;
+		return this;
+	}
+	else
+		return NextItem;
+
 }

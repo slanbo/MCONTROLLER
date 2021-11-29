@@ -131,21 +131,23 @@ uint8_t rightButtonLongPressCounter = 0;
 uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
+FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 2);
+getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 1);
+RenderInfoScreen ris("ris", 2, 5, 1);
+ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 1);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 1);
+//static menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
+//static bizzerExecuteStep bes("bes", 8, 100, 1);
 
-FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
-getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 6);
-RenderInfoScreen ris("ris", 2, 5, 5);
-ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 4);
-processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 3);
-menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
-bizzerExecuteStep bes("bes", 8, 100, 1);
 
 //PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 
 
  SemaphoreHandle_t lcdmut_handle;
 
- Menu mainMenu(&mi_0);
+
+ Menu* mainMenu;
+
 
 /* USER CODE END 0 */
 
@@ -253,11 +255,29 @@ int main(void)
 	
 	readTunesFromFlash();
 	setDefaultTuneVals();
-	HabitatMode->init();
 	
 	postInitStaticMenuElements(&mi_167);
 	
 	lcdmut_handle = xSemaphoreCreateMutex();
+	
+	switch (modeIndex._getVal())
+	{
+	case 0:
+		{
+			void* hptr = pvPortMalloc(sizeof(Habitat));
+			HabitatMode = new (hptr)Habitat(0, "Контр. среды");
+			break;
+		}
+	default:
+		{
+			void* hptr = pvPortMalloc(sizeof(Habitat));
+			HabitatMode = new(hptr)Habitat(0, "Контр. среды");
+			break;
+		}
+	}
+	;
+	
+	mainMenu = new Menu(&mi_0);
 	
 	//lcd_mutex.Unlock();
 	//lcd_mutex->Unlock();

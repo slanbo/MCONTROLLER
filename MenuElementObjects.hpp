@@ -53,9 +53,9 @@ MenuElement mi_26(&mi_21, &mi_25, "Нижняя розетка");
 MenuElementIntSelector mi_27(&mi_26, &mi_26, "Подключ. мощн.", 1, 0, 9000, 100, &downSocketLoadPower, setDownSocketLoadPower);
 	
 //Контроль среды
-MenuElement mi_28(&mi_3, &mi_27, "Температ. возд.");
-MenuElement mi_29(&mi_3, &mi_28, "Температ. бат.");
-MenuElement mi_30(&mi_3, &mi_29, "Угарный газ");
+MenuElement mi_28(&mi_3, &mi_27, "Темп. возд.");
+MenuElement mi_29(&mi_3, &mi_28, "Темп. бат.");
+MenuElement mi_30(&mi_3, &mi_29, "Угарн. газ");
 MenuElement mi_31(&mi_3, &mi_30, "Освещенность");
 
 //"Температ. возд."
@@ -109,7 +109,7 @@ MenuElement mi_60(&mi_58, &mi_59, "Выключить", 0, &lightControlOnOffTun
 
 //приготовление пива
 //mashing
-MenuElement mi_63(&mi_4, &mi_60, "Температ. паузы", 0, &beerModeIndex);
+MenuElement mi_63(&mi_4, &mi_60, "Темп. паузы", 0, &beerModeIndex);
 	
 //mashing Pause 1
 MenuElement mi_64(&mi_63, &mi_63, "Пауза 1");

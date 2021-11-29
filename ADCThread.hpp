@@ -34,6 +34,7 @@ protected:
 	virtual void Run() {
 		while (true)
 		{
+			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			
 			HAL_ADCEx_InjectedStart(&hadc1);		
 			HAL_ADC_PollForConversion(&hadc1, 100);
@@ -50,6 +51,9 @@ protected:
 			HAL_ADCEx_InjectedStop(&hadc1);
 			
 			IRMSensor.ExecuteStep();
+			
+			//xSemaphoreGive(lcdmut_handle); 
+
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

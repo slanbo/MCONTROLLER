@@ -93,20 +93,23 @@ public:
 	
 	virtual void saveParametr();
 	
+	virtual void fillTextScreenElement(Text_ScreenElement* element);
+
+	
 	intTune* Tune = nullptr;
 	uint16_t Parametr;
 	
 protected:	
 	IntParamItemLPfnc DownLongPressFnc = nullptr;
 
-	
+		
 private:
 	void invokeLongPress();
 };
 
 //menu int selector
 
-class MenuElementIntSelector : public MenuElementBase
+class MenuElementIntSelector : public MenuElement
 {
 public:
 	
@@ -130,6 +133,21 @@ public:
 		uint16_t step,
 		intTune* tune,
 		IntParamItemLPfnc downLongPressFnc);
+	
+	uint8_t State = 0;
+	
+	virtual void fillTextScreenElement(Text_ScreenElement* element);
+	virtual MenuElementBase* GetPrevItem();
+	virtual MenuElementBase* GetNextItem();	
+	
+protected:
+	
+	uint16_t InitVal; 
+	uint16_t MinVal; 
+	uint16_t MaxVal; 
+	uint16_t Step; 
+
+	
 }
 ;
 

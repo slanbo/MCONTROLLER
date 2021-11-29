@@ -203,24 +203,13 @@ void SensorsSocketsControl::ExecuteStep()
 
 void SensorsSocketsControl::FillScreen()
 {
-}
-
-void SensorsSocketsControl::_fillVector(std::vector<BaseObject*> &vectorOut, std::vector<BaseObject*> &vectorIn, IntVectorTune* tune)
-{
 	
-	vectorOut.clear();
-	for (auto inItem : vectorIn)
-		for (auto tuneval : tune->val)
-			if (tuneval == inItem->_getId())
-				vectorOut.push_back(inItem);
 }
-
 
 uint16_t SensorsSocketsControl::_get_aim_val()
 {
 	return aim_val;
 }
-
 
 uint16_t SensorsSocketsControl::_get_current_val()
 {
@@ -244,4 +233,10 @@ bool SensorsSocketsControl::isActive()
 char* SensorsSocketsControl::GetSensorsUnit()
 {
 	return SensorsVector.at(0)->UNITS;
+}
+
+
+SensorsSocketsControl::~SensorsSocketsControl()
+{
+	
 }

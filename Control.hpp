@@ -91,11 +91,11 @@ public:
 		intTune* timeProfileTune,
 		DatePeriodValuesCollection* dpvcollection);
 	
+	~SensorsSocketsControl();
+	
 	virtual void ExecuteStep();
 	virtual void FillScreen();
 	virtual bool isActive();
-	
-	void _fillVector(std::vector<BaseObject*> &vectorOut, std::vector<BaseObject*> &vectorIn, IntVectorTune* tune);
 	
 	virtual uint16_t _get_aim_val();
 	virtual uint16_t _get_current_val();

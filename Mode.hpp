@@ -70,7 +70,7 @@ class Habitat : public ControlsMode
 
 	uint8_t currentControlIndex = 0;
 	
-	//~Habitat();
+	~Habitat();
 	
 	protected:
 	

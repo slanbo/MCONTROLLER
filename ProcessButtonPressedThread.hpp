@@ -5,9 +5,11 @@
 #include "Buttons.hpp"
 #include "MenuClass.hpp"
 #include "Auxiliary.h"
+#include "Mode.hpp"
+#include "ModeObjectsExt.hpp"
 
 
-extern Menu mainMenu;
+extern Menu* mainMenu;
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
 
 using namespace cpp_freertos;
@@ -42,6 +44,8 @@ protected:
 	{
 		while (true)
 		{
+			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+
 			bool processed = false;
 			// pressed both buttons - change settings mode
 			if(SETUP_MODE != 0 & bothButtonsPressCounter > 0)
@@ -51,19 +55,18 @@ protected:
 				Buttom_Right->SetText("Mеню", true);
 				set_DS_From_RTC();
 				bothButtonsPressCounter -= 1;
-				mainMenu.clearLCD();
+				mainMenu->clearLCD();
 			}
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 1;
-				Buttom_Left->SetText( "Верх", true);
-				Buttom_Right->SetText( "Вниз", true);
-				mainMenu.CurrentItemBase = &mi_0;
+				Buttom_Left->SetText("Верх", true);
+				Buttom_Right->SetText("Вниз", true);
+				mainMenu->CurrentItemBase = &mi_0;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;
 			}
-			
 			if (SETUP_MODE == 1)
 			{
 				if (leftButtonShortPressCounter > 0)
@@ -117,13 +120,12 @@ protected:
 			{
 			}
 			
+			//xSemaphoreGive(lcdmut_handle); 
+			
+				
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);
 		}
-	}
-	;
-	
-
+	};
 };
-

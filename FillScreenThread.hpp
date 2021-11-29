@@ -12,7 +12,7 @@
 using namespace cpp_freertos;
 using namespace std;
 
-extern Menu mainMenu;
+extern Menu* mainMenu;
 
 class FillScreen : public Thread {
 
@@ -67,7 +67,7 @@ protected:
 			
 					if (SETUP_MODE == 1)
 					{
-						mainMenu.FillScreen();
+						mainMenu->FillScreen();
 						//for (auto element : Menu_Screen)
 						//	element->Render();
 						
