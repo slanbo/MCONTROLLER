@@ -134,7 +134,6 @@ public:
 		intTune* tune,
 		IntParamItemLPfnc downLongPressFnc);
 	
-	uint8_t State = 0;
 	
 	virtual void fillTextScreenElement(Text_ScreenElement* element);
 	virtual MenuElementBase* GetPrevItem();

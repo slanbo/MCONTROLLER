@@ -16,14 +16,7 @@ void Menu::moveCurrentToChild()
 {
 	if (CurrentItemBase->ChildItem != nullptr)
 	{
-		if (CurrentItemBase->MenuElementTypeIndex == MENU_ELEMENT_TYPE_INDEX)
 			CurrentItemBase = CurrentItemBase->ChildItem;
-		else if (CurrentItemBase->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
-		{
-			MenuElementIntSelector* intSelector = (MenuElementIntSelector*)CurrentItemBase;
-			if (intSelector->State = 0)
-				intSelector->State = 1;
-		}
 	}	
 	else
 	{
@@ -39,17 +32,7 @@ void Menu::moveCurrentToParent()
 	CurrentItemBase->selected = false;
 	if (CurrentItemBase->ParentItem != nullptr)
 	{
-		if (CurrentItemBase->MenuElementTypeIndex == MENU_ELEMENT_TYPE_INDEX)
-		CurrentItemBase = CurrentItemBase->ParentItem;
-		else if (CurrentItemBase->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
-		{
-			MenuElementIntSelector* intSelector = (MenuElementIntSelector*)CurrentItemBase;
-			if (intSelector->State = 1)
-				intSelector->State = 0;
-			else
-				CurrentItemBase = CurrentItemBase->ParentItem;
-		}
-		
+			CurrentItemBase = CurrentItemBase->ParentItem;
 	}
 }
 
@@ -119,9 +102,6 @@ void Menu::FillScreen()
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
 		{
-			MenuElementIntSelector* PrevItem = (MenuElementIntSelector*)CurrentItemBase->PrevItem;
-			if (PrevItem->State == 0)
-			PrevItem->fillTextScreenElement(Menu_PrevString);
 			break;
 		}
 	default:
@@ -142,9 +122,6 @@ void Menu::FillScreen()
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
 		{
-			MenuElementIntSelector* NextItem = (MenuElementIntSelector*)CurrentItemBase->NextItem;
-			if (NextItem->State == 0)
-			NextItem->fillTextScreenElement(Menu_NextString);
 			break;
 		}
 	default:

@@ -161,7 +161,7 @@ void Error_Handler(void);
 #define INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 2
 #define OCJECT_SELECTOR_MENU_ELEMENT_TYPE_INDEX 3
 	
-	
+#define SHOW_INFO_PERIOD_SEC 5	
 	
 /* USER CODE END Private defines */
 

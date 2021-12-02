@@ -59,7 +59,7 @@ MenuElement mi_30(&mi_3, &mi_29, "Угарн. газ");
 MenuElement mi_31(&mi_3, &mi_30, "Освещенность");
 
 //"Температ. возд."
-MenuElement mi_32(&mi_28, &mi_31, "Фиксированная t", 3, &airTempProfileIndex);
+MenuElement mi_32(&mi_28, &mi_31, "Фиксир. t", 3, &airTempProfileIndex);
 MenuElementIntSelector mi_33(&mi_32, &mi_32, "Знач. температуры", 0, 0, 35, 1, &airFixTemp);
 	
 MenuElement mi_34(&mi_28, &mi_33, "Присутствие", 0, &airTempProfileIndex);

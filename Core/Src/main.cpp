@@ -131,11 +131,17 @@ uint8_t rightButtonLongPressCounter = 0;
 uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
-FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 2);
-getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 1);
-RenderInfoScreen ris("ris", 2, 5, 1);
-ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 1);
-processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 1);
+uint8_t showInfoCounter = 0;
+
+RenderInfoScreen ris("ris", 2, EXECUTE_STEP_PERIOD_SEC, 7);
+FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
+
+
+ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 5);
+//processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
+getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
+
+
 //static menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 //static bizzerExecuteStep bes("bes", 8, 100, 1);
 
@@ -258,26 +264,14 @@ int main(void)
 	
 	postInitStaticMenuElements(&mi_167);
 	
-	lcdmut_handle = xSemaphoreCreateMutex();
 	
-	switch (modeIndex._getVal())
-	{
-	case 0:
-		{
-			void* hptr = pvPortMalloc(sizeof(Habitat));
-			HabitatMode = new (hptr)Habitat(0, "Контр. среды");
-			break;
-		}
-	default:
-		{
-			void* hptr = pvPortMalloc(sizeof(Habitat));
-			HabitatMode = new(hptr)Habitat(0, "Контр. среды");
-			break;
-		}
-	}
-	;
+	void* hptr = pvPortMalloc(sizeof(Habitat));
+	HabitatMode = new (hptr)Habitat(0, "Контр. среды");
 	
 	mainMenu = new Menu(&mi_0);
+	
+	lcdmut_handle = xSemaphoreCreateMutex();
+	
 	
 	//lcd_mutex.Unlock();
 	//lcd_mutex->Unlock();

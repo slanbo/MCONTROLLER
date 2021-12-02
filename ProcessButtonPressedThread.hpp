@@ -44,10 +44,9 @@ protected:
 	{
 		while (true)
 		{
+			
 			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
-
 			bool processed = false;
-			// pressed both buttons - change settings mode
 			if(SETUP_MODE != 0 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 0;
@@ -62,7 +61,7 @@ protected:
 				SETUP_MODE = 1;
 				Buttom_Left->SetText("Верх", true);
 				Buttom_Right->SetText("Вниз", true);
-				mainMenu->CurrentItemBase = &mi_0;
+				mainMenu->CurrentItemBase = &mi_32;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;
@@ -119,7 +118,6 @@ protected:
 			if (processed)
 			{
 			}
-			
 			//xSemaphoreGive(lcdmut_handle); 
 			
 				

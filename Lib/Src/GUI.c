@@ -401,7 +401,7 @@ void PutStringToLCD(uint8_t ix, uint8_t iy,  uint16_t fc, uint16_t bc, char* iSt
 
 uint8_t PutChangedCharsToLCD(uint8_t ix, uint8_t iy, uint16_t fc, uint16_t bc, char* iString, uint8_t iLength, const uint8_t* fontRus, const uint8_t* fontEng, uint8_t fontSize, uint8_t gap)
 {
-	iLength--;
+	//iLength--;
     uint8_t xpos = ix;
 	uint8_t foundChanged = 0; 
 	uint8_t endxpos = ix;

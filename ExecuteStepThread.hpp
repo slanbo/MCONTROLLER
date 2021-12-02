@@ -32,32 +32,11 @@ protected:
 	virtual void Run() {
 		while (true)
 		{
-			
-	//		xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
-
+			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			if (SETUP_MODE == 0)
 			{
-				switch (modeIndex._getVal())
-				{
-				case 0:
-					{
-						//Habitat* HabitatMode = (Habitat*)CurrentMode;
-						//HabitatMode->ExecuteStep();
-						//break;
-					}
-				default:
-					{
-						//Habitat* HabitatMode = (Habitat*)CurrentMode;
-						//HabitatMode->ExecuteStep();
-						//break;
-					}
-				}
-				;
-				
-			HabitatMode->ExecuteStep();
-				
+				HabitatMode->ExecuteStep();
 			}
-			
 			//xSemaphoreGive(lcdmut_handle); 
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

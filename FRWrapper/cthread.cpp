@@ -46,8 +46,6 @@ using namespace cpp_freertos;
 
 volatile bool Thread::SchedulerActive = false;
 MutexStandard Thread::StartGuardLock;
-
-
 //
 //  We want to use C++ strings. This is the default.
 //
@@ -78,7 +76,6 @@ Thread::Thread( uint16_t usStackDepth,
     delayUntilInitialized = false;
 #endif
 }
-
 //
 //  We do not want to use C++ strings. Fall back to character arrays.
 //

@@ -120,10 +120,10 @@ void TempPause::FillScreen()
 	Info_FirstString->SetText(prefixStr, true);
 	
 	uint16_t stay_on_min = (uint16_t)(Steps_StayOn * EXECUTE_STEP_PERIOD_SEC) / 60;
-	Info_SecondString->Set_Prefix_IntVal_Postfix_Text("Выполнено: ", stay_on_min, 3, "",true);
+	//Info_SecondString->Set_Prefix_IntVal_Postfix_Text("Выполнено: ", stay_on_min, 3, "",true);
 	
 	uint16_t temp = getCurrentTemp();
-	Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("Тек. t: ", temp, 3, CO, true);
+	//Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("Тек. t: ", temp, 3, CO, true);
 }
 
 

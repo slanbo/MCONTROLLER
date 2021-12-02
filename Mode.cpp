@@ -85,16 +85,6 @@ Habitat::Habitat(uint16_t ID,
 		&lightControlTimeProfile,
 		dpvc);
 	
-	/*batTempControl = new SensorsSocketsControl
-		(
-		"bat control", 
-		&batTempControlOnOffTune,
-		&batTempControlSensors,
-		&batTempControlUpSockets,
-		&batTempControlDownSockets,
-		&batTempControlTimeProfile,
-		createBatTempTimeProfile);*/
-	
 	controlsVector.push_back(airTempControl);
 	controlsVector.push_back(coControl);
 	controlsVector.push_back(lightControl);
@@ -109,24 +99,37 @@ Habitat::~Habitat()
 
 void Habitat::FillScreen()
 {
-	char blank[2] = { ' ', 0};
+	
+	Info_Header->ClearText();
+	Info_SubHeader->ClearText();
+	Info_FirstString->ClearText();
+	Info_SecondString->ClearText();
+	Info_ThirdString->ClearText();
+	Info_FourthString->ClearText();
 	
 	Info_Header->SetText(Name, false);
-	//controlsVector.at(currentControlIndex)->FillScreen();
+	Info_Header->FillEndBySpaces();
+	
 	Info_SubHeader->SetText(controlsVector.at(currentControlIndex)->Name, false);
+	Info_SubHeader->FillEndBySpaces();
 	
-	Info_FirstString->SetText("Тек.: ", true);
-	Info_FirstString->AddIntStr(controlsVector.at(currentControlIndex)->_get_current_val(), 4);
-	Info_FirstString->AddChars(blank);
-	Info_FirstString->AddChars(controlsVector.at(currentControlIndex)->GetSensorsUnit());
+	Info_FirstString->SetText("Тек.:", true);
+	Info_FirstString->SetIntText(controlsVector.at(currentControlIndex)->_get_current_val(), 4);
+	Info_FirstString->SetText(" ", false);	
+	Info_FirstString->SetText(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+	Info_FirstString->FillEndBySpaces();
 		
-	Info_SecondString->SetText("Цель: ", true);
-	Info_SecondString->AddIntStr(controlsVector.at(currentControlIndex)->_get_aim_val(), 4);
-	Info_SecondString->AddChars(controlsVector.at(currentControlIndex)->GetSensorsUnit());
+	Info_SecondString->SetText("Цель:", true);
+	Info_SecondString->SetIntText(controlsVector.at(currentControlIndex)->_get_aim_val(), 4);
+	Info_SecondString->SetText(" ", false);	
+	Info_SecondString->SetText(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+	Info_SecondString->FillEndBySpaces();
 	
-	Info_ThirdString->SetText("Нагр.: ", true);
+	Info_ThirdString->SetText("Нагр.:", true);
+	Info_ThirdString->FillEndBySpaces();
+	
 	Info_FourthString->SetText("______________", false);
-	
+	Info_FourthString->FillEndBySpaces();
 	
 	currentControlIndex++;
 	

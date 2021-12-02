@@ -63,6 +63,7 @@ Rect_ScreenElement* Info_Header_Border = new  Rect_ScreenElement(
 	SCREEN_GAP + Verdana12x12.Size * 2 + STRINGS_GAP,
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12);
+
 Text_ScreenElement* Info_SubHeader = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
 	&GREEN_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12,	16);

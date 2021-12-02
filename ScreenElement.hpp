@@ -72,14 +72,10 @@ public:
 	
 	virtual void Render();
 
+	void ClearText();
 	void SetText(std::string text, bool convertToCp1251);
-	void AddIntStr(int dnum, uint8_t lenght);
-	void AddChars(const char* charptr);
-	
-	void Set_Prefix_IntVal_Postfix_Text(std::string prefix, uint16_t intVal, uint8_t untValLenght, std::string postfix, bool convertToCp1251);
-	
-	//void SetText(char* text, bool convertToCp1251);
-	
+	void SetIntText(int dnum, uint8_t lenght);
+	void FillEndBySpaces();
 	char Text[MAX_CHARS_IN_SCREEN] = { 0 };
 	
 protected:

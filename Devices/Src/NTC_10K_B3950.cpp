@@ -6,7 +6,7 @@ NTC_10K_B3950::NTC_10K_B3950(uint16_t ID,std::string name, uint8_t ADCDevID)
 {
 	UNITS[0] = 67;
 	UNITS[1] = 176;
-	UNITS[2] = ' ';
+	UNITS[2] = 0;
 	UNITS[3] = 0;
 
 }

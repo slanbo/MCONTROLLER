@@ -193,55 +193,44 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 	}
 	else
 		element->selected = false;		
-		}
-
+}
 
 void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 {
-	if (State == 0)
-		base:fillTextScreenElement(element);
-	else
-		
-		if(Parametr - Step >= MinVal) 
-			Menu_PrevString->AddIntStr(Parametr - Step, true);
-	   else
-			Menu_PrevString->AddIntStr(MaxVal, true);
+	Menu_PrevString->ClearText();
+	Menu_CurrentString->ClearText();
+	Menu_NextString->ClearText();
 	
-		Menu_CurrentString->AddIntStr(Parametr, 3);
+	if (Parametr - Step >= MinVal) 
+		Menu_PrevString->SetIntText(Parametr - Step, 3);
+	else
+		Menu_PrevString->SetIntText(MaxVal, 3);
+	
+	Menu_CurrentString->SetIntText(Parametr, 3);
 	
 	if (Parametr + Step <= MaxVal) 
-		Menu_NextString->AddIntStr(Parametr + Step, true);
+		Menu_NextString->SetIntText(Parametr + Step, 3);
 	else
-		Menu_NextString->AddIntStr(MinVal, true);
-	}
-
+		Menu_NextString->SetIntText(MinVal, 3);
+}
 
 MenuElementBase* MenuElementIntSelector::GetPrevItem()
 {
-	if (State == 0)
-	{
 		if (Parametr - Step >= MinVal) 
 			Parametr = 	Parametr - Step;
 		else
 			Parametr = 	MaxVal;
 		return this;
-	}
-	else
-		return PrevItem;
 }
 
 
 MenuElementBase* MenuElementIntSelector::GetNextItem()
 {
-	if (State == 0)
-	{
+	
 		if (Parametr + Step <= MaxVal) 
 			Parametr = Parametr + Step;
 		else
 			Parametr = MinVal;
-		return this;
-	}
-	else
-		return NextItem;
-
+	
+	return (MenuElementBase*)this;
 }

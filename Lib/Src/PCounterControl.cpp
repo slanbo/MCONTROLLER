@@ -130,7 +130,7 @@ void PCounterControl::FillScreen()
 	strcat(dateString, intString);	
 	Info_SecondString->SetText(dateString, true);
 	
-	Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("ВТ ЧАС: ", getCurrentVtHour(), 4, "", true);
+	//Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("ВТ ЧАС: ", getCurrentVtHour(), 4, "", true);
 	Info_FourthString->SetText("", false);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
