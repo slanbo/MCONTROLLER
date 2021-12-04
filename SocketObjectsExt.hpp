@@ -5,9 +5,9 @@
 	
 #define DEV_SOCKETS_SIZE 3
 	
-	extern plugSocket upSocket;
-	extern plugSocket downSocket;
-	extern plugSocket V12_Socket;
+	extern plugSocket* upSocket;
+	extern plugSocket* downSocket;
+	extern plugSocket* V12_Socket;
 
 	extern std::vector <plugSocket*> BaseUnitSocketsV;
 

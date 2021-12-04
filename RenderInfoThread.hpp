@@ -8,7 +8,6 @@
 #include "ScreenObjectsExt.hpp"
 #include "string.h"
 
-extern uint8_t showInfoCounter;
 	
 using namespace cpp_freertos;
 using namespace std;
@@ -41,31 +40,34 @@ protected:
 	{
 		while (true)
 		{
-			xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			
 			for (auto element : TopBottom_FirstScreen)
 				element->Render();
 			
 			if (SETUP_MODE == 0)
 			{
-				if (showInfoCounter == 0)
-				{
-					HabitatMode->FillScreen();
-					Info_Header->Render();
-					Info_Header_Border->Render();
-					Info_SubHeader->Render();
-					Info_FirstString->Render();
-					Info_SecondString->Render();
-					Info_ThirdString->Render();
-					Info_FourthString->Render();
-				}
+				Info_Header->Render();
+				Info_Header_Border->Render();
+				Info_SubHeader->Render();
+				Info_FirstString->Render();
+				Info_SecondString->Render();
+				Info_ThirdString->Render();
+				Info_FourthString->Render();
+			}
+			else
+			{
+				Menu_Header->Render();
+				Menu_SubHeader->Render();
+				Menu_PrevString->Render();
+				Menu_CurrentString->Render();
+				Menu_NextString->Render();
+				Menu_CurrentScreen_Border->Render();
+				Menu_Header_Border->Render();
 			}
 			
-			showInfoCounter++;
-			if (showInfoCounter == SHOW_INFO_PERIOD_SEC)
-				showInfoCounter = 0;
 			
-			xSemaphoreGive(lcdmut_handle); 
+			//xSemaphoreGive(lcdmut_handle); 
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

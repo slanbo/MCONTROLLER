@@ -102,7 +102,7 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++++++ PAUSES ++++++++++++++++++++++++++
 #include "TempPausesObjects.hpp"
 //++++++++++++++++ CONTROLS ++++++++++++++++++++++++++
-#include "ControlObjects.hpp"
+//#include "ControlObjects.hpp"
 //+++++++++++++ MODES ++++++++++++++++
 #include "ModeObjects.hpp"
 
@@ -133,12 +133,12 @@ uint8_t bothButtonsPressCounter = 0;
 
 uint8_t showInfoCounter = 0;
 
-RenderInfoScreen ris("ris", 2, EXECUTE_STEP_PERIOD_SEC, 7);
-FillScreen fscr("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 6);
 
+FillScreen* fscr = new FillScreen("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
+RenderInfoScreen* ris = new RenderInfoScreen("ris", 2, EXECUTE_STEP_PERIOD_SEC, 6);
 
 ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 5);
-//processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
+processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
 getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
 
 
@@ -243,13 +243,18 @@ int main(void)
 	strcpy(prefixStr, "");
 	addCurrentDateString(prefixStr);
 	Date_FirstPart->SetText(prefixStr, true);
+	Date_FirstPart->_setUpdated(true);
 			
 	strcpy(prefixStr, "");
 	addCurrentTimeString(prefixStr);
 	Time->SetText(prefixStr, false);
+	Time->_setUpdated(true);
 			
 	Buttom_Left->SetText("Меню", true);
+	Buttom_Left->_setUpdated(true);
+	
 	Buttom_Right->SetText("Меню", true);
+	Buttom_Right->_setUpdated(true);
 	
 	for (auto tbscrElement : TopBottom_FirstScreen)
 		tbscrElement->Render();
@@ -265,14 +270,16 @@ int main(void)
 	postInitStaticMenuElements(&mi_167);
 	
 	
-	void* hptr = pvPortMalloc(sizeof(Habitat));
-	HabitatMode = new (hptr)Habitat(0, "Контр. среды");
+	//void* hptr = pvPortMalloc(sizeof(Habitat));
+	HabitatMode = new Habitat(0, "Контр. среды");
 	
 	mainMenu = new Menu(&mi_0);
 	
 	lcdmut_handle = xSemaphoreCreateMutex();
 	
 	
+
+
 	//lcd_mutex.Unlock();
 	//lcd_mutex->Unlock();
 	//ControlObjectsInit();

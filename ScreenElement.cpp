@@ -50,35 +50,41 @@ Text_ScreenElement::~Text_ScreenElement()
 
 void Text_ScreenElement::Render()
 {
-	screenStyle* currentStyle = MainStyle;
-	if (selected)
-		currentStyle = SelectedStyle;
-	
-	uint8_t deltaLenght = 0;
-	
-	if (textLenght > MaxLenght)
+	if (_getUpdated())
 	{
-		textLenght = MaxLenght;
-		deltaLenght = 0;
+		screenStyle* currentStyle = MainStyle;
+		if (selected)
+			currentStyle = SelectedStyle;
+	
+		uint8_t deltaLenght = 0;
+	
+		if (textLenght > MaxLenght)
+		{
+			textLenght = MaxLenght;
+			deltaLenght = 0;
+		}
+		else
+			deltaLenght = MaxLenght - textLenght;
+	
+		uint8_t endxpos = PutChangedCharsToLCD(
+		Left_X,
+			Top_Y,
+			currentStyle->foreColor,
+			currentStyle->backColor,
+			Text,
+			textLenght,
+			currentStyle->font.RusFont,
+			currentStyle->font.EngFont,
+			currentStyle->font.Size,
+			1);
+	
+		//if (deltaLenght > 0)
+		//	LCD_DrawFillRectangle(endxpos, Top_Y, endxpos + deltaLenght * (currentStyle->font.Size + 1), Top_Y + currentStyle->font.Size, currentStyle->backColor);
+		//SetRightBottomPoint(endxpos + deltaLenght * (currentStyle->font.Size + 2), Top_Y + currentStyle->font.Size);
+		_setUpdated(false);
 	}
-	else
-		deltaLenght = MaxLenght - textLenght;
 	
-	uint8_t endxpos = PutChangedCharsToLCD(
-	Left_X,
-		Top_Y,
-		currentStyle->foreColor,
-		currentStyle->backColor,
-		Text,
-		textLenght,
-		currentStyle->font.RusFont,
-		currentStyle->font.EngFont,
-		currentStyle->font.Size,
-		1);
 	
-	//if (deltaLenght > 0)
-	//	LCD_DrawFillRectangle(endxpos, Top_Y, endxpos + deltaLenght * (currentStyle->font.Size + 1), Top_Y + currentStyle->font.Size, currentStyle->backColor);
-	//SetRightBottomPoint(endxpos + deltaLenght * (currentStyle->font.Size + 2), Top_Y + currentStyle->font.Size);
 }
 
 void Text_ScreenElement::SetRightBottomPoint(uint8_t right_x, uint8_t bottom_y)
@@ -98,7 +104,32 @@ void Text_ScreenElement::ClearText()
 		counter++;
 	}
 	textLenght = 0;
+
 }
+
+void Text_ScreenElement::SetChars(const char* chars, bool convertToCp1251)
+{
+	const char* charptr = chars;
+	
+	if (convertToCp1251)
+	{
+		uint8_t lenght = convertUtf8ToCp1251(charptr, Text);
+		textLenght = textLenght + lenght;
+	}
+	else
+	{
+		uint8_t counter = 0;
+		while (charptr[counter] != 0)
+		{
+			Text[textLenght] = charptr[counter];
+			counter++;
+			textLenght++;
+		}
+		Text[textLenght + 1] = '\0';
+	}
+
+}
+
 
 void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 {
@@ -120,6 +151,7 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 		}
 		Text[textLenght + 1] = '\0';
 	}
+
 }
 
 void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
@@ -139,12 +171,16 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 	
 		inttoabase10(dnum, dstr);
 	
-		uint8_t zeros = lenght - rsigns;
-		for (uint8_t i = 0; i < zeros; i++)
+		if (lenght > 0)
 		{
-			Text[textLenght] = ' ';
-			textLenght++;
+			uint8_t zeros = lenght - rsigns;
+			for (uint8_t i = 0; i < zeros; i++)
+			{
+				Text[textLenght] = ' ';
+				textLenght++;
+			}
 		}
+		
 	
 		for (uint8_t i = 0; i < rsigns; i++)
 		{
@@ -163,6 +199,7 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 			
 			Text[textLenght + 1] = '\0';
 	}
+
 }
 
 void Text_ScreenElement::FillEndBySpaces()
@@ -172,7 +209,6 @@ void Text_ScreenElement::FillEndBySpaces()
 		Text[textLenght] = ' ';	
 		textLenght++;
 	}
-
 }
 
 Rect_ScreenElement::Rect_ScreenElement(uint8_t left_x, 
@@ -189,19 +225,23 @@ Rect_ScreenElement::~Rect_ScreenElement(){}
 
 void Rect_ScreenElement::Render()
 {
-	if (selected)
-		LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, SelectedStyle->foreColor);
-	else
-		LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, MainStyle->foreColor);
+	if (_getUpdated())
+	{
+		if (selected)
+			LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, SelectedStyle->foreColor);
+		else
+			LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, MainStyle->foreColor);
+		_setUpdated(false);
+	}
 }
 
 
+bool BaseScreenElement::_getUpdated()
+{
+	return updated;
+}
 
-
-
-
-
-
-
-
-
+void BaseScreenElement::_setUpdated(bool Updated)
+{
+	updated = Updated;
+}

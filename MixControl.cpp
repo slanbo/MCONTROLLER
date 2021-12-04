@@ -137,7 +137,7 @@ bool MixControl::isActive()
 	if(isOn())
 		active = true;
 	
-	if (delayBeginControl.isOn()) 
+	/*if (delayBeginControl.isOn()) 
 		{
 			if (delayBeginControl.isActive())
 				active = true;
@@ -151,7 +151,7 @@ bool MixControl::isActive()
 			active = false;
 		else
 			active = true;
-	}
+	}*/
 	
 	return active;
 }

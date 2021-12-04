@@ -15,13 +15,13 @@
 #define BOIL_SENSORS_QUANTITY 2
 	
 	
-	extern MQ7 COSens;
-	extern NTC_10K_B3950 Termistor_1;
-	extern NTC_10K_B3950 Termistor_2;
-	extern IRMotionSensor  IRMSensor;
-	extern LightSensor lightSensor;
+	//extern MQ7 COSens;
+	//extern NTC_10K_B3950 Termistor_1;
+	//extern NTC_10K_B3950 Termistor_2;
+	//extern IRMotionSensor  IRMSensor;
+	//extern LightSensor lightSensor;
 	
-	extern std::vector<ADCSensor*> ADCSensorsV;
+	//extern std::vector<ADCSensor*> ADCSensorsV;
 
 
 #endif

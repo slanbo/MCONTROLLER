@@ -1,5 +1,5 @@
 #include "Mode.hpp"
-#include "portable.h"
+//#include "portable.h"
 
 ModeBase::ModeBase(uint16_t ID, std::string name)
 	: BaseObject(ID, name) 
@@ -48,9 +48,9 @@ Habitat::Habitat(uint16_t ID,
 	airFixTemp._setVal(23);
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
-	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	//void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 	
-	airTempControl = new(atcptr) SensorsSocketsControl
+	airTempControl = new SensorsSocketsControl
 		(
 		"Температура:", 
 		&airTempControlOnOffTune,
@@ -60,10 +60,10 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlTimeProfile,
 		dpvc);
 	
-	void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	//void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 
 	
-	coControl = new(ccptr)SensorsSocketsControl
+	coControl = new SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
@@ -73,9 +73,9 @@ Habitat::Habitat(uint16_t ID,
 		&COControlTimeProfile,
 		dpvc);	
 	
-	void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	//void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 	
-	lightControl = new(lcptr)SensorsSocketsControl
+	lightControl = new SensorsSocketsControl
 		(
 		"Освещение:", 
 		&lightControlOnOffTune,
@@ -92,14 +92,16 @@ Habitat::Habitat(uint16_t ID,
 
 Habitat::~Habitat()
 {
-	vPortFree(airTempControl);
-	vPortFree(coControl);
-	vPortFree(lightControl);
+	//vPortFree(airTempControl);
+	//vPortFree(coControl);
+	//vPortFree(lightControl);
 }
 
 void Habitat::FillScreen()
 {
 	
+	const char blank[2] = { ' ', 0};
+		
 	Info_Header->ClearText();
 	Info_SubHeader->ClearText();
 	Info_FirstString->ClearText();
@@ -107,29 +109,43 @@ void Habitat::FillScreen()
 	Info_ThirdString->ClearText();
 	Info_FourthString->ClearText();
 	
-	Info_Header->SetText(Name, false);
+	Info_Header->SetChars(Name, false);
 	Info_Header->FillEndBySpaces();
+	Info_Header->_setUpdated(true);
 	
-	Info_SubHeader->SetText(controlsVector.at(currentControlIndex)->Name, false);
+	Info_SubHeader->SetChars(controlsVector.at(currentControlIndex)->Name, false);
 	Info_SubHeader->FillEndBySpaces();
+	Info_SubHeader->_setUpdated(true);
 	
-	Info_FirstString->SetText("Тек.:", true);
-	Info_FirstString->SetIntText(controlsVector.at(currentControlIndex)->_get_current_val(), 4);
-	Info_FirstString->SetText(" ", false);	
-	Info_FirstString->SetText(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+	char ifirst[] = "Тек.:\0";
+	Info_FirstString->SetChars(ifirst, true);
+	//Info_FirstString->SetText("Тек.:", true);
+	Info_FirstString->SetIntText(controlsVector.at(currentControlIndex)->_get_current_val(), 5);
+	Info_FirstString->SetChars(blank, false);	
+	Info_FirstString->SetChars(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
 	Info_FirstString->FillEndBySpaces();
-		
-	Info_SecondString->SetText("Цель:", true);
-	Info_SecondString->SetIntText(controlsVector.at(currentControlIndex)->_get_aim_val(), 4);
-	Info_SecondString->SetText(" ", false);	
-	Info_SecondString->SetText(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+	Info_FirstString->_setUpdated(true);
+
+	char isecond[] = "Цель:\0";
+	Info_SecondString->SetChars(isecond, true);
+	//Info_SecondString->SetText("Цель:", true);
+	Info_SecondString->SetIntText(controlsVector.at(currentControlIndex)->_get_aim_val(), 5);
+	Info_SecondString->SetChars(blank, false);
+	Info_SecondString->SetChars(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
 	Info_SecondString->FillEndBySpaces();
+	Info_SecondString->_setUpdated(true);
 	
-	Info_ThirdString->SetText("Нагр.:", true);
+	char ithird[] = "Нагр.:\0";
+	Info_ThirdString->SetChars(ithird, true);
+	//Info_ThirdString->SetText("Нагр.:", true);
 	Info_ThirdString->FillEndBySpaces();
+	Info_ThirdString->_setUpdated(true);
 	
-	Info_FourthString->SetText("______________", false);
+	char ifourth[] = "______________\0";
+	Info_FourthString->SetChars(ifourth, true);
+	//Info_FourthString->SetText("______________", false);
 	Info_FourthString->FillEndBySpaces();
+	Info_FourthString->_setUpdated(true);
 	
 	currentControlIndex++;
 	

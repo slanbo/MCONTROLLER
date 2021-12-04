@@ -2,7 +2,7 @@
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "task.h"
-#include "Sensors.hpp"
+#include "SensorObjectsExt.hpp"
 
 using namespace cpp_freertos;
 using namespace std;
@@ -31,7 +31,7 @@ protected:
 		while (true)
 		{
 
-			IRMSensor.ExecuteStep();
+			IRMSensor->ExecuteStep();
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

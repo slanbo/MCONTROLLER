@@ -5,6 +5,7 @@
 #include "adc.h"
 #include <vector>
 #include "ADCDevObjects.hpp"
+#include "SensorObjectsExt.hpp"
 
 //extern std::vector<ADCDev*> ADCDevs;
 
@@ -50,7 +51,7 @@ protected:
 
 			HAL_ADCEx_InjectedStop(&hadc1);
 			
-			IRMSensor.ExecuteStep();
+			IRMSensor->ExecuteStep();
 			
 			//xSemaphoreGive(lcdmut_handle); 
 

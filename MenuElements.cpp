@@ -127,21 +127,21 @@ bool setWeekDay(uint16_t param)
 
 bool setUpSocketLoadPower(uint16_t param)
 {
-	upSocket._setLoadPowerVT(param);
+	upSocket->_setLoadPowerVT(param);
 	return true;
 }
 ;
 
 bool setDownSocketLoadPower(uint16_t param)
 {
-	downSocket._setLoadPowerVT(param);
+	downSocket->_setLoadPowerVT(param);
 	return true;
 }
 ;
 
 bool setV12SocketLoadPower(uint16_t param)
 {
-	V12_Socket._setLoadPowerVT(param);
+	V12_Socket->_setLoadPowerVT(param);
 	return true;
 }
 ;

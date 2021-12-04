@@ -8,6 +8,7 @@
 #include "ScreenObjectsExt.hpp"
 #include "MenuClass.hpp"
 
+extern uint8_t showInfoCounter;
 
 using namespace cpp_freertos;
 using namespace std;
@@ -41,49 +42,62 @@ protected:
 	{
 		while (true)
 		{
-			xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			
 			char dateStr[11] = { 0 };
 			addCurrentDateString(dateStr);
 			Date_FirstPart->ClearText();
 			Date_FirstPart->SetText(dateStr, true);
+			Date_FirstPart->_setUpdated(true);
 
 			char timeStr[8] = { 0 };
 			addCurrentTimeString(timeStr);
 			Time->ClearText();
 			Time->SetText(timeStr, false);
+			Time->_setUpdated(true);
 			
 			if (SETUP_MODE == 0)
 			{
+				
+				if (showInfoCounter == 0)
+				{
+					HabitatMode->FillScreen();
+				}
+			
+				showInfoCounter++;
+				if (showInfoCounter == SHOW_INFO_PERIOD_SEC)
+					showInfoCounter = 0;
+				
 				Buttom_Left->ClearText();
 				Buttom_Left->SetText("Меню", true);
+				Buttom_Left->_setUpdated(true);
+				
 				Buttom_Right->ClearText();
 				Buttom_Right->SetText("Меню", true);
+				Buttom_Right->_setUpdated(true);
+				
 			}
 			else
 			{
+				mainMenu->FillScreen();
+				
 				Buttom_Left->ClearText();
 				Buttom_Left->SetText("Вверх", true);
+				Buttom_Left->_setUpdated(true);
+				
 				Buttom_Right->ClearText();
 				Buttom_Right->SetText("Вниз", true);
+				Buttom_Right->_setUpdated(true);
 			}
 			
 			
 			
 			
-			if(SETUP_MODE == 1)
-			{
-				mainMenu->FillScreen();
-				Menu_Header->Render();
-				Menu_SubHeader->Render();
-				Menu_PrevString->Render();
-				Menu_CurrentString->Render();
-				Menu_NextString->Render();
-				Menu_CurrentScreen_Border->Render();
-				Menu_Header_Border->Render();
+
+				
 						
 			}
-			xSemaphoreGive(lcdmut_handle); 
+			//xSemaphoreGive(lcdmut_handle); 
 			
 
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

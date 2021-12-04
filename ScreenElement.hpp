@@ -54,8 +54,10 @@ public:
 	screenStyle * MainStyle;
 	screenStyle * SelectedStyle;
 
+	bool _getUpdated();
+	void _setUpdated(bool Updated);
 protected:
-	
+	bool updated = false;  //0-no 1-yes
 private:	
 	
 };
@@ -74,14 +76,14 @@ public:
 
 	void ClearText();
 	void SetText(std::string text, bool convertToCp1251);
+	void SetChars(const char* chars, bool convertToCp1251);
 	void SetIntText(int dnum, uint8_t lenght);
 	void FillEndBySpaces();
 	char Text[MAX_CHARS_IN_SCREEN] = { 0 };
 	
+	
 protected:
-	
 	const uint8_t MaxLenght;
-	
 	void SetRightBottomPoint(uint8_t right_x, uint8_t bottom_y);
 	
 private:
