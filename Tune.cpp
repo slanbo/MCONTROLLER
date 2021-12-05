@@ -71,6 +71,8 @@ uint16_t intTune::save()
 	HAL_FLASH_Unlock();
 	Status = EE_WriteVariable(FlashAddress, val);
 	HAL_FLASH_Lock();
+	//val = 0;
+	//Status = EE_ReadVariable(FlashAddress, &val);
 	return Status;
 }
 
@@ -89,7 +91,7 @@ uint16_t intTune::_getVal()
 void intTune::_setVal(uint16_t Val)
 {
 	val = Val;
-	save();
+	//save();
 
 }
 

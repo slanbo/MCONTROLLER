@@ -42,8 +42,6 @@ protected:
 	{
 		while (true)
 		{
-			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
-			
 			char dateStr[11] = { 0 };
 			addCurrentDateString(dateStr);
 			Date_FirstPart->ClearText();
@@ -90,16 +88,6 @@ protected:
 				Buttom_Right->_setUpdated(true);
 			}
 			
-			
-			
-			
-
-				
-						
-			}
-			//xSemaphoreGive(lcdmut_handle); 
-			
-
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);

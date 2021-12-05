@@ -7,6 +7,8 @@
 
 
 #define NAME_LENGHT 32
+#define INT_SELECTOR_BLANKS 8
+
 
 using BaseItemLPfnc = bool(*)();
 using IntParamItemLPfnc = bool(*)(uint16_t param);
@@ -34,6 +36,8 @@ public:
 	virtual MenuElementBase* GetNextItem();	
 	
 	virtual void fillTextScreenElement(Text_ScreenElement* element);
+	
+	virtual void init() = 0;
 	
 	
 	char Name[NAME_LENGHT] = { 0 };
@@ -95,6 +99,8 @@ public:
 	
 	virtual void fillTextScreenElement(Text_ScreenElement* element);
 
+	virtual void init();
+
 	
 	intTune* Tune = nullptr;
 	uint16_t Parametr;
@@ -138,6 +144,9 @@ public:
 	virtual void fillTextScreenElement(Text_ScreenElement* element);
 	virtual MenuElementBase* GetPrevItem();
 	virtual MenuElementBase* GetNextItem();	
+	virtual void init();
+
+	
 	
 protected:
 	

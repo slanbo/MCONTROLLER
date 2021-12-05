@@ -129,7 +129,7 @@ intTune airTempControlTimeProfile(&airTempControlDownSockets);
 //bat Temp control sensors & sockets
 IntVectorTune batTempControlSensors(&airTempControlTimeProfile, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
 IntVectorTune batTempControlUpSockets(&batTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
-IntVectorTune batTempControlDownSockets(&batTempControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune batTempControlDownSockets(&batTempControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 intTune batTempControlTimeProfile(&batTempControlDownSockets);
 
 

@@ -7,11 +7,12 @@
 void readTunesFromFlash()
 {
 	FlashTune* cursor  = lastFlashTune;
-	while (cursor->getPrevFlashTune() != nullptr)
-	{
+	do {
 		cursor->restore();
 		cursor = cursor->getPrevFlashTune();
-	}
+	} while (cursor->getPrevFlashTune() != nullptr);
+	cursor->restore();
+	
 }
 
 void writesTunesToFlash()

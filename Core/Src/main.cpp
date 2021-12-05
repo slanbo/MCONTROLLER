@@ -240,26 +240,6 @@ int main(void)
 	Lcd_Clear(GREEN);
 	Lcd_Clear(BLACK);
 	
-	strcpy(prefixStr, "");
-	addCurrentDateString(prefixStr);
-	Date_FirstPart->SetText(prefixStr, true);
-	Date_FirstPart->_setUpdated(true);
-			
-	strcpy(prefixStr, "");
-	addCurrentTimeString(prefixStr);
-	Time->SetText(prefixStr, false);
-	Time->_setUpdated(true);
-			
-	Buttom_Left->SetText("Меню", true);
-	Buttom_Left->_setUpdated(true);
-	
-	Buttom_Right->SetText("Меню", true);
-	Buttom_Right->_setUpdated(true);
-	
-	for (auto tbscrElement : TopBottom_FirstScreen)
-		tbscrElement->Render();
-
-	
 	HAL_FLASH_Unlock();
 	EE_Init();
 	HAL_FLASH_Lock();
@@ -277,13 +257,6 @@ int main(void)
 	
 	lcdmut_handle = xSemaphoreCreateMutex();
 	
-	
-
-
-	//lcd_mutex.Unlock();
-	//lcd_mutex->Unlock();
-	//ControlObjectsInit();
-	//ModeObjectsInit();
 	
 	/*uint8_t rsvdt[80];
 	

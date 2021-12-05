@@ -45,12 +45,11 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	DatePeriodValuesCollection* dpvc = (DatePeriodValuesCollection*) pvPortMalloc(sizeof(DatePeriodValuesCollection));
-	airFixTemp._setVal(23);
 	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
-	//void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 	
-	airTempControl = new SensorsSocketsControl
+	airTempControl = new(atcptr) SensorsSocketsControl
 		(
 		"Температура:", 
 		&airTempControlOnOffTune,
@@ -60,10 +59,10 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlTimeProfile,
 		dpvc);
 	
-	//void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 
 	
-	coControl = new SensorsSocketsControl
+	coControl = new(ccptr)SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
@@ -73,9 +72,9 @@ Habitat::Habitat(uint16_t ID,
 		&COControlTimeProfile,
 		dpvc);	
 	
-	//void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
 	
-	lightControl = new SensorsSocketsControl
+	lightControl = new(lcptr)SensorsSocketsControl
 		(
 		"Освещение:", 
 		&lightControlOnOffTune,
@@ -175,59 +174,6 @@ void ControlsMode::init()
 void Habitat::init()
 {
 	
-	DatePeriodValuesCollection* dpvc = (DatePeriodValuesCollection*) pvPortMalloc(sizeof(DatePeriodValuesCollection));
-	airFixTemp._setVal(23);
-	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
-	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-	
-	airTempControl = new (atcptr) SensorsSocketsControl
-		(
-		"Температура:", 
-		&airTempControlOnOffTune,
-		&airTempControlSensors,
-		&airTempControlUpSockets,
-		&airTempControlDownSockets,
-		&airTempControlTimeProfile,
-		dpvc);
-	
-	void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-
-	
-	coControl = new (ccptr)SensorsSocketsControl
-		(
-		"Газ:", 
-		&coControlOnOffTune,
-		&COControlSensors,
-		&COControlUpSockets,
-		&COControlDownSockets,
-		&COControlTimeProfile,
-		dpvc);	
-	
-	void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-	
-	lightControl = new(lcptr)SensorsSocketsControl
-		(
-		"Освещение:", 
-		&lightControlOnOffTune,
-		&lightControlSensors,
-		&lightControlUpSockets,
-		&lightControlDownSockets,
-		&lightControlTimeProfile,
-		dpvc);
-	
-	/*batTempControl = new SensorsSocketsControl
-		(
-		"bat control", 
-		&batTempControlOnOffTune,
-		&batTempControlSensors,
-		&batTempControlUpSockets,
-		&batTempControlDownSockets,
-		&batTempControlTimeProfile,
-		createBatTempTimeProfile);*/
-	
-	controlsVector.push_back(airTempControl);
-	controlsVector.push_back(coControl);
-	controlsVector.push_back(lightControl);
 	
 }

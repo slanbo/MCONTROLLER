@@ -146,7 +146,7 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t maxVal, 
 	uint16_t step, 
 	intTune* tune)
-	: MenuElement(parentItem, prevInListItem, name)
+	: MenuElement(parentItem, prevInListItem, name, 0, tune)
 	, InitVal(initVal)
 	, MinVal(minVal)
 	, MaxVal(maxVal)
@@ -183,7 +183,8 @@ void MenuElementBase::fillTextScreenElement(Text_ScreenElement* element)
 
 void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 {
-	element->SetText(Name, true);
+	element->ClearText();
+	element->SetChars(Name, true);
 	if (Tune != nullptr)
 	{
 		if (Tune->_getVal() == Parametr)
@@ -192,7 +193,9 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 			element->selected = false;		
 	}
 	else
-		element->selected = false;		
+		element->selected = false;	
+	element->FillEndBySpaces();
+	element->_setUpdated(true);
 }
 
 void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
@@ -201,17 +204,55 @@ void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 	Menu_CurrentString->ClearText();
 	Menu_NextString->ClearText();
 	
+	Menu_PrevString->ClearText();
 	if (Parametr - Step >= MinVal) 
-		Menu_PrevString->SetIntText(Parametr - Step, 3);
+		Menu_PrevString->SetIntText(Parametr - Step, INT_SELECTOR_BLANKS);
 	else
-		Menu_PrevString->SetIntText(MaxVal, 3);
+		Menu_PrevString->SetIntText(MaxVal, INT_SELECTOR_BLANKS);
+	Menu_PrevString->FillEndBySpaces();
+	if (Tune != nullptr)
+	{
+		if (Parametr - Step ==  Tune->_getVal())
+			Menu_PrevString->selected = true;
+		else
+			Menu_PrevString->selected = false;
+	}
+	else
+		Menu_PrevString->selected = false;
+	Menu_PrevString->_setUpdated(true);
 	
-	Menu_CurrentString->SetIntText(Parametr, 3);
+	Menu_CurrentString->ClearText();
+	Menu_CurrentString->SetIntText(Parametr, INT_SELECTOR_BLANKS);
+	Menu_CurrentString->FillEndBySpaces();
+	if (Tune != nullptr)
+	{
+		if (Parametr ==  Tune->_getVal())
+			Menu_CurrentString->selected = true;
+		else
+			Menu_CurrentString->selected = false;
+	}
+	else
+		Menu_CurrentString->selected = false;
+	Menu_CurrentString->_setUpdated(true);
 	
+	
+	Menu_NextString->ClearText();
 	if (Parametr + Step <= MaxVal) 
-		Menu_NextString->SetIntText(Parametr + Step, 3);
+		Menu_NextString->SetIntText(Parametr + Step, INT_SELECTOR_BLANKS);
 	else
-		Menu_NextString->SetIntText(MinVal, 3);
+		Menu_NextString->SetIntText(MinVal, INT_SELECTOR_BLANKS);
+	Menu_NextString->FillEndBySpaces();
+	if (Tune != nullptr)
+	{
+		if (Parametr + Step ==  Tune->_getVal())
+			Menu_NextString->selected = true;
+		else
+			Menu_NextString->selected = false;
+	}
+	else
+		Menu_NextString->selected = false;
+	Menu_NextString->_setUpdated(true);
+	
 }
 
 MenuElementBase* MenuElementIntSelector::GetPrevItem()
@@ -233,4 +274,14 @@ MenuElementBase* MenuElementIntSelector::GetNextItem()
 			Parametr = MinVal;
 	
 	return (MenuElementBase*)this;
+}
+
+
+void MenuElement::init()
+{
+}
+
+void MenuElementIntSelector::init()
+{
+	Parametr = Tune->_getVal();
 }

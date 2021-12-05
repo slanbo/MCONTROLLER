@@ -160,6 +160,8 @@ void postInitStaticMenuElements(MenuElement* lastElement)
 		currItem->PrevInListItem->NextInListItem = currItem;
 		firstItem = currItem;
 		currItem = currItem->PrevInListItem;
+		if (currItem->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
+			currItem->init();
 	}
 	
 	

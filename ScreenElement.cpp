@@ -191,13 +191,16 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 	}
 	else
 	{
-		for (uint8_t i = 0; i < lenght; i++)
+		for (uint8_t i = 0; i < lenght - 1; i++)
 		{
 			Text[textLenght] = ' ';	
 			textLenght++;
 		}
+		
+		Text[textLenght] = '0';	
+		textLenght++;
 			
-			Text[textLenght + 1] = '\0';
+		Text[textLenght + 1] = '\0';
 	}
 
 }
@@ -225,14 +228,14 @@ Rect_ScreenElement::~Rect_ScreenElement(){}
 
 void Rect_ScreenElement::Render()
 {
-	if (_getUpdated())
-	{
+	//if (_getUpdated())
+	//{
 		if (selected)
 			LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, SelectedStyle->foreColor);
 		else
 			LCD_DrawRectangle(Left_X, Top_Y, Right_X, Bottom_Y, MainStyle->foreColor);
-		_setUpdated(false);
-	}
+		//_setUpdated(false);
+	//}
 }
 
 

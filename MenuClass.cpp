@@ -54,21 +54,25 @@ void Menu::FillScreen()
 {
 	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
-	Menu_Header->SetText("Меню настроек:", true);
+	Menu_Header->ClearText();
+	Menu_Header->SetChars("Меню настроек:", true);
+	Menu_Header->_setUpdated(true);
 	
 	// sub menu header
+	Menu_SubHeader->ClearText();
 	if(CurrentItemBase->ParentItem == nullptr)
-		strcpy(str, "Корень меню:");
+		Menu_SubHeader->SetChars("Корень меню:", true);
 	else
 	{
 		if (CurrentItemBase->MenuElementTypeIndex == MENU_ELEMENT_TYPE_INDEX)
-			strcpy(str, CurrentItemBase->ParentItem->Name);
+			Menu_SubHeader->SetChars(CurrentItemBase->ParentItem->Name, true);
 		else if(CurrentItemBase->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
-			strcpy(str, CurrentItemBase->Name);
+			Menu_SubHeader->SetChars(CurrentItemBase->Name, true);
 		else
-			strcpy(str, CurrentItemBase->Name);
+			Menu_SubHeader->SetChars(CurrentItemBase->Name, true);
 	}
-	Menu_SubHeader->SetText(str, true);
+	Menu_SubHeader->FillEndBySpaces();
+	Menu_SubHeader->_setUpdated(true);
 	
 	switch (CurrentItemBase->MenuElementTypeIndex)
 	{
