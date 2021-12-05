@@ -61,7 +61,7 @@ protected:
 				SETUP_MODE = 1;
 				Buttom_Left->SetText("Верх", true);
 				Buttom_Right->SetText("Вниз", true);
-				mainMenu->CurrentItemBase = &mi_32;
+				mainMenu->CurrentItemBase = &mi_1;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;

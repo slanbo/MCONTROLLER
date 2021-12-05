@@ -26,6 +26,7 @@ void rightButton_Long_Press::processButtonPress()
 {
 	mainMenu->CurrentItemBase->invokeDownLongPress();
 	mainMenu->moveCurrentToChild();
+	mainMenu->CurrentItemBase->invokeOnSelect();
 }
 
 void rightButton_Long_Long_Press::processButtonPress()

@@ -32,6 +32,26 @@ MenuElementBase::MenuElementBase(std::string name,
 	}
 }
 
+MenuElementBase* MenuElementIntSelector::GetPrevItem()
+{
+	if (Parametr - Step >= MinVal) 
+		Parametr = 	Parametr - Step;
+	else
+		Parametr = 	MaxVal;
+	return this;
+}
+
+MenuElementBase* MenuElementIntSelector::GetNextItem()
+{
+	
+	if (Parametr + Step <= MaxVal) 
+		Parametr = Parametr + Step;
+	else
+		Parametr = MinVal;
+	
+	return (MenuElementBase*)this;
+}
+
 void MenuElementBase::FillScreen()
 {
 	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
@@ -64,8 +84,12 @@ MenuElementBase* MenuElementBase::GetNextItem()
 
 void MenuElementBase::invokeDownLongPress()
 {
-	DownLongPressFnc();
 }
+
+void MenuElementBase::invokeOnSelect()
+{
+}
+
 //Menu element
 
 MenuElement::MenuElement( 
@@ -82,10 +106,25 @@ MenuElement::MenuElement(
 MenuElement::MenuElement(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
 	std::string name, 
-	IntParamItemLPfnc downLongPressFnc)
+	IntParamfnc downLongPressFnc)
 	:MenuElementBase(name,
 	parentItem, 
-	prevInListItem)
+	prevInListItem),
+	DownLongPressFnc(downLongPressFnc)
+{
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
+}
+
+MenuElement::MenuElement(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	IntParamfnc onSelectFnc,
+	IntParamfnc downLongPressFnc)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem),
+	OnSelectFnc(onSelectFnc),
+	DownLongPressFnc(downLongPressFnc)
 {
 	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
@@ -110,7 +149,7 @@ MenuElement::MenuElement(
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
 	std::string name, 
-	IntParamItemLPfnc downLongPressFnc, 
+	IntParamfnc downLongPressFnc, 
 	uint16_t parametr, 
 	intTune* tune)
 	: MenuElementBase(name,
@@ -123,6 +162,24 @@ MenuElement::MenuElement(
 	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
 
+MenuElement::MenuElement(
+	MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	IntParamfnc onSelectFnc,
+	IntParamfnc downLongPressFnc, 
+	uint16_t parametr, 
+	intTune* tune)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+	, Tune(tune)
+	, Parametr(parametr)
+	, OnSelectFnc(onSelectFnc)
+	, DownLongPressFnc(downLongPressFnc)
+{
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
+}
 
 void MenuElement::saveParametr()
 {
@@ -135,8 +192,18 @@ void MenuElement::invokeDownLongPress()
 	if (Tune != nullptr)
 	saveParametr();
 	if (DownLongPressFnc != nullptr)
-	DownLongPressFnc(Parametr);
+	DownLongPressFnc(&Parametr);
 }
+
+void MenuElement::invokeOnSelect()
+{
+	if (OnSelectFnc != nullptr)
+		OnSelectFnc(&Parametr);
+	if (Tune != nullptr)
+		saveParametr();
+	
+}
+
 
 MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
@@ -164,12 +231,31 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t maxVal, 
 	uint16_t step, 
 	intTune* tune, 
-	IntParamItemLPfnc downLongPressFnc)
+	IntParamfnc downLongPressFnc)
 	: MenuElement(parentItem, prevInListItem, name, downLongPressFnc, 0, tune),
 	InitVal(initVal), 
 	MinVal(minVal), 
 	MaxVal(maxVal), 
 	Step(step) 
+{
+	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
+}
+
+MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name, 
+	uint16_t initVal, 
+	uint16_t minVal, 
+	uint16_t maxVal, 
+	uint16_t step, 
+	intTune* tune,
+	IntParamfnc onSelectFnc,
+	IntParamfnc downLongPressFnc)
+	: MenuElement(parentItem, prevInListItem, name, onSelectFnc, downLongPressFnc, 0, tune)
+	, InitVal(initVal)
+	, MinVal(minVal)
+	, MaxVal(maxVal)
+	, Step(step) 
 {
 	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
 }
@@ -196,6 +282,10 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 		element->selected = false;	
 	element->FillEndBySpaces();
 	element->_setUpdated(true);
+}
+
+void MenuElement::init()
+{
 }
 
 void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
@@ -253,32 +343,6 @@ void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 		Menu_NextString->selected = false;
 	Menu_NextString->_setUpdated(true);
 	
-}
-
-MenuElementBase* MenuElementIntSelector::GetPrevItem()
-{
-		if (Parametr - Step >= MinVal) 
-			Parametr = 	Parametr - Step;
-		else
-			Parametr = 	MaxVal;
-		return this;
-}
-
-
-MenuElementBase* MenuElementIntSelector::GetNextItem()
-{
-	
-		if (Parametr + Step <= MaxVal) 
-			Parametr = Parametr + Step;
-		else
-			Parametr = MinVal;
-	
-	return (MenuElementBase*)this;
-}
-
-
-void MenuElement::init()
-{
 }
 
 void MenuElementIntSelector::init()

@@ -87,7 +87,7 @@ protected:
 				}
 			}
 			
-			alarmBizzer.ExecuteStep();
+			//alarmBizzer.ExecuteStep();
 
 			
 			if (DelayInTicks)

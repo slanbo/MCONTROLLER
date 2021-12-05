@@ -11,14 +11,14 @@
 
 extern std::vector < MenuElement *> menuElements;
 
-bool setDefaults(uint16_t param)
+bool setDefaults(uint16_t* param)
 {
 	clearTunesInFlash();
 	return true;
 }
 ;
 
-bool clearCounters(uint16_t param)
+bool clearCounters(uint16_t* param)
 {
 	dayPCounterFirstByte._setVal(0);
 	dayPCounterFirstByte.save();
@@ -58,90 +58,138 @@ bool clearCounters(uint16_t param)
 ;
 
 
-bool setYear(uint16_t param)
+bool setYear(uint16_t* param)
 {
-	
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	sDate.Year = param - 2000;
+	sDate.Year = *param - 2000;
 	HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
 	return true;
 }
 ;
 
-bool setMonth(uint16_t param)
+bool restoreYear(uint16_t* param)
 {
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	sDate.Month = param;
-	HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	
+	*param = sDate.Year + 2000;
 	return true;
 }
 ;
 
-bool setDate(uint16_t param)
+bool setMonth(uint16_t* param)
 {
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	sDate.Date = param;
+	sDate.Month = *param;
 	HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	
 	return true;
 }
 ;
 
-bool setHour(uint16_t param)
+bool restoreMonth(uint16_t* param)
+{
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	*param = sDate.Month;
+	return true;
+}
+
+
+bool setDate(uint16_t* param)
+{
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	sDate.Date = *param;
+	HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	return true;
+}
+;
+
+bool restoreDate(uint16_t* param)
+{
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	*param = sDate.Date;
+	return true;
+}
+;
+
+bool setHour(uint16_t* param)
 {
 	RTC_TimeTypeDef sTime = { 0 };
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	sTime.Hours = param;
+	sTime.Hours = *param;
 	HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	
 	return true;
 }
 ;
 
-bool setMinute(uint16_t param)
+bool restoreHour(uint16_t* param)
 {
 	RTC_TimeTypeDef sTime = { 0 };
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	sTime.Minutes = param;
-	HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	
+	*param = sTime.Hours;
 	return true;
 }
 ;
 
-bool setWeekDay(uint16_t param)
+bool setMinute(uint16_t* param)
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	sTime.Minutes = *param;
+	HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	return true;
+}
+;
+
+bool restoreMinute(uint16_t* param)
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	*param = sTime.Minutes;
+	return true;
+}
+;
+
+bool setWeekDay(uint16_t* param)
 {
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	sDate.WeekDay = param;
+	sDate.WeekDay = *param;
 	HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 	
 	return true;
 }
 ;
 
-bool setUpSocketLoadPower(uint16_t param)
+bool restoreWeekDay(uint16_t* param)
 {
-	upSocket->_setLoadPowerVT(param);
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	*param = sDate.WeekDay;
 	return true;
 }
 ;
 
-bool setDownSocketLoadPower(uint16_t param)
+bool setUpSocketLoadPower(uint16_t* param)
 {
-	downSocket->_setLoadPowerVT(param);
+	upSocket->_setLoadPowerVT(*param);
 	return true;
 }
 ;
 
-bool setV12SocketLoadPower(uint16_t param)
+bool setDownSocketLoadPower(uint16_t* param)
 {
-	V12_Socket->_setLoadPowerVT(param);
+	downSocket->_setLoadPowerVT(*param);
+	return true;
+}
+;
+
+bool setV12SocketLoadPower(uint16_t* param)
+{
+	V12_Socket->_setLoadPowerVT(*param);
 	return true;
 }
 ;

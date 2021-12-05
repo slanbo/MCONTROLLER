@@ -18,22 +18,22 @@ MenuElement mi_6(&mi_0, &mi_5, "Контр. бани", 3, &modeIndex);
 	
 //дата и время
 MenuElement mi_7(&mi_1, &mi_6, "Дата");
-MenuElementIntSelector mi_8(&mi_7, &mi_7, "Знач. даты", 1, 1, 31, 1, &dateTune, setDate);
+MenuElementIntSelector mi_8(&mi_7, &mi_7, "Знач. даты", 1, 1, 31, 1, &dateTune, restoreDate, setDate);
 
 MenuElement mi_9(&mi_1, &mi_8, "Месяц");
-MenuElementIntSelector mi_10(&mi_9, &mi_9, "Знач. месяца", 1, 1, 12, 1, &monthTune, setMonth);
+MenuElementIntSelector mi_10(&mi_9, &mi_9, "Знач. месяца", 1, 1, 12, 1, &monthTune, restoreMonth, setMonth);
 	
 MenuElement mi_11(&mi_1, &mi_10, "Год");
-MenuElementIntSelector mi_12(&mi_11, &mi_11, "Знач. года", 2021, 2021, 2031, 1, &yearTune, setYear);
+MenuElementIntSelector mi_12(&mi_11, &mi_11, "Знач. года", 2021, 2021, 2031, 1, &yearTune, restoreYear, setYear);
 	
 MenuElement mi_13(&mi_1, &mi_12, "Час");
-MenuElementIntSelector mi_14(&mi_13, &mi_13, "Знач. часа", 0, 0, 24, 1, &hourTune, setHour);
+MenuElementIntSelector mi_14(&mi_13, &mi_13, "Знач. часа", 0, 0, 24, 1, &hourTune, restoreHour, setHour);
 
 MenuElement mi_15(&mi_1, &mi_14, "Минута");
-MenuElementIntSelector mi_16(&mi_15, &mi_15, "Знач. минуты", 1, 1, 60, 1, &minuteTune, setMinute);
+MenuElementIntSelector mi_16(&mi_15, &mi_15, "Знач. минуты", 1, 1, 60, 1, &minuteTune, restoreMinute, setMinute);
 	
 MenuElement mi_17(&mi_1, &mi_16, "День недели");
-MenuElementIntSelector mi_18(&mi_17, &mi_17, "Знач. дня недели", 1, 1, 7, 1, &weekDayTune, setWeekDay);
+MenuElementIntSelector mi_18(&mi_17, &mi_17, "Знач. дня недели", 1, 1, 7, 1, &weekDayTune, restoreWeekDay, setWeekDay);
 	
 //настройки
 MenuElement mi_19(&mi_2, &mi_18, "Восст. умолч.", setDefaults);

@@ -11,7 +11,7 @@
 
 
 using BaseItemLPfnc = bool(*)();
-using IntParamItemLPfnc = bool(*)(uint16_t param);
+using IntParamfnc = bool(*)(uint16_t* param);
 
 class MenuElementBase
 {
@@ -31,6 +31,7 @@ public:
 	virtual void FillScreen();
 	
 	virtual void invokeDownLongPress();
+	virtual void invokeOnSelect();
 	
 	virtual MenuElementBase* GetPrevItem();
 	virtual MenuElementBase* GetNextItem();	
@@ -81,7 +82,7 @@ public:
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
 		std::string name,
-		IntParamItemLPfnc downLongPressFnc,
+		IntParamfnc downLongPressFnc,
 		uint16_t parametr, 
 		intTune* tune
 		);
@@ -90,10 +91,26 @@ public:
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
 		std::string name,
-		IntParamItemLPfnc downLongPressFnc
+		IntParamfnc downLongPressFnc
 		);
 	
+	MenuElement(
+			MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		IntParamfnc onSelectFnc,
+		IntParamfnc downLongPressFnc,
+		uint16_t parametr, 
+		intTune* tune);
+	
+	MenuElement(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		IntParamfnc onSelectFnc,
+		IntParamfnc downLongPressFnc);	
 	void invokeDownLongPress();
+	void invokeOnSelect();
 	
 	virtual void saveParametr();
 	
@@ -106,7 +123,8 @@ public:
 	uint16_t Parametr;
 	
 protected:	
-	IntParamItemLPfnc DownLongPressFnc = nullptr;
+	IntParamfnc DownLongPressFnc = nullptr;
+	IntParamfnc OnSelectFnc = nullptr;
 
 		
 private:
@@ -138,8 +156,20 @@ public:
 		uint16_t maxVal,
 		uint16_t step,
 		intTune* tune,
-		IntParamItemLPfnc downLongPressFnc);
+		IntParamfnc downLongPressFnc);
 	
+	MenuElementIntSelector(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		uint16_t initVal, 
+		uint16_t minVal, 
+		uint16_t maxVal,
+		uint16_t step,
+		intTune* tune,
+		IntParamfnc onSelectFnc,
+		IntParamfnc downLongPressFnc
+		);
 	
 	virtual void fillTextScreenElement(Text_ScreenElement* element);
 	virtual MenuElementBase* GetPrevItem();
