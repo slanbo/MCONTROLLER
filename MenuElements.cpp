@@ -5,6 +5,7 @@
 #include "SocketObjectsExt.hpp"
 #include "IRMotionSensor.hpp"
 #include "MenuElement.hpp"
+#include "Auxiliary.h"
 
 #ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
@@ -17,6 +18,71 @@ bool setDefaults(uint16_t* param)
 	return true;
 }
 ;
+
+bool restoreDelayBeginTunes(uint16_t* param)
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+	RTC_TimeTypeDef savedTime = { 0 };
+	RTC_DateTypeDef savedDate = { 0 };
+	
+	savedDate.Date = delayBeginDate._getVal();
+	savedDate.Month = delayBeginMonth._getVal();
+	savedDate.Year = delayBeginYear._getVal();
+		
+	savedTime.Hours = delayBeginHour._getVal();
+	savedTime.Minutes = delayBeginMinute._getVal();	
+	savedTime.Seconds = 0;	
+		
+	compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+	
+	if (res == LESS)
+	{
+		delayBeginYear._setVal(sDate.Year);
+		delayBeginMonth._setVal(sDate.Month);
+		delayBeginDate._setVal(sDate.Date);
+		delayBeginHour._setVal(sTime.Hours);
+		delayBeginMinute._setVal(sTime.Minutes);
+	}
+	return true;
+}
+;
+
+bool restoreDelayEndTunes(uint16_t* param)
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+	RTC_TimeTypeDef savedTime = { 0 };
+	RTC_DateTypeDef savedDate = { 0 };
+	
+	savedDate.Date = delayEndDate._getVal();
+	savedDate.Month = delayEndMonth._getVal();
+	savedDate.Year = delayEndYear._getVal();
+		
+	savedTime.Hours = delayEndHour._getVal();
+	savedTime.Minutes = delayEndMinute._getVal();	
+	savedTime.Seconds = 0;	
+		
+	compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+	
+	if (res == LESS)
+	{
+		delayEndYear._setVal(sDate.Year);
+		delayEndMonth._setVal(sDate.Month);
+		delayEndDate._setVal(sDate.Date);
+		delayEndHour._setVal(sTime.Hours);
+		delayEndMinute._setVal(sTime.Minutes);
+	}
+	return true;
+}
+;
+
 
 bool clearCounters(uint16_t* param)
 {
@@ -72,6 +138,16 @@ bool restoreYear(uint16_t* param)
 {
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	*param = sDate.Year + 2000;
+	return true;
+}
+;
+
+bool restoreDelayYear(uint16_t* param)
+{
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	if (*param < sDate.Year + 2000)
 	*param = sDate.Year + 2000;
 	return true;
 }

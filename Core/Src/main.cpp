@@ -102,7 +102,7 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++++++ PAUSES ++++++++++++++++++++++++++
 #include "TempPausesObjects.hpp"
 //++++++++++++++++ CONTROLS ++++++++++++++++++++++++++
-//#include "ControlObjects.hpp"
+#include "ControlObjects.hpp"
 //+++++++++++++ MODES ++++++++++++++++
 #include "ModeObjects.hpp"
 

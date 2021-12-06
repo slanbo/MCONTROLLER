@@ -7,6 +7,8 @@
 class BaseObject
 {
 public:
+	
+	BaseObject();
 	BaseObject(uint16_t ID, std::string name);
 	BaseObject(std::string name);
 	uint16_t _getId();

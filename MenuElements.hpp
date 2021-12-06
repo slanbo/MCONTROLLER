@@ -4,7 +4,8 @@
 #include "main.h"
 #include "MenuElement.hpp"
 
-
+bool restoreDelayEndTunes(uint16_t* param);
+bool restoreDelayBeginTunes(uint16_t* param);
 bool setDefaults(uint16_t* param);
 bool clearCounters(uint16_t* param);
 bool setYear(uint16_t* param);

@@ -23,6 +23,8 @@ public:
 	virtual void FillScreen() = 0;
 	virtual void ExecuteStep() = 0;
 	virtual void init() = 0;
+	
+	virtual bool isOn() = 0;
 	virtual bool isActive() = 0;
 	
 	
@@ -47,28 +49,27 @@ public:
 	virtual void FillScreen();
 	virtual void ExecuteStep();
 	virtual void init();
+	virtual bool isOn();
+	virtual bool isActive();
 	
 protected:	
-	std::vector<ControlBase *> Controls;
+	std::vector<SensorsSocketsControl*> controlsVector;
+	uint8_t currentControlIndex = 0;
+
 };
 
 class Habitat : public ControlsMode
 {
 	public: 
 	Habitat(uint16_t ID, std::string name);
-	virtual void FillScreen();
-	virtual void ExecuteStep();
 	virtual void init();
-	virtual bool isActive();
 	
 	SensorsSocketsControl* airTempControl;
 	SensorsSocketsControl* batTempControl;
 	SensorsSocketsControl* lightControl;
 	SensorsSocketsControl* coControl;
 	
-	std::vector<SensorsSocketsControl*> controlsVector;
 
-	uint8_t currentControlIndex = 0;
 	
 	~Habitat();
 	

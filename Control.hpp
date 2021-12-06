@@ -13,6 +13,7 @@
 class ControlBase: public BaseObject
 {
 public:
+	ControlBase();
 	
 	ControlBase(uint16_t id,
 		std::string name,
@@ -23,7 +24,7 @@ public:
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune);
 	
-	virtual void init(uint8_t index);
+	virtual void init();
 	virtual void ExecuteStep() = 0;
 	virtual bool isOn();
 	virtual bool isActive();
@@ -46,6 +47,8 @@ protected:
 class SocketsControl : public ControlBase
 {
 public:
+	SocketsControl();
+	
 	SocketsControl
 		(
 		uint16_t id,
@@ -64,7 +67,7 @@ public:
 		);
 	
 	void SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT);
-
+	virtual void init();
 	
 private:
 	
@@ -80,6 +83,8 @@ using createTimeProfileFnc = TimeProfile*(*)(intTune*);
 class SensorsSocketsControl : public SocketsControl
 {
 public:
+	SensorsSocketsControl();
+	
 	SensorsSocketsControl(
 		uint16_t id,
 		std::string name,
@@ -115,17 +120,18 @@ public:
 	virtual void _set_current_val(uint16_t val);
 	
 	virtual char* GetSensorsUnit();
+
 	
 private:
 	
 	
 protected:
 	
-	IntVectorTune* SensorsTune;
-	IntVectorTune* DownSocketsTune;
-	intTune* TimeProfileTune;
+	IntVectorTune* SensorsTune = nullptr;
+	IntVectorTune* DownSocketsTune = nullptr;
+	intTune* TimeProfileTune = nullptr;
 
-	DatePeriodValuesCollection* DPVCollection;
+	DatePeriodValuesCollection* DPVCollection = nullptr;
 	std::vector< plugSocket*> DownSocketsVector;
 	std::vector< ADCSensor*> SensorsVector;
 	

@@ -183,10 +183,10 @@ MenuElementIntSelector mi_109(&mi_108, &mi_108, "П3 время", 1, 0, 720, 5, 
 MenuElement mi_110(nullptr, &mi_109, "Отлож. старт");
 	
 //дата начала 
-MenuElement mi_111(&mi_110, &mi_110, "Дата старт");
+MenuElement mi_111(&mi_110, &mi_110, "Дата старт", restoreDelayBeginTunes);
 	
 MenuElement mi_112(&mi_111, &mi_111, "Год");
-MenuElementIntSelector mi_113(&mi_112, &mi_112, "Знач. года", 2021, 2021, 2031, 1, &delayBeginYear);
+MenuElementIntSelector mi_113(&mi_112, &mi_112, "Знач. года", 21, 21, 31, 1, &delayBeginYear);
 	
 MenuElement mi_114(&mi_111, &mi_113, "Месяц");
 MenuElementIntSelector mi_115(&mi_114, &mi_114, "Знач. месяца", 1, 1, 12, 1, &delayBeginMonth);
@@ -211,10 +211,10 @@ MenuElement mi_124(&mi_122, &mi_123, "Выключить", 0, &delayBeginOnOffTu
 MenuElement mi_125(nullptr, &mi_124, "Отлож. стоп");
 	
 //дата стоп 
-MenuElement mi_126(&mi_125, &mi_125, "Дата стоп");
+MenuElement mi_126(&mi_125, &mi_125, "Дата стоп", restoreDelayEndTunes);
 	
 MenuElement mi_127(&mi_126, &mi_126, "Год");
-MenuElementIntSelector mi_128(&mi_127, &mi_127, "Знач. года", 2021, 2021, 2031, 1, &delayEndYear);
+MenuElementIntSelector mi_128(&mi_127, &mi_127, "Знач. года", 21, 21, 31, 1, &delayEndYear);
 	
 MenuElement mi_129(&mi_126, &mi_128,"Месяц");
 MenuElementIntSelector mi_130(&mi_129, &mi_129, "Знач. месяца", 1, 1, 12, 1, &delayEndMonth);

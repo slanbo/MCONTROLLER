@@ -20,3 +20,8 @@ uint16_t BaseObject::_getId()
 {
 	return id;
 }
+
+
+BaseObject::BaseObject()
+{
+}

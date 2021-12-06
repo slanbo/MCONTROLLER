@@ -199,9 +199,9 @@ void MenuElement::invokeOnSelect()
 {
 	if (OnSelectFnc != nullptr)
 		OnSelectFnc(&Parametr);
-	if (Tune != nullptr)
-		saveParametr();
-	
+	//if (Tune != nullptr)
+		//saveParametr();
+		//Parametr = Tune->_getVal();
 }
 
 
@@ -302,10 +302,20 @@ void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 	Menu_PrevString->FillEndBySpaces();
 	if (Tune != nullptr)
 	{
-		if (Parametr - Step ==  Tune->_getVal())
-			Menu_PrevString->selected = true;
+		if (Parametr - Step <= MaxVal) 
+		{
+			if (Parametr - Step ==  Tune->_getVal())
+				Menu_PrevString->selected = true;
+			else
+				Menu_PrevString->selected = false;
+		}
 		else
-			Menu_PrevString->selected = false;
+		{
+			if (MaxVal ==  Tune->_getVal())
+				Menu_PrevString->selected = true;
+			else
+				Menu_PrevString->selected = false;
+		}
 	}
 	else
 		Menu_PrevString->selected = false;
@@ -334,10 +344,20 @@ void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 	Menu_NextString->FillEndBySpaces();
 	if (Tune != nullptr)
 	{
-		if (Parametr + Step ==  Tune->_getVal())
-			Menu_NextString->selected = true;
+		if (Parametr + Step <= MaxVal) 
+		{
+			if (Parametr + Step ==  Tune->_getVal())
+				Menu_NextString->selected = true;
+			else
+				Menu_NextString->selected = false;
+		}
 		else
-			Menu_NextString->selected = false;
+		{
+			if (MinVal ==  Tune->_getVal())
+				Menu_NextString->selected = true;
+			else
+				Menu_NextString->selected = false;
+		}
 	}
 	else
 		Menu_NextString->selected = false;

@@ -27,19 +27,75 @@ ControlBase::ControlBase(std::string name, intTune* onOffTune, intTune* switchOn
 bool ControlBase::isActive()
 {
 	
-	if (SwitchOnMotionPeriodTune != nullptr & SwitchOnMotionPeriodTune->_getVal() > 0)
+	bool active = true;
+	
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+	RTC_TimeTypeDef savedTime = { 0 };
+	RTC_DateTypeDef savedDate = { 0 };
+	
+	//delay start
+	
+	
+	if(delayBeginOnOffTune._getVal() == 1)
 	{
-		uint16_t motions = IRMSensor->motionsDetected(SwitchOnMotionPeriodTune->_getVal());
-		if (motions > 0)
-			return true;
-		else 
-			return false;
+		savedDate.Date = delayBeginDate._getVal();
+		savedDate.Month = delayBeginMonth._getVal();
+		savedDate.Year = delayBeginYear._getVal();
+		
+		savedTime.Hours = delayBeginHour._getVal();
+		savedTime.Minutes = delayBeginMinute._getVal();	
+		savedTime.Seconds = 0;	
+		
+		compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+		if (res == MORE | res == EQUAL)
+			active =  true;
+		else
+			active =  false;
+		
 	}
-	else
+	
+	//delay end
+	if(delayEndOnOffTune._getVal() == 1)
 	{
-		return true;
+	
+		savedDate.Date = delayEndDate._getVal();
+		savedDate.Month = delayEndMonth._getVal();
+		savedDate.Year = delayEndYear._getVal();
+		
+		savedTime.Hours = delayEndHour._getVal();
+		savedTime.Minutes = delayEndMinute._getVal();	
+		savedTime.Seconds = 0;	
+		
+		compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+		if (res == LESS | res == EQUAL)
+			active =  true;
+		else
+			active =  false;
+		
 	}
-	return true;
+	
+	
+	//motion detection 
+	if(OnOffTune->_getVal() == 2)
+	{
+		if (SwitchOnMotionPeriodTune != nullptr & SwitchOnMotionPeriodTune->_getVal() > 0)
+		{
+			uint16_t motions = IRMSensor->motionsDetected(SwitchOnMotionPeriodTune->_getVal());
+			if (motions > 0)
+				active =  true;
+			else 
+				active =  false;
+		}
+		else
+		{
+			active =  true;
+		}
+	}
+	return active;
 }
 
 void ControlBase::clearLCD()
@@ -56,7 +112,7 @@ bool ControlBase::isOn()
 	return false;
 }
 
-void ControlBase::init(uint8_t index)
+void ControlBase::init()
 {
 }
 
@@ -66,23 +122,22 @@ SocketsControl::SocketsControl(uint16_t id,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
 	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
-	, 
-	SocketsTune()
+	, SocketsTune()
 {
-	
-	SocketsVector.clear();
-	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : SocketsTune->val)
-			if (tuneval == inItem->_getId())
-				SocketsVector.push_back(inItem);
-	
+	if (SocketsTune != nullptr)
+	{
+		SocketsVector.clear();
+		for (auto inItem : BaseUnitSocketsV)
+			for (auto tuneval : SocketsTune->val)
+				if (tuneval == inItem->_getId())
+					SocketsVector.push_back(inItem);
+	}
 }
 
 SocketsControl::SocketsControl(std::string name, 
 	intTune* onOffTune, 
 	intTune* switchOnMotionPeriodTune,
-	IntVectorTune* socketsTune
-	)
+	IntVectorTune* socketsTune)
 	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune()
 
@@ -95,6 +150,11 @@ SocketsControl::SocketsControl(std::string name,
 				SocketsVector.push_back(inItem);
 	
 }
+
+void SocketsControl::init()
+{
+}
+
 
 void SocketsControl::SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT)
 {
@@ -110,8 +170,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
-	DatePeriodValuesCollection* dpvcollection
-	)
+	DatePeriodValuesCollection* dpvcollection)
 	: SocketsControl(id, name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
@@ -260,4 +319,21 @@ char* SensorsSocketsControl::GetSensorsUnit()
 SensorsSocketsControl::~SensorsSocketsControl()
 {
 	
+}
+
+
+
+
+SensorsSocketsControl::SensorsSocketsControl()
+{
+}
+
+
+SocketsControl::SocketsControl()
+{
+}
+
+
+ControlBase::ControlBase()
+{
 }
