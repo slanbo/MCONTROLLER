@@ -19,7 +19,7 @@ extern	intTune dateTune;
 extern	intTune hourTune;
 extern	intTune minuteTune;
 extern	intTune weekDayTune;
-extern	intTune CONullLevel;
+extern intTune CODangerLevel;
 extern intTune airTempControlOnOffTune;
 extern intTune batTempControlOnOffTune;
 extern intTune coControlOnOffTune;

@@ -75,7 +75,8 @@ MenuElement mi_39(&mi_37, &mi_38, "Выключить", 0, &airTempControlOnOffT
 	
 //"Температ. бат."
 MenuElement mi_42(&mi_29, &mi_39, "Ночь нагр. до 80", 0, &batTempProfileIndex);
-MenuElementIntSelector mi_43(&mi_42, &mi_42, "Знач. фикс. темп.", 1, 0, 100, 1, &batFixTemp);
+MenuElementIntSelector mi_43(&mi_42, &mi_42, "Фикс. ночн. t", 1, 0, 100, 1, &batNightFixTemp);
+MenuElementIntSelector mi_180(&mi_42, &mi_42, "Фикс. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
 
 MenuElement mi_44(&mi_29, &mi_43, "Вкл->/Выкл");
 MenuElement mi_45(&mi_44, &mi_44, "Включить", 1, &batTempControlOnOffTune);
@@ -84,7 +85,7 @@ MenuElement mi_46(&mi_44, &mi_45, "Выключить", 0, &batTempControlOnOffT
 	
 //"Угарный газ"
 MenuElement mi_47(&mi_30, &mi_46, "Ноль. уров. CO");
-MenuElementIntSelector mi_48(&mi_47, &mi_47, "Ноль. уров. CO", 300, 300, 1500, 10, &CONullLevel);
+MenuElementIntSelector mi_48(&mi_47, &mi_47, "Опасн. ур. CO", 0, 0, 200, 1, &CODangerLevel);
 	
 MenuElement mi_49(&mi_30, &mi_48, "Вкл./Выкл");
 MenuElement mi_50(&mi_49, &mi_49, "Включить", 1, &coControlOnOffTune);

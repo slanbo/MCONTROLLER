@@ -44,25 +44,36 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
-	DatePeriodValuesCollection* dpvc = (DatePeriodValuesCollection*) pvPortMalloc(sizeof(DatePeriodValuesCollection));
-	dpvc->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	DatePeriodValuesCollection* airTempDVPC = new DatePeriodValuesCollection();
+	airTempDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
-	void* atcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-	
-	airTempControl = new(atcptr) SensorsSocketsControl
+	airTempControl = new SensorsSocketsControl
 		(
-		"Температура:", 
+		"Темпер. возд:", 
 		&airTempControlOnOffTune,
 		&airTempControlSensors,
 		&airTempControlUpSockets,
 		&airTempControlDownSockets,
 		&airTempControlTimeProfile,
-		dpvc);
+		airTempDVPC);
 	
-	void* ccptr = pvPortMalloc(sizeof(SensorsSocketsControl));
-
+	DatePeriodValuesCollection* batTempDVPC = new DatePeriodValuesCollection();
+	batTempDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &batFixTemp);
 	
-	coControl = new(ccptr)SensorsSocketsControl
+	batTempControl = new SensorsSocketsControl
+			(
+		"Темпер. бат:", 
+		&batTempControlOnOffTune,
+		&batTempControlSensors,
+		&batTempControlUpSockets,
+		&batTempControlDownSockets,
+		&batTempControlTimeProfile,
+		batTempDVPC);
+	
+	DatePeriodValuesCollection* CODVPC = new DatePeriodValuesCollection();
+	CODVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &batFixTemp);
+	
+	coControl = new SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
@@ -70,11 +81,12 @@ Habitat::Habitat(uint16_t ID,
 		&COControlUpSockets,
 		&COControlDownSockets,
 		&COControlTimeProfile,
-		dpvc);	
+		CODVPC);	
 	
-	void* lcptr = pvPortMalloc(sizeof(SensorsSocketsControl));
+	DatePeriodValuesCollection* lightDVPC = new DatePeriodValuesCollection();
+	lightDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
 	
-	lightControl = new(lcptr)SensorsSocketsControl
+	lightControl = new SensorsSocketsControl
 		(
 		"Освещение:", 
 		&lightControlOnOffTune,
@@ -82,7 +94,7 @@ Habitat::Habitat(uint16_t ID,
 		&lightControlUpSockets,
 		&lightControlDownSockets,
 		&lightControlTimeProfile,
-		dpvc);
+		lightDVPC);
 	
 	controlsVector.push_back(airTempControl);
 	controlsVector.push_back(coControl);
@@ -91,9 +103,9 @@ Habitat::Habitat(uint16_t ID,
 
 Habitat::~Habitat()
 {
-	//vPortFree(airTempControl);
-	//vPortFree(coControl);
-	//vPortFree(lightControl);
+	delete airTempControl;
+	delete coControl;
+	delete lightControl;
 }
 
 void Habitat::FillScreen()

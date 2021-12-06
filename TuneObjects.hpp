@@ -12,9 +12,10 @@ intTune mashingProfileIndex(&airTempProfileIndex);
 intTune boilingProfileIndex(&mashingProfileIndex);
 intTune airFixTemp(&boilingProfileIndex);
 
-intTune CONullLevel(&airFixTemp);
-intTune batFixTemp(&CONullLevel);
-intTune airTempControlOnOffTune(&batFixTemp);
+intTune CODangerLevel(&airFixTemp);
+intTune batDayFixTemp(&CODangerLevel);
+intTune batNightFixTemp(&batDayFixTemp);
+intTune airTempControlOnOffTune(&batNightFixTemp);
 intTune batTempControlOnOffTune(&airTempControlOnOffTune);
 intTune coControlOnOffTune(&batTempControlOnOffTune);
 intTune batTempProfileIndex(&coControlOnOffTune);

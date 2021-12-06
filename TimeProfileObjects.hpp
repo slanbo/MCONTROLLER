@@ -79,7 +79,7 @@ TimeProfile* createCOTimeProfile(intTune* timeProfile)
 	{
 	case 1:
 		{
-			return createAllTimeTunedProfile(&CONullLevel);
+			return createAllTimeTunedProfile(&CODangerLevel);
 			break;
 		}
 	default:
