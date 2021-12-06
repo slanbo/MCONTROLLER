@@ -51,19 +51,25 @@ Habitat::Habitat(uint16_t ID,
 		(
 		"Темпер. возд:", 
 		&airTempControlOnOffTune,
+		&airTempControlSwichOnIfMotionPeriod,
 		&airTempControlSensors,
 		&airTempControlUpSockets,
 		&airTempControlDownSockets,
 		&airTempControlTimeProfile,
 		airTempDVPC);
 	
+	
 	DatePeriodValuesCollection* batTempDVPC = new DatePeriodValuesCollection();
-	batTempDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &batFixTemp);
+	batTempDVPC->addPeriodTune(0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	batTempDVPC->addPeriodTune(0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp);
+	batTempDVPC->addPeriodTune(0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	
 	
 	batTempControl = new SensorsSocketsControl
 			(
 		"Темпер. бат:", 
 		&batTempControlOnOffTune,
+		nullptr,
 		&batTempControlSensors,
 		&batTempControlUpSockets,
 		&batTempControlDownSockets,
@@ -71,12 +77,13 @@ Habitat::Habitat(uint16_t ID,
 		batTempDVPC);
 	
 	DatePeriodValuesCollection* CODVPC = new DatePeriodValuesCollection();
-	CODVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &batFixTemp);
-	
+	CODVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+
 	coControl = new SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
+		&COControlSwichOnIfMotionPeriod,
 		&COControlSensors,
 		&COControlUpSockets,
 		&COControlDownSockets,
@@ -84,12 +91,13 @@ Habitat::Habitat(uint16_t ID,
 		CODVPC);	
 	
 	DatePeriodValuesCollection* lightDVPC = new DatePeriodValuesCollection();
-	lightDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+	lightDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge);
 	
 	lightControl = new SensorsSocketsControl
 		(
 		"Освещение:", 
 		&lightControlOnOffTune,
+		&lightControlSwichOnIfMotionPeriod,
 		&lightControlSensors,
 		&lightControlUpSockets,
 		&lightControlDownSockets,

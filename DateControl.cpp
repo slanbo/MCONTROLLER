@@ -77,7 +77,7 @@ DateControl::DateControl(std::string name,
 	intTune* dataTune,
 	intTune* hourTune,
 	intTune* minuteTune) 
-	: ControlBase(name, onOff)
+	: ControlBase(name, onOff, nullptr)
 	, YearTune(yearTune)
 	
 {

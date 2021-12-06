@@ -18,7 +18,7 @@ PCounterControl::PCounterControl(
 	uint8_t beginMinute, 
 	uint8_t endHour, 
 	uint8_t endMinute)
-	: SocketsControl(name, onOffTune,socketsTune)
+	: SocketsControl(name, onOffTune, nullptr, socketsTune)
 	, BeginHour(beginHour)
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)

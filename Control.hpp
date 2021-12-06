@@ -14,8 +14,14 @@ class ControlBase: public BaseObject
 {
 public:
 	
-	ControlBase(uint16_t id, std::string name, intTune* onOffTune);
-	ControlBase(std::string name, intTune* onOffTune);
+	ControlBase(uint16_t id,
+		std::string name,
+		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune);
+	
+	ControlBase(std::string name,
+		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune);
 	
 	virtual void init(uint8_t index);
 	virtual void ExecuteStep() = 0;
@@ -28,6 +34,7 @@ private:
 	
 protected:
 	intTune* OnOffTune;
+	intTune* SwitchOnMotionPeriodTune;
 	uint8_t Left_X = 0;
 	uint8_t Top_Y = 0;
 	uint8_t Right_X = 0;
@@ -44,6 +51,7 @@ public:
 		uint16_t id,
 		std::string name,
 		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
 		);
 	
@@ -51,6 +59,7 @@ public:
 		(
 		std::string name,
 		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
 		);
 	
@@ -75,6 +84,7 @@ public:
 		uint16_t id,
 		std::string name,
 		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,
@@ -85,6 +95,7 @@ public:
 	SensorsSocketsControl(
 		std::string name,
 		intTune* onOffTune,
+		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,

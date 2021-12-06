@@ -12,7 +12,8 @@ extern	intTune airTempProfileIndex;
 extern	intTune mashingProfileIndex;
 extern	intTune boilingProfileIndex;
 extern	intTune airFixTemp;
-extern	intTune batFixTemp;
+extern	intTune batNightFixTemp;
+extern	intTune batDayFixTemp;
 extern	intTune yearTune;
 extern	intTune monthTune;
 extern	intTune dateTune;
@@ -132,7 +133,7 @@ extern IntVectorTune airTempControlSensors;
 extern IntVectorTune airTempControlUpSockets;
 extern IntVectorTune airTempControlDownSockets;
 extern intTune airTempControlTimeProfile;
-
+extern intTune airTempControlSwichOnIfMotionPeriod;
 
 //bat Temp control sensors & sockets
 extern IntVectorTune batTempControlSensors;
@@ -140,18 +141,19 @@ extern IntVectorTune batTempControlUpSockets;
 extern IntVectorTune batTempControlDownSockets;
 extern intTune batTempControlTimeProfile;
 
-
 //light control sensors & sockets
 extern IntVectorTune lightControlSensors;
 extern IntVectorTune lightControlUpSockets;
 extern IntVectorTune lightControlDownSockets;
 extern intTune lightControlTimeProfile;
+extern intTune lightControlSwichOnIfMotionPeriod;
 
 //co control sensors sockets
 extern IntVectorTune COControlSensors;
 extern IntVectorTune COControlUpSockets;
 extern IntVectorTune COControlDownSockets;
 extern intTune COControlTimeProfile;
+extern intTune COControlSwichOnIfMotionPeriod;
 
 //humodity control sensors sockets
 extern IntVectorTune humidityControlSensors;

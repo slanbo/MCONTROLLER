@@ -69,16 +69,15 @@ MenuElement mi_36(&mi_28, &mi_35, "Выходные вт. пт.", 2, &airTempPro
 MenuElement mi_37(&mi_28, &mi_36, "Вкл./Выкл");
 MenuElement mi_38(&mi_37, &mi_37, "Включить", 1, &airTempControlOnOffTune);
 MenuElement mi_39(&mi_37, &mi_38, "Выключить", 0, &airTempControlOnOffTune);
-
-//MenuElement mi_40(&mi_37, &mi_39, "Вкл. по движ.", 2, &airTempControlOnOffTune);
-//MenuElement mi_41(&mi_40, &mi_40, "Анализ за мин.", 1, 0, IR_MOTION_BUFFER_SIZE, 60, &airTempOnIfMotionPeriod);
+MenuElement mi_40(&mi_37, &mi_39, "Вкл. по движ.", 2, &airTempControlOnOffTune);
+MenuElementIntSelector mi_41(&mi_40, &mi_40, "Анализ за сек.", 1, 0, IR_MOTION_BUFFER_SIZE, 60, &airTempControlSwichOnIfMotionPeriod);
 	
 //"Температ. бат."
-MenuElement mi_42(&mi_29, &mi_39, "Ночь нагр. до 80", 0, &batTempProfileIndex);
+MenuElement mi_42(&mi_29, &mi_41, "День ночь:", 0, &batTempProfileIndex);
 MenuElementIntSelector mi_43(&mi_42, &mi_42, "Фикс. ночн. t", 1, 0, 100, 1, &batNightFixTemp);
-MenuElementIntSelector mi_180(&mi_42, &mi_42, "Фикс. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
+MenuElementIntSelector mi_180(&mi_42, &mi_43, "Фикс. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
 
-MenuElement mi_44(&mi_29, &mi_43, "Вкл->/Выкл");
+MenuElement mi_44(&mi_29, &mi_180, "Вкл->/Выкл");
 MenuElement mi_45(&mi_44, &mi_44, "Включить", 1, &batTempControlOnOffTune);
 MenuElement mi_46(&mi_44, &mi_45, "Выключить", 0, &batTempControlOnOffTune);
 
@@ -90,9 +89,11 @@ MenuElementIntSelector mi_48(&mi_47, &mi_47, "Опасн. ур. CO", 0, 0, 200, 
 MenuElement mi_49(&mi_30, &mi_48, "Вкл./Выкл");
 MenuElement mi_50(&mi_49, &mi_49, "Включить", 1, &coControlOnOffTune);
 MenuElement mi_51(&mi_49, &mi_50, "Выключить", 0, &coControlOnOffTune);
+MenuElement mi_181(&mi_49, &mi_51, "Вкл. по движ.", 2, &coControlOnOffTune);
+MenuElementIntSelector mi_182(&mi_49, &mi_181, "Анализ за сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &COControlSwichOnIfMotionPeriod);
 	
 //"Освещенность"
-MenuElement mi_52(&mi_31, &mi_51, "Ночь выключено.", 0, &LightProfileIndex);
+MenuElement mi_52(&mi_31, &mi_182, "Ночь выключено.", 0, &LightProfileIndex);
 MenuElementIntSelector mi_53(&mi_52, &mi_52, "Порог выключения", 1, 0, 4065, 5, &LightEdge);
 
 MenuElement mi_54(&mi_31, &mi_53, "Всегда включено", 1, &LightProfileIndex);
@@ -104,13 +105,12 @@ MenuElementIntSelector mi_57(&mi_56, &mi_56, "Знач. задерж. сек.", 
 MenuElement mi_58(&mi_31, &mi_57, "Вкл./Выкл");
 MenuElement mi_59(&mi_58, &mi_58, "Включить", 1, &lightControlOnOffTune);
 MenuElement mi_60(&mi_58, &mi_59, "Выключить", 0, &lightControlOnOffTune);
-	
-//MenuElement mi_61(&mi_37, &mi_60, "Вкл. по движ.", 2, &lightControlOnOffTune);
-//MenuElement mi_62(&mi_61, &mi_61, "Анализ за мин.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &lightOnIfMotionPeriod);
+MenuElement mi_61(&mi_37, &mi_60, "Вкл. по движ.", 2, &lightControlOnOffTune);
+MenuElementIntSelector mi_62(&mi_61, &mi_61, "Анализ за сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &lightControlSwichOnIfMotionPeriod);
 
 //приготовление пива
 //mashing
-MenuElement mi_63(&mi_4, &mi_60, "Темп. паузы", 0, &beerModeIndex);
+MenuElement mi_63(&mi_4, &mi_62, "Темп. паузы", 0, &beerModeIndex);
 	
 //mashing Pause 1
 MenuElement mi_64(&mi_63, &mi_63, "Пауза 1");

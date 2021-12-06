@@ -5,7 +5,7 @@ MotionControl::MotionControl(std::string name,
 	intTune* onOff, 
 	intTune* analizeMotionsPeriod, 
 	IntVectorTune* sensorsTune)
-	: ControlBase(name,  onOff),
+	: ControlBase(name,  onOff, nullptr),
 	AnalizeMotionsPeriod(analizeMotionsPeriod)
 {
 	Sensors.clear();

@@ -10,21 +10,36 @@
 #include "Auxiliary.h"
 
 
-ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune)
+ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(id, name)
 	, OnOffTune(onOffTune)
+	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
 {
 }
 
-ControlBase::ControlBase(std::string name, intTune* onOffTune)
+ControlBase::ControlBase(std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(name)
 	, OnOffTune(onOffTune)
+	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
 {
 }
 
 bool ControlBase::isActive()
 {
-	return false;
+	
+	if (SwitchOnMotionPeriodTune != nullptr & SwitchOnMotionPeriodTune->_getVal() > 0)
+	{
+		uint16_t motions = IRMSensor->motionsDetected(SwitchOnMotionPeriodTune->_getVal());
+		if (motions > 0)
+			return true;
+		else 
+			return false;
+	}
+	else
+	{
+		return true;
+	}
+	return true;
 }
 
 void ControlBase::clearLCD()
@@ -47,9 +62,11 @@ void ControlBase::init(uint8_t index)
 
 SocketsControl::SocketsControl(uint16_t id, 
 	std::string name, 
-	intTune* onOffTune, 
+	intTune* onOffTune,
+	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
-	:ControlBase(id, name, onOffTune), 
+	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
+	, 
 	SocketsTune()
 {
 	
@@ -63,8 +80,10 @@ SocketsControl::SocketsControl(uint16_t id,
 
 SocketsControl::SocketsControl(std::string name, 
 	intTune* onOffTune, 
-	IntVectorTune* socketsTune)
-	: ControlBase(id, name, onOffTune)
+	intTune* switchOnMotionPeriodTune,
+	IntVectorTune* socketsTune
+	)
+	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune()
 
 {
@@ -86,13 +105,14 @@ SensorsSocketsControl::SensorsSocketsControl(
 	uint16_t id,
 	std::string name,
 	intTune* onOffTune,
+	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
 	DatePeriodValuesCollection* dpvcollection
 	)
-	: SocketsControl(id, name, onOffTune, upSocketsTune)
+	: SocketsControl(id, name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
 	, TimeProfileTune(timeProfileTune)
@@ -116,12 +136,13 @@ SensorsSocketsControl::SensorsSocketsControl(
 SensorsSocketsControl::SensorsSocketsControl(
 	std::string name,
 	intTune* onOffTune,
+	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
 	DatePeriodValuesCollection* dpvcollection)
-	: SocketsControl(name, onOffTune, upSocketsTune)
+	: SocketsControl(name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
 	, TimeProfileTune(timeProfileTune)
@@ -171,7 +192,7 @@ void SensorsSocketsControl::ExecuteStep()
 	}
 	current_val = sum / SensorsVector.size();
 	
-	/*if (isActive())
+	if (isActive())
 	{
 		if (current_val < aim_val - 2) 
 		{
@@ -197,7 +218,7 @@ void SensorsSocketsControl::ExecuteStep()
 	{
 		SwitchSockets(DownSocketsVector, 0);
 		return;
-	}*/
+	}
 
 }
 

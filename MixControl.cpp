@@ -10,6 +10,7 @@ MixControl::MixControl(std::string name,
 	intTune * modeTune)
 	: SocketsControl(name,
 	onOffTune,
+	nullptr,
 	socketsTune
 	)
 	, ModeTune(modeTune)
