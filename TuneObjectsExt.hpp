@@ -173,6 +173,7 @@ extern intTune delayEndMonth;
 extern intTune delayEndDate;
 extern intTune delayEndHour;	
 extern intTune delayEndMinute;	
+extern IntVectorTune PCounterSockets;
 
 extern FlashTune* lastFlashTune;
 

@@ -122,8 +122,9 @@ SocketsControl::SocketsControl(uint16_t id,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
 	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
-	, SocketsTune()
+	, SocketsTune(socketsTune)
 {
+	SocketsVector.clear();
 	if (SocketsTune != nullptr)
 	{
 		SocketsVector.clear();
@@ -131,6 +132,10 @@ SocketsControl::SocketsControl(uint16_t id,
 			for (auto tuneval : SocketsTune->val)
 				if (tuneval == inItem->_getId())
 					SocketsVector.push_back(inItem);
+		
+		for (auto sock : SocketsVector)
+			sock->SwitchOff();
+		
 	}
 }
 
@@ -139,16 +144,22 @@ SocketsControl::SocketsControl(std::string name,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
 	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
-	, SocketsTune()
+	, SocketsTune(socketsTune)
 
-{
-
+{	
 	SocketsVector.clear();
-	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : SocketsTune->val)
-			if (tuneval == inItem->_getId())
-				SocketsVector.push_back(inItem);
-	
+	if (SocketsTune != nullptr)
+	{
+		SocketsTune->_getVal();
+		for (auto inItem : BaseUnitSocketsV)
+			for (auto tuneval : SocketsTune->val)
+				if (tuneval == inItem->_getId())
+					SocketsVector.push_back(inItem);
+		
+		for (auto sock : SocketsVector)
+			sock->SwitchOff();
+
+	}
 }
 
 void SocketsControl::init()
@@ -185,6 +196,9 @@ SensorsSocketsControl::SensorsSocketsControl(
 			if (tuneval == inItem->_getId())
 				DownSocketsVector.push_back(inItem);
 	
+	for (auto sock : DownSocketsVector)
+		sock->SwitchOff();
+	
 	SensorsVector.clear();
 	for (auto inItem : ADCSensorsV)
 		for (auto tuneval : SensorsTune->val)
@@ -218,6 +232,8 @@ SensorsSocketsControl::SensorsSocketsControl(
 			if (tuneval == inItem->_getId())
 				DownSocketsVector.push_back(inItem);
 	
+	for (auto sock : DownSocketsVector)
+		sock->SwitchOff();
 	
 	SensorsVector.clear();
 	for (auto inItem : ADCSensorsV)
@@ -259,7 +275,6 @@ void SensorsSocketsControl::ExecuteStep()
 		
 		if (current_val > aim_val) // switch sockets to decriace val
 			{
-				//SwitchSockets(SocketsVector, 0);
 				upPower = 0;
 				if (DownSocketsVector.size() > 0)
 				{
@@ -348,9 +363,6 @@ SensorsSocketsControl::~SensorsSocketsControl()
 {
 }
 
-
-
-
 SensorsSocketsControl::SensorsSocketsControl()
 {
 }
@@ -374,7 +386,7 @@ ControlBase::ControlBase()
 void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t powerVT)
 {
 	uint8_t EqualSocketId = 0;
-	uint8_t PowerSum = 0;
+	uint16_t PowerSum = 0;
 	bool switched = false;
 	
 	if (sockets.size() > 0)
@@ -383,6 +395,7 @@ void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t 
 			for (auto socket : sockets)
 			{
 				socket->SwitchOff();
+				bool state = socket->getSocketState();
 				return;
 			}
 		else
@@ -429,4 +442,15 @@ void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t 
 		}
 	}
 	
+}
+
+
+uint16_t SocketsControl::GetSocketsPowerVT()
+{
+	uint16_t sum = 0;
+	
+	for (auto sock : SocketsVector)
+		if (sock->getSocketState())
+			sum = sum + sock->getLoadpowerVT();
+	return sum;
 }

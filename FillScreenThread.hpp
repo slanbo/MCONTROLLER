@@ -59,7 +59,10 @@ protected:
 				
 				if (showInfoCounter == 0)
 				{
-					HabitatMode->FillScreen();
+					if (!HabitatMode->allscreensfilled)
+						HabitatMode->FillScreen();
+					else
+						
 				}
 			
 				showInfoCounter++;

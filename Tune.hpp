@@ -41,6 +41,7 @@ public:
 	uint8_t getSize();
 	FlashTune * getPrevFlashTune();
 	
+	uint16_t getFlashAddress();
 	
 protected:
 	

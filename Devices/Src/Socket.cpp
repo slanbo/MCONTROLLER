@@ -10,7 +10,7 @@ plugSocket::plugSocket(uint16_t ID,
 	, GPIO_Pin(gPIO_Pin)
 	, LoadPowerVTTune(loadPowerVTTune)
 {
-	
+	 SwitchOff();
 }
 
 void plugSocket::SwitchOn()

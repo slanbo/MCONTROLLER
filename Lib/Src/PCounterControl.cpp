@@ -13,7 +13,8 @@ PCounterControl::PCounterControl(
 	std::string name,
 	intTune* onOffTune,
 	IntVectorTune* socketsTune, 
-	uint16_t address, 
+	intTune*  eepromFirstByte,
+	intTune*  eepromSecondByte,
 	uint8_t beginHour, 
 	uint8_t beginMinute, 
 	uint8_t endHour, 
@@ -23,7 +24,8 @@ PCounterControl::PCounterControl(
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)
 	, EndMinute(endMinute)
-	, FlashAddress(address)
+	, EepromFirstByte(eepromFirstByte)
+	, EepromSecondByte(eepromSecondByte)
 {
 
 }
@@ -92,14 +94,14 @@ void PCounterControl::saveToFlash()
 	uint32_t VTInHourAFR = getVTHour_After_FlashWrite();
 	restoreFromFlash();
 	HAL_FLASH_Unlock();
-	uint16_t status = EE_Write_Int32(FlashAddress, VTInHourAFR + VT_HOUR);
+	uint16_t status = EE_Write_Int32(EepromFirstByte->getFlashAddress(), VTInHourAFR + VT_HOUR);
 	HAL_FLASH_Lock();
 	VT_After_FlashWrite = 0;
 }
 
 void PCounterControl::restoreFromFlash()
 {
-	VT_HOUR = EE_Read_Int32(FlashAddress);
+	VT_HOUR = EE_Read_Int32(EepromFirstByte->getFlashAddress());
 }
 
 
@@ -111,27 +113,27 @@ void PCounterControl::FillScreen()
 	char dateString[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
 	Info_SubHeader->SetText(Name, false);
-	Info_FirstString->SetText("Начало отсчета: ", true);
 	
-	strcpy(dateString, "");
-	inttoabase10(PCounterBeginDate._getVal(), intString);
-	strcat(dateString, intString);	
-	strcat(dateString, "/");
-	inttoabase10(PCounterBeginMonth._getVal(), intString);
-	strcat(dateString, intString);	
-	strcat(dateString, "/");
-	inttoabase10(PCounterBeginYear._getVal(), intString);
-	strcat(dateString, intString);	
-	strcat(dateString, " ");
-	inttoabase10(PCounterBeginHour._getVal(), intString);
-	strcat(dateString, intString);	
-	strcat(dateString, ":");
-	inttoabase10(PCounterBeginMinute._getVal(), intString);
-	strcat(dateString, intString);	
-	Info_SecondString->SetText(dateString, true);
+	char datedevider[] = "/\0";
+	char timedevider[] = ":\0";
+	char blank[] = " \0";
 	
-	//Info_ThirdString->Set_Prefix_IntVal_Postfix_Text("ВТ ЧАС: ", getCurrentVtHour(), 4, "", true);
-	Info_FourthString->SetText("", false);
+	
+	char countbeg[] = "Начало отсчета: ";
+	Info_FirstString->SetChars(countbeg, true);
+	Info_FirstString->SetIntText(PCounterBeginDate._getVal(), 2);
+	Info_FirstString->SetChars(datedevider, false);
+	Info_FirstString->SetIntText(PCounterBeginDate._getVal(), 2);
+	Info_FirstString->SetChars(datedevider, false);
+	Info_FirstString->SetIntText(PCounterBeginYear._getVal(), 2);
+	Info_FirstString->SetChars(datedevider, false);
+	Info_FirstString->SetChars(blank, false);
+	Info_FirstString->SetIntText(PCounterBeginHour._getVal(), 2);
+	Info_FirstString->SetChars(timedevider, false);
+	Info_FirstString->SetIntText(PCounterBeginMinute._getVal(), 2);
+	Info_FirstString->SetChars(timedevider, false);
+	Info_FirstString->FillEndBySpaces();
+	Info_FirstString->_setUpdated(true);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 

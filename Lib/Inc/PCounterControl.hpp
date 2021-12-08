@@ -14,7 +14,8 @@ private:
 	uint8_t BeginMinute = 0;
 	uint8_t EndHour = 0;
 	uint8_t EndMinute = 0;
-	uint16_t FlashAddress = 0;
+	intTune*  EepromFirstByte;
+	intTune*  EepromSecondByte;
 	uint16_t WriteFlashSteps = 60;
 	uint16_t Current_Step_After_FlashWrite = 0;
 	uint32_t VT_After_FlashWrite = 0;
@@ -31,7 +32,8 @@ public:
 	PCounterControl(std::string pcName,
 		intTune* onOffTune,
 		IntVectorTune* socketsTune, 
-		uint16_t address, 
+		intTune*  eepromFirstByte,
+		intTune*  eepromSecondByte,
 		uint8_t beginHour, 
 		uint8_t beginMinute, 
 		uint8_t endHour, 

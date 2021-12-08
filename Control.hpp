@@ -67,6 +67,8 @@ public:
 		);
 	
 	void SwitchSockets(uint16_t powerVT);
+	uint16_t GetSocketsPowerVT();
+	
 	virtual void init();
 	
 private:

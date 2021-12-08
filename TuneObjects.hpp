@@ -180,5 +180,7 @@ intTune weekDayTune(&minuteTune);
 
 IntVectorTune IRMSensorsTune(&weekDayTune, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
 
-FlashTune* lastFlashTune = &IRMSensorsTune;
+IntVectorTune PCounterSockets(&IRMSensorsTune, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+
+FlashTune* lastFlashTune = &PCounterSockets;
 

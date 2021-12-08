@@ -73,18 +73,24 @@ void ControlsMode::FillScreen()
 	
 		char ithird[] = "Нагр.:\0";
 		Info_ThirdString->SetChars(ithird, true);
+		Info_ThirdString->SetIntText(controlsVector.at(currentControlIndex)->GetSocketsPowerVT(), 5);
+		Info_ThirdString->SetChars(blank, false);
+		char vt[] = "ВТ\0";
+		Info_ThirdString->SetChars(vt, true);
 		Info_ThirdString->FillEndBySpaces();
 		Info_ThirdString->_setUpdated(true);
 	
-		char ifourth[] = "______________\0";
+		char ifourth[] = "_____________\0";
 		Info_FourthString->SetChars(ifourth, true);
 		Info_FourthString->FillEndBySpaces();
 		Info_FourthString->_setUpdated(true);
 	
 		currentControlIndex++;
-	
 		if (currentControlIndex == controlsVector.size())
+		{
 			currentControlIndex = 0;
+			allscreensfilled = true;
+		}
 	}
 }
 

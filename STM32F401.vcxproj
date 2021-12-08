@@ -196,6 +196,8 @@
     <ClInclude Include="ModeObjects.hpp" />
     <ClInclude Include="MotionControl.hpp" />
     <ClInclude Include="MotionDetectionThread.hpp" />
+    <ClInclude Include="PCounterObjects.hpp" />
+    <ClInclude Include="PCounterObjectsExt.h" />
     <ClInclude Include="PCounterThread.hpp" />
     <ClInclude Include="ProcessButtonPressedThread.hpp" />
     <ClInclude Include="MixControl.hpp" />

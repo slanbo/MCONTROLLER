@@ -27,11 +27,11 @@ public:
 	virtual bool isOn() = 0;
 	virtual bool isActive() = 0;
 	
+	bool allscreensfilled = false;
 	
 private:
 protected:
 	
-	uint8_t Index = 0;
 	intTune* ModeTune;
 	
 	uint8_t Left_X = 0;
@@ -39,6 +39,9 @@ protected:
 	uint8_t Right_X = 0;
 	uint8_t Bottom_Y = 0;
 	uint16_t BackColor = 0;
+	
+	
+	
 };
 
 class ControlsMode : public ModeBase

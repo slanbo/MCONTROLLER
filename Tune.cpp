@@ -308,3 +308,8 @@ void IntVectorTune::_setVal(std::vector<uint16_t> &Val)
 	save();
 		
 }
+
+uint16_t FlashTune::getFlashAddress()
+{
+	return FlashAddress;
+}

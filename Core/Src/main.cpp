@@ -142,8 +142,7 @@ menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 bizzerExecuteStep bes("bes", 8, 100, 1);
 
 
-//PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
-
+PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 
  SemaphoreHandle_t lcdmut_handle;
 
@@ -264,16 +263,8 @@ int main(void)
 	HAL_UART_Transmit(&huart1, strate0, sizeof(strate0), 0xFF);
 	HAL_UART_Receive(&huart1, (uint8_t *)&rsvdt, 80, 0xFF);*/
 	
-	
-	
-	
 	Thread::StartScheduler();
 	/* USER CODE END 2 */
-
-	/* Call init function for freertos objects (in freertos.c) */
-	//MX_FREERTOS_Init();
-	/* Start scheduler */
-	//osKernelStart();
 
 	/* We should never get here as control is now taken by the scheduler */
 	/* Infinite loop */

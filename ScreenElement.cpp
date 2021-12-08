@@ -109,25 +109,32 @@ void Text_ScreenElement::ClearText()
 
 void Text_ScreenElement::SetChars(const char* chars, bool convertToCp1251)
 {
-	const char* charptr = chars;
+	char converted_charptr[MAX_CHARS_IN_SCREEN] = { 0 };
+	uint8_t counter ;
 	
 	if (convertToCp1251)
-	{
-		uint8_t lenght = convertUtf8ToCp1251(charptr, Text);
-		textLenght = textLenght + lenght;
-	}
+		convertUtf8ToCp1251(chars, converted_charptr);
 	else
 	{
-		uint8_t counter = 0;
-		while (charptr[counter] != 0)
+		counter = 0;
+		while (chars[counter] != 0)
 		{
-			Text[textLenght] = charptr[counter];
+			converted_charptr[counter] = chars[counter];
 			counter++;
-			textLenght++;
-		}
-		Text[textLenght + 1] = '\0';
+		}	
+		counter++;
+		converted_charptr[counter] = '\0';
 	}
-
+	
+	
+	counter = 0;
+	while (converted_charptr[counter] != 0)
+	{
+		Text[textLenght] = converted_charptr[counter];
+		counter++;
+		textLenght++;
+	}
+	Text[textLenght + 1] = '\0';
 }
 
 
@@ -207,11 +214,13 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 
 void Text_ScreenElement::FillEndBySpaces()
 {
-	for (uint8_t i = textLenght; i < MAX_CHARS_IN_SCREEN; i++)
+	for (uint8_t i = textLenght; i < MAX_CHARS_IN_SCREEN - 1; i++)
 	{
 		Text[textLenght] = ' ';	
 		textLenght++;
 	}
+	Text[textLenght] = '\0';
+
 }
 
 Rect_ScreenElement::Rect_ScreenElement(uint8_t left_x, 
