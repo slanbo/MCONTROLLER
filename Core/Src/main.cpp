@@ -109,6 +109,9 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++
 #include "MenuElementObjects.hpp"
 
+//++++++++++++++++++ PCOUNTERS ++++++++++++++++++++++++++++++++
+#include "PCounterObjects.hpp"
+
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
 #include "RenderInfoThread.hpp"
@@ -132,7 +135,6 @@ uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
 uint8_t showInfoCounter = 0;
-
 uint8_t currentPCounter = 0;
 
 

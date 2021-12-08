@@ -9,7 +9,7 @@ ModeBase::ModeBase(uint16_t ID, std::string name)
 
 bool ModeBase::isActive()
 {
-	return ModeTune->_getVal() == Index;
+	return ModeTune->_getVal() == id;
 }
 
 //controls mode

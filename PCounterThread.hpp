@@ -30,8 +30,8 @@ protected:
 		while (true)
 		{
 		
-			dayPCounter.ExecuteStep();
-			nightPCounter.ExecuteStep();
+			dayPCounter->ExecuteStep();
+			nightPCounter->ExecuteStep();
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

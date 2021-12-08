@@ -10,6 +10,8 @@
 #include "PCounterObjectsExt.hpp"
 
 extern uint8_t showInfoCounter;
+extern uint8_t currentPCounter;
+
 
 using namespace cpp_freertos;
 using namespace std;
@@ -64,7 +66,10 @@ protected:
 						HabitatMode->FillScreen();
 					else
 					{
-						currentPCounter
+						PCountersVector.at(currentPCounter)->FillScreen();
+						currentPCounter++;
+						if (currentPCounter == PCountersVector.size())
+							HabitatMode->allscreensfilled = false;	
 					}
 						
 				}

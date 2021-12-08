@@ -97,7 +97,6 @@
     <ClCompile Include="MenuElements.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="MotionControl.cpp" />
-    <ClCompile Include="PCounters.cpp" />
     <ClCompile Include="MixControl.cpp" />
     <ClCompile Include="ScreenElement.cpp" />
     <ClCompile Include="Control.cpp" />
@@ -217,7 +216,6 @@
     <ClInclude Include="LightSensor.hpp" />
     <ClInclude Include="Mode.hpp" />
     <ClInclude Include="ModeObjectsExt.hpp" />
-    <ClInclude Include="PCounters.hpp" />
     <ClInclude Include="Control.hpp" />
     <ClInclude Include="Devices\Inc\Button.hpp" />
     <ClInclude Include="Devices\Inc\Buttons.hpp" />
