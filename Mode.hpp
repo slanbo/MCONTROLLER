@@ -52,8 +52,8 @@ public:
 	virtual bool isOn();
 	virtual bool isActive();
 	
+
 protected:	
-	std::vector<SensorsSocketsControl*> controlsVector;
 	uint8_t currentControlIndex = 0;
 
 };
@@ -63,7 +63,7 @@ class Habitat : public ControlsMode
 	public: 
 	Habitat(uint16_t ID, std::string name);
 	virtual void init();
-	
+
 	SensorsSocketsControl* airTempControl;
 	SensorsSocketsControl* batTempControl;
 	SensorsSocketsControl* lightControl;
@@ -74,8 +74,6 @@ class Habitat : public ControlsMode
 	~Habitat();
 	
 	protected:
-	
-	
 	private:
 	
 };

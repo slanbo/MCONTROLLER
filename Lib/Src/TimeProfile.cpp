@@ -269,10 +269,7 @@ uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 	
-	uint16_t retVal = 0xffff;
-	
-	DatePeriodValue* foundpval = nullptr;
-	
+	uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
 	
 	for(auto pval : periodValues)
 	{
@@ -285,13 +282,20 @@ uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
 			& pval->Variant == variant
 			)
 		{
-			foundpval = pval;
-			break;
+			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+			
+			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+			{
+				if (pval->val == 0xffff)
+					return pval->tune->_getVal();
+				else
+					return pval->val;
+			}
 		}
 	}
 	
 	//find period weekday
-	if (foundpval == nullptr)
 	for(auto pval : periodValues)
 	{
 		if (
@@ -303,13 +307,19 @@ uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
 			& pval->Variant == variant
 			)
 		{
-			foundpval = pval;
-			break;
+			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+			{
+				if (pval->val == 0xffff)
+					return pval->tune->_getVal();
+				else
+					return pval->val;
+			}
 		}
 	}
 	
 	//find period eachday
-	if(foundpval == nullptr)
 	for(auto pval : periodValues)
 	{
 		if (
@@ -321,26 +331,20 @@ uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
 			& pval->Variant == variant
 			)
 		{
-			foundpval = pval;
-			break;
+			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+			
+			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+			{
+				if (pval->val == 0xffff)
+					return pval->tune->_getVal();
+				else
+					return pval->val;
+			}
 		}
 	}
 	
-	if (foundpval != nullptr)
-	{
-		uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
-		uint16_t minutesBegin = foundpval->HourBegin * 60 + foundpval->MinuteBegin;
-		uint16_t minutesEnd = foundpval->HourEnd * 60 + foundpval->MinuteEnd;
-			
-		if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
-		{
-			if (foundpval->val == 0xffff)
-				retVal = foundpval->tune->_getVal();
-			else
-				retVal = foundpval->val;
-		}	
-	}
-	return retVal;
+	return 0xffff;
 };
 
 

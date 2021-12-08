@@ -78,7 +78,7 @@ void MixControl::ExecuteStep()
 		{
 		case 0:	//always on
 			{
-				SwitchSockets(SocketsVector, 9999);
+				//SwitchSockets(SocketsVector, 9999);
 				break;
 			}	
 		case 1:	//pauses
@@ -91,7 +91,7 @@ void MixControl::ExecuteStep()
 					stepsSwitchedOn += 1;
 					if (stepsSwitchedOn >= SwitchedOnPumpTime._getVal())
 					{
-						SwitchSockets(SocketsVector, 0);
+						//SwitchSockets(SocketsVector, 0);
 					}
 				}
 				else
@@ -100,7 +100,7 @@ void MixControl::ExecuteStep()
 					stepsSwitchedOff += 1;
 					if (stepsSwitchedOff >= SwitchedOffPumpTime._getVal())
 					{
-						SwitchSockets(SocketsVector, 9999);
+						//SwitchSockets(SocketsVector, 9999);
 					}
 
 				}
@@ -108,14 +108,14 @@ void MixControl::ExecuteStep()
 			}
 		default: //allways off
 			{
-				SwitchSockets(SocketsVector, 0);
+				//SwitchSockets(SocketsVector, 0);
 				break;
 			}
 		}
 	}	
 	else
 	{
-		SwitchSockets(SocketsVector, 0);
+		//SwitchSockets(SocketsVector, 0);
 	}
 	return;		
 }

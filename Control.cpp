@@ -156,8 +156,9 @@ void SocketsControl::init()
 }
 
 
-void SocketsControl::SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT)
+void SocketsControl::SwitchSockets(uint16_t powerVT)
 {
+	SwitchToPower(SocketsVector, powerVT);
 }
 
 //sensors sockets control
@@ -253,32 +254,64 @@ void SensorsSocketsControl::ExecuteStep()
 	
 	if (isActive())
 	{
-		if (current_val < aim_val - 2) 
-		{
-			SwitchSockets(DownSocketsVector, 0xffff);
-			return;
-		}
-		if (current_val < aim_val - 1)
-		{
-			SwitchSockets(DownSocketsVector, 2000);
-			return;
-		}
-		if (current_val < aim_val)
-		{
-			SwitchSockets(DownSocketsVector, 1000);
-			return;
-		}if (current_val >= aim_val)
-		{
-			SwitchSockets(DownSocketsVector, 0);
-			return;
-		}
+		uint16_t upPower = 0;
+		uint16_t downPower = 0;
+		
+		if (current_val > aim_val) // switch sockets to decriace val
+			{
+				//SwitchSockets(SocketsVector, 0);
+				upPower = 0;
+				if (DownSocketsVector.size() > 0)
+				{
+					if (current_val > aim_val + 2) 
+					{
+						downPower = 0xffff;
+					}
+					else if (current_val > aim_val + 1)
+					{
+						downPower = 2000;
+					}
+					else if (current_val > aim_val)
+					{
+						downPower = 100;
+					}
+					else
+					{
+						downPower = 0;
+					}
+				}
+			}	
+		else // switch sockets to increace val
+			{
+				downPower = 0;
+				if (SocketsVector.size() > 0)
+				{
+					if (current_val < aim_val - 2) 
+					{
+						upPower = 0xffff;
+					}
+					else if (current_val < aim_val - 1)
+					{
+						upPower = 2000;
+					}
+					else if (current_val < aim_val)
+					{
+						upPower = 1000;
+					}
+					else
+					{
+						upPower = 0;
+					}
+				}
+			}
+		SwitchSockets(upPower);
+		SwitchDownSockets(downPower);
 	}
 	else
 	{
-		SwitchSockets(DownSocketsVector, 0);
-		return;
+		SwitchSockets(0);
+		SwitchDownSockets(0);
 	}
-
 }
 
 void SensorsSocketsControl::FillScreen()
@@ -305,11 +338,6 @@ void SensorsSocketsControl::_set_current_val(uint16_t val)
 {
 }
 
-bool SensorsSocketsControl::isActive()
-{
-	return false;
-}
-
 char* SensorsSocketsControl::GetSensorsUnit()
 {
 	return SensorsVector.at(0)->UNITS;
@@ -318,7 +346,6 @@ char* SensorsSocketsControl::GetSensorsUnit()
 
 SensorsSocketsControl::~SensorsSocketsControl()
 {
-	
 }
 
 
@@ -329,6 +356,11 @@ SensorsSocketsControl::SensorsSocketsControl()
 }
 
 
+void SensorsSocketsControl::SwitchDownSockets(uint16_t powerVT) 
+{
+	SwitchToPower(DownSocketsVector, powerVT);
+}
+
 SocketsControl::SocketsControl()
 {
 }
@@ -336,4 +368,65 @@ SocketsControl::SocketsControl()
 
 ControlBase::ControlBase()
 {
+}
+
+
+void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t powerVT)
+{
+	uint8_t EqualSocketId = 0;
+	uint8_t PowerSum = 0;
+	bool switched = false;
+	
+	if (sockets.size() > 0)
+	{
+		if (powerVT == 0)
+			for (auto socket : sockets)
+			{
+				socket->SwitchOff();
+				return;
+			}
+		else
+		{
+			// find first equal
+			for(auto socket : sockets) 
+			{
+				if (socket->getLoadpowerVT() == powerVT)
+					EqualSocketId = socket->_getId();
+			}
+		
+			if (EqualSocketId > 0)
+			{
+				for (auto socket : sockets) 
+				{
+					if (EqualSocketId == socket->_getId())
+						socket->SwitchOn();
+					else
+						socket->SwitchOff();
+				}
+				return;
+			}
+			
+			// switch near
+			for(auto socket : sockets) 
+			{
+				PowerSum = PowerSum + socket->getLoadpowerVT();
+				if (PowerSum < powerVT)
+				{
+					socket->SwitchOn();
+					switched = true;
+				}
+				else
+					socket->SwitchOff();
+			}
+			if (!switched)
+				for (uint8_t i = 0; i < sockets.size(); i++)
+				{
+					if (i == 0)
+						sockets.at(i)->SwitchOn();	
+					else
+						sockets.at(i)->SwitchOff();	
+				}
+		}
+	}
+	
 }

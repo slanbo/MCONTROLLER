@@ -66,12 +66,14 @@ public:
 		IntVectorTune* socketsTune
 		);
 	
-	void SwitchSockets(std::vector< plugSocket*> plugSockets, uint16_t powerVT);
+	void SwitchSockets(uint16_t powerVT);
 	virtual void init();
 	
 private:
 	
 protected:
+	
+	void SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t powerVT);
 	
 	IntVectorTune* SocketsTune;
 	std::vector< plugSocket*> SocketsVector;
@@ -111,7 +113,6 @@ public:
 	
 	virtual void ExecuteStep();
 	virtual void FillScreen();
-	virtual bool isActive();
 	
 	virtual uint16_t _get_aim_val();
 	virtual uint16_t _get_current_val();
@@ -121,7 +122,8 @@ public:
 	
 	virtual char* GetSensorsUnit();
 
-	
+	void SwitchDownSockets(uint16_t powerVT);
+
 private:
 	
 	

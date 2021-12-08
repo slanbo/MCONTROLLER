@@ -74,10 +74,12 @@ MenuElementIntSelector mi_41(&mi_40, &mi_40, "Анализ за сек.", 1, 0, 
 	
 //"Температ. бат."
 MenuElement mi_42(&mi_29, &mi_41, "День ночь:", 0, &batTempProfileIndex);
-MenuElementIntSelector mi_43(&mi_42, &mi_42, "Фикс. ночн. t", 1, 0, 100, 1, &batNightFixTemp);
-MenuElementIntSelector mi_180(&mi_42, &mi_43, "Фикс. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
+MenuElement mi_183(&mi_42, &mi_42, "День:");
+MenuElementIntSelector mi_180(&mi_183, &mi_183, "Знач. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
+MenuElement mi_184(&mi_42, &mi_180, "Ночь:");
+MenuElementIntSelector mi_43(&mi_184, &mi_184, "Знач. ночн. t", 1, 0, 100, 1, &batNightFixTemp);
 
-MenuElement mi_44(&mi_29, &mi_180, "Вкл->/Выкл");
+MenuElement mi_44(&mi_29, &mi_43, "Вкл->/Выкл");
 MenuElement mi_45(&mi_44, &mi_44, "Включить", 1, &batTempControlOnOffTune);
 MenuElement mi_46(&mi_44, &mi_45, "Выключить", 0, &batTempControlOnOffTune);
 

@@ -11,3 +11,5 @@ SensorsSocketsControl* first_SensorsSocketsControl = new SensorsSocketsControl()
 SensorsSocketsControl* second_SensorsSocketsControl = new SensorsSocketsControl();
 SensorsSocketsControl* third_SensorsSocketsControl = new SensorsSocketsControl();
 SensorsSocketsControl* forth_SensorsSocketsControl = new SensorsSocketsControl();
+
+std::vector<SensorsSocketsControl*> controlsVector;

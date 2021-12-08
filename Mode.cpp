@@ -92,8 +92,8 @@ void ControlsMode::ExecuteStep()
 {
 	if (isOn())
 	{
-		for (auto cntrl : controlsVector)
-			cntrl->ExecuteStep();
+	for(auto e : controlsVector)
+		e->ExecuteStep();
 	}
 }
 
@@ -104,7 +104,7 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	DatePeriodValuesCollection* airTempDVPC = new DatePeriodValuesCollection();
-	airTempDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	airTempDVPC->addPeriodTune(3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	
 	airTempControl = new (first_SensorsSocketsControl)SensorsSocketsControl
 		(
@@ -164,6 +164,7 @@ Habitat::Habitat(uint16_t ID,
 		lightDVPC);
 	
 	controlsVector.push_back(airTempControl);
+	controlsVector.push_back(batTempControl);
 	controlsVector.push_back(coControl);
 	controlsVector.push_back(lightControl);
 }
@@ -187,5 +188,7 @@ void Habitat::init()
 {
 	
 }
+
+
 
 
