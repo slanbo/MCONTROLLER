@@ -30,7 +30,6 @@ PCounterControl::PCounterControl(
 
 }
 
-
 void PCounterControl::ExecuteStep()
 {
 	bool needUpdate = false;
@@ -88,7 +87,6 @@ void PCounterControl::ExecuteStep()
 	}
 }
 
-
 void PCounterControl::saveToFlash()
 {
 	uint32_t VTInHourAFR = getVTHour_After_FlashWrite();
@@ -104,11 +102,8 @@ void PCounterControl::restoreFromFlash()
 	VT_HOUR = EE_Read_Int32(EepromFirstByte->getFlashAddress());
 }
 
-
-
 void PCounterControl::FillScreen()
 {
-	
 	char intString[MAX_CHARS_IN_SCREEN] = { 0 };
 	char dateString[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
@@ -117,7 +112,6 @@ void PCounterControl::FillScreen()
 	char datedevider[] = "/\0";
 	char timedevider[] = ":\0";
 	char blank[] = " \0";
-	
 	
 	char countbeg[] = "Начало отсчета: ";
 	Info_FirstString->SetChars(countbeg, true);
@@ -146,8 +140,6 @@ uint32_t PCounterControl::getVTHour_After_FlashWrite()
 
 uint32_t PCounterControl::getCurrentVtHour()
 {
-	
 	uint32_t VTHourAFW = getVTHour_After_FlashWrite();
 	return VTHourAFW + VT_HOUR;
-	
 }

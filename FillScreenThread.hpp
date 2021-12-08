@@ -7,6 +7,7 @@
 #include "string.h"
 #include "ScreenObjectsExt.hpp"
 #include "MenuClass.hpp"
+#include "PCounterObjectsExt.hpp"
 
 extern uint8_t showInfoCounter;
 
@@ -62,6 +63,9 @@ protected:
 					if (!HabitatMode->allscreensfilled)
 						HabitatMode->FillScreen();
 					else
+					{
+						currentPCounter
+					}
 						
 				}
 			

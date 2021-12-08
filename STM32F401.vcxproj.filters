@@ -929,7 +929,7 @@
     <ClInclude Include="PCounterObjects.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="PCounterObjectsExt.h">
+    <ClInclude Include="PCounterObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
   </ItemGroup>

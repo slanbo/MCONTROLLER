@@ -2,7 +2,7 @@
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "task.h"
-#include "PCounters.hpp"
+#include "PCounterObjectsExt.hpp"
 
 using namespace cpp_freertos;
 using namespace std;

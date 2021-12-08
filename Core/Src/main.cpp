@@ -133,6 +133,9 @@ uint8_t bothButtonsPressCounter = 0;
 
 uint8_t showInfoCounter = 0;
 
+uint8_t currentPCounter = 0;
+
+
 FillScreen* fscr = new FillScreen("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
 RenderInfoScreen* ris = new RenderInfoScreen("ris", 2, EXECUTE_STEP_PERIOD_SEC, 6);
 ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 5);
