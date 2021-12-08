@@ -143,7 +143,7 @@ SocketsControl::SocketsControl(std::string name,
 	intTune* onOffTune, 
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
-	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
+	: ControlBase(name, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune(socketsTune)
 
 {	

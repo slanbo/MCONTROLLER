@@ -7,8 +7,8 @@
 
 #define PCOUNTERS_SIZE 2	
 	
-extern PCounterControl nightPCounter;
-extern PCounterControl dayPCounter;
+extern PCounterControl* nightPCounter;
+extern PCounterControl* dayPCounter;
 
 extern std::vector<PCounterControl*> PCountersVector;
 

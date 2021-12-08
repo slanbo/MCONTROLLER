@@ -25,6 +25,6 @@ PCounterControl* nightPCounter = new PCounterControl("Счетчик ночь",
 	6, 
 	59);
 
-std::vector<PCounterControl*> PCountersVector = { &dayPCounter, &nightPCounter};
+std::vector<PCounterControl*> PCountersVector = { dayPCounter, nightPCounter};
 
 #endif

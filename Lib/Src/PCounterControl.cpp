@@ -104,30 +104,46 @@ void PCounterControl::restoreFromFlash()
 
 void PCounterControl::FillScreen()
 {
-	char intString[MAX_CHARS_IN_SCREEN] = { 0 };
-	char dateString[MAX_CHARS_IN_SCREEN * 2] = { 0 };
-	
-	Info_SubHeader->SetText(Name, false);
 	
 	char datedevider[] = "/\0";
 	char timedevider[] = ":\0";
 	char blank[] = " \0";
 	
-	char countbeg[] = "Начало отсчета: ";
+	Info_SubHeader->ClearText();
+	Info_FirstString->ClearText();
+	Info_SecondString->ClearText();
+	Info_ThirdString->ClearText();
+	Info_FourthString->ClearText();
+	
+	Info_SubHeader->SetText(Name, false);
+	Info_SubHeader->FillEndBySpaces();
+	Info_SubHeader->_setUpdated(true);
+	
+	char countbeg[] = "Нач. отсчета:";
 	Info_FirstString->SetChars(countbeg, true);
-	Info_FirstString->SetIntText(PCounterBeginDate._getVal(), 2);
-	Info_FirstString->SetChars(datedevider, false);
-	Info_FirstString->SetIntText(PCounterBeginDate._getVal(), 2);
-	Info_FirstString->SetChars(datedevider, false);
-	Info_FirstString->SetIntText(PCounterBeginYear._getVal(), 2);
-	Info_FirstString->SetChars(datedevider, false);
-	Info_FirstString->SetChars(blank, false);
-	Info_FirstString->SetIntText(PCounterBeginHour._getVal(), 2);
-	Info_FirstString->SetChars(timedevider, false);
-	Info_FirstString->SetIntText(PCounterBeginMinute._getVal(), 2);
-	Info_FirstString->SetChars(timedevider, false);
 	Info_FirstString->FillEndBySpaces();
 	Info_FirstString->_setUpdated(true);
+	
+	Info_SecondString->SetIntText(PCounterBeginDate._getVal(), 2);
+	Info_SecondString->SetChars(datedevider, false);
+	Info_SecondString->SetIntText(PCounterBeginDate._getVal(), 2);
+	Info_SecondString->SetChars(datedevider, false);
+	Info_SecondString->SetIntText(PCounterBeginYear._getVal(), 2);
+	Info_SecondString->SetChars(blank, false);
+	Info_SecondString->SetIntText(PCounterBeginHour._getVal(), 2);
+	Info_SecondString->SetChars(timedevider, false);
+	Info_SecondString->SetIntText(PCounterBeginMinute._getVal(), 2);
+	Info_SecondString->FillEndBySpaces();
+	Info_SecondString->_setUpdated(true);
+	
+	char val[] = "Счетчик:";
+	Info_ThirdString->SetChars(val, true);
+	Info_ThirdString->FillEndBySpaces();
+	Info_ThirdString->_setUpdated(true);
+	
+	Info_FourthString->SetIntText(VT_HOUR, 10);
+	Info_FourthString->FillEndBySpaces();
+	Info_FourthString->_setUpdated(true);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 

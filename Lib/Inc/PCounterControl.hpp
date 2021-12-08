@@ -25,11 +25,9 @@ private:
 	
 public:
 	
-	char Name[MAX_OBJECT_NAME_LENGHT];
-	
 	uint32_t VT_HOUR = 0;
 	
-	PCounterControl(std::string pcName,
+	PCounterControl(std::string name,
 		intTune* onOffTune,
 		IntVectorTune* socketsTune, 
 		intTune*  eepromFirstByte,

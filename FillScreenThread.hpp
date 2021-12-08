@@ -69,7 +69,10 @@ protected:
 						PCountersVector.at(currentPCounter)->FillScreen();
 						currentPCounter++;
 						if (currentPCounter == PCountersVector.size())
+						{
+							currentPCounter = 0;
 							HabitatMode->allscreensfilled = false;	
+						}
 					}
 						
 				}

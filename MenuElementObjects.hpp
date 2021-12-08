@@ -37,9 +37,7 @@ MenuElementIntSelector mi_18(&mi_17, &mi_17, "Знач. дня недели", 1,
 	
 //настройки
 MenuElement mi_19(&mi_2, &mi_18, "Восст. умолч.", setDefaults);
-		
-MenuElement mi_20(&mi_2, &mi_19, "Обнулить счетч.", clearCounters);
-	
+MenuElement mi_20(&mi_2, &mi_19, "Обнул. счетч.", clearCounters);
 MenuElement mi_21(&mi_2, &mi_20, "Разъемы");
 	
 //разъемы

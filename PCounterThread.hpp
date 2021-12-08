@@ -29,10 +29,9 @@ protected:
 	virtual void Run() {
 		while (true)
 		{
-		
-			dayPCounter->ExecuteStep();
-			nightPCounter->ExecuteStep();
-			
+			for (auto pcounter : PCountersVector)
+				pcounter->ExecuteStep();
+				
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)
 				DelayUntil(ticks);
