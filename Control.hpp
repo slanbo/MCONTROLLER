@@ -82,7 +82,6 @@ protected:
 	
 };
 
-using createTimeProfileFnc = TimeProfile*(*)(intTune*);
 
 class SensorsSocketsControl : public SocketsControl
 {
@@ -98,7 +97,7 @@ public:
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,
 		intTune* timeProfileTune,
-		DatePeriodValuesCollection* dpvcollection
+		PeriodValuesCollection* dpvcollection
 		);
 	
 	SensorsSocketsControl(
@@ -109,7 +108,7 @@ public:
 		IntVectorTune* upSocketsTune,
 		IntVectorTune* downSocketsTune,
 		intTune* timeProfileTune,
-		DatePeriodValuesCollection* dpvcollection);
+		PeriodValuesCollection* dpvcollection);
 	
 	~SensorsSocketsControl();
 	
@@ -135,7 +134,7 @@ protected:
 	IntVectorTune* DownSocketsTune = nullptr;
 	intTune* TimeProfileTune = nullptr;
 
-	DatePeriodValuesCollection* DPVCollection = nullptr;
+	PeriodValuesCollection* DPVCollection = nullptr;
 	std::vector< plugSocket*> DownSocketsVector;
 	std::vector< ADCSensor*> SensorsVector;
 	

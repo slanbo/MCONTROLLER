@@ -9,6 +9,7 @@
 #include <string>
 #include "stdlib.h"
 #include "cmsis_os.h"
+#include "time.h"
 
 #include "stm32_ds3231.h"
 #include "ds1307_for_stm32_hal.h"
@@ -505,5 +506,19 @@ enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC
 }
 ;
 
-
-
+time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime)
+{
+	struct tm fcl;
+	time_t Ftim;        // this is undigned int
+	fcl.tm_hour = fTime->Hours;
+	fcl.tm_min = fTime->Minutes;
+	fcl.tm_sec = fTime->Seconds;
+	fcl.tm_mday = fDate->Date;
+	fcl.tm_mon = fDate->Month;
+	fcl.tm_year = fDate->Year;
+	fcl.tm_wday = fDate->WeekDay;	
+	Ftim = mktime(&fcl);   // tim
+	
+	return Ftim;
+}
+;

@@ -109,8 +109,9 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
-	DatePeriodValuesCollection* airTempDVPC = new DatePeriodValuesCollection();
-	airTempDVPC->addPeriodTune(3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
 	airTempControl = new (first_SensorsSocketsControl)SensorsSocketsControl
 		(
@@ -124,10 +125,13 @@ Habitat::Habitat(uint16_t ID,
 		airTempDVPC);
 	
 	
-	DatePeriodValuesCollection* batTempDVPC = new DatePeriodValuesCollection();
-	batTempDVPC->addPeriodTune(0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
-	batTempDVPC->addPeriodTune(0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp);
-	batTempDVPC->addPeriodTune(0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	DatePeriodValue *bdpv1 = new DatePeriodValue(1, "Night time 1", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	batTempDVPC->addPeriodValue((PeriodValue*)bdpv1);
+	DatePeriodValue *bdpv2 = new DatePeriodValue(2, "Day time", 0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp);
+	batTempDVPC->addPeriodValue((PeriodValue*)bdpv2);
+	DatePeriodValue *bdpv3 = new DatePeriodValue(3, "Night time 2", 0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
 	
 	
 	batTempControl = new (second_SensorsSocketsControl)SensorsSocketsControl
@@ -141,8 +145,9 @@ Habitat::Habitat(uint16_t ID,
 		&batTempControlTimeProfile,
 		batTempDVPC);
 	
-	DatePeriodValuesCollection* CODVPC = new DatePeriodValuesCollection();
-	CODVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+	PeriodValuesCollection* CODVPC = new PeriodValuesCollection(DATE_PERIOD);
+	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
 	coControl = new (third_SensorsSocketsControl)SensorsSocketsControl
 		(
@@ -155,8 +160,9 @@ Habitat::Habitat(uint16_t ID,
 		&COControlTimeProfile,
 		CODVPC);	
 	
-	DatePeriodValuesCollection* lightDVPC = new DatePeriodValuesCollection();
-	lightDVPC->addPeriodTune(0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge);
+	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &LightEdge);
+	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
 	
 	lightControl = new(forth_SensorsSocketsControl)SensorsSocketsControl
 		(

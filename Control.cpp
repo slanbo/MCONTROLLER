@@ -182,7 +182,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
-	DatePeriodValuesCollection* dpvcollection)
+	PeriodValuesCollection* dpvcollection)
 	: SocketsControl(id, name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
@@ -215,7 +215,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* upSocketsTune,
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
-	DatePeriodValuesCollection* dpvcollection)
+	PeriodValuesCollection* dpvcollection)
 	: SocketsControl(name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)

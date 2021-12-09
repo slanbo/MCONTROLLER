@@ -31,7 +31,9 @@ void US_DELAY(uint16_t time_us);
 void set_RTC_From_DS();
 void set_DS_From_RTC();	 
 void addIntStr(char* str, int dnum, uint8_t lenght);	 
-enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC_DateTypeDef* sDate, RTC_TimeTypeDef* sTime);	 
+enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC_DateTypeDef* sDate, RTC_TimeTypeDef* sTime);	
+	 time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime);
+	 
 static char * _float_to_char(float x, char *p)
 	 {
 		 char *s = p + CHAR_BUFF_SIZE;   // go to end of buffer

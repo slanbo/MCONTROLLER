@@ -3,174 +3,9 @@
 #include "Auxiliary.h"
 #include <string>
 
-DayProfile::DayProfile(std::vector <TimePeriod*> &timePeriodes)
-	: TimePeriodes(timePeriodes)
-{
-}
-
-DayProfile::~DayProfile()
-{
-	for (auto timeperiod : TimePeriodes)
-		delete timeperiod;
-};
-
-uint16_t DayProfile::getVal()
-{
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	
-	uint16_t aimVal = 0;
-	
-	uint8_t hour = sTime.Hours;
-	uint8_t minute = sTime.Minutes;
-		
-
-	uint16_t minutes = hour * 60 + minute;
-	
-	for (auto period : TimePeriodes)
-	{
-		uint8_t beginHour = period->hourBegin;
-		uint8_t beginMinute = period->minuteBegin;
-		uint16_t beginMinutes = beginHour * 60 + beginMinute;
-		
-		uint8_t endHour = period->hourEnd;
-		uint8_t endMinute = period->minuteEnd;
-		uint16_t endMinutes = endHour * 60 + endMinute;
-		
-		if (minutes >= beginMinutes & minutes <= endMinutes)
-		{
-			if (period->fromTune)
-			{
-				aimVal = period->tune->_getVal();
-			}
-			else
-			{
-				aimVal = period->val;
-			}
-			
-			break;
-		}
-		
-	}
-	if (aimVal != 0)
-	{
-		return aimVal;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-TimePeriod::TimePeriod(uint8_t hourBegin, 
-	uint8_t minuteBegin, 
-	uint8_t hourEnd, 
-	uint8_t minuteEnd, 
-	uint16_t val
-	)
-	: hourBegin(hourBegin)
-	, minuteBegin(minuteBegin)
-	, hourEnd(hourEnd)
-	, minuteEnd(minuteEnd)
-	, val(val)
-{
-	fromTune = false;
-}
-
-TimePeriod::TimePeriod(uint8_t hourBegin, 
-	uint8_t minuteBegin, 
-	uint8_t hourEnd, 
-	uint8_t minuteEnd, 
-	intTune* tune)
-	: hourBegin(hourBegin)
-	, minuteBegin(minuteBegin)
-	, hourEnd(hourEnd)
-	, minuteEnd(minuteEnd)
-	, tune(tune)
-{
-	fromTune = true;
-}
-
-TimePeriod::~TimePeriod()
-{
-}
-
-WeekProfile::WeekProfile(std::vector<DayProfile*> &dayProfiles)
-	: DayProfiles(dayProfiles)
-{
-}
-
-WeekProfile::~WeekProfile()
-{
-	for (auto dayprofile : DayProfiles)
-		delete dayprofile;
-}
-
-TimeProfile::TimeProfile(std::string name, 
-	WeekProfile* deaultWeekTempProfile)
-	: BaseObject(name),
-	DeaultWeekProfile(deaultWeekTempProfile)
-{
-}
-
-TimeProfile::~TimeProfile()
-{
-	delete DeaultWeekProfile;
-}
-
-uint16_t TimeProfile::getVal()
-{
-	
-	uint16_t aimTemp = DeaultWeekProfile->getVal();
-	return aimTemp;
-	
-}
-
-uint16_t WeekProfile::getVal()
-{
-
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	
-	//uint8_t dayOfWeek = DS1307_GetDayOfWeek();
-	
-	uint8_t dayOfWeek = sDate.WeekDay;
-	uint16_t aimTemp = DayProfiles[dayOfWeek - 1]->getVal();
-	return aimTemp;	
-}
-
 DatePeriodValue::DatePeriodValue(
-	uint8_t variant,
-	uint8_t hourBegin, 
-	uint8_t minuteBegin, 
-	uint8_t hourEnd, 
-	uint8_t minuteEnd, 
-	uint8_t date, 
-	uint8_t weekDay, 
-	uint8_t week, 
-	uint8_t month, 
-	uint8_t year, 
-	uint16_t val)
-	: Variant(variant)
-	, HourBegin(hourBegin)
-	, MinuteBegin(minuteBegin)
-	, HourEnd(hourEnd)
-	, MinuteEnd(minuteEnd)
-	, Date(date)
-	, WeekDay(weekDay)
-	, Week(week)
-	, Month(month)
-	, Year(year)
-	, val(val)
-	, tune()
-{
-}
-
-DatePeriodValue::DatePeriodValue(
+	uint16_t ID,
+	std::string name,
 	uint8_t variant,
 	uint8_t hourBegin, 
 	uint8_t minuteBegin, 
@@ -182,7 +17,8 @@ DatePeriodValue::DatePeriodValue(
 	uint8_t month, 
 	uint8_t year, 
 	intTune* tune)
-	: Variant(variant)
+	: PeriodValue(ID, name, tune)
+	, Variant(variant)
 	, HourBegin(hourBegin)
 	, MinuteBegin(minuteBegin)
 	, HourEnd(hourEnd)
@@ -192,163 +28,215 @@ DatePeriodValue::DatePeriodValue(
 	, Week(week)
 	, Month(month)
 	, Year(year)
-	, tune(tune)
 {
-	
 }
 
-void DatePeriodValuesCollection::addPeriodValue
-	(
-	uint8_t Variant,
-	uint8_t HourBegin, 
-	uint8_t MinuteBegin, 
-	uint8_t HourEnd, 
-	uint8_t MinuteEnd, 
-	uint8_t Date, 
-	uint8_t WeekDay, 
-	uint8_t Week, 
-	uint8_t Month, 
-	uint8_t Year, 
-	uint8_t val
-	)
+void PeriodValuesCollection::addPeriodValue(PeriodValue* pval)
 {
-	DatePeriodValue* pval = new DatePeriodValue(
-		Variant,
-		HourBegin, 
-		MinuteBegin, 
-		HourEnd, 
-		MinuteEnd, 
-		Date, 
-		WeekDay, 
-		Week, 
-		Month, 
-		Year, 
-		val);
-	
 	periodValues.push_back(pval);
 }
 
-
-void DatePeriodValuesCollection::addPeriodTune
-	(
-	uint8_t Variant,
-	uint8_t HourBegin, 
-	uint8_t MinuteBegin, 
-	uint8_t HourEnd, 
-	uint8_t MinuteEnd, 
-	uint8_t Date, 
-	uint8_t WeekDay, 
-	uint8_t Week, 
-	uint8_t Month, 
-	uint8_t Year, 
-	intTune* tune
-	)
+uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 {
-	DatePeriodValue* pval = new DatePeriodValue(
-		Variant,
-		HourBegin, 
-		MinuteBegin, 
-		HourEnd, 
-		MinuteEnd, 
-		Date, 
-		WeekDay, 
-		Week, 
-		Month, 
-		Year, 
-		tune
-		);
 	
-	pval->val = 0xffff;
-	periodValues.push_back(pval);
-}
-
-uint16_t DatePeriodValuesCollection::getValue(uint8_t variant)
-{
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-	
-	uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
-	
-	for(auto pval : periodValues)
+	if (Type == DATE_PERIOD)
 	{
-		if (
-			pval->Date == sDate.Date
-			& pval->Month == sDate.Month
-			& pval->Year == sDate.Year
-			& pval->WeekDay == 0
-			& pval->Week == 0
-			& pval->Variant == variant
-			)
+		RTC_TimeTypeDef sTime = { 0 };
+		RTC_DateTypeDef sDate = { 0 };
+		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	
+		uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
+	
+		for (auto elem : periodValues)
 		{
-			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
-			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
-			
-			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+			DatePeriodValue* pval = (DatePeriodValue*)elem;
+			if (
+				pval->Date == sDate.Date
+				& pval->Month == sDate.Month
+				& pval->Year == sDate.Year
+				& pval->WeekDay == 0
+				& pval->Week == 0
+				& pval->Variant == variant)
 			{
-				if (pval->val == 0xffff)
-					return pval->tune->_getVal();
-				else
-					return pval->val;
+				uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+				uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+				{
+						return pval->_getTune()->_getVal();
+				}
+			}
+		}
+	
+		//find period weekday
+		for(auto elem : periodValues)
+		{
+			DatePeriodValue* pval = (DatePeriodValue*)elem;
+			if (
+				pval->Date == 0
+				& pval->Month == 0
+				& pval->Year == 0
+				& pval->WeekDay == sDate.WeekDay
+				& pval->Week == 0
+				& pval->Variant == variant)
+			{
+				uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+				uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+				{
+						return pval->_getTune()->_getVal();
+				}
+			}
+		}
+	
+		//find period eachday
+		for(auto elem : periodValues)
+		{
+			DatePeriodValue* pval = (DatePeriodValue*)elem;
+			if (
+				pval->Date == 0
+				& pval->Month == 0
+				& pval->Year == 0
+				& pval->WeekDay == 0
+				& pval->Week == 0
+				& pval->Variant == variant)
+			{
+				uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
+				uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
+			
+				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
+				{
+						return pval->_getTune()->_getVal();
+				}
 			}
 		}
 	}
-	
-	//find period weekday
-	for(auto pval : periodValues)
+	else if (Type == TIME_PERIOD)
 	{
-		if (
-			pval->Date == 0
-			& pval->Month == 0
-			& pval->Year == 0
-			& pval->WeekDay == sDate.WeekDay
-			& pval->Week == 0
-			& pval->Variant == variant
-			)
+		for (auto elem : periodValues)
 		{
-			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
-			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
-			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
-			{
-				if (pval->val == 0xffff)
-					return pval->tune->_getVal();
-				else
-					return pval->val;
-			}
-		}
-	}
-	
-	//find period eachday
-	for(auto pval : periodValues)
-	{
-		if (
-			pval->Date == 0
-			& pval->Month == 0
-			& pval->Year == 0
-			& pval->WeekDay == 0
-			& pval->Week == 0
-			& pval->Variant == variant
-			)
-		{
-			uint16_t minutesBegin = pval->HourBegin * 60 + pval->MinuteBegin;
-			uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
-			
-			if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
-			{
-				if (pval->val == 0xffff)
-					return pval->tune->_getVal();
-				else
-					return pval->val;
-			}
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			if (!pval->Completed())
+				return pval->_getTune()->_getVal();
 		}
 	}
 	
 	return 0xffff;
-};
+}
+;
 
-
-
-DatePeriodValuesCollection::DatePeriodValuesCollection()
+PeriodValuesCollection::PeriodValuesCollection(PeriodType type)
+	: Type(type)
 {
+}
+
+
+PeriodValue::PeriodValue(uint16_t ID, 
+	std::string name, 
+	intTune* valTune)
+	: BaseObject(ID, name)
+	, Tune(valTune)
+{
+}
+
+
+
+intTune* PeriodValue::_getTune()
+{
+	return Tune;
+}
+
+
+TimePeriodValue::TimePeriodValue(
+	uint16_t ID,
+	std::string name,
+	intTune* tune, 
+	intTune* timeTune,
+	intTune* stateTune,
+	intTune* stayOnTimeTune)
+	: PeriodValue(ID, name, tune)
+	, TimeTune(timeTune)
+	, StateTune(stateTune)
+	, StayOnTimeTune(stayOnTimeTune)
+{
+}
+
+
+uint16_t TimePeriodValue::getStayOn()
+{
+	return StayOnTimeTune->_getVal();
+}
+
+
+void TimePeriodValue::addStayOn(uint16_t val)
+{
+	StayOnTimeTune->_setVal(++val);
+}
+
+
+uint16_t TimePeriodValue::getHeating()
+{
+	return Heating;
+}
+
+
+void TimePeriodValue::addHeating(uint16_t val)
+{
+	Heating = ++val;
+}
+
+
+uint16_t TimePeriodValue::getCooling()
+{
+	return Cooling;
+}
+
+
+void TimePeriodValue::addCooling(uint16_t val)
+{
+	Cooling = ++val;
+}
+
+
+void TimePeriodValue::Reset()
+{
+	StayOn = 0;
+	Heating = 0;
+	Cooling = 0;
+}
+
+bool TimePeriodValue::Completed()
+{
+	return StayOn >= TimeTune->_getVal();
+}
+
+bool TimePeriodValue::isActive()
+{
+	if (StateTune->_getVal() == 1)
+		return true;
+	else
+		return false;
+}
+
+
+void TimePeriodValue::setLastUpdateTimeState(TimePeriodState state)
+{
+	RTC_DateTypeDef dt;
+	RTC_TimeTypeDef tt;
+	HAL_RTC_GetTime(&hrtc, &tt, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN);   
+	
+	struct tm fcl;
+	fcl.tm_hour = tt.Hours;
+	fcl.tm_min = tt.Minutes;
+	fcl.tm_sec = tt.Seconds;
+	fcl.tm_mday = dt.Date;
+	fcl.tm_mon = dt.Month;
+	fcl.tm_year = dt.Year;
+	fcl.tm_wday = dt.WeekDay;	
+	lastUpdateTime = mktime(&fcl);  
+	
+	lastUpdateState = state;
+
+	
 }

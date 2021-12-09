@@ -43,31 +43,50 @@ intTune beerModeIndex(&LightSwitchOffDelay);
 //beer mashing
 intTune  mashingPause1Temp(&beerModeIndex);
 intTune  mashingPause1Time(&mashingPause1Temp);
+intTune  mashingPause1Active(&mashingPause1Time);
+intTune  mashingPause1StayOn(&mashingPause1Active);
 
-intTune  mashingPause2Temp(&mashingPause1Time);
+intTune  mashingPause2Temp(&mashingPause1StayOn);
 intTune  mashingPause2Time(&mashingPause2Temp);
+intTune  mashingPause2Active(&mashingPause2Time);
+intTune  mashingPause2StayOn(&mashingPause2Active);
 	
-intTune  mashingPause3Temp(&mashingPause2Time);
+intTune  mashingPause3Temp(&mashingPause2StayOn);
 intTune  mashingPause3Time(&mashingPause3Temp);
+intTune  mashingPause3Active(&mashingPause3Time);
+intTune  mashingPause3StayOn(&mashingPause3Active);
 
-intTune  mashingPause4Temp(&mashingPause3Time);
+intTune  mashingPause4Temp(&mashingPause3StayOn);
 intTune  mashingPause4Time(&mashingPause4Temp);
+intTune  mashingPause4Active(&mashingPause4Time);
+intTune  mashingPause4StayOn(&mashingPause4Active);
 
-intTune  mashingPause5Temp(&mashingPause4Time);
+intTune  mashingPause5Temp(&mashingPause4StayOn);
 intTune  mashingPause5Time(&mashingPause5Temp);
+intTune  mashingPause5Active(&mashingPause5Time);
+intTune  mashingPause5StayOn(&mashingPause5Active);
 
-intTune  mashingPause6Temp(&mashingPause5Time);
+intTune  mashingPause6Temp(&mashingPause5StayOn);
 intTune  mashingPause6Time(&mashingPause6Temp);
+intTune  mashingPause6Active(&mashingPause6Time);
+intTune  mashingPause6StayOn(&mashingPause6Active);
 
 //beer boiling
 intTune  boilingPause1Temp(&mashingPause6Time);
 intTune  boilingPause1Time(&boilingPause1Temp);
+intTune  boilingPause1Active(&boilingPause1Time);
+intTune  boilingPause1StayOn(&boilingPause1Active);
 
-intTune  boilingPause2Temp(&boilingPause1Time);
+
+intTune  boilingPause2Temp(&boilingPause1StayOn);
 intTune  boilingPause2Time(&boilingPause2Temp);
+intTune  boilingPause2Active(&boilingPause2Time);
+intTune  boilingPause2StayOn(&boilingPause2Active);
 	
-intTune  boilingPause3Temp(&boilingPause2Time);
+intTune  boilingPause3Temp(&boilingPause2StayOn);
 intTune  boilingPause3Time(&boilingPause3Temp);
+intTune  boilingPause3Active(&boilingPause3Time);
+intTune  boilingPause3StayOn(&boilingPause3Active);
 
 //pump
 intTune PumpMode(&boilingPause3Time);
