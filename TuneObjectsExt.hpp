@@ -57,33 +57,61 @@ extern intTune beerModeIndex;
 //beer mashing
 extern intTune  mashingPause1Temp;
 extern intTune  mashingPause1Time;
+extern intTune  mashingPause1Active;
+extern intTune  mashingPause1StayOn;
+
 
 extern intTune  mashingPause2Temp;
 extern intTune  mashingPause2Time;
+extern intTune  mashingPause2Active;
+extern intTune  mashingPause2StayOn;
+
 	
 extern intTune  mashingPause3Temp;
 extern intTune  mashingPause3Time;
+extern intTune  mashingPause3Active;
+extern intTune  mashingPause3StayOn;
+
+
 
 extern intTune  mashingPause4Temp;
 extern intTune  mashingPause4Time;
+extern intTune  mashingPause4Active;
+extern intTune  mashingPause4StayOn;
+
 
 extern intTune  mashingPause5Temp;
 extern intTune  mashingPause5Time;
+extern intTune  mashingPause5Active;
+extern intTune  mashingPause5StayOn;
 
 extern intTune  mashingPause6Temp;
 extern intTune  mashingPause6Time;
+extern intTune  mashingPause6Active;
+extern intTune  mashingPause6StayOn;
 
 //beer boiling
 
 extern intTune  boilingPause1Temp;
 extern intTune  boilingPause1Time;
+extern intTune  boilingPause1Active;
+extern intTune  boilingPause1StayOn;
 
 extern intTune  boilingPause2Temp;
 extern intTune  boilingPause2Time;
+extern intTune  boilingPause2Active;
+extern intTune  boilingPause2StayOn;
 	
 extern intTune  boilingPause3Temp;
 extern intTune  boilingPause3Time;
+extern intTune  boilingPause3Active;
+extern intTune  boilingPause3StayOn;
 	
+extern IntVectorTune boilingMashingControlSensors;
+extern IntVectorTune boilingMashingControlUpSockets;
+extern IntVectorTune  boilingMashingControlDownSockets;
+
+
 extern intTune PumpMode;
 extern intTune SwitchedOnPumpTime;
 extern intTune SwitchedOffPumpTime;	

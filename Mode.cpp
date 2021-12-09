@@ -109,11 +109,29 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
+	
+}
+
+Habitat::~Habitat()
+{
+	delete airTempControl;
+	delete coControl;
+	delete lightControl;
+}
+
+
+void ControlsMode::init()
+{
+	
+}
+
+void Habitat::init()
+{
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
 	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
-	airTempControl = new (first_SensorsSocketsControl)SensorsSocketsControl
+	airTempControl = new(first_SensorsSocketsControl)SensorsSocketsControl
 		(
 		"Темпер. возд:", 
 		&airTempControlOnOffTune,
@@ -134,7 +152,7 @@ Habitat::Habitat(uint16_t ID,
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
 	
 	
-	batTempControl = new (second_SensorsSocketsControl)SensorsSocketsControl
+	batTempControl = new(second_SensorsSocketsControl)SensorsSocketsControl
 			(
 		"Темпер. бат:", 
 		&batTempControlOnOffTune,
@@ -149,7 +167,7 @@ Habitat::Habitat(uint16_t ID,
 	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &CODangerLevel);
 	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
-	coControl = new (third_SensorsSocketsControl)SensorsSocketsControl
+	coControl = new(third_SensorsSocketsControl)SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
@@ -181,26 +199,84 @@ Habitat::Habitat(uint16_t ID,
 	controlsVector.push_back(lightControl);
 }
 
-Habitat::~Habitat()
+BeerPreparing::BeerPreparing(uint16_t ID, 
+	std::string name) : ControlsMode(ID, name)
 {
-	delete airTempControl;
-	delete coControl;
-	delete lightControl;
-}
-
-
-
-
-void ControlsMode::init()
-{
-}
-
-
-void Habitat::init()
-{
+	PeriodValuesCollection* mashingDVPC = new PeriodValuesCollection(TIME_PERIOD);
+	TimePeriodValue* tp_1 = new TimePeriodValue(
+		1,
+		"Пауза 1",
+		&mashingPause1Temp,
+		&mashingPause1Time,
+		&mashingPause1Active,
+		&mashingPause1StayOn
+		
+		)
+	mashingDVPC->addPeriodValue((PeriodValue*)tp_1);
+	
+	mashingControl = new(first_SensorsSocketsControl)SensorsSocketsControl
+		(
+		"Паузы:", 
+		&MashingOnOffTune,
+		nullptr,
+		&boilingMashingControlSensors,
+		&boilingMashingControlUpSockets,
+		&boilingMashingControlDownSockets,
+		nullptr,
+		mashingDVPC);
+	
+	
+	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(TIME_PERIOD);
+	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
+	
+	
+	boilingControl = new(second_SensorsSocketsControl)SensorsSocketsControl
+			(
+		"Варка:", 
+		&batTempControlOnOffTune,
+		nullptr,
+		&boilingMashingControlSensors,
+		&boilingMashingControlUpSockets,
+		&boilingMashingControlDownSockets,
+		nullptr,
+		batTempDVPC);
 	
 }
 
 
-
-
+void BeerPreparing::init()
+{
+	PeriodValuesCollection* mashingDVPC = new PeriodValuesCollection(TIME_PERIOD);
+	mashingDVPC->addPeriodValue((PeriodValue*)adpv);
+	
+	mashingControl = new(first_SensorsSocketsControl)SensorsSocketsControl
+		(
+		"Паузы:", 
+		&MashingOnOffTune,
+		nullptr,
+		&boilingMashingControlSensors,
+		&boilingMashingControlUpSockets,
+		&boilingMashingControlDownSockets,
+		nullptr,
+		mashingDVPC);
+	
+	
+	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(TIME_PERIOD);
+	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
+	
+	
+	boilingControl = new(second_SensorsSocketsControl)SensorsSocketsControl
+			(
+		"Варка:", 
+		&batTempControlOnOffTune,
+		nullptr,
+		&boilingMashingControlSensors,
+		&boilingMashingControlUpSockets,
+		&boilingMashingControlDownSockets,
+		nullptr,
+		batTempDVPC);
+	
+	controlsVector.push_back(mashingControl);
+	controlsVector.push_back(mashingControl);
+	
+}

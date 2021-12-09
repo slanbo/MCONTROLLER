@@ -764,12 +764,6 @@
     <ClInclude Include="Control.hpp">
       <Filter>Header files\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="TempPause.hpp">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="TempPauses.hpp">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Mode.hpp">
       <Filter>Header files\MODES</Filter>
     </ClInclude>

@@ -10,6 +10,7 @@
 
 
 #define ANTIFROST_TEMP 2
+#define STAY_ON_WRITE_FLASH_PERIOD 120
 
 enum PeriodType
 {
@@ -19,6 +20,7 @@ enum PeriodType
 
 enum TimePeriodState
 {
+	COMPLETED,
 	HEATING,
 	COOLING,
 	STAYON,
@@ -82,13 +84,16 @@ private:
 	
 	uint16_t Heating = 0;
 	uint16_t Cooling = 0;
+	uint16_t StayOn = 0;
+
 	
 	intTune* TimeTune;
 	intTune* StateTune;
 	intTune* StayOnTimeTune;
 	
-	time_t lastUpdateTime = 0;
+	time_t lastUpdateSeconds = 0;
 	TimePeriodState lastUpdateState = NULLSTATE;
+	
 	
 public:
 	
@@ -103,14 +108,11 @@ public:
 	void Reset();
 	bool Completed();
 	
-	void setLastUpdateTimeState(TimePeriodState state);
-
-	uint16_t getStayOn();
-	void addStayOn(uint16_t val);
-	uint16_t getHeating();
-	void addHeating(uint16_t val);
-	uint16_t getCooling();
-	void addCooling(uint16_t val);
+	void UpdateStateTime(TimePeriodState state);
+	
+	uint16_t getStayOnTime();
+	uint16_t getHeatingTime();
+	uint16_t getCoolingTime();
 	
 	bool isActive();
 

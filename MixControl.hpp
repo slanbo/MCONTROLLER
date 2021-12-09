@@ -4,7 +4,6 @@
 #include "Control.hpp"
 #include "SocketObjectsExt.hpp"
 #include "Socket.hpp"
-#include "TempPause.hpp"
 #include "DateControl.hpp"
 #include <string>
 #include <vector>

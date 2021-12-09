@@ -208,7 +208,6 @@
     <ClInclude Include="SensorObjects.hpp" />
     <ClInclude Include="SensorObjectsExt.hpp" />
     <ClInclude Include="SocketObjects.hpp" />
-    <ClInclude Include="TempPause.hpp" />
     <ClInclude Include="IRMotionSensor.hpp" />
     <ClInclude Include="LCDFont.hpp" />
     <ClInclude Include="LCDFonts.hpp" />
@@ -221,7 +220,6 @@
     <ClInclude Include="Devices\Inc\Buttons.hpp" />
     <ClInclude Include="Lib\Inc\TimeProfile.hpp" />
     <ClInclude Include="SocketObjectsExt.hpp" />
-    <ClInclude Include="TempPauses.hpp" />
     <ClInclude Include="DateControl.hpp" />
     <ClInclude Include="TempPausesObjects.hpp" />
     <ClInclude Include="TimeProfileObjects.hpp" />

@@ -23,10 +23,10 @@ void MixControl::FillScreen()
 	Info_SubHeader->SetText(Name, false);
 	
 	char statestr[MAX_CHARS_IN_SCREEN * 2] = "Cост:";
-	if(getState())
-		strcat(statestr, " ВКЛ") ;
-	else
-		strcat(statestr, " ВЫКЛ");
+	//if(getState())
+		//strcat(statestr, " ВКЛ") ;
+	//else
+		//strcat(statestr, " ВЫКЛ");
 	
 	Info_FirstString->SetText(statestr, true);
 	Info_SecondString->SetText("Режим работы:", true);
@@ -36,27 +36,27 @@ void MixControl::FillScreen()
 	{
 	case 0:	//always on
 		{
-			strcpy(modestr, "ВСЕГДА ВКЛ.");
+			//strcpy(modestr, "ВСЕГДА ВКЛ.");
 			break;
 		}	
 	case 1:	//switch on if heating
 		{
-			strcpy(modestr, "ВКЛ ЕСЛИ НАГР.");
+			//strcpy(modestr, "ВКЛ ЕСЛИ НАГР.");
 			break;
 		}
 	case 2:	//switch on if not heating
 		{
-			strcpy(modestr, "ВКЛ ЕСЛИ НЕ НАГР.");
+			//strcpy(modestr, "ВКЛ ЕСЛИ НЕ НАГР.");
 			break;
 		}
 		case 3:	//pauses
 		{
-			strcpy(modestr, "ВКЛ ПАУЗАМИ");
+			//strcpy(modestr, "ВКЛ ПАУЗАМИ");
 			break;
 		}
 	default: //allways off
 		{
-			strcpy(modestr, "НЕОПРЕД.");
+			//strcpy(modestr, "НЕОПРЕД.");
 			break;
 		}
 	}

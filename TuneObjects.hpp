@@ -88,8 +88,12 @@ intTune  boilingPause3Time(&boilingPause3Temp);
 intTune  boilingPause3Active(&boilingPause3Time);
 intTune  boilingPause3StayOn(&boilingPause3Active);
 
+IntVectorTune boilingMashingControlSensors(&boilingPause3StayOn, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune boilingMashingControlUpSockets(&boilingMashingControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune  boilingMashingControlDownSockets(&boilingMashingControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+
 //pump
-intTune PumpMode(&boilingPause3Time);
+intTune PumpMode(&boilingMashingControlDownSockets);
 intTune SwitchedOnPumpTime(&PumpMode);
 intTune SwitchedOffPumpTime(&SwitchedOnPumpTime);	
 

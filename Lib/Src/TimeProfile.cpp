@@ -162,52 +162,31 @@ TimePeriodValue::TimePeriodValue(
 }
 
 
-uint16_t TimePeriodValue::getStayOn()
+uint16_t TimePeriodValue::getStayOnTime()
 {
 	return StayOnTimeTune->_getVal();
 }
 
-
-void TimePeriodValue::addStayOn(uint16_t val)
-{
-	StayOnTimeTune->_setVal(++val);
-}
-
-
-uint16_t TimePeriodValue::getHeating()
+uint16_t TimePeriodValue::getHeatingTime()
 {
 	return Heating;
 }
 
-
-void TimePeriodValue::addHeating(uint16_t val)
-{
-	Heating = ++val;
-}
-
-
-uint16_t TimePeriodValue::getCooling()
+uint16_t TimePeriodValue::getCoolingTime()
 {
 	return Cooling;
 }
 
-
-void TimePeriodValue::addCooling(uint16_t val)
-{
-	Cooling = ++val;
-}
-
-
 void TimePeriodValue::Reset()
 {
-	StayOn = 0;
+	StayOnTimeTune->_setVal(0);
 	Heating = 0;
 	Cooling = 0;
 }
 
 bool TimePeriodValue::Completed()
 {
-	return StayOn >= TimeTune->_getVal();
+	return StayOnTimeTune->_getVal() >= TimeTune->_getVal();
 }
 
 bool TimePeriodValue::isActive()
@@ -218,25 +197,40 @@ bool TimePeriodValue::isActive()
 		return false;
 }
 
-
-void TimePeriodValue::setLastUpdateTimeState(TimePeriodState state)
+void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 {
+	if (lastUpdateState == COMPLETED)
+		return;
+	
 	RTC_DateTypeDef dt;
 	RTC_TimeTypeDef tt;
+	
 	HAL_RTC_GetTime(&hrtc, &tt, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN);   
+	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN); 
 	
-	struct tm fcl;
-	fcl.tm_hour = tt.Hours;
-	fcl.tm_min = tt.Minutes;
-	fcl.tm_sec = tt.Seconds;
-	fcl.tm_mday = dt.Date;
-	fcl.tm_mon = dt.Month;
-	fcl.tm_year = dt.Year;
-	fcl.tm_wday = dt.WeekDay;	
-	lastUpdateTime = mktime(&fcl);  
-	
+	time_t currentSeconds = getSecondsFromBegin(&dt, &tt);  
+	if (lastUpdateSeconds > 0)
+	{
+		if (state == STAYON & lastUpdateState == STAYON)
+		{
+			StayOn = StayOn + (currentSeconds - lastUpdateSeconds);
+			if (StayOn - StayOnTimeTune->_getVal() >= STAY_ON_WRITE_FLASH_PERIOD) 
+			{
+				StayOnTimeTune->_setVal(StayOn);
+				StayOnTimeTune->save();
+			}
+			if (StayOn >= TimeTune->_getVal())
+				lastUpdateState = COMPLETED;
+		}	
+		else if (state == HEATING & lastUpdateState == HEATING)
+		{
+			Heating = Heating + (currentSeconds - lastUpdateSeconds);
+		}		
+		else if (state == COOLING & lastUpdateState == COOLING)
+		{
+			Cooling = Cooling + (currentSeconds - lastUpdateSeconds);
+		}		
+	}
+	lastUpdateSeconds = getSecondsFromBegin(&dt, &tt);  
 	lastUpdateState = state;
-
-	
 }

@@ -4,6 +4,7 @@
 #endif
 
 #include "main.h"
+#include "time.h"
 	 
 	 enum compareRes
 	 {

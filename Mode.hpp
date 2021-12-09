@@ -81,13 +81,21 @@ class Habitat : public ControlsMode
 	
 };
 
-class Drying : public ControlsMode
-{
-	
-};
 
 class BeerPreparing : public ControlsMode
 {
+public: 
+	BeerPreparing(uint16_t ID,
+		std::string name);
+	virtual void init();
+
+	SensorsSocketsControl* mashingControl;
+	SensorsSocketsControl* boilingControl;
 	
+	~BeerPreparing();
+	
+protected:
+	
+private:
 };
 #endif
