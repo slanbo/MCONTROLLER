@@ -234,3 +234,59 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 	lastUpdateSeconds = getSecondsFromBegin(&dt, &tt);  
 	lastUpdateState = state;
 }
+
+
+void DatePeriodValue::getPeriodDescription(char* descr)
+{
+	
+}
+
+
+void TimePeriodValue::getPeriodDescription(char* descr)
+{
+	char CO[3] = { 67, 176, 0};
+	
+	AddIntChars(descr, Tune->_getVal(), 2, ' ');
+	AddChars(descr, " \0", false);
+	AddChars(descr, CO, false);
+	
+	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
+	AddChars(descr, " сек.", false);
+}
+
+void TimePeriodValue::getStateDescription(char* descr)
+{
+	AddIntChars(descr, StayOn, 4, ' ');
+	AddChars(descr, " из ", false);
+	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
+}
+
+
+
+void DatePeriodValue::getStatedDescription(char* descr)
+{
+	
+}
+
+PeriodValue* PeriodValuesCollection::getCurrentPeriod()
+{
+	if (Type == TIME_PERIOD)
+	{
+		for (auto elem : periodValues)
+		{
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			if (!pval->Completed())
+			{
+				return elem;
+			}
+		}
+	}
+	return nullptr;
+	
+	
+}
+
+
+bool PeriodValuesCollection::UpdateCurrentperiotStateTime()
+{
+}

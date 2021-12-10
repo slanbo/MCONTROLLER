@@ -60,7 +60,7 @@ int inttoabase10(int n, char s[])
 
 int inttoa(int value, char *sp, int radix)
 {
-	char tmp[16];  // be careful with the length of the buffer
+	char tmp[16];   // be careful with the length of the buffer
 	char *tp = tmp;
 	int i;
 	unsigned v;
@@ -74,7 +74,7 @@ int inttoa(int value, char *sp, int radix)
 	while (v || tp == tmp)
 	{
 		i = v % radix;
-		v /= radix;   // v/=radix uses less CPU clocks than v=v/radix does
+		v /= radix;    // v/=radix uses less CPU clocks than v=v/radix does
 		if(i < 10)
 		  *tp++ = i + '0';
 		else
@@ -458,14 +458,14 @@ void set_DS_From_RTC()
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 
-	 rtc.Year = sDate.Year;
-	 rtc.Month = sDate.Month;
-	 rtc.Date = sDate.Date;
-	 rtc.DaysOfWeek = sDate.WeekDay;
+	rtc.Year = sDate.Year;
+	rtc.Month = sDate.Month;
+	rtc.Date = sDate.Date;
+	rtc.DaysOfWeek = sDate.WeekDay;
 	
-	 rtc.Hour = sTime.Hours;
-	 rtc.Min = sTime.Minutes;
-	 rtc.Sec = sTime.Seconds;
+	rtc.Hour = sTime.Hours;
+	rtc.Min = sTime.Minutes;
+	rtc.Sec = sTime.Seconds;
 	
 	bool success = DS3231_SetTime(&rtc);
 #endif // USE_DS3231
@@ -473,43 +473,43 @@ void set_DS_From_RTC()
 
 enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC_DateTypeDef* sDate, RTC_TimeTypeDef* sTime)
 {
-	if (fDate->Year < sDate->Year)
-		return LESS;
-	else if (sDate->Year > sDate->Year)
-		return MORE;
+	if(fDate->Year < sDate->Year)
+		return LESS ;
+	else if(sDate->Year > sDate->Year)
+		return MORE ;
 	
 	//month
 	if(fDate->Month < sDate->Month)
-		return LESS;
+		return LESS ;
 	else if(fDate->Month > sDate->Month)	
-		return MORE;
+		return MORE ;
 	
 	//date
 	if(fDate->Date < sDate->Date)
-		return LESS;
+		return LESS ;
 	else if(fDate->Date > sDate->Date)	
-		return MORE;
+		return MORE ;
 	
 	//hour
 	if(fTime->Hours < sTime->Hours)
-		return LESS;
+		return LESS ;
 	else if(fTime->Hours > sTime->Hours)	
-		return MORE;	
+		return MORE ;	
 	
 	//minute
 	if(fTime->Minutes < sTime->Minutes)
-		return LESS;
+		return LESS ;
 	else if(fTime->Minutes > sTime->Minutes)	
-		return MORE;
+		return MORE ;
 	
-	return EQUAL;
+	return EQUAL ;
 }
 ;
 
 time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime)
 {
 	struct tm fcl;
-	time_t Ftim;        // this is undigned int
+	time_t Ftim;         // this is undigned int
 	fcl.tm_hour = fTime->Hours;
 	fcl.tm_min = fTime->Minutes;
 	fcl.tm_sec = fTime->Seconds;
@@ -517,8 +517,110 @@ time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime)
 	fcl.tm_mon = fDate->Month;
 	fcl.tm_year = fDate->Year;
 	fcl.tm_wday = fDate->WeekDay;	
-	Ftim = mktime(&fcl);   // tim
+	Ftim = mktime(&fcl);    // tim
 	
 	return Ftim;
 }
 ;
+
+
+uint8_t AddIntChars(char* text, int dnum, uint8_t lenght, char fillChar = ' ')
+{
+	uint8_t res_lenght = 0;
+	char dstr[lenght];
+	uint16_t udint = dnum;
+	uint16_t rsigns = 0;
+	
+	while (text[res_lenght] != 0)
+		res_lenght++;
+	
+	if (dnum != 0)
+	{
+		while (udint > 0)
+		{
+			udint = udint / 10;
+			rsigns++;
+		}
+		inttoabase10(dnum, dstr);
+		if (lenght > 0)
+		{
+			uint8_t zeros = lenght - rsigns;
+			for (uint8_t i = 0; i < zeros; i++)
+			{
+				text[res_lenght] = fillChar;
+				res_lenght++;
+			}
+		}
+		for (uint8_t i = 0; i < rsigns; i++)
+		{
+			text[res_lenght] = dstr[i];
+			res_lenght++;
+		}
+		text[res_lenght + 1] = '\0';
+	}
+	else
+	{
+		for (uint8_t i = 0; i < lenght - 1; i++)
+		{
+			text[res_lenght] = fillChar;	
+			res_lenght++;
+		}
+		text[res_lenght] = '0';	
+		res_lenght++;
+		text[res_lenght + 1] = '\0';
+	}
+	return res_lenght;
+}
+
+
+uint8_t FillEndBySpaces(char* text, uint8_t lenght)
+{
+	uint8_t res_lenght = 0;
+	while (text[res_lenght] != 0)
+		res_lenght++;
+
+	
+	for (uint8_t i = res_lenght; i < lenght - 1; i++)
+	{
+		text[res_lenght] = ' ';	
+		res_lenght++;
+	}
+	text[res_lenght] = '\0';	
+	return res_lenght;
+}
+
+uint8_t AddChars(char* text, const char* chars, bool convertToCp1251)
+{
+	uint8_t res_lenght = 0;
+	char converted_charptr[] = { 0 };
+	uint8_t counter;
+	
+	uint8_t in_lenjght = 0;
+	if (convertToCp1251)
+		in_lenjght = convertUtf8ToCp1251(chars, converted_charptr);
+	else
+	{
+		while (chars[in_lenjght] != 0)
+		{
+			converted_charptr[in_lenjght] = chars[in_lenjght];
+			in_lenjght++;
+		}	
+		converted_charptr[in_lenjght + 1] = '\0';
+	}
+	
+	
+	while (text[res_lenght] != 0)
+		res_lenght++;
+	
+	counter = 0;
+	while (converted_charptr[counter] != 0)
+	{
+		text[res_lenght] = converted_charptr[counter];
+		counter++;
+		res_lenght++;
+	}
+	text[res_lenght + 1] = '\0';
+	
+	return res_lenght;
+
+}

@@ -35,7 +35,7 @@ protected:
 			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			if (SETUP_MODE == 0)
 			{
-				HabitatMode->ExecuteStep();
+				Modes.at(modeIndex._getVal())->ExecuteStep();
 			}
 			//xSemaphoreGive(lcdmut_handle); 
 			

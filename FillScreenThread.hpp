@@ -59,22 +59,24 @@ protected:
 			
 			if (SETUP_MODE == 0)
 			{
-				
 				if (showInfoCounter == 0)
 				{
-					if (!HabitatMode->allscreensfilled)
-						HabitatMode->FillScreen();
-					else
+					bool screenFilled = false;
+					if (!Modes.at(modeIndex._getVal())->allscreensfilled) 
+					{
+						Modes.at(modeIndex._getVal())->FillScreen();
+						screenFilled = true;
+					}
+					if (!screenFilled)
 					{
 						PCountersVector.at(currentPCounter)->FillScreen();
 						currentPCounter++;
 						if (currentPCounter == PCountersVector.size())
 						{
 							currentPCounter = 0;
-							HabitatMode->allscreensfilled = false;	
+							Modes.at(modeIndex._getVal())->allscreensfilled = false;	
 						}
 					}
-						
 				}
 			
 				showInfoCounter++;

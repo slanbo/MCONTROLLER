@@ -249,10 +249,7 @@ int main(void)
 	
 	postInitStaticMenuElements(&mi_167);
 	
-	
-	//void* hptr = pvPortMalloc(sizeof(Habitat));
-	HabitatMode = new Habitat(0, "Контр. среды");
-	
+	ModeObjectsInit();
 	mainMenu = new Menu(&mi_0);
 	
 	lcdmut_handle = xSemaphoreCreateMutex();

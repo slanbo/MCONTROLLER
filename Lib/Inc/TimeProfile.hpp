@@ -36,6 +36,9 @@ public:
 	
 	intTune* _getTune();
 	
+	virtual void getPeriodDescription(char* descr) = 0;
+	virtual void getStatedDescription(char* descr) = 0;
+	
 	
 protected:	
 	intTune* Tune;
@@ -74,6 +77,9 @@ public:
 	uint8_t Week;
 	uint8_t Month;
 	uint8_t Year;
+	
+	virtual void getPeriodDescription(char* descr);
+	virtual void getStatedDescription(char* descr);
 
 	
 };
@@ -115,7 +121,11 @@ public:
 	uint16_t getCoolingTime();
 	
 	bool isActive();
+	
+	virtual void getPeriodDescription(char* descr);
+	virtual void getStateDescription(char* descr);
 
+	
 };
 
 class PeriodValuesCollection
@@ -129,6 +139,11 @@ public:
 	PeriodType Type;
 	uint16_t getValue(uint8_t variant);
 	std::vector<PeriodValue*> periodValues;
+	
+	PeriodValue* getCurrentPeriod();
+	
+	bool UpdateCurrentperiotStateTime();
+	
 };
 
 #endif 	

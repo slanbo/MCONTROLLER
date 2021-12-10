@@ -124,6 +124,9 @@ public:
 	virtual char* GetSensorsUnit();
 
 	void SwitchDownSockets(uint16_t powerVT);
+	
+	PeriodValuesCollection* DPVCollection = nullptr;
+
 
 private:
 	
@@ -134,7 +137,6 @@ protected:
 	IntVectorTune* DownSocketsTune = nullptr;
 	intTune* TimeProfileTune = nullptr;
 
-	PeriodValuesCollection* DPVCollection = nullptr;
 	std::vector< plugSocket*> DownSocketsVector;
 	std::vector< ADCSensor*> SensorsVector;
 	

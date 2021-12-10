@@ -202,52 +202,18 @@ void Habitat::init()
 BeerPreparing::BeerPreparing(uint16_t ID, 
 	std::string name) : ControlsMode(ID, name)
 {
-	PeriodValuesCollection* mashingDVPC = new PeriodValuesCollection(TIME_PERIOD);
-	TimePeriodValue* tp_1 = new TimePeriodValue(
-		1,
-		"Пауза 1",
-		&mashingPause1Temp,
-		&mashingPause1Time,
-		&mashingPause1Active,
-		&mashingPause1StayOn
-		
-		)
-	mashingDVPC->addPeriodValue((PeriodValue*)tp_1);
-	
-	mashingControl = new(first_SensorsSocketsControl)SensorsSocketsControl
-		(
-		"Паузы:", 
-		&MashingOnOffTune,
-		nullptr,
-		&boilingMashingControlSensors,
-		&boilingMashingControlUpSockets,
-		&boilingMashingControlDownSockets,
-		nullptr,
-		mashingDVPC);
-	
-	
-	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(TIME_PERIOD);
-	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
-	
-	
-	boilingControl = new(second_SensorsSocketsControl)SensorsSocketsControl
-			(
-		"Варка:", 
-		&batTempControlOnOffTune,
-		nullptr,
-		&boilingMashingControlSensors,
-		&boilingMashingControlUpSockets,
-		&boilingMashingControlDownSockets,
-		nullptr,
-		batTempDVPC);
 	
 }
 
 
 void BeerPreparing::init()
 {
-	PeriodValuesCollection* mashingDVPC = new PeriodValuesCollection(TIME_PERIOD);
-	mashingDVPC->addPeriodValue((PeriodValue*)adpv);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_1);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_2);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_3);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_4);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_5);
+	mashingDVPC->addPeriodValue((PeriodValue*)mtp_6);
 	
 	mashingControl = new(first_SensorsSocketsControl)SensorsSocketsControl
 		(
@@ -260,9 +226,10 @@ void BeerPreparing::init()
 		nullptr,
 		mashingDVPC);
 	
-	
-	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(TIME_PERIOD);
-	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
+	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_1);
+	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_2);
+	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_3);
+
 	
 	
 	boilingControl = new(second_SensorsSocketsControl)SensorsSocketsControl
@@ -274,9 +241,112 @@ void BeerPreparing::init()
 		&boilingMashingControlUpSockets,
 		&boilingMashingControlDownSockets,
 		nullptr,
-		batTempDVPC);
+		boilingTempDVPC);
+	
 	
 	controlsVector.push_back(mashingControl);
-	controlsVector.push_back(mashingControl);
+	controlsVector.push_back(boilingControl);
 	
+}
+
+
+void BeerPreparing::FillScreen()
+{
+	if (isOn())
+	{
+		
+		TimePeriodValue* currentPeriod = (TimePeriodValue*)controlsVector.at(beerModeIndex._getVal())->DPVCollection->getCurrentPeriod();
+		
+		const char blank[2] = { ' ', 0 };
+		
+		Info_Header->ClearText();
+		Info_SubHeader->ClearText();
+		Info_FirstString->ClearText();
+		Info_SecondString->ClearText();
+		Info_ThirdString->ClearText();
+		Info_FourthString->ClearText();
+	
+		Info_Header->SetChars(Name, false);
+		Info_Header->FillEndBySpaces();
+		Info_Header->_setUpdated(true);
+	
+		Info_SubHeader->SetChars(controlsVector.at(beerModeIndex._getVal())->Name, false);
+		Info_SubHeader->FillEndBySpaces();
+		Info_SubHeader->_setUpdated(true);
+		
+		if (currentScreenIndex == 0)
+		{
+	
+			char ifirst[] = "Пауза:\0";
+			Info_FirstString->SetChars(ifirst, true);
+			Info_FirstString->FillEndBySpaces();
+			Info_FirstString->_setUpdated(true);
+
+			char isecond[] = "";
+			currentPeriod->getPeriodDescription(isecond);
+			Info_SecondString->SetChars(isecond, true);
+			Info_SecondString->FillEndBySpaces();
+			Info_SecondString->_setUpdated(true);
+	
+			char ithird[] = "Выполнено(сек.)\0";
+			Info_SecondString->SetChars(ithird, true);
+			Info_ThirdString->FillEndBySpaces();
+			Info_ThirdString->_setUpdated(true);
+	
+			char ifourth[] = "";
+			currentPeriod->getStatedDescription(ifourth);
+			Info_FourthString->SetChars(ifourth, true);
+			Info_FourthString->FillEndBySpaces();
+			Info_FourthString->_setUpdated(true);
+		}
+		else if (currentScreenIndex == 1)
+		{
+			char ifirst[] = "Тек.:\0";
+			Info_FirstString->SetChars(ifirst, true);
+			Info_FirstString->SetIntText(controlsVector.at(beerModeIndex._getVal())->_get_current_val(), 5);
+			Info_FirstString->SetChars(blank, false);	
+			Info_FirstString->SetChars(controlsVector.at(beerModeIndex._getVal())->GetSensorsUnit(), false);
+			Info_FirstString->FillEndBySpaces();
+			Info_FirstString->_setUpdated(true);
+
+			char isecond[] = "Цель:\0";
+			Info_SecondString->SetChars(isecond, true);
+			Info_SecondString->SetIntText(controlsVector.at(beerModeIndex._getVal())->_get_aim_val(), 5);
+			Info_SecondString->SetChars(blank, false);
+			Info_SecondString->SetChars(controlsVector.at(beerModeIndex._getVal())->GetSensorsUnit(), false);
+			Info_SecondString->FillEndBySpaces();
+			Info_SecondString->_setUpdated(true);
+	
+			char ithird[] = "Нагр.:\0";
+			Info_ThirdString->SetChars(ithird, true);
+			Info_ThirdString->SetIntText(controlsVector.at(beerModeIndex._getVal())->GetSocketsPowerVT(), 5);
+			Info_ThirdString->SetChars(blank, false);
+			char vt[] = "ВТ\0";
+			Info_ThirdString->SetChars(vt, true);
+			Info_ThirdString->FillEndBySpaces();
+			Info_ThirdString->_setUpdated(true);
+	
+			char ifourth[] = "_____________\0";
+			Info_FourthString->SetChars(ifourth, true);
+			Info_FourthString->FillEndBySpaces();
+			Info_FourthString->_setUpdated(true);
+
+		}
+		
+		currentScreenIndex++;
+		if (currentScreenIndex == BEER_PREPARING_SCREEN_QUANT)
+		{
+			currentScreenIndex = 0;
+			allscreensfilled = true;
+		}
+	}
+}
+
+
+void BeerPreparing::ExecuteStep()
+{
+	if (isOn())
+	{
+		controlsVector.at(beerModeIndex._getVal())->ExecuteStep();
+	}
 }

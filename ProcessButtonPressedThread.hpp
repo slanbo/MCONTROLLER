@@ -55,6 +55,9 @@ protected:
 				set_DS_From_RTC();
 				bothButtonsPressCounter -= 1;
 				mainMenu->clearLCD();
+				
+				ModeObjectsInit();
+
 			}
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
 			{

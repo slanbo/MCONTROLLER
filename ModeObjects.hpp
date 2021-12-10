@@ -1,33 +1,18 @@
 #include "Mode.hpp"
 #include "ControlObjectsExt.hpp"
 #include "Control.hpp"
+#include "TuneObjectsExt.hpp"
 #include <vector>
 
-/*
 
-ControlsMode BeerMashingMode("Пиво: ПАУЗЫ", &modeIndex, MashingControls);
 
-std::vector<ControlBase *> BoilingControls = { 
-	&boilingControl,
-	&dayPCounter,
-	&nightPCounter
-};
-ControlsMode BeerBoilingMode("Пиво: ВАРКА", &modeIndex, BoilingControls);
 
-std::vector<ControlBase *> DryingControls = { 
-	&dryingTempContr,
-	&dryingHumidityContr,
-	&dryingVentControl
-};
-ControlsMode DryingMode("Сушка", &modeIndex, DryingControls);
-*/
+Habitat* HabitatMode =  new Habitat(0, "Контр. среды");
+BeerPreparing* BeerPreparingMode = new BeerPreparing(1, "Пригот. пива"); 
 
-//ModeBase* CurrentMode = nullptr;
-Habitat* HabitatMode = nullptr;
-
-//Habitat* HabitatMode = new Habitat(1, "Контр. среды");
-//std::vector<ModeBase *> Modes = { HabitatMode };
+std::vector<ControlsMode*> Modes = { HabitatMode, BeerPreparingMode };
 
 void ModeObjectsInit()
 {
+		Modes.at(modeIndex._getVal())->init();
 }

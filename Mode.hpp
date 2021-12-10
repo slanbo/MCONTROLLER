@@ -12,6 +12,7 @@
 
 
 #define MODE_HEADER_BOARD_GAP 2
+#define BEER_PREPARING_SCREEN_QUANT 2
 
 
 class ModeBase : public BaseObject
@@ -92,9 +93,15 @@ public:
 	SensorsSocketsControl* mashingControl;
 	SensorsSocketsControl* boilingControl;
 	
+	virtual void FillScreen();
+	virtual void ExecuteStep();
+
+	
 	~BeerPreparing();
 	
 protected:
+	uint8_t currentScreenIndex = 0;
+
 	
 private:
 };

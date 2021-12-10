@@ -5,15 +5,11 @@
 #include "Mode.hpp"
 
 
-//extern ModeBase* CurrentMode;
 extern Habitat* HabitatMode;
+extern BeerPreparing* BeerPreparingMode;
+extern std::vector<ControlsMode*> Modes;
 
 void ModeObjectsInit();
-//extern std::vector<ModeBase *> Modes;
 
-
-/*extern ControlsMode BeerMashingMode;
-extern ControlsMode BeerBoilingMode;
-extern ControlsMode DryingMode;*/
 
 #endif	
