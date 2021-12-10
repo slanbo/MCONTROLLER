@@ -1,6 +1,6 @@
 #include "TimeProfile.hpp"
 #include "rtc.h"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include <string>
 
 DatePeriodValue::DatePeriodValue(
@@ -241,6 +241,10 @@ void DatePeriodValue::getPeriodDescription(char* descr)
 	
 }
 
+void DatePeriodValue::getStateDescription(char* descr)
+{
+	
+}
 
 void TimePeriodValue::getPeriodDescription(char* descr)
 {
@@ -261,13 +265,6 @@ void TimePeriodValue::getStateDescription(char* descr)
 	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
 }
 
-
-
-void DatePeriodValue::getStatedDescription(char* descr)
-{
-	
-}
-
 PeriodValue* PeriodValuesCollection::getCurrentPeriod()
 {
 	if (Type == TIME_PERIOD)
@@ -286,7 +283,9 @@ PeriodValue* PeriodValuesCollection::getCurrentPeriod()
 	
 }
 
-
-bool PeriodValuesCollection::UpdateCurrentperiotStateTime()
+bool PeriodValuesCollection::UpdateCurrentPeriotStateTime()
 {
+	return true;
 }
+
+

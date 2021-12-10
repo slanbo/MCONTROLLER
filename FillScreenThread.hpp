@@ -3,7 +3,7 @@
 #include "ticks.hpp"
 #include "task.h"
 #include "ModeObjectsExt.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "string.h"
 #include "ScreenObjectsExt.hpp"
 #include "MenuClass.hpp"

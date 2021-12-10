@@ -1,5 +1,5 @@
 #include "ADCDev.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "FreeRTOS.h"
 #include "semphr.h"
 #include "task.h"

@@ -1,5 +1,5 @@
 #include "MenuElement.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "string.h"
 
 

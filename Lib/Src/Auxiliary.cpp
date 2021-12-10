@@ -1,4 +1,4 @@
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "string.h"
@@ -624,3 +624,33 @@ uint8_t AddChars(char* text, const char* chars, bool convertToCp1251)
 	return res_lenght;
 
 }
+
+static char * _float_to_char(float x, char *p)
+{
+	char *s = p + CHAR_BUFF_SIZE;     // go to end of buffer
+	uint16_t decimals;      // variable to store the decimals
+	int BaseUnits;      // variable to store the BaseUnits (part to left of decimal place)
+	if(x < 0) {
+		// take care of negative numbers
+	   decimals = (int)(x * -100) % 100;     // make 1000 for 3 decimals etc.
+	   BaseUnits = (int)(-1 * x);
+	} else {
+		// positive numbers
+	   decimals = (int)(x * 100) % 100;
+		BaseUnits = (int)x;
+	}
+
+	* --s = (decimals % 10) + '0';
+	decimals /= 10;     // repeat for as many decimal places as you need
+	* --s = (decimals % 10) + '0';
+	* --s = '.';
+
+	while (BaseUnits > 0) {
+		* --s = (BaseUnits % 10) + '0';
+		BaseUnits /= 10;
+	}
+	if (x < 0) * --s = '-';     // unary minus sign for negative numbers
+	return s;
+}
+;	 
+	 

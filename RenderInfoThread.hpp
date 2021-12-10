@@ -4,7 +4,7 @@
 #include "thread.hpp"
 #include "ticks.hpp"
 #include "task.h"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "ScreenObjectsExt.hpp"
 #include "string.h"
 

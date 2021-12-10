@@ -2,7 +2,7 @@
 #include "eeprom.h"
 #include "rtc.h"
 #include "SocketObjectsExt.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 
 void readTunesFromFlash()
 {

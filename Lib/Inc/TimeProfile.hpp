@@ -37,7 +37,7 @@ public:
 	intTune* _getTune();
 	
 	virtual void getPeriodDescription(char* descr) = 0;
-	virtual void getStatedDescription(char* descr) = 0;
+	virtual void getStateDescription(char* descr) = 0;
 	
 	
 protected:	
@@ -79,7 +79,7 @@ public:
 	uint8_t Year;
 	
 	virtual void getPeriodDescription(char* descr);
-	virtual void getStatedDescription(char* descr);
+	virtual void getStateDescription(char* descr);
 
 	
 };
@@ -142,7 +142,7 @@ public:
 	
 	PeriodValue* getCurrentPeriod();
 	
-	bool UpdateCurrentperiotStateTime();
+	bool UpdateCurrentPeriotStateTime();
 	
 };
 

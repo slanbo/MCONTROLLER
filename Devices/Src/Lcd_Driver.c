@@ -3,8 +3,14 @@
 //#include "delay.h"
 #include "spi.h"
 #include "tim.h"
-#include "Auxiliary.h"
+//#include "Auxiliary.hpp"
 
+
+void US_DELAY(uint16_t time_us)
+{
+	htim1.Instance->CNT = 0;
+	while (htim1.Instance->CNT <= time_us) ;
+}
 
 void Lcd_WriteIndex(uint8_t Index)
 {

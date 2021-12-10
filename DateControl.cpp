@@ -1,7 +1,7 @@
 #include "DateControl.hpp"
 #include "rtc.h"
 #include "time.h"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "ScreenObjectsExt.hpp"
 #include "string.h"
 

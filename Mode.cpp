@@ -294,7 +294,7 @@ void BeerPreparing::FillScreen()
 			Info_ThirdString->_setUpdated(true);
 	
 			char ifourth[] = "";
-			currentPeriod->getStatedDescription(ifourth);
+			currentPeriod->getStateDescription(ifourth);
 			Info_FourthString->SetChars(ifourth, true);
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);

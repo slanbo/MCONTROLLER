@@ -1,7 +1,7 @@
 #include "ScreenElement.hpp"
 #include "GUI.h"
 #include "utf8_to_cp1251.h" 
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 
 BaseScreenElement::BaseScreenElement(uint8_t left_x, 
 	uint8_t top_y, 

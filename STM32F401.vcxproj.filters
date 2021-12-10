@@ -734,9 +734,6 @@
     <ClInclude Include="Devices\Inc\stm32_ds3231.h">
       <Filter>Header files\Devices</Filter>
     </ClInclude>
-    <ClInclude Include="Lib\Inc\Auxiliary.h">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Eeprom\eeprom.h">
       <Filter>Header files\Eeprom</Filter>
     </ClInclude>
@@ -919,6 +916,9 @@
     </ClInclude>
     <ClInclude Include="PCounterObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\Inc\Auxiliary.hpp">
+      <Filter>Header files\Lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

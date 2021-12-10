@@ -5,7 +5,7 @@
 #include "utf8_to_cp1251.h"
 #include "Lcd_Driver.h"
 #include "GUI.h"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "TuneObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
 

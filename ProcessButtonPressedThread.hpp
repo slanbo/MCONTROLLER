@@ -4,7 +4,7 @@
 #include "task.h"
 #include "Buttons.hpp"
 #include "MenuClass.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "Mode.hpp"
 #include "ModeObjectsExt.hpp"
 

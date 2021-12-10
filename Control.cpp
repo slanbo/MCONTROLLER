@@ -7,7 +7,7 @@
 #include "ScreenObjectsExt.hpp"
 #include "SensorObjectsExt.hpp"
 #include "NTC_10K_B3950.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)

@@ -35,7 +35,7 @@
 #include "task.h"
 #include "stm32_ds3231.h"
 #include "ds1307_for_stm32_hal.h"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 #include "string.h"
 #include "math.h"
 #include "Buttons.hpp"

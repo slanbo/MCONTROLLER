@@ -5,7 +5,7 @@
 #include "SocketObjectsExt.hpp"
 #include "IRMotionSensor.hpp"
 #include "MenuElement.hpp"
-#include "Auxiliary.h"
+#include "Auxiliary.hpp"
 
 #ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];

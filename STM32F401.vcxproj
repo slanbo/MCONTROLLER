@@ -288,7 +288,7 @@
     <ClInclude Include="FRWrapper\include\workqueue.hpp" />
     <ClInclude Include="MenuClass.hpp" />
     <ClInclude Include="Tune.hpp" />
-    <ClInclude Include="Lib\Inc\Auxiliary.h" />
+    <ClInclude Include="Lib\Inc\Auxiliary.hpp" />
     <ClInclude Include="Lib\Inc\bit.h" />
     <ClInclude Include="Lib\Inc\Font.h" />
     <ClInclude Include="Lib\Inc\GUI.h" />
