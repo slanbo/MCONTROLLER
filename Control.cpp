@@ -8,7 +8,7 @@
 #include "SensorObjectsExt.hpp"
 #include "NTC_10K_B3950.hpp"
 #include "Auxiliary.hpp"
-
+#include "TimeProfile.hpp"
 
 ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(id, name)
@@ -278,21 +278,25 @@ void SensorsSocketsControl::ExecuteStep()
 				upPower = 0;
 				if (DownSocketsVector.size() > 0)
 				{
-					if (current_val > aim_val + 2) 
-					{
-						downPower = 0xffff;
-					}
-					else if (current_val > aim_val + 1)
-					{
-						downPower = 2000;
-					}
-					else if (current_val > aim_val)
-					{
-						downPower = 100;
-					}
+					if (current_val > aim_val + 2) //cooling max
+						{
+							downPower = 0xffff;
+							SocketsState = DECREASEMAX;
+						}
+					else if (current_val > aim_val + 1) //cooling 2/3
+						{
+							downPower = 2000;
+							SocketsState = DECREASEMID;
+						}
+					else if (current_val > aim_val) //cooling  1/3
+						{
+							downPower = 1000;
+							SocketsState = DECREASEMIN;
+						}
 					else
 					{
-						downPower = 0;
+						downPower = 0;  //stay on
+						SocketsState = STAYONAIM;
 					}
 				}
 			}	
@@ -304,23 +308,43 @@ void SensorsSocketsControl::ExecuteStep()
 					if (current_val < aim_val - 2) 
 					{
 						upPower = 0xffff;
+						SocketsState = INCREASEMAX;
 					}
 					else if (current_val < aim_val - 1)
 					{
 						upPower = 2000;
+						SocketsState = INCREASEMID;
 					}
 					else if (current_val < aim_val)
 					{
 						upPower = 1000;
+						SocketsState = INCREASEMIN;
 					}
 					else
 					{
 						upPower = 0;
+						SocketsState = STAYONAIM;
 					}
 				}
 			}
 		SwitchSockets(upPower);
 		SwitchDownSockets(downPower);
+		
+		if (DPVCollection->Type == TIME_PERIOD)
+		{
+			if (SocketsState == INCREASEMAX | SocketsState == INCREASEMID | SocketsState == INCREASEMIN)
+			{
+				DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
+			}
+			else if(SocketsState == STAYONAIM)
+			{
+				DPVCollection->UpdateCurrentPeriotStateTime(STAYON);
+			}
+			else if(SocketsState ==  DECREASEMAX | SocketsState == DECREASEMID | SocketsState == DECREASEMIN)
+			{
+				DPVCollection->UpdateCurrentPeriotStateTime(COOLING);
+			}
+		}
 	}
 	else
 	{

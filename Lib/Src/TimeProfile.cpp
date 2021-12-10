@@ -283,8 +283,19 @@ PeriodValue* PeriodValuesCollection::getCurrentPeriod()
 	
 }
 
-bool PeriodValuesCollection::UpdateCurrentPeriotStateTime()
+bool PeriodValuesCollection::UpdateCurrentPeriotStateTime(TimePeriodState state)
 {
+	if (Type == TIME_PERIOD)
+	{
+		for (auto elem : periodValues)
+		{
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			if (!pval->Completed())
+			{
+				pval->UpdateStateTime(state);
+			}
+		}
+	}
 	return true;
 }
 

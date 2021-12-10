@@ -142,7 +142,7 @@ public:
 	
 	PeriodValue* getCurrentPeriod();
 	
-	bool UpdateCurrentPeriotStateTime();
+	bool UpdateCurrentPeriotStateTime(TimePeriodState state);
 	
 };
 

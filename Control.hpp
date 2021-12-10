@@ -10,6 +10,18 @@
 #include "Socket.hpp"
 #include "ADCSensorDev.hpp"
 
+enum socketsState
+{
+	INCREASEMAX,
+	INCREASEMID,
+	INCREASEMIN,
+	STAYONAIM,
+	DECREASEMIN,
+	DECREASEMID,
+	DECREASEMAX
+};
+
+
 class ControlBase: public BaseObject
 {
 public:
@@ -70,12 +82,15 @@ public:
 	uint16_t GetSocketsPowerVT();
 	
 	virtual void init();
+	socketsState SocketsState;
+	
 	
 private:
 	
 protected:
 	
 	void SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t powerVT);
+	
 	
 	IntVectorTune* SocketsTune;
 	std::vector< plugSocket*> SocketsVector;
