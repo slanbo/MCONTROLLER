@@ -93,9 +93,7 @@ private:
 	uint16_t StayOn = 0;
 
 	
-	intTune* TimeTune;
 	intTune* StateTune;
-	intTune* StayOnTimeTune;
 	
 	time_t lastUpdateSeconds = 0;
 	TimePeriodState lastUpdateState = NULLSTATE;
@@ -117,14 +115,23 @@ public:
 	void UpdateStateTime(TimePeriodState state);
 	
 	uint16_t getStayOnTime();
+	void setStayOnTime(uint16_t time);
+	
 	uint16_t getHeatingTime();
 	uint16_t getCoolingTime();
+	
+	TimePeriodState  getState();
+	void  setState(TimePeriodState state);
 	
 	bool isActive();
 	
 	virtual void getPeriodDescription(char* descr);
 	virtual void getStateDescription(char* descr);
 
+	intTune* StayOnTimeTune;
+	intTune* TimeTune;
+
+		
 	
 };
 
@@ -143,6 +150,9 @@ public:
 	PeriodValue* getCurrentPeriod();
 	
 	bool UpdateCurrentPeriotStateTime(TimePeriodState state);
+	
+	void RestorePeriodsStates(uint8_t currentT);
+
 	
 };
 

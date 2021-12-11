@@ -284,18 +284,18 @@ void BeerPreparing::FillScreen()
 
 			char isecond[] = "";
 			currentPeriod->getPeriodDescription(isecond);
-			Info_SecondString->SetChars(isecond, true);
+			Info_SecondString->SetChars(isecond, false);
 			Info_SecondString->FillEndBySpaces();
 			Info_SecondString->_setUpdated(true);
 	
-			char ithird[] = "Выполнено(сек.)\0";
-			Info_SecondString->SetChars(ithird, true);
+			char ithird[] = "Выполнено(с.)\0";
+			Info_ThirdString->SetChars(ithird, true);
 			Info_ThirdString->FillEndBySpaces();
 			Info_ThirdString->_setUpdated(true);
 	
 			char ifourth[] = "";
 			currentPeriod->getStateDescription(ifourth);
-			Info_FourthString->SetChars(ifourth, true);
+			Info_FourthString->SetChars(ifourth, false);
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
 		}

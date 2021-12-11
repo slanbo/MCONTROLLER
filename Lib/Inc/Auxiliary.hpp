@@ -37,4 +37,6 @@
 	uint8_t	AddChars(char* text, const char* chars, bool convertToCp1251);	 
 	 
 	static char * _float_to_char(float x, char *p);
+
+	time_t my_timegm(struct tm * t);
 	

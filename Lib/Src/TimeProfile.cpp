@@ -2,6 +2,7 @@
 #include "rtc.h"
 #include "Auxiliary.hpp"
 #include <string>
+#include "time.h"
 
 DatePeriodValue::DatePeriodValue(
 	uint16_t ID,
@@ -164,7 +165,7 @@ TimePeriodValue::TimePeriodValue(
 
 uint16_t TimePeriodValue::getStayOnTime()
 {
-	return StayOnTimeTune->_getVal();
+	return StayOn;
 }
 
 uint16_t TimePeriodValue::getHeatingTime()
@@ -180,6 +181,7 @@ uint16_t TimePeriodValue::getCoolingTime()
 void TimePeriodValue::Reset()
 {
 	StayOnTimeTune->_setVal(0);
+	StayOn  = 0;
 	Heating = 0;
 	Cooling = 0;
 }
@@ -208,7 +210,17 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 	HAL_RTC_GetTime(&hrtc, &tt, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN); 
 	
-	time_t currentSeconds = getSecondsFromBegin(&dt, &tt);  
+	struct tm fcl;
+	time_t Ftim = 0;          // this is undigned int
+	fcl.tm_hour = tt.Hours;
+	fcl.tm_min = tt.Minutes;
+	fcl.tm_sec = tt.Seconds;
+	fcl.tm_mday = dt.Date;
+	fcl.tm_mon = dt.Month - 1;
+	fcl.tm_year = dt.Year + 2000 - 1900;
+	fcl.tm_wday = dt.WeekDay;	
+	time_t currentSeconds = my_timegm(&fcl); // tim
+	 
 	if (lastUpdateSeconds > 0)
 	{
 		if (state == STAYON & lastUpdateState == STAYON)
@@ -220,7 +232,11 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 				StayOnTimeTune->save();
 			}
 			if (StayOn >= TimeTune->_getVal())
+			{
+				StayOnTimeTune->_setVal(StayOn);
+				StayOnTimeTune->save();
 				lastUpdateState = COMPLETED;
+			}
 		}	
 		else if (state == HEATING & lastUpdateState == HEATING)
 		{
@@ -231,7 +247,7 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 			Cooling = Cooling + (currentSeconds - lastUpdateSeconds);
 		}		
 	}
-	lastUpdateSeconds = getSecondsFromBegin(&dt, &tt);  
+	lastUpdateSeconds = currentSeconds;  
 	lastUpdateState = state;
 }
 
@@ -251,17 +267,17 @@ void TimePeriodValue::getPeriodDescription(char* descr)
 	char CO[3] = { 67, 176, 0};
 	
 	AddIntChars(descr, Tune->_getVal(), 2, ' ');
-	AddChars(descr, " \0", false);
+	AddChars(descr, " ", false);
 	AddChars(descr, CO, false);
 	
 	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
-	AddChars(descr, " сек.", false);
+	AddChars(descr, " с.", true);
 }
 
 void TimePeriodValue::getStateDescription(char* descr)
 {
 	AddIntChars(descr, StayOn, 4, ' ');
-	AddChars(descr, " из ", false);
+	AddChars(descr, " из ", true);
 	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
 }
 
@@ -290,13 +306,54 @@ bool PeriodValuesCollection::UpdateCurrentPeriotStateTime(TimePeriodState state)
 		for (auto elem : periodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
-			if (!pval->Completed())
+			if (pval->isActive() && pval->getState() != COMPLETED)
 			{
 				pval->UpdateStateTime(state);
+				return true;
 			}
 		}
 	}
-	return true;
+	return false;
 }
 
 
+
+
+TimePeriodState TimePeriodValue::getState()
+{
+	return lastUpdateState;
+}
+
+
+
+
+void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT)
+{
+	if (Type == TIME_PERIOD)
+	{
+		for (auto elem : periodValues)
+		{
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			pval->Reset();
+			pval->StayOnTimeTune->restore();	
+			pval->setStayOnTime(pval->StayOnTimeTune->_getVal());
+			if (pval->getStayOnTime() >= pval->TimeTune->_getVal())
+			{
+				pval->setState(COMPLETED);
+			}
+		}
+	}
+	
+}
+
+
+void TimePeriodValue::setStayOnTime(uint16_t time)
+{
+	StayOn = time;
+}
+
+
+void TimePeriodValue::setState(TimePeriodState state)
+{
+	lastUpdateState  = state;
+}

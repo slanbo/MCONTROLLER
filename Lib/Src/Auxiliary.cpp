@@ -509,13 +509,13 @@ enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC
 time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime)
 {
 	struct tm fcl;
-	time_t Ftim;         // this is undigned int
+	time_t Ftim = 0;         // this is undigned int
 	fcl.tm_hour = fTime->Hours;
 	fcl.tm_min = fTime->Minutes;
 	fcl.tm_sec = fTime->Seconds;
 	fcl.tm_mday = fDate->Date;
-	fcl.tm_mon = fDate->Month;
-	fcl.tm_year = fDate->Year;
+	fcl.tm_mon = fDate->Month - 1;
+	fcl.tm_year = fDate->Year + 2000 - 1900;
 	fcl.tm_wday = fDate->WeekDay;	
 	Ftim = mktime(&fcl);    // tim
 	
@@ -556,7 +556,7 @@ uint8_t AddIntChars(char* text, int dnum, uint8_t lenght, char fillChar = ' ')
 			text[res_lenght] = dstr[i];
 			res_lenght++;
 		}
-		text[res_lenght + 1] = '\0';
+		text[res_lenght] = 0;
 	}
 	else
 	{
@@ -567,7 +567,7 @@ uint8_t AddIntChars(char* text, int dnum, uint8_t lenght, char fillChar = ' ')
 		}
 		text[res_lenght] = '0';	
 		res_lenght++;
-		text[res_lenght + 1] = '\0';
+		text[res_lenght] = 0;
 	}
 	return res_lenght;
 }
@@ -585,27 +585,27 @@ uint8_t FillEndBySpaces(char* text, uint8_t lenght)
 		text[res_lenght] = ' ';	
 		res_lenght++;
 	}
-	text[res_lenght] = '\0';	
+	text[res_lenght] = 0;	
 	return res_lenght;
 }
 
 uint8_t AddChars(char* text, const char* chars, bool convertToCp1251)
 {
 	uint8_t res_lenght = 0;
-	char converted_charptr[] = { 0 };
+	char converted_charptr[16] = { 0 };
 	uint8_t counter;
 	
-	uint8_t in_lenjght = 0;
+	uint8_t in_lenght = 0;
 	if (convertToCp1251)
-		in_lenjght = convertUtf8ToCp1251(chars, converted_charptr);
+		in_lenght = convertUtf8ToCp1251(chars, converted_charptr);
 	else
 	{
-		while (chars[in_lenjght] != 0)
+		while (chars[in_lenght] != 0)
 		{
-			converted_charptr[in_lenjght] = chars[in_lenjght];
-			in_lenjght++;
+			converted_charptr[in_lenght] = chars[in_lenght];
+			in_lenght++;
 		}	
-		converted_charptr[in_lenjght + 1] = '\0';
+		converted_charptr[in_lenght + 1] = '\0';
 	}
 	
 	
@@ -619,7 +619,7 @@ uint8_t AddChars(char* text, const char* chars, bool convertToCp1251)
 		counter++;
 		res_lenght++;
 	}
-	text[res_lenght + 1] = '\0';
+	text[res_lenght] = 0;
 	
 	return res_lenght;
 
@@ -654,3 +654,34 @@ static char * _float_to_char(float x, char *p)
 }
 ;	 
 	 
+
+time_t my_timegm( struct tm * t)
+/* struct tm to seconds since Unix epoch */
+{
+	long year;
+	time_t result;
+	#define MONTHSPERYEAR   12      /* months per calendar year */
+	static const int cumdays[MONTHSPERYEAR] =
+	    { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };
+
+	/*@ +matchanyintegral @*/
+	year = 1900 + t->tm_year + t->tm_mon / MONTHSPERYEAR;
+	result = (year - 1970) * 365 + cumdays[t->tm_mon % MONTHSPERYEAR];
+	result += (year - 1968) / 4;
+	result -= (year - 1900) / 100;
+	result += (year - 1600) / 400;
+	if ((year % 4) == 0 && ((year % 100) != 0 || (year % 400) == 0) &&
+	    (t->tm_mon % MONTHSPERYEAR) < 2)
+		result--;
+	result += t->tm_mday - 1;
+	result *= 24;
+	result += t->tm_hour;
+	result *= 60;
+	result += t->tm_min;
+	result *= 60;
+	result += t->tm_sec;
+	if (t->tm_isdst == 1)
+		result -= 3600;
+	/*@ -matchanyintegral @*/
+	return (result);
+}
