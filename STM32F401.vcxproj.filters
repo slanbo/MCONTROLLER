@@ -675,6 +675,12 @@
     <ClCompile Include="Tune.cpp">
       <Filter>Source files\Tunes</Filter>
     </ClCompile>
+    <ClCompile Include="BeerPause.cpp">
+      <Filter>Source files\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseObjectsExt.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FRWrapper\include\condition_variable.hpp">
@@ -919,6 +925,12 @@
     </ClInclude>
     <ClInclude Include="Lib\Inc\Auxiliary.hpp">
       <Filter>Header files\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="BeerPause.hpp">
+      <Filter>Header files\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseObjects.hpp">
+      <Filter>Header files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

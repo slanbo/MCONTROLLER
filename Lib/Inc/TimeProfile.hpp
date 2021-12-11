@@ -39,9 +39,9 @@ public:
 	virtual void getPeriodDescription(char* descr) = 0;
 	virtual void getStateDescription(char* descr) = 0;
 	
+	intTune* Tune;
 	
 protected:	
-	intTune* Tune;
 };
 
 
@@ -152,6 +152,8 @@ public:
 	bool UpdateCurrentPeriotStateTime(TimePeriodState state);
 	
 	void RestorePeriodsStates(uint8_t currentT);
+	
+	void ResetPeriodes();
 
 	
 };

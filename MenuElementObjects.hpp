@@ -117,70 +117,102 @@ MenuElement mi_64(&mi_63, &mi_63, "Пауза 1");
 MenuElement mi_65(&mi_64, &mi_64, "П1 темп.");
 MenuElementIntSelector mi_66(&mi_65, &mi_65, "П1 температ.", 1, 0, 100, 5, &mashingPause1Temp);
 MenuElement mi_67(&mi_64, &mi_66, "П1 время");
-MenuElementIntSelector mi_68(&mi_67, &mi_67, "П1 время", 1, 0, 720, 5, &mashingPause1Time);
+MenuElementIntSelector mi_68(&mi_67, &mi_67, "П1 время", 1, 0, 7200, 300, &mashingPause1Time);
+MenuElement p1_onoff(&mi_64, &mi_68, "Вкл/Выкл");
+MenuElement p1_on(&p1_onoff, &p1_onoff, "Вкл", 1, &mashingPause1Active);
+MenuElement p1_off(&p1_onoff, &p1_on, "Выкл", 0, &mashingPause1Active);
+
 
 //mashing Pause 2
-MenuElement mi_69(&mi_63, &mi_68, "Пауза 2");
+MenuElement mi_69(&mi_63, &p1_off, "Пауза 2");
 MenuElement mi_70(&mi_69, &mi_69, "П2 темп.");
 MenuElementIntSelector mi_71(&mi_70, &mi_70, "П2 температ.", 1, 0, 100, 5, &mashingPause2Temp);
 MenuElement mi_72(&mi_69, &mi_71, "П2 время");
-MenuElementIntSelector mi_73(&mi_72, &mi_72, "П2 время", 1, 0, 720, 5, &mashingPause2Time);
+MenuElementIntSelector mi_73(&mi_72, &mi_72, "П2 время", 1, 0, 7200, 300, &mashingPause2Time);
+MenuElement p2_onoff(&mi_69, &mi_73, "Вкл/Выкл");
+MenuElement p2_on(&p2_onoff, &p2_onoff, "Вкл", 1, &mashingPause2Active);
+MenuElement p2_off(&p2_onoff, &p2_on, "Выкл", 0, &mashingPause2Active);
+
 
 //mashing Pause 3
-MenuElement mi_74(&mi_63, &mi_73, "Пауза 3");
+MenuElement mi_74(&mi_63, &p2_off, "Пауза 3");
 MenuElement mi_75(&mi_74, &mi_74, "П3 темп.");
 MenuElementIntSelector mi_76(&mi_75, &mi_75, "П3 температ.", 1, 0, 100, 5, &mashingPause3Temp);
 MenuElement mi_77(&mi_74, &mi_76, "П3 время");
-MenuElementIntSelector mi_78(&mi_77, &mi_77, "П3 время", 1, 0, 720, 5, &mashingPause3Time);
+MenuElementIntSelector mi_78(&mi_77, &mi_77, "П3 время", 1, 0, 7200, 300, &mashingPause3Time);
+MenuElement p3_onoff(&mi_74, &mi_78, "Вкл/Выкл");
+MenuElement p3_on(&p3_onoff, &p3_onoff, "Вкл", 1, &mashingPause3Active);
+MenuElement p3_off(&p3_onoff, &p3_on, "Выкл", 0, &mashingPause3Active);
+
 
 //mashing Pause 4
-MenuElement mi_79(&mi_63, &mi_78, "Пауза 4");
+MenuElement mi_79(&mi_63, &p3_off, "Пауза 4");
 MenuElement mi_80(&mi_79, &mi_79, "П4 темп.");
 MenuElementIntSelector mi_81(&mi_80, &mi_80, "П4 температ.", 1, 0, 100, 5, &mashingPause4Temp);
 MenuElement mi_82(&mi_79, &mi_81, "П4 время");
-MenuElementIntSelector mi_83(&mi_82, &mi_82, "П4 время", 1, 0, 720, 5, &mashingPause4Time);
+MenuElementIntSelector mi_83(&mi_82, &mi_82, "П4 время", 1, 0, 7200, 100, &mashingPause4Time);
+MenuElement p4_onoff(&mi_79, &mi_83, "Вкл/Выкл");
+MenuElement p4_on(&p4_onoff, &p4_onoff, "Вкл", 1, &mashingPause4Active);
+MenuElement p4_off(&p4_onoff, &p4_on, "Выкл", 0, &mashingPause4Active);
+
 
 //mashing Pause 5
-MenuElement mi_84(&mi_63, &mi_83, "Пауза 5");
+MenuElement mi_84(&mi_63, &p4_off, "Пауза 5");
 MenuElement mi_85(&mi_84, &mi_84, "П5 темп.");
 MenuElementIntSelector mi_86(&mi_85, &mi_85, "П5 температ.", 1, 0, 100, 5, &mashingPause5Temp);
 MenuElement mi_87(&mi_84, &mi_86, "П5 время");
-MenuElementIntSelector mi_88(&mi_87, &mi_87, "П5 время", 1, 0, 720, 5, &mashingPause5Time);
+MenuElementIntSelector mi_88(&mi_87, &mi_87, "П5 время", 1, 0, 7200, 100, &mashingPause5Time);
+MenuElement p5_onoff(&mi_84, &mi_88, "Вкл/Выкл");
+MenuElement p5_on(&p5_onoff, &p5_onoff, "Вкл", 1, &mashingPause5Active);
+MenuElement p5_off(&p5_onoff, &p5_on, "Выкл", 0, &mashingPause5Active);
+
 
 //mashing Pause 6
-MenuElement mi_89(&mi_63, &mi_88, "Пауза 6");
+MenuElement mi_89(&mi_63, &p5_off, "Пауза 6");
 MenuElement mi_90(&mi_89, &mi_89, "П6 темп.");
 MenuElementIntSelector mi_91(&mi_90, &mi_90, "П6 температ.", 1, 0, 100, 5, &mashingPause6Temp);
 MenuElement mi_92(&mi_89, &mi_91, "П6 время");
-MenuElementIntSelector mi_93(&mi_92, &mi_92, "П5 время", 1, 0, 720, 5, &mashingPause6Time);
+MenuElementIntSelector mi_93(&mi_92, &mi_92, "П6 время", 1, 0, 7200, 100, &mashingPause6Time);
+MenuElement p6_onoff(&mi_89, &mi_93, "Вкл/Выкл");
+MenuElement p6_on(&p6_onoff, &p6_onoff, "Вкл", 1, &mashingPause6Active);
+MenuElement p6_off(&p6_onoff, &p6_on, "Выкл", 0, &mashingPause6Active);
+
 	
-//контроль сушки
 	
-MenuElement mi_94(&mi_4, &mi_93, "Варка", 1, &beerModeIndex);
+MenuElement mi_94(&mi_4, &p6_off, "Варка", 1, &beerModeIndex);
 
 //boiling Pause 1
 MenuElement mi_95(&mi_94, &mi_94, "Пауза 1");
 MenuElement mi_96(&mi_95, &mi_95, "П1 темп.");
 MenuElementIntSelector mi_97(&mi_96, &mi_96, "П1 температ.", 1, 0, 100, 5, &boilingPause1Temp);
 MenuElement mi_98(&mi_95, &mi_97, "П1 время");
-MenuElementIntSelector mi_99(&mi_98, &mi_98, "П1 время", 1, 0, 720, 5, &boilingPause1Time);
+MenuElementIntSelector mi_99(&mi_98, &mi_98, "П1 время", 1, 0, 7200, 100, &boilingPause1Time);
+MenuElement bp1_onoff(&mi_95, &mi_99, "Вкл/Выкл");
+MenuElement bp1_on(&bp1_onoff, &bp1_onoff, "Вкл", 1, &boilingPause1Active);
+MenuElement bp1_off(&bp1_onoff, &bp1_on, "Выкл", 0, &boilingPause1Active);
 
 //boiling Pause 2
-MenuElement mi_100(&mi_94, &mi_99, "Пауза 2");
+MenuElement mi_100(&mi_94, &bp1_off, "Пауза 2");
 MenuElement mi_101(&mi_100, &mi_100, "П2 темп.");
 MenuElementIntSelector mi_102(&mi_101, &mi_101, "П2 температ.", 1, 0, 100, 5, &boilingPause2Temp);
 MenuElement mi_103(&mi_100, &mi_102, "П2 время");
-MenuElementIntSelector mi_104(&mi_103, &mi_103, "П2 время", 1, 0, 720, 5, &boilingPause2Time);
+MenuElementIntSelector mi_104(&mi_103, &mi_103, "П2 время", 1, 0, 7200, 100, &boilingPause2Time);
+MenuElement bp2_onoff(&mi_100, &mi_104, "Вкл/Выкл");
+MenuElement bp2_on(&bp2_onoff, &bp2_onoff, "Вкл", 1, &boilingPause2Active);
+MenuElement bp2_off(&bp2_onoff, &bp2_on, "Выкл", 0, &boilingPause2Active);
 
 //boiling Pause 3
-MenuElement mi_105(&mi_94, &mi_104, "Пауза 3");
+MenuElement mi_105(&mi_94, &bp2_off, "Пауза 3");
 MenuElement mi_106(&mi_105, &mi_105, "П3 темп.");
 MenuElementIntSelector mi_107(&mi_106, &mi_106, "П3 температ.", 1, 0, 100, 5, &boilingPause3Temp);
 MenuElement mi_108(&mi_105, &mi_107, "П3 время");
-MenuElementIntSelector mi_109(&mi_108, &mi_108, "П3 время", 1, 0, 720, 5, &boilingPause3Time);
+MenuElementIntSelector mi_109(&mi_108, &mi_108, "П3 время", 1, 0, 7200, 100, &boilingPause3Time);
+MenuElement bp3_onoff(&mi_105, &mi_109, "Вкл/Выкл");
+MenuElement bp3_on(&bp3_onoff, &bp3_onoff, "Вкл", 1, &boilingPause3Active);
+MenuElement bp3_off(&bp3_onoff, &bp3_on, "Выкл", 0, &boilingPause3Active);
 	
 //отложенный старт
-MenuElement mi_110(nullptr, &mi_109, "Отлож. старт");
+MenuElement mi_110(nullptr, &bp3_onoff, "Отлож. старт");
 	
 //дата начала 
 MenuElement mi_111(&mi_110, &mi_110, "Дата старт", restoreDelayBeginTunes);

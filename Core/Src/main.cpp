@@ -254,6 +254,9 @@ int main(void)
 	
 	lcdmut_handle = xSemaphoreCreateMutex();
 	
+	mashingDVPC->RestorePeriodsStates(0xff);
+	boilingTempDVPC->RestorePeriodsStates(0xff);
+	
 	
 	/*uint8_t rsvdt[80];
 	

@@ -207,3 +207,14 @@ IntVectorTune PCounterSockets(&IRMSensorsTune, MAX_CONTROL_CONNECTED_SOCKETS_SIZ
 
 FlashTune* lastFlashTune = &PCounterSockets;
 
+std::vector<intTune*> mashingTemperatureTunesVector = { &mashingPause1Temp, &mashingPause2Temp, &mashingPause3Temp, 
+														&mashingPause4Temp, &mashingPause5Temp, &mashingPause6Temp};
+std::vector<intTune*> mashingTimeTunesVector =		  {&mashingPause1Time, &mashingPause2Time, &mashingPause3Time,
+													   &mashingPause4Time, &mashingPause5Time, &mashingPause6Time};
+std::vector<intTune*> mashingActivityTunesVector = {&mashingPause1Active, &mashingPause2Active, &mashingPause3Active,
+													&mashingPause4Active, &mashingPause5Active, &mashingPause6Active};
+
+std::vector<intTune*> boilingTemperatureTunesVector = {&boilingPause1Temp, &boilingPause2Temp, &boilingPause3Temp};
+std::vector<intTune*> boilingTimeTunesVector = { &boilingPause1Time, &boilingPause2Time, &boilingPause3Time};
+std::vector<intTune*> boilingActivityTunesVector = {&boilingPause1Active, &boilingPause2Active, &boilingPause3Active};
+

@@ -184,6 +184,7 @@ void TimePeriodValue::Reset()
 	StayOn  = 0;
 	Heating = 0;
 	Cooling = 0;
+	setState(NULLSTATE);
 }
 
 bool TimePeriodValue::Completed()
@@ -316,30 +317,41 @@ bool PeriodValuesCollection::UpdateCurrentPeriotStateTime(TimePeriodState state)
 	return false;
 }
 
-
-
-
 TimePeriodState TimePeriodValue::getState()
 {
 	return lastUpdateState;
 }
 
 
-
-
-void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT)
+void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 {
 	if (Type == TIME_PERIOD)
 	{
-		for (auto elem : periodValues)
+		if (currentT == 0xff)
 		{
-			TimePeriodValue* pval = (TimePeriodValue*)elem;
-			pval->Reset();
-			pval->StayOnTimeTune->restore();	
-			pval->setStayOnTime(pval->StayOnTimeTune->_getVal());
-			if (pval->getStayOnTime() >= pval->TimeTune->_getVal())
+			for (auto elem : periodValues) 
 			{
-				pval->setState(COMPLETED);
+				TimePeriodValue* pval = (TimePeriodValue*)elem;
+				pval->Reset();
+				pval->StayOnTimeTune->restore();	
+				pval->setStayOnTime(pval->StayOnTimeTune->_getVal());
+				if (pval->getStayOnTime() >= pval->TimeTune->_getVal())
+				{
+					pval->setState(COMPLETED);
+				}
+			}
+		}
+		else
+		{
+			for (auto elem : periodValues) 
+			{
+				TimePeriodValue* pval = (TimePeriodValue*)elem;
+				pval->Reset();
+				if (pval->Tune->_getVal()  + 2 < currentT)
+				{
+					pval->setStayOnTime(pval->TimeTune->_getVal());
+					pval->setState(COMPLETED);
+				}
 			}
 		}
 	}
@@ -356,4 +368,14 @@ void TimePeriodValue::setStayOnTime(uint16_t time)
 void TimePeriodValue::setState(TimePeriodState state)
 {
 	lastUpdateState  = state;
+}
+
+
+void PeriodValuesCollection::ResetPeriodes()
+{
+	for (auto elem : periodValues) 
+	{
+		TimePeriodValue* pval = (TimePeriodValue*)elem;
+		pval->Reset();
+	}
 }
