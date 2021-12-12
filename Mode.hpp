@@ -93,6 +93,8 @@ public:
 	SensorsSocketsControl* mashingControl;
 	SensorsSocketsControl* boilingControl;
 	
+	PumpControl* pumpControl;
+	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
 

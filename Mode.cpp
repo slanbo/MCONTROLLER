@@ -245,8 +245,19 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 		boilingTempDVPC);
 	
 	
+	pumpControl = new PumpControl(1,
+		"Насос",
+		&PumpOnOffTune,
+		&pumpControlSockets,
+		&PumpMode,
+		&SwitchedOnPumpTime,
+		&SwitchedOffPumpTime,
+		mashingDVPC);
+	
 	controlsVector.push_back(mashingControl);
 	controlsVector.push_back(boilingControl);
+	controlsVector.push_back(pumpControl);
+	
 }
 
 

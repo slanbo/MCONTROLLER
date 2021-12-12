@@ -108,9 +108,10 @@ intTune MashingOnOffTune(&DryingDryLevel);
 intTune BoilingOnOffTune(&MashingOnOffTune);	
 intTune PumpOnOffTune(&BoilingOnOffTune);	
 
+IntVectorTune pumpControlSockets(&PumpOnOffTune, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 
 
-intTune delayBeginOnOffTune(&PumpOnOffTune);	
+intTune delayBeginOnOffTune(&pumpControlSockets);	
 intTune delayEndOnOffTune(&delayBeginOnOffTune);	
 
 //drying temp

@@ -556,7 +556,8 @@ PumpControl::PumpControl(uint16_t id,
 	intTune* periodOnTune, 
 	intTune* periodOffTune, 
 	PeriodValuesCollection* dpvcollection)
-	: PumpModeTune(pumpModeTune)
+	: SocketsControl(name, onOffTune, nullptr, SocketsTune)
+	, PumpModeTune(pumpModeTune)
 	, PeriodOnTune(periodOnTune)
 	, PeriodOffTune(periodOffTune)
 		, DPVCollection(dpvcollection)

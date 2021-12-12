@@ -123,8 +123,9 @@ extern intTune DryingDryLevel;
 
 extern intTune MashingOnOffTune;	
 extern intTune BoilingOnOffTune;	
-extern intTune PumpOnOffTune;	
-	
+extern intTune PumpOnOffTune;
+
+extern IntVectorTune pumpControlSockets;	
 
 extern intTune delayBeginOnOffTune;	
 extern intTune delayEndOnOffTune;	
