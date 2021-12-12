@@ -91,7 +91,6 @@
     <ClCompile Include="hooks.c" />
     <ClCompile Include="IRMotionSensor.cpp" />
     <ClCompile Include="LCDFont.cpp" />
-    <ClCompile Include="LCDFonts.cpp" />
     <ClCompile Include="Lib\Src\PCounterControl.cpp" />
     <ClCompile Include="LightSensor.cpp" />
     <ClCompile Include="MenuElement.cpp" />
@@ -176,7 +175,6 @@
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c" />
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c" />
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c" />
-    <ClCompile Include="TempPause.cpp" />
     <ClCompile Include="DateControl.cpp" />
     <ClCompile Include="Tunes.cpp" />
     <ClCompile Include="Tune.cpp" />

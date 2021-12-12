@@ -8,9 +8,10 @@ Pause::Pause(uint16_t ID, std::string name, uint8_t temperature, uint16_t time)
 }
 
 
-Pauses::Pauses(uint16_t ID, std::string name, pausestype type)
+Pauses::Pauses(uint16_t ID, std::string name, pausestype type, std::vector<Pause*>& pausesVector)
 	: BaseObject(ID, name),
-	Type(type)
+	Type(type),
+	PausesVector(pausesVector)
 {
 	
 }
@@ -18,7 +19,7 @@ Pauses::Pauses(uint16_t ID, std::string name, pausestype type)
 void Pauses::saveToTunes()
 {
 	uint8_t i = 0;
-	for (auto pause : pauses)
+	for (auto pause : PausesVector)
 		if (Type == MASHING)
 		{
 			mashingTemperatureTunesVector.at(i)->_setVal(pause->Temperature); 
@@ -29,6 +30,9 @@ void Pauses::saveToTunes()
 			
 			mashingActivityTunesVector.at(i)->_setVal(1); 
 			mashingActivityTunesVector.at(i)->save();
+			
+			mashingStayOnTunesVector.at(i)->_setVal(0); 
+			mashingStayOnTunesVector.at(i)->save();
 		}
 		else if (Type == BOILING)
 		{
@@ -41,11 +45,51 @@ void Pauses::saveToTunes()
 			boilingActivityTunesVector.at(i)->_setVal(1); 
 			boilingActivityTunesVector.at(i)->save();
 			
+			boilingStayOnTunesVector.at(i)->_setVal(0); 
+			boilingStayOnTunesVector.at(i)->save();
+			
 		}
+	
+	if (Type == MASHING)
+	{
+		for (uint8_t i = mashingTemperatureTunesVector.size(); i < MAX_MASHING_PAUSES_QUANT; i++)
+		{
+			mashingTemperatureTunesVector.at(i)->_setVal(0); 
+			mashingTemperatureTunesVector.at(i)->save();
+			
+			mashingTimeTunesVector.at(i)->_setVal(0); 
+			mashingTimeTunesVector.at(i)->save();
+			
+			mashingActivityTunesVector.at(i)->_setVal(0); 
+			mashingActivityTunesVector.at(i)->save();
+			
+			mashingStayOnTunesVector.at(i)->_setVal(0); 
+			mashingStayOnTunesVector.at(i)->save();
+		}
+			
+	}
+	else if (Type == BOILING)
+	{
+		for (uint8_t i = mashingTemperatureTunesVector.size(); i < MAX_BOILING_PAUSES_QUANT; i++)
+		{
+			boilingTemperatureTunesVector.at(i)->_setVal(0); 
+			boilingTemperatureTunesVector.at(i)->save();
+			
+			boilingTimeTunesVector.at(i)->_setVal(0); 
+			boilingTimeTunesVector.at(i)->save();
+			
+			boilingActivityTunesVector.at(i)->_setVal(0); 
+			boilingActivityTunesVector.at(i)->save();
+			
+			boilingStayOnTunesVector.at(i)->_setVal(0); 
+			boilingStayOnTunesVector.at(i)->save();
+		}
+	}
+	
 }
 
 
 void Pauses::addPause(Pause* pause)
 {
-	pauses.push_back(pause);
+	PausesVector.push_back(pause);
 }

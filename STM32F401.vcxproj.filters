@@ -615,12 +615,6 @@
     <ClCompile Include="LCDFont.cpp">
       <Filter>Source files\Lib</Filter>
     </ClCompile>
-    <ClCompile Include="LCDFonts.cpp">
-      <Filter>Source files\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="TempPause.cpp">
-      <Filter>Source files\Lib</Filter>
-    </ClCompile>
     <ClCompile Include="Devices\Src\ds1307_for_stm32_hal.c">
       <Filter>Source files\Devices</Filter>
     </ClCompile>

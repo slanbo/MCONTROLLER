@@ -4,6 +4,10 @@
 #include "Tune.hpp"
 #include "TuneObjectsExt.hpp"
 
+#define MAX_MASHING_PAUSES_QUANT 6
+#define MAX_BOILING_PAUSES_QUANT 3
+
+
 enum pausestype
 {
 	MASHING,
@@ -24,8 +28,8 @@ public:
 class Pauses : public BaseObject
 {
 public:
-	Pauses(uint16_t ID, std::string name, pausestype type);
-	std::vector<Pause*> pauses;
+	Pauses(uint16_t ID, std::string name, pausestype type, std::vector<Pause*>& pausesVector);
+	std::vector<Pause*>& PausesVector;
 	void saveToTunes();
 	
 	pausestype Type;

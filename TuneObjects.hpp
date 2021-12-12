@@ -214,7 +214,10 @@ std::vector<intTune*> mashingTimeTunesVector =		  {&mashingPause1Time, &mashingP
 std::vector<intTune*> mashingActivityTunesVector = {&mashingPause1Active, &mashingPause2Active, &mashingPause3Active,
 													&mashingPause4Active, &mashingPause5Active, &mashingPause6Active};
 
+std::vector<intTune*> mashingStayOnTunesVector = {&mashingPause1StayOn, &mashingPause2StayOn,&mashingPause3StayOn,
+													&mashingPause4StayOn,&mashingPause5StayOn,&mashingPause6StayOn};
+	
 std::vector<intTune*> boilingTemperatureTunesVector = {&boilingPause1Temp, &boilingPause2Temp, &boilingPause3Temp};
 std::vector<intTune*> boilingTimeTunesVector = { &boilingPause1Time, &boilingPause2Time, &boilingPause3Time};
 std::vector<intTune*> boilingActivityTunesVector = {&boilingPause1Active, &boilingPause2Active, &boilingPause3Active};
-
+std::vector<intTune*> boilingStayOnTunesVector = { &boilingPause1StayOn, &boilingPause2StayOn, &boilingPause3StayOn };

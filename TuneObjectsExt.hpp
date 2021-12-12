@@ -213,10 +213,12 @@ void setDefaultTuneVals();
 extern std::vector<intTune*> mashingTemperatureTunesVector;
 extern std::vector<intTune*> mashingTimeTunesVector;
 extern std::vector<intTune*> mashingActivityTunesVector;
+extern std::vector<intTune*> mashingStayOnTunesVector;
 
 extern std::vector<intTune*> boilingTemperatureTunesVector;
 extern std::vector<intTune*> boilingTimeTunesVector;
 extern std::vector<intTune*> boilingActivityTunesVector;
+extern std::vector<intTune*> boilingStayOnTunesVector;
 
 
 #endif 
