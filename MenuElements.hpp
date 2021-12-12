@@ -4,6 +4,8 @@
 #include "main.h"
 #include "MenuElement.hpp"
 
+
+bool restorePauses(uint16_t* param);
 bool restoreDelayEndTunes(uint16_t* param);
 bool restoreDelayBeginTunes(uint16_t* param);
 bool setDefaults(uint16_t* param);
@@ -24,5 +26,9 @@ bool setUpSocketLoadPower(uint16_t* param);
 bool setDownSocketLoadPower(uint16_t* param);
 bool setV12SocketLoadPower(uint16_t* param);
 void postInitStaticMenuElements(MenuElement* lastElement);
+
+void AddMashingPauseDescription(char* text, MenuElementBase* elembase);
+void AddBoilingPauseDescription(char* text, MenuElementBase* elembase);
+void AddChildTuneValue(char* text, MenuElementBase* elembase);
 
 #endif

@@ -117,6 +117,20 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 
 MenuElement::MenuElement(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
+	std::string name,
+	uint16_t parametr, 
+	IntParamfnc downLongPressFnc)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+	, DownLongPressFnc(downLongPressFnc)
+	, Parametr(parametr)	
+{
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
+}
+
+MenuElement::MenuElement(MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
 	std::string name, 
 	IntParamfnc onSelectFnc,
 	IntParamfnc downLongPressFnc)
@@ -144,6 +158,23 @@ MenuElement::MenuElement(
 	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 
 }
+
+MenuElement::MenuElement( 
+	MenuElementBase* parentItem, 
+	MenuElementBase* prevInListItem, 
+	std::string name,
+	uint16_t parametr, 
+	GetNameEndfnc addNameEndFnc)
+	: MenuElementBase(name,
+	parentItem, 
+	prevInListItem)
+	, AddNameEndFnc(addNameEndFnc)
+	, Parametr(parametr)
+{
+	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
+
+}
+
 
 MenuElement::MenuElement(
 	MenuElementBase* parentItem, 
@@ -271,6 +302,14 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 {
 	element->ClearText();
 	element->SetChars(Name, true);
+	if (AddNameEndFnc != nullptr)
+	{
+		element->SetChars(" ", false);
+		char addstr[16] = { 0 };
+		AddNameEndFnc(addstr, this) ;
+		element->SetChars(addstr, false);
+	}
+		
 	if (Tune != nullptr)
 	{
 		if (Tune->_getVal() == Parametr)

@@ -7,7 +7,7 @@
 #include "i2c.h"
 #include "tim.h"
 #include <string>
-#include "stdlib.h"
+//#include "stdlib.h"
 #include "cmsis_os.h"
 #include "time.h"
 
@@ -56,43 +56,6 @@ int inttoabase10(int n, char s[])
 	s[++i] = '\0';
 
 	return i; /* next free slot in array */
-}
-
-int inttoa(int value, char *sp, int radix)
-{
-	char tmp[16];   // be careful with the length of the buffer
-	char *tp = tmp;
-	int i;
-	unsigned v;
-
-	int sign = (radix == 10 && value < 0);    
-	if (sign)
-		v = -value;
-	else
-		v = (unsigned)value;
-
-	while (v || tp == tmp)
-	{
-		i = v % radix;
-		v /= radix;    // v/=radix uses less CPU clocks than v=v/radix does
-		if(i < 10)
-		  *tp++ = i + '0';
-		else
-		  *tp++ = i + 'a' - 10;
-	}
-
-	int len = tp - tmp;
-
-	if (sign) 
-	{
-		*sp++ = '-';
-		len++;
-	}
-
-	while (tp > tmp)
-		*sp++ = * --tp;
-
-	return len;
 }
 
 uint32_t getSeconds()
@@ -506,20 +469,24 @@ enum compareRes CompareDates(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime, RTC
 }
 ;
 
-time_t getSecondsFromBegin(RTC_DateTypeDef* fDate, RTC_TimeTypeDef* fTime)
+time_t getCurrentSecondsFromBegin()
 {
-	struct tm fcl;
-	time_t Ftim = 0;         // this is undigned int
-	fcl.tm_hour = fTime->Hours;
-	fcl.tm_min = fTime->Minutes;
-	fcl.tm_sec = fTime->Seconds;
-	fcl.tm_mday = fDate->Date;
-	fcl.tm_mon = fDate->Month - 1;
-	fcl.tm_year = fDate->Year + 2000 - 1900;
-	fcl.tm_wday = fDate->WeekDay;	
-	Ftim = mktime(&fcl);    // tim
+	RTC_DateTypeDef dt;
+	RTC_TimeTypeDef tt;
 	
-	return Ftim;
+	HAL_RTC_GetTime(&hrtc, &tt, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN); 
+	
+	struct tm fcl;
+	time_t Ftim = 0;           // this is undigned int
+	fcl.tm_hour = tt.Hours;
+	fcl.tm_min = tt.Minutes;
+	fcl.tm_sec = tt.Seconds;
+	fcl.tm_mday = dt.Date;
+	fcl.tm_mon = dt.Month - 1;
+	fcl.tm_year = dt.Year + 2000 - 1900;
+	fcl.tm_wday = dt.WeekDay;	
+	return my_timegm(&fcl);  // tim
 }
 ;
 

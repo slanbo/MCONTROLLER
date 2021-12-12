@@ -100,7 +100,6 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 //+++++++++++++++++ TIME PROFILES ++++++++++++++++++++++
 #include "TimeProfileObjects.hpp"
 //+++++++++++++++++ PAUSES ++++++++++++++++++++++++++
-#include "TempPausesObjects.hpp"
 //++++++++++++++++ CONTROLS ++++++++++++++++++++++++++
 #include "ControlObjects.hpp"
 //+++++++++++++ MODES ++++++++++++++++

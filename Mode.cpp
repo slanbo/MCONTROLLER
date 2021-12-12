@@ -1,5 +1,6 @@
 #include "Mode.hpp"
-#include "ControlObjectsExt.hpp"
+#include "Control.hpp"
+//#include "ControlObjectsExt.hpp"
 //#include "portable.h"
 
 ModeBase::ModeBase(uint16_t ID, std::string name)
@@ -55,19 +56,21 @@ void ControlsMode::FillScreen()
 		Info_SubHeader->FillEndBySpaces();
 		Info_SubHeader->_setUpdated(true);
 	
+		SensorsSocketsControl* sscontrol = (SensorsSocketsControl*)controlsVector.at(currentControlIndex);
+		
 		char ifirst[] = "Тек.:\0";
 		Info_FirstString->SetChars(ifirst, true);
-		Info_FirstString->SetIntText(controlsVector.at(currentControlIndex)->_get_current_val(), 5);
+		Info_FirstString->SetIntText(sscontrol->_get_current_val(), 5) ;
 		Info_FirstString->SetChars(blank, false);	
-		Info_FirstString->SetChars(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+		Info_FirstString->SetChars(sscontrol-> GetSensorsUnit(), false);
 		Info_FirstString->FillEndBySpaces();
 		Info_FirstString->_setUpdated(true);
 
 		char isecond[] = "Цель:\0";
 		Info_SecondString->SetChars(isecond, true);
-		Info_SecondString->SetIntText(controlsVector.at(currentControlIndex)->_get_aim_val(), 5);
+		Info_SecondString->SetIntText(sscontrol->_get_aim_val(), 5);
 		Info_SecondString->SetChars(blank, false);
-		Info_SecondString->SetChars(controlsVector.at(currentControlIndex)->GetSensorsUnit(), false);
+		Info_SecondString->SetChars(sscontrol->GetSensorsUnit(), false);
 		Info_SecondString->FillEndBySpaces();
 		Info_SecondString->_setUpdated(true);
 	
@@ -109,29 +112,11 @@ Habitat::Habitat(uint16_t ID,
 	std::string name)
 	: ControlsMode(ID, name)
 {
-	
-}
-
-Habitat::~Habitat()
-{
-	delete airTempControl;
-	delete coControl;
-	delete lightControl;
-}
-
-
-void ControlsMode::init()
-{
-	
-}
-
-void Habitat::init()
-{
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
 	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
-	airTempControl = new(first_SensorsSocketsControl)SensorsSocketsControl
+	airTempControl = new SensorsSocketsControl
 		(
 		"Темпер. возд:", 
 		&airTempControlOnOffTune,
@@ -152,7 +137,7 @@ void Habitat::init()
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
 	
 	
-	batTempControl = new(second_SensorsSocketsControl)SensorsSocketsControl
+	batTempControl = new SensorsSocketsControl
 			(
 		"Темпер. бат:", 
 		&batTempControlOnOffTune,
@@ -167,7 +152,7 @@ void Habitat::init()
 	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &CODangerLevel);
 	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
-	coControl = new(third_SensorsSocketsControl)SensorsSocketsControl
+	coControl = new SensorsSocketsControl
 		(
 		"Газ:", 
 		&coControlOnOffTune,
@@ -182,7 +167,7 @@ void Habitat::init()
 	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &LightEdge);
 	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
 	
-	lightControl = new(forth_SensorsSocketsControl)SensorsSocketsControl
+	lightControl = new SensorsSocketsControl
 		(
 		"Освещение:", 
 		&lightControlOnOffTune,
@@ -199,14 +184,30 @@ void Habitat::init()
 	controlsVector.push_back(lightControl);
 }
 
-BeerPreparing::BeerPreparing(uint16_t ID, 
-	std::string name) : ControlsMode(ID, name)
+Habitat::~Habitat()
+{
+	delete airTempControl;
+	delete coControl;
+	delete lightControl;
+}
+
+
+void ControlsMode::init()
 {
 	
 }
 
+void Habitat::init()
+{
+	for (auto elem : controlsVector)
+	{
+		SensorsSocketsControl* control = (SensorsSocketsControl*)elem;
+		control->init();
+	}
+}
 
-void BeerPreparing::init()
+BeerPreparing::BeerPreparing(uint16_t ID, 
+	std::string name) : ControlsMode(ID, name)
 {
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_1);
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_2);
@@ -215,7 +216,7 @@ void BeerPreparing::init()
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_5);
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_6);
 	
-	mashingControl = new(first_SensorsSocketsControl)SensorsSocketsControl
+	mashingControl = new SensorsSocketsControl
 		(
 		"Паузы:", 
 		&MashingOnOffTune,
@@ -232,7 +233,7 @@ void BeerPreparing::init()
 
 	
 	
-	boilingControl = new(second_SensorsSocketsControl)SensorsSocketsControl
+	boilingControl = new SensorsSocketsControl
 			(
 		"Варка:", 
 		&batTempControlOnOffTune,
@@ -246,7 +247,16 @@ void BeerPreparing::init()
 	
 	controlsVector.push_back(mashingControl);
 	controlsVector.push_back(boilingControl);
-	
+}
+
+
+void BeerPreparing::init()
+{
+	for (auto elem : controlsVector)
+	{
+		SensorsSocketsControl* control = (SensorsSocketsControl*)elem;
+		control->init();
+	}
 }
 
 
@@ -254,8 +264,8 @@ void BeerPreparing::FillScreen()
 {
 	if (isOn())
 	{
-		
-		TimePeriodValue* currentPeriod = (TimePeriodValue*)controlsVector.at(beerModeIndex._getVal())->DPVCollection->getCurrentPeriod();
+		SensorsSocketsControl* sscontrol = (SensorsSocketsControl*)controlsVector.at(beerModeIndex._getVal());
+		TimePeriodValue* currentPeriod = (TimePeriodValue*)sscontrol->DPVCollection->getCurrentPeriod();
 		
 		const char blank[2] = { ' ', 0 };
 		
@@ -303,17 +313,17 @@ void BeerPreparing::FillScreen()
 		{
 			char ifirst[] = "Тек.:\0";
 			Info_FirstString->SetChars(ifirst, true);
-			Info_FirstString->SetIntText(controlsVector.at(beerModeIndex._getVal())->_get_current_val(), 5);
+			Info_FirstString->SetIntText(sscontrol->_get_current_val(), 5);
 			Info_FirstString->SetChars(blank, false);	
-			Info_FirstString->SetChars(controlsVector.at(beerModeIndex._getVal())->GetSensorsUnit(), false);
+			Info_FirstString->SetChars(sscontrol->GetSensorsUnit(), false);
 			Info_FirstString->FillEndBySpaces();
 			Info_FirstString->_setUpdated(true);
 
 			char isecond[] = "Цель:\0";
 			Info_SecondString->SetChars(isecond, true);
-			Info_SecondString->SetIntText(controlsVector.at(beerModeIndex._getVal())->_get_aim_val(), 5);
+			Info_SecondString->SetIntText(sscontrol->_get_aim_val(), 5);
 			Info_SecondString->SetChars(blank, false);
-			Info_SecondString->SetChars(controlsVector.at(beerModeIndex._getVal())->GetSensorsUnit(), false);
+			Info_SecondString->SetChars(sscontrol->GetSensorsUnit(), false);
 			Info_SecondString->FillEndBySpaces();
 			Info_SecondString->_setUpdated(true);
 	

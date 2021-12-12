@@ -9,6 +9,7 @@
 #include "ModeObjectsExt.hpp"
 
 
+
 extern Menu* mainMenu;
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
 
@@ -56,7 +57,14 @@ protected:
 				bothButtonsPressCounter -= 1;
 				mainMenu->clearLCD();
 				
-				ModeObjectsInit();
+				//ModeObjectsInit();
+				
+				Info_Header->_setUpdated(true);
+				Info_SubHeader->_setUpdated(true);
+				Info_FirstString->_setUpdated(true);
+				Info_SecondString->_setUpdated(true);
+				Info_ThirdString->_setUpdated(true);
+				Info_FourthString->_setUpdated(true);
 
 			}
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
@@ -64,7 +72,7 @@ protected:
 				SETUP_MODE = 1;
 				Buttom_Left->SetText("Верх", true);
 				Buttom_Right->SetText("Вниз", true);
-				mainMenu->CurrentItemBase = &mi_1;
+				mainMenu->CurrentItemBase = &mi_63;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;

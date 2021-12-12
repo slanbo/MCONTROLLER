@@ -130,8 +130,6 @@ public:
 
 	intTune* StayOnTimeTune;
 	intTune* TimeTune;
-
-		
 	
 };
 
@@ -148,6 +146,9 @@ public:
 	std::vector<PeriodValue*> periodValues;
 	
 	PeriodValue* getCurrentPeriod();
+	
+	TimePeriodState getCurrentState();
+	
 	
 	bool UpdateCurrentPeriotStateTime(TimePeriodState state);
 	

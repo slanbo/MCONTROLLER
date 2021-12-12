@@ -6,6 +6,7 @@
 #include "IRMotionSensor.hpp"
 #include "MenuElement.hpp"
 #include "Auxiliary.hpp"
+#include "PauseObjectsExt.hpp"
 
 #ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
@@ -50,6 +51,12 @@ bool restoreDelayBeginTunes(uint16_t* param)
 	return true;
 }
 ;
+
+bool restorePauses(uint16_t* param)
+{
+	PausesVector.at(*param - 1)->saveToTunes();
+	return true;
+}
 
 bool restoreDelayEndTunes(uint16_t* param)
 {
@@ -373,4 +380,24 @@ void postInitStaticMenuElements(MenuElement* lastElement)
 }
 ;
 	
+void AddMashingPauseDescription(char* text, MenuElementBase* elembase)
+{
+	MenuElement* elem = (MenuElement*)elembase;
+	AddIntChars(text, mashingTemperatureTunesVector.at(elem->Parametr - 1)->_getVal(), 2, ' ');
+	AddIntChars(text, mashingTimeTunesVector.at(elem->Parametr - 1)->_getVal(), 5, ' ');
+}
+
+void AddBoilingPauseDescription(char* text, MenuElementBase* elembase)
+{
+	MenuElement* elem = (MenuElement*)elembase;
+	AddIntChars(text, boilingTemperatureTunesVector.at(elem->Parametr - 1)->_getVal(), 2, ' ');
+	AddIntChars(text, boilingTimeTunesVector.at(elem->Parametr - 1)->_getVal(), 5, ' ');
+}
+
+void AddChildTuneValue(char* text, MenuElementBase* elembase)
+{
+	MenuElement* elemchilde = (MenuElement*)elembase->ChildItem;
+	AddIntChars(text, elemchilde->Parametr, 3, ' ');
+}
+
 #endif

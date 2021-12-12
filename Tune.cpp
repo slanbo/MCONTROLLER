@@ -241,11 +241,15 @@ void IntVectorTune::_setVal(uint16_t Val, uint16_t index)
 uint16_t IntVectorTune::save()
 {
 	uint16_t Status;
+	uint16_t readval = 0;
+	
 	HAL_FLASH_Unlock();
 	uint8_t offset = 0;
 	for (auto item : val)
 	{
 		Status = EE_WriteVariable(FlashAddress + offset, item);
+		Status = EE_ReadVariable(FlashAddress + offset, &readval);
+		
 		offset++;
 	}
 	
@@ -259,10 +263,12 @@ uint16_t IntVectorTune::restore()
 {
 	
 	uint16_t Status;
+	uint16_t elemval;
 	uint8_t offset = 0;
 	for (auto item : val)
 	{
-		Status = EE_ReadVariable(FlashAddress, &item);
+		Status = EE_ReadVariable(FlashAddress + offset, &elemval);
+		_setVal(elemval, offset);
 		offset++;
 	}
 	return Status;
@@ -285,13 +291,13 @@ void  IntVectorTune::_getVal()
 {
 	uint16_t Status;
 	uint8_t offset = 0;
+	
 	for (auto item : val)
 	{
 		Status = EE_ReadVariable(FlashAddress + offset, &item);
+		_setVal(item, offset);
 		offset++;
 	}
-	//Status = restore();
-	//return val;
 }
 
 

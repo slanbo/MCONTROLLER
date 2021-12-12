@@ -14,5 +14,6 @@ std::vector<ControlsMode*> Modes = { HabitatMode, BeerPreparingMode };
 
 void ModeObjectsInit()
 {
-		Modes.at(modeIndex._getVal())->init();
+	HabitatMode->init();
+	BeerPreparingMode->init();
 }

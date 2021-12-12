@@ -20,6 +20,7 @@ void Pauses::saveToTunes()
 {
 	uint8_t i = 0;
 	for (auto pause : PausesVector)
+	{
 		if (Type == MASHING)
 		{
 			mashingTemperatureTunesVector.at(i)->_setVal(pause->Temperature); 
@@ -49,10 +50,12 @@ void Pauses::saveToTunes()
 			boilingStayOnTunesVector.at(i)->save();
 			
 		}
+		i++;
+	}
 	
 	if (Type == MASHING)
 	{
-		for (uint8_t i = mashingTemperatureTunesVector.size(); i < MAX_MASHING_PAUSES_QUANT; i++)
+		for (uint8_t i = PausesVector.size(); i < mashingTemperatureTunesVector.size(); i++)
 		{
 			mashingTemperatureTunesVector.at(i)->_setVal(0); 
 			mashingTemperatureTunesVector.at(i)->save();
@@ -70,7 +73,7 @@ void Pauses::saveToTunes()
 	}
 	else if (Type == BOILING)
 	{
-		for (uint8_t i = mashingTemperatureTunesVector.size(); i < MAX_BOILING_PAUSES_QUANT; i++)
+		for (uint8_t i = PausesVector.size(); i < boilingTemperatureTunesVector.size(); i++)
 		{
 			boilingTemperatureTunesVector.at(i)->_setVal(0); 
 			boilingTemperatureTunesVector.at(i)->save();

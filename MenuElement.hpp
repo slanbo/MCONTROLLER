@@ -60,6 +60,8 @@ protected:
 	
 };
 
+using GetNameEndfnc = void(*)(char*, MenuElementBase*);
+
 class MenuElement : public MenuElementBase
 {
 public:
@@ -82,6 +84,13 @@ public:
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
 		std::string name,
+		uint16_t parametr, 
+		GetNameEndfnc addNameEndFnc);
+	
+	MenuElement(
+		MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
 		IntParamfnc downLongPressFnc,
 		uint16_t parametr, 
 		intTune* tune
@@ -93,6 +102,13 @@ public:
 		std::string name,
 		IntParamfnc downLongPressFnc
 		);
+	
+	MenuElement(
+			MenuElementBase* parentItem, 
+		MenuElementBase* prevInListItem,
+		std::string name,
+		uint16_t parametr, 
+		IntParamfnc downLongPressFnc);	
 	
 	MenuElement(
 			MenuElementBase* parentItem, 
@@ -121,11 +137,11 @@ public:
 	
 	intTune* Tune = nullptr;
 	uint16_t Parametr;
+	GetNameEndfnc AddNameEndFnc = nullptr;
 	
 protected:	
 	IntParamfnc DownLongPressFnc = nullptr;
 	IntParamfnc OnSelectFnc = nullptr;
-
 		
 private:
 	void invokeLongPress();

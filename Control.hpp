@@ -141,6 +141,8 @@ public:
 	void SwitchDownSockets(uint16_t powerVT);
 	
 	PeriodValuesCollection* DPVCollection = nullptr;
+	
+	virtual void init();
 
 
 private:
@@ -158,6 +160,31 @@ protected:
 	uint16_t current_val = 0;
 	uint16_t aim_val = 0;
 	
+};
+
+class PumpControl : public SocketsControl
+{
+public:
+	PumpControl(uint16_t id,
+		std::string name,
+		intTune* onOffTune,
+		IntVectorTune* SocketsTune,
+		intTune* pumpModeTune,
+		intTune* periodOnTune,
+		intTune* periodOffTune,
+		PeriodValuesCollection* dpvcollection);
+		
+	virtual void ExecuteStep();
+	virtual void FillScreen();
+
+	
+protected:
+	intTune* PumpModeTune;
+	intTune* PeriodOnTune;
+	intTune* PeriodOffTune;
+	PeriodValuesCollection* DPVCollection;
+
+	time_t swichedSeconds = 0;
 };
 
 #endif	

@@ -13,7 +13,7 @@
 #define PIN_EN    (1 << 2)         // бит, по изменению сост. которого считывается информация
 	 
 	int inttoabase10(int n, char s[]);
-	int inttoa(int value, char *sp, int radix);
+
 	uint32_t getSeconds();
 	void convert_Float_Parts_to_CharArr(char* fstr, char* dstr, float* num, uint8_t signs);
 	void addDoubleString(char* str, double num, uint8_t signs);
@@ -40,3 +40,4 @@
 
 	time_t my_timegm(struct tm * t);
 	
+	time_t getCurrentSecondsFromBegin();

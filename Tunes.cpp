@@ -51,12 +51,18 @@ void setDefaultTuneVals()
 	v12LoadPower._setVal(100);
 	v12LoadPower.save();
 	
+		defs[0] = 1;
+		defs[1] = 2;
+		PCounterSockets._setVal(defs);	
+		PCounterSockets.save();
+
+		
 		defs[0] = 2;
 		defs[1] = 0xffff;
 		airTempControlSensors._setVal(defs);	
 		airTempControlSensors.save();
 		
-		defs[0] = 1;
+		defs[0] = 2;
 		defs[1] = 0xffff;
 		airTempControlUpSockets._setVal(defs);
 		airTempControlUpSockets.save();
@@ -71,7 +77,7 @@ void setDefaultTuneVals()
 		batTempControlSensors._setVal(defs);
 		batTempControlSensors.save();
 	
-		defs[0] = 0;
+		defs[0] = 1;
 		defs[1] = 0xffff;
 		batTempControlUpSockets._setVal(defs);
 		batTempControlUpSockets.save();
@@ -112,14 +118,13 @@ void setDefaultTuneVals()
 		COControlDownSockets.save();
 	
 	//beer
-	
 	defs[0] = 2;
 	defs[1] = 3;
 	boilingMashingControlSensors._setVal(defs);	
 	boilingMashingControlSensors.save();
-
-	defs[0] = 1;
-	defs[1] = 2;
+	
+	defs[0] = 2;
+	defs[1] = 1;
 	boilingMashingControlUpSockets._setVal(defs);	
 	boilingMashingControlUpSockets.save();
 	
@@ -131,7 +136,7 @@ void setDefaultTuneVals()
 	beerModeIndex._setVal(0);beerModeIndex.save();
 	
 	//beer mashing
-	mashingPause1Temp._setVal(30); mashingPause1Temp.save();
+	/*mashingPause1Temp._setVal(30); mashingPause1Temp.save();
 	mashingPause1Time._setVal(300); mashingPause1Time.save();
 	mashingPause1Active._setVal(1); mashingPause1Active.save();
 	mashingPause1StayOn._setVal(0); mashingPause1StayOn.save();
@@ -176,7 +181,8 @@ void setDefaultTuneVals()
 	boilingPause3Temp._setVal(98); boilingPause3Temp.save();
 	boilingPause3Time._setVal(300); boilingPause3Time.save();
 	boilingPause3Active._setVal(0); boilingPause3Active.save();
-	boilingPause3StayOn._setVal(0); boilingPause3StayOn.save();
+	boilingPause3StayOn._setVal(0); boilingPause3StayOn.save();*/
+	
 	
 }
 

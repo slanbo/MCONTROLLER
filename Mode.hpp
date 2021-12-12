@@ -59,7 +59,7 @@ public:
 
 protected:	
 	uint8_t currentControlIndex = 0;
-
+	std::vector<SocketsControl*> controlsVector;
 };
 
 class Habitat : public ControlsMode

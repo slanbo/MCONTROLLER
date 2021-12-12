@@ -117,11 +117,11 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 		for (auto elem : periodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
-			if (!pval->Completed())
+			if (!pval->Completed() && pval->isActive())
 				return pval->_getTune()->_getVal();
 		}
+		return 0;
 	}
-	
 	return 0xffff;
 }
 ;
@@ -249,6 +249,7 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 		}		
 	}
 	lastUpdateSeconds = currentSeconds;  
+	if (lastUpdateState != COMPLETED)
 	lastUpdateState = state;
 }
 
@@ -289,7 +290,7 @@ PeriodValue* PeriodValuesCollection::getCurrentPeriod()
 		for (auto elem : periodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
-			if (!pval->Completed())
+			if (!pval->Completed() && pval->isActive())
 			{
 				return elem;
 			}
@@ -378,4 +379,21 @@ void PeriodValuesCollection::ResetPeriodes()
 		TimePeriodValue* pval = (TimePeriodValue*)elem;
 		pval->Reset();
 	}
+}
+
+
+TimePeriodState PeriodValuesCollection::getCurrentState()
+{
+	if (Type == TIME_PERIOD)
+	{
+		for (auto elem : periodValues)
+		{
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			if (!pval->Completed() && pval->isActive())
+			{
+				return pval->getState();
+			}
+		}
+	}
+	return NULLSTATE;
 }

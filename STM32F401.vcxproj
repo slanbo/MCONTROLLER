@@ -98,7 +98,6 @@
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="MotionControl.cpp" />
     <ClCompile Include="MixControl.cpp" />
-    <ClCompile Include="PauseObjectsExt.hpp" />
     <ClCompile Include="ScreenElement.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="Core\Src\gpio.c" />
@@ -197,6 +196,7 @@
     <ClInclude Include="MotionControl.hpp" />
     <ClInclude Include="MotionDetectionThread.hpp" />
     <ClInclude Include="PauseObjects.hpp" />
+    <ClInclude Include="PauseObjectsExt.hpp" />
     <ClInclude Include="PCounterObjects.hpp" />
     <ClInclude Include="PCounterObjectsExt.hpp" />
     <ClInclude Include="PCounterThread.hpp" />
@@ -223,7 +223,6 @@
     <ClInclude Include="Lib\Inc\TimeProfile.hpp" />
     <ClInclude Include="SocketObjectsExt.hpp" />
     <ClInclude Include="DateControl.hpp" />
-    <ClInclude Include="TempPausesObjects.hpp" />
     <ClInclude Include="TimeProfileObjects.hpp" />
     <ClInclude Include="TimeProfileObjectsExt.hpp" />
     <ClInclude Include="TimeProfiles.hpp" />

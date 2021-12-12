@@ -124,19 +124,6 @@ SocketsControl::SocketsControl(uint16_t id,
 	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune(socketsTune)
 {
-	SocketsVector.clear();
-	if (SocketsTune != nullptr)
-	{
-		SocketsVector.clear();
-		for (auto inItem : BaseUnitSocketsV)
-			for (auto tuneval : SocketsTune->val)
-				if (tuneval == inItem->_getId())
-					SocketsVector.push_back(inItem);
-		
-		for (auto sock : SocketsVector)
-			sock->SwitchOff();
-		
-	}
 }
 
 SocketsControl::SocketsControl(std::string name, 
@@ -147,23 +134,22 @@ SocketsControl::SocketsControl(std::string name,
 	, SocketsTune(socketsTune)
 
 {	
+}
+
+void SocketsControl::init()
+{
 	SocketsVector.clear();
 	if (SocketsTune != nullptr)
 	{
+		SocketsTune->restore();
 		SocketsTune->_getVal();
 		for (auto inItem : BaseUnitSocketsV)
 			for (auto tuneval : SocketsTune->val)
 				if (tuneval == inItem->_getId())
 					SocketsVector.push_back(inItem);
-		
 		for (auto sock : SocketsVector)
 			sock->SwitchOff();
-
 	}
-}
-
-void SocketsControl::init()
-{
 }
 
 
@@ -189,22 +175,6 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, TimeProfileTune(timeProfileTune)
 	, DPVCollection(dpvcollection)
 {
-	
-	DownSocketsVector.clear();
-	for (auto inItem : BaseUnitSocketsV)
-		for (auto tuneval : DownSocketsTune->val)
-			if (tuneval == inItem->_getId())
-				DownSocketsVector.push_back(inItem);
-	
-	for (auto sock : DownSocketsVector)
-		sock->SwitchOff();
-	
-	SensorsVector.clear();
-	for (auto inItem : ADCSensorsV)
-		for (auto tuneval : SensorsTune->val)
-			if (tuneval == inItem->_getId())
-				SensorsVector.push_back(inItem);
-	
 }
 
 SensorsSocketsControl::SensorsSocketsControl(
@@ -221,12 +191,14 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, DownSocketsTune(downSocketsTune)
 	, TimeProfileTune(timeProfileTune)
 	, DPVCollection(dpvcollection)
+{	
+}
+
+void SensorsSocketsControl::init()
 {
-	
-	
+	SocketsControl::init();	
+	DownSocketsTune->restore();
 	DownSocketsVector.clear();
-	DownSocketsTune->_getVal();
-	
 	for (auto inItem : BaseUnitSocketsV)
 		for (auto tuneval : DownSocketsTune->val)
 			if (tuneval == inItem->_getId())
@@ -235,13 +207,16 @@ SensorsSocketsControl::SensorsSocketsControl(
 	for (auto sock : DownSocketsVector)
 		sock->SwitchOff();
 	
+	
+	SensorsTune->restore();
 	SensorsVector.clear();
 	for (auto inItem : ADCSensorsV)
 		for (auto tuneval : SensorsTune->val)
 			if (tuneval == inItem->_getId())
 				SensorsVector.push_back(inItem);
-	
 }
+
+
 
 void SensorsSocketsControl::ExecuteStep()
 {
@@ -419,8 +394,6 @@ void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t 
 			for (auto socket : sockets)
 			{
 				socket->SwitchOff();
-				bool state = socket->getSocketState();
-				return;
 			}
 		else
 		{
@@ -477,4 +450,115 @@ uint16_t SocketsControl::GetSocketsPowerVT()
 		if (sock->getSocketState())
 			sum = sum + sock->getLoadpowerVT();
 	return sum;
+}
+
+void PumpControl::ExecuteStep()
+{
+	if (isOn())
+	{	
+		switch (PumpModeTune->_getVal()) 
+		{
+		case 1: // period on /period off
+			{
+				
+				if (DPVCollection->getCurrentState() != STAYON &
+					DPVCollection->getCurrentState() != HEATING &
+					DPVCollection->getCurrentState() != COOLING)
+				{
+					SwitchSockets(0);
+					break;
+				}
+				
+				bool swichedon = false;
+				
+				for (auto s : SocketsVector) 
+				if(s->getSocketState())
+						swichedon = true;
+				
+				time_t currSeconds = getCurrentSecondsFromBegin();
+				if (swichedSeconds == 0)
+				{
+					SwitchSockets(0xffff);
+					swichedSeconds = currSeconds;
+				}
+				else
+				{
+					if (swichedon)
+					{
+						if (currSeconds - swichedSeconds > PeriodOnTune->_getVal())
+						{
+							SwitchSockets(0);
+							swichedSeconds = currSeconds;
+						}
+					}
+					else
+					{
+						if (currSeconds - swichedSeconds > PeriodOffTune->_getVal())
+						{
+							SwitchSockets(0xffff);
+							swichedSeconds = currSeconds;
+						}
+					}
+				}
+				
+				break;
+			}
+		case 2: // on heating
+			{
+				if (DPVCollection->getCurrentState() == HEATING)
+					SwitchSockets(0xffff);
+				else
+					SwitchSockets(0);
+				break;
+			}
+		case 3: // on stay on
+			{
+				if (DPVCollection->getCurrentState() == STAYON)
+					SwitchSockets(0xffff);
+				else
+					SwitchSockets(0);				
+				break;
+			}
+		case 4: // alltime on
+			{
+				if (DPVCollection->getCurrentState() == STAYON |
+					DPVCollection->getCurrentState() == HEATING |
+					DPVCollection->getCurrentState() == COOLING)
+					SwitchSockets(0xffff);
+				else
+					SwitchSockets(0);				
+				break;
+			}	
+		default: // alltime on
+			{
+				if (DPVCollection->getCurrentState() == STAYON |
+					DPVCollection->getCurrentState() == HEATING |
+					DPVCollection->getCurrentState() == COOLING)
+					SwitchSockets(0xffff);
+				else
+					SwitchSockets(0);				
+				break;
+				break;
+			}
+		}
+	}
+}
+
+void PumpControl::FillScreen()
+{
+}
+
+PumpControl::PumpControl(uint16_t id, 
+	std::string name, 
+	intTune* onOffTune, 
+	IntVectorTune* SocketsTune, 
+	intTune* pumpModeTune, 
+	intTune* periodOnTune, 
+	intTune* periodOffTune, 
+	PeriodValuesCollection* dpvcollection)
+	: PumpModeTune(pumpModeTune)
+	, PeriodOnTune(periodOnTune)
+	, PeriodOffTune(periodOffTune)
+		, DPVCollection(dpvcollection)
+{
 }

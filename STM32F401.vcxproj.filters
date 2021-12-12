@@ -672,9 +672,6 @@
     <ClCompile Include="BeerPause.cpp">
       <Filter>Source files\Lib</Filter>
     </ClCompile>
-    <ClCompile Include="PauseObjectsExt.hpp">
-      <Filter>Header files\Objects</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FRWrapper\include\condition_variable.hpp">
@@ -815,9 +812,6 @@
     <ClInclude Include="TimeProfileObjects.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="TempPausesObjects.hpp">
-      <Filter>Header files\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="ControlObjects.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
@@ -924,6 +918,9 @@
       <Filter>Header files\Lib</Filter>
     </ClInclude>
     <ClInclude Include="PauseObjects.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
