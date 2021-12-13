@@ -34,6 +34,9 @@ void Pauses::saveToTunes()
 			
 			mashingStayOnTunesVector.at(i)->_setVal(0); 
 			mashingStayOnTunesVector.at(i)->save();
+			
+			MashingOnOffTune._setVal(1);
+			MashingOnOffTune.save();
 		}
 		else if (Type == BOILING)
 		{
@@ -48,6 +51,9 @@ void Pauses::saveToTunes()
 			
 			boilingStayOnTunesVector.at(i)->_setVal(0); 
 			boilingStayOnTunesVector.at(i)->save();
+			
+			BoilingOnOffTune._setVal(1);
+			BoilingOnOffTune.save();
 			
 		}
 		i++;

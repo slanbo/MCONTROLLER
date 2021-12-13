@@ -204,23 +204,8 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 {
 	if (lastUpdateState == COMPLETED)
 		return;
-	
-	RTC_DateTypeDef dt;
-	RTC_TimeTypeDef tt;
-	
-	HAL_RTC_GetTime(&hrtc, &tt, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &dt, RTC_FORMAT_BIN); 
-	
-	struct tm fcl;
-	time_t Ftim = 0;          // this is undigned int
-	fcl.tm_hour = tt.Hours;
-	fcl.tm_min = tt.Minutes;
-	fcl.tm_sec = tt.Seconds;
-	fcl.tm_mday = dt.Date;
-	fcl.tm_mon = dt.Month - 1;
-	fcl.tm_year = dt.Year + 2000 - 1900;
-	fcl.tm_wday = dt.WeekDay;	
-	time_t currentSeconds = my_timegm(&fcl); // tim
+
+	time_t currentSeconds =  getCurrentSecondsFromBegin(); // tim
 	 
 	if (lastUpdateSeconds > 0)
 	{

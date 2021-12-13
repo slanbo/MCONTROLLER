@@ -2,6 +2,7 @@
 #include "Control.hpp"
 //#include "ControlObjectsExt.hpp"
 //#include "portable.h"
+#include "TuneObjectsExt.hpp"
 
 ModeBase::ModeBase(uint16_t ID, std::string name)
 	: BaseObject(ID, name) 
@@ -304,8 +305,14 @@ void BeerPreparing::FillScreen()
 			Info_FirstString->_setUpdated(true);
 
 			char isecond[] = "";
-			currentPeriod->getPeriodDescription(isecond);
-			Info_SecondString->SetChars(isecond, false);
+			if (currentPeriod == nullptr)
+				Info_SecondString->SetChars("Завершены", true);
+			else
+			{
+				currentPeriod->getPeriodDescription(isecond);
+				Info_SecondString->SetChars(isecond, false);
+			}
+			
 			Info_SecondString->FillEndBySpaces();
 			Info_SecondString->_setUpdated(true);
 	
@@ -315,8 +322,13 @@ void BeerPreparing::FillScreen()
 			Info_ThirdString->_setUpdated(true);
 	
 			char ifourth[] = "";
-			currentPeriod->getStateDescription(ifourth);
-			Info_FourthString->SetChars(ifourth, false);
+			if (currentPeriod == nullptr)
+				Info_FourthString->SetChars("Завершены", true);
+			else
+			{
+				currentPeriod->getStateDescription(ifourth);
+				Info_FourthString->SetChars(ifourth, false);
+			}
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
 		}
@@ -351,9 +363,60 @@ void BeerPreparing::FillScreen()
 			Info_FourthString->SetChars(ifourth, true);
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
-
+			
 		}
-		
+		else if (currentScreenIndex == 2)
+		{
+			char ifirst[] = "Режим насоса:\0";
+			Info_FirstString->SetChars(ifirst, true);
+			Info_FirstString->FillEndBySpaces();
+			Info_FirstString->_setUpdated(true);
+
+			switch (PumpMode._getVal()) 
+			{
+			case 1: // period on /period off
+				{
+					Info_SecondString->SetChars("Периодами", true);
+							break;
+				}
+			case 2: // on heating
+				{
+					Info_SecondString->SetChars("При нагреве", true);
+							break;
+				}
+			case 3: // on stay on
+				{
+					Info_SecondString->SetChars("При паузе", true);
+							break;
+				}
+			case 4: // alltime on
+				{	
+					Info_SecondString->SetChars("Все время", true);
+							break;
+				}	
+			default: // alltime on
+				{
+					Info_SecondString->SetChars("Неопрелено", true);
+							break;
+				}
+			}
+			
+			
+			Info_SecondString->FillEndBySpaces();
+			Info_SecondString->_setUpdated(true);
+	
+			char ithird[] = "Cocт. насоса:\0";
+			Info_ThirdString->SetChars(ithird, true);
+			Info_ThirdString->FillEndBySpaces();
+			Info_ThirdString->_setUpdated(true);
+	
+			char ifourth[] = "";
+			Info_FourthString->SetChars(ifourth, true);
+			Info_FourthString->FillEndBySpaces();
+			Info_FourthString->_setUpdated(true);
+		}
+
+	
 		currentScreenIndex++;
 		if (currentScreenIndex == BEER_PREPARING_SCREEN_QUANT)
 		{
@@ -369,5 +432,6 @@ void BeerPreparing::ExecuteStep()
 	if (isOn())
 	{
 		controlsVector.at(beerModeIndex._getVal())->ExecuteStep();
+		controlsVector.at(2)->ExecuteStep();
 	}
 }

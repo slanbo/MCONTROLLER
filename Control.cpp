@@ -26,57 +26,57 @@ ControlBase::ControlBase(std::string name, intTune* onOffTune, intTune* switchOn
 
 bool ControlBase::isActive()
 {
-	
 	bool active = true;
+	if (delayBeginOnOffTune._getVal() == 1 | delayEndOnOffTune._getVal() == 1)
+	{
+		RTC_TimeTypeDef sTime = { 0 };
+		RTC_DateTypeDef sDate = { 0 };
+		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+		RTC_TimeTypeDef savedTime = { 0 };
+		RTC_DateTypeDef savedDate = { 0 };
+		
+		if (delayBeginOnOffTune._getVal() == 1)
+		{
+			savedDate.Date = delayBeginDate._getVal();
+			savedDate.Month = delayBeginMonth._getVal();
+			savedDate.Year = delayBeginYear._getVal();
+		
+			savedTime.Hours = delayBeginHour._getVal();
+			savedTime.Minutes = delayBeginMinute._getVal();	
+			savedTime.Seconds = 0;	
+		
+			compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+			if (res == MORE | res == EQUAL)
+				active =  true;
+			else
+				active =  false;
+		
+		}
 	
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
-	RTC_TimeTypeDef savedTime = { 0 };
-	RTC_DateTypeDef savedDate = { 0 };
+		//delay end
+		if(delayEndOnOffTune._getVal() == 1)
+		{
 	
+			savedDate.Date = delayEndDate._getVal();
+			savedDate.Month = delayEndMonth._getVal();
+			savedDate.Year = delayEndYear._getVal();
+		
+			savedTime.Hours = delayEndHour._getVal();
+			savedTime.Minutes = delayEndMinute._getVal();	
+			savedTime.Seconds = 0;	
+		
+			compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+			if (res == LESS | res == EQUAL)
+				active =  true;
+			else
+				active =  false;
+		
+		}
+		
+	}
 	//delay start
 	
-	
-	if(delayBeginOnOffTune._getVal() == 1)
-	{
-		savedDate.Date = delayBeginDate._getVal();
-		savedDate.Month = delayBeginMonth._getVal();
-		savedDate.Year = delayBeginYear._getVal();
-		
-		savedTime.Hours = delayBeginHour._getVal();
-		savedTime.Minutes = delayBeginMinute._getVal();	
-		savedTime.Seconds = 0;	
-		
-		compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
-		if (res == MORE | res == EQUAL)
-			active =  true;
-		else
-			active =  false;
-		
-	}
-	
-	//delay end
-	if(delayEndOnOffTune._getVal() == 1)
-	{
-	
-		savedDate.Date = delayEndDate._getVal();
-		savedDate.Month = delayEndMonth._getVal();
-		savedDate.Year = delayEndYear._getVal();
-		
-		savedTime.Hours = delayEndHour._getVal();
-		savedTime.Minutes = delayEndMinute._getVal();	
-		savedTime.Seconds = 0;	
-		
-		compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
-		if (res == LESS | res == EQUAL)
-			active =  true;
-		else
-			active =  false;
-		
-	}
 	
 	
 	//motion detection 
@@ -95,6 +95,9 @@ bool ControlBase::isActive()
 			active =  true;
 		}
 	}
+	else if(OnOffTune->_getVal() == 0)
+		active =  false;
+	
 	return active;
 }
 
@@ -270,11 +273,16 @@ void SensorsSocketsControl::ExecuteStep()
 						}
 					else
 					{
-						downPower = 0;  //stay on
+						downPower = 0;     //stay on
 						SocketsState = STAYONAIM;
 					}
 				}
-			}	
+				else
+				{
+					downPower = 0;     //stay on
+					SocketsState = STAYONAIM;
+				}
+		}	
 		else // switch sockets to increace val
 			{
 				downPower = 0;
@@ -307,17 +315,17 @@ void SensorsSocketsControl::ExecuteStep()
 		
 		if (DPVCollection->Type == TIME_PERIOD)
 		{
+			bool result = false;
 			if (SocketsState == INCREASEMAX | SocketsState == INCREASEMID | SocketsState == INCREASEMIN)
+				result = DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
+			else if (SocketsState == STAYONAIM)
+				result = DPVCollection->UpdateCurrentPeriotStateTime(STAYON);
+			else if (SocketsState ==  DECREASEMAX | SocketsState == DECREASEMID | SocketsState == DECREASEMIN)
+				result = DPVCollection->UpdateCurrentPeriotStateTime(COOLING);
+			if (!result)
 			{
-				DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
-			}
-			else if(SocketsState == STAYONAIM)
-			{
-				DPVCollection->UpdateCurrentPeriotStateTime(STAYON);
-			}
-			else if(SocketsState ==  DECREASEMAX | SocketsState == DECREASEMID | SocketsState == DECREASEMIN)
-			{
-				DPVCollection->UpdateCurrentPeriotStateTime(COOLING);
+				OnOffTune->_setVal(0);
+				OnOffTune->save();
 			}
 		}
 	}
@@ -472,7 +480,7 @@ void PumpControl::ExecuteStep()
 				bool swichedon = false;
 				
 				for (auto s : SocketsVector) 
-				if(s->getSocketState())
+					if (s->getSocketState())
 						swichedon = true;
 				
 				time_t currSeconds = getCurrentSecondsFromBegin();
@@ -560,6 +568,6 @@ PumpControl::PumpControl(uint16_t id,
 	, PumpModeTune(pumpModeTune)
 	, PeriodOnTune(periodOnTune)
 	, PeriodOffTune(periodOffTune)
-		, DPVCollection(dpvcollection)
+	, DPVCollection(dpvcollection)
 {
 }

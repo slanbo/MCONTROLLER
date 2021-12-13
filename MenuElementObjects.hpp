@@ -112,11 +112,13 @@ MenuElementIntSelector mi_62(&mi_61, &mi_61, "Анализ за сек.", 2, 0, 
 //mashing
 MenuElement mi_63(&mi_4, &mi_62, "Темп. паузы", 0, &beerModeIndex);
 	
+
 MenuElement mi_Pause__45_52_68_72_79(&mi_63, &mi_63, "45_52_68_72_79", 1, restorePauses);
 MenuElement mi_Pause__62_68_72_81(&mi_63, &mi_Pause__45_52_68_72_79, "62_68_72_81", 2, restorePauses);
+MenuElement mi_Pause__30_100c(&mi_63, &mi_Pause__62_68_72_81, "30_100c", 3, restorePauses);
 
 //mashing Pause 1
-MenuElement mi_64(&mi_63, &mi_Pause__62_68_72_81, "П1:", 1, AddMashingPauseDescription);
+MenuElement mi_64(&mi_63, &mi_Pause__30_100c, "П1:", 1, AddMashingPauseDescription);
 MenuElement mi_65(&mi_64, &mi_64, "П1 темп.", 1, AddChildTuneValue);
 MenuElementIntSelector mi_66(&mi_65, &mi_65, "П1 температ.", 1, 0, 100, 5, &mashingPause1Temp);
 MenuElement mi_67(&mi_64, &mi_66, "П1 время", 1, AddChildTuneValue);

@@ -7,6 +7,7 @@
 #include "MenuElement.hpp"
 #include "Auxiliary.hpp"
 #include "PauseObjectsExt.hpp"
+#include "TimeProfileObjectsExt.hpp"
 
 #ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
@@ -55,6 +56,9 @@ bool restoreDelayBeginTunes(uint16_t* param)
 bool restorePauses(uint16_t* param)
 {
 	PausesVector.at(*param - 1)->saveToTunes();
+	mashingDVPC->ResetPeriodes();
+	boilingTempDVPC->ResetPeriodes();
+	
 	return true;
 }
 

@@ -1,5 +1,5 @@
-#ifndef __MODES__H
-#define __MODES__H
+#ifndef __MODEOBJECTS__H
+#define __MODEOBJECTS__H
 
 #include "main.h"
 #include "Mode.hpp"

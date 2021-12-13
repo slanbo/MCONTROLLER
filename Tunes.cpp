@@ -3,6 +3,7 @@
 #include "rtc.h"
 #include "SocketObjectsExt.hpp"
 #include "Auxiliary.hpp"
+#include "PauseObjectsExt.hpp"
 
 void readTunesFromFlash()
 {
@@ -123,8 +124,8 @@ void setDefaultTuneVals()
 	boilingMashingControlSensors._setVal(defs);	
 	boilingMashingControlSensors.save();
 	
-	defs[0] = 2;
-	defs[1] = 1;
+	defs[0] = 1;
+	defs[1] = 0xffff;
 	boilingMashingControlUpSockets._setVal(defs);	
 	boilingMashingControlUpSockets.save();
 	
@@ -133,56 +134,30 @@ void setDefaultTuneVals()
 	boilingMashingControlDownSockets._setVal(defs);	
 	boilingMashingControlDownSockets.save();
 	
-	beerModeIndex._setVal(0);beerModeIndex.save();
+	beerModeIndex._setVal(0);beerModeIndex.save();	
+	PausesVector.at(2)->saveToTunes();
 	
-	//beer mashing
-	/*mashingPause1Temp._setVal(30); mashingPause1Temp.save();
-	mashingPause1Time._setVal(300); mashingPause1Time.save();
-	mashingPause1Active._setVal(1); mashingPause1Active.save();
-	mashingPause1StayOn._setVal(0); mashingPause1StayOn.save();
+	MashingOnOffTune._setVal(1);
+	MashingOnOffTune.save();
+	
+	BoilingOnOffTune._setVal(1);
+	BoilingOnOffTune.save();
 
-	mashingPause2Temp._setVal(40); mashingPause2Temp.save();
-	mashingPause2Time._setVal(300); mashingPause2Time.save();
-	mashingPause2Active._setVal(1); mashingPause2Active.save();
-	mashingPause2StayOn._setVal(0); mashingPause2StayOn.save();
+	PumpOnOffTune._setVal(1); 
 	
-	mashingPause3Temp._setVal(50); mashingPause3Temp.save();
-	mashingPause3Time._setVal(300); mashingPause3Time.save();
-	mashingPause3Active._setVal(1); mashingPause3Active.save();
-	mashingPause3StayOn._setVal(0); mashingPause3StayOn.save();
+	defs[0] = 2;
+	defs[1] = 0xffff;
+	pumpControlSockets._setVal(defs);
+	pumpControlSockets.save();
+		
+	PumpMode._setVal(1); 
+	PumpMode.save();
+		
+	SwitchedOnPumpTime._setVal(10); 
+	SwitchedOnPumpTime.save();
 	
-	mashingPause4Temp._setVal(60); mashingPause4Temp.save();
-	mashingPause4Time._setVal(300); mashingPause4Time.save();
-	mashingPause4Active._setVal(1); mashingPause4Active.save();
-	mashingPause4StayOn._setVal(0); mashingPause4StayOn.save();
-	
-	mashingPause5Temp._setVal(70); mashingPause5Temp.save();
-	mashingPause5Time._setVal(300); mashingPause5Time.save();
-	mashingPause5Active._setVal(1); mashingPause5Active.save();
-	mashingPause5StayOn._setVal(0); mashingPause5StayOn.save();
-	
-	mashingPause6Temp._setVal(80); mashingPause6Temp.save();
-	mashingPause6Time._setVal(300); mashingPause6Time.save();
-	mashingPause6Active._setVal(0); mashingPause6Active.save();
-	mashingPause6StayOn._setVal(0); mashingPause6StayOn.save();
-	
-
-	//beer boiling
-	boilingPause1Temp._setVal(98); boilingPause1Temp.save();
-	boilingPause1Time._setVal(300); boilingPause1Time.save();
-	boilingPause1Active._setVal(0); boilingPause1Active.save();
-	boilingPause1StayOn._setVal(0); boilingPause1StayOn.save();
-
-	boilingPause2Temp._setVal(98); boilingPause2Temp.save();
-	boilingPause2Time._setVal(300); boilingPause2Time.save();
-	boilingPause2Active._setVal(0); boilingPause2Active.save();
-	boilingPause2StayOn._setVal(0); boilingPause2StayOn.save();
-
-	boilingPause3Temp._setVal(98); boilingPause3Temp.save();
-	boilingPause3Time._setVal(300); boilingPause3Time.save();
-	boilingPause3Active._setVal(0); boilingPause3Active.save();
-	boilingPause3StayOn._setVal(0); boilingPause3StayOn.save();*/
-	
+	SwitchedOffPumpTime._setVal(10);
+	SwitchedOffPumpTime.save();
 	
 }
 

@@ -64,7 +64,8 @@ protected:
 					bool screenFilled = false;
 					if (!Modes.at(modeIndex._getVal())->allscreensfilled) 
 					{
-						Modes.at(modeIndex._getVal())->FillScreen();
+						ControlsMode* mode  = Modes.at(modeIndex._getVal());
+						mode->FillScreen();
 						screenFilled = true;
 					}
 					if (!screenFilled)
