@@ -571,3 +571,15 @@ PumpControl::PumpControl(uint16_t id,
 	, DPVCollection(dpvcollection)
 {
 }
+
+
+uint16_t SensorsSocketsControl::GetDownSocketsPowerVT()
+{
+	uint16_t sum = 0;
+	
+	for (auto sock : DownSocketsVector)
+		if (sock->getSocketState())
+			sum = sum + sock->getLoadpowerVT();
+	return sum;
+	
+}

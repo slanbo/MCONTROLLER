@@ -137,7 +137,8 @@ public:
 	virtual void _set_current_val(uint16_t val);
 	
 	virtual char* GetSensorsUnit();
-
+	
+	uint16_t GetDownSocketsPowerVT();
 	void SwitchDownSockets(uint16_t powerVT);
 	
 	PeriodValuesCollection* DPVCollection = nullptr;

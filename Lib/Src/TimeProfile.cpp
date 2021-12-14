@@ -268,20 +268,22 @@ void TimePeriodValue::getStateDescription(char* descr)
 	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
 }
 
-PeriodValue* PeriodValuesCollection::getCurrentPeriod()
+uint8_t PeriodValuesCollection::getCurrentPeriodIndex()
 {
 	if (Type == TIME_PERIOD)
 	{
+		uint8_t i = 0;
 		for (auto elem : periodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (!pval->Completed() && pval->isActive())
 			{
-				return elem;
+				return i;
 			}
+			i++;
 		}
 	}
-	return nullptr;
+	return 0xff;
 	
 	
 }
@@ -296,10 +298,12 @@ bool PeriodValuesCollection::UpdateCurrentPeriotStateTime(TimePeriodState state)
 			if (pval->isActive() && pval->getState() != COMPLETED)
 			{
 				pval->UpdateStateTime(state);
+				currentPeriodValue = pval;
 				return true;
 			}
 		}
 	}
+	currentPeriodValue = nullptr;
 	return false;
 }
 
@@ -381,4 +385,10 @@ TimePeriodState PeriodValuesCollection::getCurrentState()
 		}
 	}
 	return NULLSTATE;
+}
+
+
+bool PeriodValuesCollection::isActive()
+{
+	return currentPeriodValue != 0;
 }

@@ -121,7 +121,7 @@ void PCounterControl::FillScreen()
 	
 	Info_SecondString->SetIntText(PCounterBeginDate._getVal(), 2);
 	Info_SecondString->SetChars(datedevider, false);
-	Info_SecondString->SetIntText(PCounterBeginDate._getVal(), 2);
+	Info_SecondString->SetIntText(PCounterBeginMonth._getVal(), 2);
 	Info_SecondString->SetChars(datedevider, false);
 	Info_SecondString->SetIntText(PCounterBeginYear._getVal(), 2);
 	Info_SecondString->SetChars(blank, false);

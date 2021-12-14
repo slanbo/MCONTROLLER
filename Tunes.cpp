@@ -42,8 +42,6 @@ void setDefaultTuneVals()
 	
 	std::vector<uint16_t> defs = { 0, 0 };
 	
-	modeIndex._setVal(1);
-	modeIndex.save();
 	
 	upSocketLoadPower._setVal(1000);
 	upSocketLoadPower.save();
@@ -146,6 +144,7 @@ void setDefaultTuneVals()
 	BoilingOnOffTune.save();
 
 	PumpOnOffTune._setVal(1); 
+	PumpOnOffTune.save();
 	
 	defs[0] = 2;
 	defs[1] = 0xffff;

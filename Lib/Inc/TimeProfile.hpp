@@ -130,12 +130,14 @@ public:
 
 	intTune* StayOnTimeTune;
 	intTune* TimeTune;
-	
+
 };
 
 class PeriodValuesCollection
 {
 private:
+	
+	
 public:
 	
 	PeriodValuesCollection(PeriodType Type);
@@ -145,10 +147,11 @@ public:
 	uint16_t getValue(uint8_t variant);
 	std::vector<PeriodValue*> periodValues;
 	
-	PeriodValue* getCurrentPeriod();
+	uint8_t getCurrentPeriodIndex();
 	
 	TimePeriodState getCurrentState();
 	
+	bool isActive();
 	
 	bool UpdateCurrentPeriotStateTime(TimePeriodState state);
 	
@@ -156,7 +159,8 @@ public:
 	
 	void ResetPeriodes();
 
-	
+	PeriodValue* currentPeriodValue = nullptr;
+
 };
 
 #endif 	
