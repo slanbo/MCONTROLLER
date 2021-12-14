@@ -26,13 +26,17 @@ intTune upSocketLoadPower(&LightProfileIndex);
 intTune downSocketLoadPower(&upSocketLoadPower);
 intTune v12LoadPower(&downSocketLoadPower);
 
-intTune dayPCounterFirstByte(&v12LoadPower);
-intTune dayPCounterSecondByte(&dayPCounterFirstByte);
+//intTune dayPCounterFirstByte(&v12LoadPower);
+//intTune dayPCounterSecondByte(&dayPCounterFirstByte);
 
-intTune nightPCounterFirstByte(&dayPCounterSecondByte);
-intTune nightPCounterSecondByte(&nightPCounterFirstByte);
+//intTune nightPCounterFirstByte(&dayPCounterSecondByte);
+//intTune nightPCounterSecondByte(&nightPCounterFirstByte);
 
-intTune PCounterBeginDate(&nightPCounterSecondByte);
+IntVectorTune dayPCounterVal(&v12LoadPower, 4);
+IntVectorTune nightPCounterVal(&dayPCounterVal, 4);
+
+
+intTune PCounterBeginDate(&nightPCounterVal);
 intTune PCounterBeginMonth(&PCounterBeginDate);
 intTune PCounterBeginYear(&PCounterBeginMonth);
 intTune PCounterBeginHour(&PCounterBeginYear);

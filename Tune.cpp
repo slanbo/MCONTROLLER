@@ -234,7 +234,7 @@ uint16_t IntVectorTune::_getVal(uint16_t index)
 void IntVectorTune::_setVal(uint16_t Val, uint16_t index)
 {
 	val[index] = Val;
-	save();
+	//save();
 }
 
 
@@ -311,7 +311,7 @@ void IntVectorTune::_setVal(std::vector<uint16_t> &Val)
 		counter++;
 	}
 	
-	save();
+	//save();
 		
 }
 

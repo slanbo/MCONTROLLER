@@ -38,11 +38,8 @@ extern intTune upSocketLoadPower;
 extern intTune downSocketLoadPower;
 extern intTune v12LoadPower;
 	
-extern intTune dayPCounterFirstByte;
-extern intTune dayPCounterSecondByte;
-
-extern intTune nightPCounterFirstByte;
-extern intTune nightPCounterSecondByte;
+extern IntVectorTune dayPCounterVal;
+extern IntVectorTune nightPCounterVal;
 	
 extern intTune PCounterBeginDate;
 extern intTune PCounterBeginMonth;

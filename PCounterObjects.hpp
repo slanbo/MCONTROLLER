@@ -5,21 +5,21 @@
 #include "SocketObjectsExt.hpp"
 #include "TuneObjectsExt.hpp"
 
-PCounterControl* dayPCounter = new PCounterControl("Счетчик день",
+PCounterControl* dayPCounter = new PCounterControl(
+	"Счетчик день",
 	&dayPCounterOnOffTune,
 	&PCounterSockets, 
-	&dayPCounterFirstByte,
-	&dayPCounterSecondByte,
+	&dayPCounterVal,
 	7, 
 	0, 
 	22, 
 	59);
 
-PCounterControl* nightPCounter = new PCounterControl("Счетчик ночь",
-	&dayPCounterOnOffTune,
+PCounterControl* nightPCounter = new PCounterControl(
+	"Счетчик ночь",
+	&nightPCounterOnOffTune,
 	&PCounterSockets, 
-	&dayPCounterFirstByte,
-	&dayPCounterSecondByte,
+	&nightPCounterVal,
 	23, 
 	0, 
 	6, 

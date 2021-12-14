@@ -59,7 +59,7 @@ void ControlsMode::FillScreen()
 	
 		SensorsSocketsControl* sscontrol = (SensorsSocketsControl*)controlsVector.at(currentControlIndex);
 		
-		char ifirst[] = "Тек.:\0";
+		char ifirst[] = "Текушая:\0";
 		Info_FirstString->SetChars(ifirst, true);
 		Info_FirstString->SetIntText(sscontrol->_get_current_val(), 5) ;
 		Info_FirstString->SetChars(blank, false);	
@@ -67,7 +67,7 @@ void ControlsMode::FillScreen()
 		Info_FirstString->FillEndBySpaces();
 		Info_FirstString->_setUpdated(true);
 
-		char isecond[] = "Цель:\0";
+		char isecond[] = "Целевая:\0";
 		Info_SecondString->SetChars(isecond, true);
 		Info_SecondString->SetIntText(sscontrol->_get_aim_val(), 5);
 		Info_SecondString->SetChars(blank, false);
@@ -75,7 +75,7 @@ void ControlsMode::FillScreen()
 		Info_SecondString->FillEndBySpaces();
 		Info_SecondString->_setUpdated(true);
 	
-		char ithird[] = "Нагр.:\0";
+		char ithird[] = "Нагрузка:\0";
 		Info_ThirdString->SetChars(ithird, true);
 		Info_ThirdString->SetIntText(controlsVector.at(currentControlIndex)->GetSocketsPowerVT(), 5);
 		Info_ThirdString->SetChars(blank, false);
@@ -84,7 +84,7 @@ void ControlsMode::FillScreen()
 		Info_ThirdString->FillEndBySpaces();
 		Info_ThirdString->_setUpdated(true);
 	
-		char ifourth[] = "_____________\0";
+		char ifourth[] = "_________________\0";
 		Info_FourthString->SetChars(ifourth, true);
 		Info_FourthString->FillEndBySpaces();
 		Info_FourthString->_setUpdated(true);
@@ -219,7 +219,7 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 	
 	mashingControl = new SensorsSocketsControl
 		(
-		"Паузы:", 
+		"Темпер. паузы:", 
 		&MashingOnOffTune,
 		nullptr,
 		&boilingMashingControlSensors,
@@ -334,7 +334,7 @@ void BeerPreparing::FillScreen()
 		}
 		else if (currentScreenIndex == 1)
 		{
-			char ifirst[] = "Тек.:\0";
+			char ifirst[] = "Текущая:\0";
 			Info_FirstString->SetChars(ifirst, true);
 			Info_FirstString->SetIntText(sscontrol->_get_current_val(), 5);
 			Info_FirstString->SetChars(blank, false);	
@@ -342,7 +342,7 @@ void BeerPreparing::FillScreen()
 			Info_FirstString->FillEndBySpaces();
 			Info_FirstString->_setUpdated(true);
 
-			char isecond[] = "Цель:\0";
+			char isecond[] = "Целевая:\0";
 			Info_SecondString->SetChars(isecond, true);
 			Info_SecondString->SetIntText(sscontrol->_get_aim_val(), 5);
 			Info_SecondString->SetChars(blank, false);
@@ -350,7 +350,7 @@ void BeerPreparing::FillScreen()
 			Info_SecondString->FillEndBySpaces();
 			Info_SecondString->_setUpdated(true);
 	
-			char ithird[] = "Нагр.:\0";
+			char ithird[] = "Нагрузка:\0";
 			Info_ThirdString->SetChars(ithird, true);
 			Info_ThirdString->SetIntText(controlsVector.at(beerModeIndex._getVal())->GetSocketsPowerVT(), 5);
 			Info_ThirdString->SetChars(blank, false);
@@ -359,7 +359,7 @@ void BeerPreparing::FillScreen()
 			Info_ThirdString->FillEndBySpaces();
 			Info_ThirdString->_setUpdated(true);
 	
-			char ifourth[] = "_____________\0";
+			char ifourth[] = "_________________\0";
 			Info_FourthString->SetChars(ifourth, true);
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
@@ -410,8 +410,24 @@ void BeerPreparing::FillScreen()
 			Info_ThirdString->FillEndBySpaces();
 			Info_ThirdString->_setUpdated(true);
 	
-			char ifourth[] = "";
-			Info_FourthString->SetChars(ifourth, true);
+			switch (PumpMode._getVal()) 
+			{
+			case 0: // period on /period off
+				{
+					Info_FourthString->SetChars("Выключен", true);
+							break;
+				}
+			case 1: // on heating
+				{
+					Info_FourthString->SetChars("Включен", true);
+							break;
+				}
+			default: // alltime on
+				{
+					Info_FourthString->SetChars("Выключен", true);
+							break;
+				}
+			}
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
 		}

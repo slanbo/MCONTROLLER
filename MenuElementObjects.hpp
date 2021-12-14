@@ -216,8 +216,20 @@ MenuElement bp3_onoff(&mi_105, &mi_109, "Вкл/Выкл");
 MenuElement bp3_on(&bp3_onoff, &bp3_onoff, "Вкл", 1, &boilingPause3Active);
 MenuElement bp3_off(&bp3_onoff, &bp3_on, "Выкл", 0, &boilingPause3Active);
 	
+//pump
+MenuElement mi_pump(&mi_4, &bp3_off, "Насос");
+MenuElement mi_pumppausesmode(&mi_pump, &mi_pump, "Паузами", ChangePumpMode, 1, &PumpMode);
+MenuElement mi_pumpon(&mi_pumppausesmode, &mi_pumppausesmode, "Пауза вкл.");
+MenuElementIntSelector mi_pumponperiod(&mi_pumpon, &mi_pumpon, "Пер. вкл. (сек.)", 60, 0, 1200, 60, &SwitchedOnPumpTime);
+MenuElement mi_pumpoff(&mi_pumppausesmode, &mi_pumponperiod, "Пауза выкл.");
+MenuElementIntSelector mi_pumpoffperiod(&mi_pumpoff, &mi_pumpoff, "Пер. выкл. (сек.)", 60, 0, 1200, 60, &SwitchedOffPumpTime);
+MenuElement mi_pumpheatingmode(&mi_pump, &mi_pumpoffperiod, "При нагреве", ChangePumpMode, 2, &PumpMode);
+MenuElement mi_pumpstayonmode(&mi_pump, &mi_pumpheatingmode, "При паузе", ChangePumpMode, 3, &PumpMode);
+MenuElement mi_pumpalltimeonmode(&mi_pump, &mi_pumpstayonmode, "Всегда вкл.", ChangePumpMode, 4, &PumpMode);
+MenuElement mi_pumpoffmode(&mi_pump, &mi_pumpalltimeonmode, "Выкл.", ChangePumpMode, 5, &PumpMode);
+
 //отложенный старт
-MenuElement mi_110(nullptr, &bp3_onoff, "Отлож. старт");
+MenuElement mi_110(nullptr, &mi_pumpoffmode, "Отлож. старт");
 	
 //дата начала 
 MenuElement mi_111(&mi_110, &mi_110, "Дата старт", restoreDelayBeginTunes);

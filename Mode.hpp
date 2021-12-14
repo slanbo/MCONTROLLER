@@ -12,7 +12,7 @@
 
 
 #define MODE_HEADER_BOARD_GAP 2
-#define BEER_PREPARING_SCREEN_QUANT 2
+#define BEER_PREPARING_SCREEN_QUANT 3
 
 
 class ModeBase : public BaseObject

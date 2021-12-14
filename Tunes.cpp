@@ -38,6 +38,8 @@ void clearTunesInFlash()
 
 void setDefaultTuneVals()
 {
+
+	
 	std::vector<uint16_t> defs = { 0, 0 };
 	
 	modeIndex._setVal(1);
@@ -46,7 +48,7 @@ void setDefaultTuneVals()
 	upSocketLoadPower._setVal(1000);
 	upSocketLoadPower.save();
 	
-	downSocketLoadPower._setVal(2000);
+	downSocketLoadPower._setVal(18);
 	downSocketLoadPower.save();
 	
 	v12LoadPower._setVal(100);
@@ -153,10 +155,10 @@ void setDefaultTuneVals()
 	PumpMode._setVal(1); 
 	PumpMode.save();
 		
-	SwitchedOnPumpTime._setVal(10); 
+	SwitchedOnPumpTime._setVal(60); 
 	SwitchedOnPumpTime.save();
 	
-	SwitchedOffPumpTime._setVal(10);
+	SwitchedOffPumpTime._setVal(60);
 	SwitchedOffPumpTime.save();
 	
 }

@@ -79,7 +79,7 @@ public:
 	void SetChars(const char* chars, bool convertToCp1251);
 	void SetIntText(int dnum, uint8_t lenght);
 	void FillEndBySpaces();
-	char Text[MAX_CHARS_IN_SCREEN] = { 0 };
+	char Text[FONT_12_MAX_SIMVOLS_IN_STRING] = { 0 };
 	
 	
 protected:

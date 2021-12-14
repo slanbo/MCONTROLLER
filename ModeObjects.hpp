@@ -7,8 +7,8 @@
 
 
 
-Habitat* HabitatMode =  new Habitat(0, "Контр. среды");
-BeerPreparing* BeerPreparingMode = new BeerPreparing(1, "Пригот. пива"); 
+Habitat* HabitatMode =  new Habitat(0, "Контроль среды");
+BeerPreparing* BeerPreparingMode = new BeerPreparing(1, "Пригот-ние пива"); 
 
 std::vector<ControlsMode*> Modes = { HabitatMode, BeerPreparingMode };
 

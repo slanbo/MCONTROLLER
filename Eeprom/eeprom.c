@@ -652,6 +652,7 @@ uint16_t EE_Write_Array(uint16_t initVirtAddr, uint16_t* data, uint8_t size)
 		if (readData != data[i])
 		{
 			FlashStatus = EE_WriteVariable(address, data[i]);
+			readStatus = EE_ReadVariable(address, &readData);
 			if (FlashStatus != HAL_OK)
 			{
 				return FlashStatus;
@@ -709,6 +710,41 @@ uint32_t EE_Read_Int32(uint16_t virtAddr)
 	}convert;
 	
 	ReadStatus = EE_Read_Array(virtAddr, convert.arr, 2);
+	if (ReadStatus == 0)
+	{
+		return convert.fnum;
+	}
+	
+	return 0;	
+}
+
+uint16_t EE_Write_Int64(uint16_t virtAddr, uint64_t num)
+{
+	uint16_t FlashStatus;
+	
+	union
+	{
+		uint16_t arr[4];
+		uint64_t fnum;
+	}convert;
+	
+	convert.fnum = num;
+	
+	FlashStatus = EE_Write_Array(virtAddr, convert.arr, 4);
+	return FlashStatus;
+}
+
+uint64_t EE_Read_Int64(uint16_t virtAddr)
+{
+	uint16_t ReadStatus;
+	
+	union
+	{
+		uint16_t arr[4];
+		uint64_t fnum;
+	}convert;
+	
+	ReadStatus = EE_Read_Array(virtAddr, convert.arr, 4);
 	if (ReadStatus == 0)
 	{
 		return convert.fnum;

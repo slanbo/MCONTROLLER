@@ -163,6 +163,9 @@ void Error_Handler(void);
 	
 #define SHOW_INFO_PERIOD_SEC 5	
 	
+#define FONT_12_MAX_SIMVOLS_IN_STRING 19
+#define FONT_16_MAX_SIMVOLS_IN_STRING 12	
+	
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

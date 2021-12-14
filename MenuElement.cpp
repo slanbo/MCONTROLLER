@@ -305,7 +305,7 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 	if (AddNameEndFnc != nullptr)
 	{
 		element->SetChars(" ", false);
-		char addstr[16] = { 0 };
+		char addstr[FONT_12_MAX_SIMVOLS_IN_STRING] = { 0 };
 		AddNameEndFnc(addstr, this) ;
 		element->SetChars(addstr, false);
 	}

@@ -103,6 +103,10 @@ void EE_Read_Date(uint16_t virtAddr, uint16_t* date);
 	 uint32_t EE_Read_Int32(uint16_t virtAddr);
 	 uint16_t EE_Write_Int32(uint16_t virtAddr, uint32_t num);
 	 
+	 uint64_t EE_Read_Int64(uint16_t virtAddr);
+	 uint16_t EE_Write_Int64(uint16_t virtAddr, uint64_t num);
+	 
+	 
 #ifdef __cplusplus
 }
 #endif

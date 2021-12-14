@@ -85,11 +85,11 @@ protected:
 					showInfoCounter = 0;
 				
 				Buttom_Left->ClearText();
-				Buttom_Left->SetText("Меню", true);
+				Buttom_Left->SetChars("Меню", true);
 				Buttom_Left->_setUpdated(true);
 				
 				Buttom_Right->ClearText();
-				Buttom_Right->SetText("Меню", true);
+				Buttom_Right->SetChars("Меню", true);
 				Buttom_Right->_setUpdated(true);
 				
 			}
@@ -98,11 +98,11 @@ protected:
 				mainMenu->FillScreen();
 				
 				Buttom_Left->ClearText();
-				Buttom_Left->SetText("Вверх", true);
+				Buttom_Left->SetChars("Вверх", true);
 				Buttom_Left->_setUpdated(true);
 				
 				Buttom_Right->ClearText();
-				Buttom_Right->SetText("Вниз", true);
+				Buttom_Right->SetChars("Вниз", true);
 				Buttom_Right->_setUpdated(true);
 			}
 			

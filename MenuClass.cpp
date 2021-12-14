@@ -52,7 +52,7 @@ void Menu::moveCurrentToNext()
 
 void Menu::FillScreen()
 {
-	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
+	char str[FONT_12_MAX_SIMVOLS_IN_STRING * 2] = { 0 };
 	
 	Menu_Header->ClearText();
 	Menu_Header->SetChars("Меню настроек:", true);

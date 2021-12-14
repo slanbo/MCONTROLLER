@@ -6,6 +6,10 @@
 #include "eeprom.h"
 #include "vector"
 #include "Control.hpp"
+#include "time.h"
+
+#define WRITE_FLASHE_PERIOD_SECONDS 60
+
 
 class PCounterControl : public SocketsControl
 {
@@ -14,24 +18,25 @@ private:
 	uint8_t BeginMinute = 0;
 	uint8_t EndHour = 0;
 	uint8_t EndMinute = 0;
-	intTune*  EepromFirstByte;
-	intTune*  EepromSecondByte;
-	uint16_t WriteFlashSteps = 60;
-	uint16_t Current_Step_After_FlashWrite = 0;
-	uint32_t VT_After_FlashWrite = 0;
-	uint16_t SecondsInStep = 1;
-	uint32_t getVTHour_After_FlashWrite();
-	uint32_t getCurrentVtHour();
+	
+	IntVectorTune*  ValTune;
+	
+	time_t lastExecuteStepSeconds = 0;
+	time_t lastWriteFlashSeconds = 0;
+	uint16_t lastExecuteStepPower = 0;
+	
+	
+	uint32_t get_VT_HOUR();
+	
 	
 public:
 	
-	uint32_t VT_HOUR = 0;
+	uint64_t VT_Seconds = 0;
 	
 	PCounterControl(std::string name,
 		intTune* onOffTune,
 		IntVectorTune* socketsTune, 
-		intTune*  eepromFirstByte,
-		intTune*  eepromSecondByte,
+		IntVectorTune*  valTune,
 		uint8_t beginHour, 
 		uint8_t beginMinute, 
 		uint8_t endHour, 
@@ -43,7 +48,7 @@ public:
 	void saveToFlash();
 	void restoreFromFlash();
 	
-	
+	virtual void init();
 };
 
 #endif

@@ -242,6 +242,13 @@ int main(void)
 	EE_Init();
 	HAL_FLASH_Lock();
 	
+	uint16_t readData;
+	uint16_t readStatus = EE_ReadVariable(20, &readData);
+	readStatus = EE_ReadVariable(21, &readData);
+	readStatus = EE_ReadVariable(22, &readData);
+	readStatus = EE_ReadVariable(23, &readData);
+	
+	
 	readTunesFromFlash();
 	setDefaultTuneVals();
 	
@@ -255,6 +262,8 @@ int main(void)
 	mashingDVPC->RestorePeriodsStates(0xff);
 	boilingTempDVPC->RestorePeriodsStates(0xff);
 	
+	dayPCounter->init();
+	nightPCounter->init();
 	
 	/*uint8_t rsvdt[80];
 	

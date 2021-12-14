@@ -54,7 +54,7 @@ Text_ScreenElement* Info_Header = new Text_ScreenElement(
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP),
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	16);
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 
 Rect_ScreenElement* Info_Header_Border = new  Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
@@ -66,19 +66,29 @@ Rect_ScreenElement* Info_Header_Border = new  Rect_ScreenElement(
 
 Text_ScreenElement* Info_SubHeader = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
-	&GREEN_BLACK_VERANDA12, &GREEN_BLACK_VERANDA12,	16);
+	&GREEN_BLACK_VERANDA12,
+	&GREEN_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Info_FirstString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3,
-	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Info_SecondString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
-	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Info_ThirdString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
-	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Info_FourthString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 6,
-	&GRAY0_BLACK_VERANDA12, &YELLOW_BLACK_VERANDA12, 16);
+	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 
 
 std::vector<BaseScreenElement*> Info_Screen = { 
@@ -99,23 +109,23 @@ Text_ScreenElement* Menu_Header = new Text_ScreenElement(
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP),
 	&YELLOW_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	16);
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Menu_SubHeader = new Text_ScreenElement(
 	SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 2,
 	&GREEN_BLACK_VERANDA12,
 	&GREEN_BLACK_VERANDA12,
-	16);
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Menu_PrevString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 3,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	16);
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Text_ScreenElement* Menu_CurrentString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	14);
+	FONT_12_MAX_SIMVOLS_IN_STRING - 2);
 Rect_ScreenElement* Menu_CurrentScreen_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,
@@ -127,7 +137,7 @@ Text_ScreenElement* Menu_NextString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	16);
+	FONT_12_MAX_SIMVOLS_IN_STRING);
 Rect_ScreenElement* Menu_Header_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) - BORDER_GAP,
@@ -163,7 +173,7 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 	
 }
 
-char prefixStr[16];
+//char prefixStr[FONT_12_MAX_SIMVOLS_IN_STRING];
 
 //void* mutptr = pvPortMalloc(sizeof(cpp_freertos::MutexStandard));
 

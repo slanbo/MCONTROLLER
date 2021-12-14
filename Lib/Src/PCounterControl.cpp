@@ -13,8 +13,7 @@ PCounterControl::PCounterControl(
 	std::string name,
 	intTune* onOffTune,
 	IntVectorTune* socketsTune, 
-	intTune*  eepromFirstByte,
-	intTune*  eepromSecondByte,
+	IntVectorTune*  valTune,
 	uint8_t beginHour, 
 	uint8_t beginMinute, 
 	uint8_t endHour, 
@@ -24,15 +23,14 @@ PCounterControl::PCounterControl(
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)
 	, EndMinute(endMinute)
-	, EepromFirstByte(eepromFirstByte)
-	, EepromSecondByte(eepromSecondByte)
+	, ValTune(valTune)
 {
 
 }
 
 void PCounterControl::ExecuteStep()
 {
-	bool needUpdate = false;
+	bool date_in_period = false;
 	uint16_t VTToAdd = 0;
 
 	RTC_TimeTypeDef sTime = { 0 };
@@ -42,9 +40,8 @@ void PCounterControl::ExecuteStep()
 	
 	uint8_t currentHour = sTime.Hours;
 	uint8_t currentMinute = sTime.Minutes;
-
 	uint16_t currentMinutes = (currentHour * 60) + currentMinute;
-	
+		
 	uint16_t beginMinutes = (BeginHour * 60) + BeginMinute;
 	uint16_t endMinutes = (EndHour * 60) + EndMinute;
 	
@@ -53,53 +50,51 @@ void PCounterControl::ExecuteStep()
 	if (beginMinutes <  endMinutes)
 	{
 		if (currentMinutes >= beginMinutes & currentMinutes <= endMinutes)
-		{
-			needUpdate = true;
-		}
+			date_in_period = true;
 	}
 	else
 	{
 		if ((currentMinutes >= beginMinutes & currentMinutes <= endDayMinutes) | (currentMinutes >= 1 & currentMinutes <= endMinutes))
-		{
-			needUpdate = true;
-		}
+			date_in_period = true;
 	}
 	
-	if (needUpdate)
+	if (date_in_period)
 	{
-		if (Current_Step_After_FlashWrite < WriteFlashSteps)
+		time_t curSeconds = getCurrentSecondsFromBegin();
+		uint16_t currpower = GetSocketsPowerVT();
+		
+		if (lastExecuteStepSeconds == 0)
 		{
-			Current_Step_After_FlashWrite += 1;
+			lastExecuteStepSeconds = curSeconds;
+			lastWriteFlashSeconds = curSeconds;
+			lastExecuteStepPower = currpower;
+			return;
 		}
-		else
+		uint16_t add_vt_hour = 0;
+		if (lastExecuteStepPower == currpower)
+			VT_Seconds = VT_Seconds + currpower * (curSeconds - lastExecuteStepSeconds);
+		
+		if (curSeconds - lastWriteFlashSeconds >= WRITE_FLASHE_PERIOD_SECONDS)
 		{
-			Current_Step_After_FlashWrite = 0;
+
 			saveToFlash();
+			lastWriteFlashSeconds = curSeconds;
+			
 		}
-		for (auto sock: SocketsVector)
-		{
-			if (sock->getSocketState())
-			{
-				VTToAdd += sock->getLoadpowerVT();
-			}
-		}
-		VT_After_FlashWrite += VTToAdd;
+		lastExecuteStepSeconds = curSeconds;
 	}
 }
 
 void PCounterControl::saveToFlash()
 {
-	uint32_t VTInHourAFR = getVTHour_After_FlashWrite();
-	restoreFromFlash();
 	HAL_FLASH_Unlock();
-	uint16_t status = EE_Write_Int32(EepromFirstByte->getFlashAddress(), VTInHourAFR + VT_HOUR);
+	uint16_t status = EE_Write_Int64(ValTune->getFlashAddress(), VT_Seconds);
 	HAL_FLASH_Lock();
-	VT_After_FlashWrite = 0;
 }
 
 void PCounterControl::restoreFromFlash()
 {
-	VT_HOUR = EE_Read_Int32(EepromFirstByte->getFlashAddress());
+	VT_Seconds = EE_Read_Int64(ValTune->getFlashAddress());
 }
 
 void PCounterControl::FillScreen()
@@ -119,7 +114,7 @@ void PCounterControl::FillScreen()
 	Info_SubHeader->FillEndBySpaces();
 	Info_SubHeader->_setUpdated(true);
 	
-	char countbeg[] = "Нач. отсчета:";
+	char countbeg[] = "Начало отсчета:";
 	Info_FirstString->SetChars(countbeg, true);
 	Info_FirstString->FillEndBySpaces();
 	Info_FirstString->_setUpdated(true);
@@ -136,26 +131,26 @@ void PCounterControl::FillScreen()
 	Info_SecondString->FillEndBySpaces();
 	Info_SecondString->_setUpdated(true);
 	
-	char val[] = "Счетчик:";
+	char val[] = "Счетчик ВТ/Ч:";
 	Info_ThirdString->SetChars(val, true);
 	Info_ThirdString->FillEndBySpaces();
 	Info_ThirdString->_setUpdated(true);
 	
-	Info_FourthString->SetIntText(VT_HOUR, 10);
+	Info_FourthString->SetIntText(get_VT_HOUR(), 10);
 	Info_FourthString->FillEndBySpaces();
 	Info_FourthString->_setUpdated(true);
 	
 	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
-
 }
 
-uint32_t PCounterControl::getVTHour_After_FlashWrite()
+uint32_t PCounterControl::get_VT_HOUR()
 {
-		return (uint32_t)((VT_After_FlashWrite*SecondsInStep) / 3600);
+	return (uint32_t)(VT_Seconds / 3600);
 }
 
-uint32_t PCounterControl::getCurrentVtHour()
+
+void PCounterControl::init()
 {
-	uint32_t VTHourAFW = getVTHour_After_FlashWrite();
-	return VTHourAFW + VT_HOUR;
+	SocketsControl::init();
+	restoreFromFlash();
 }

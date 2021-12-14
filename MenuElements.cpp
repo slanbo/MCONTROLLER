@@ -97,23 +97,16 @@ bool restoreDelayEndTunes(uint16_t* param)
 
 bool clearCounters(uint16_t* param)
 {
-	dayPCounterFirstByte._setVal(0);
-	dayPCounterFirstByte.save();
 	
-	dayPCounterSecondByte._setVal(0);
-	dayPCounterSecondByte.save();
-
-	nightPCounterFirstByte._setVal(0);
-	nightPCounterFirstByte.save();
-	
-	nightPCounterSecondByte._setVal(0);
-	nightPCounterSecondByte.save();
+	HAL_FLASH_Unlock();
+	uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 0);
+	status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 0);
+	HAL_FLASH_Lock();
 	
 	RTC_TimeTypeDef sTime = { 0 };
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
 	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
 	
 	PCounterBeginDate._setVal(sDate.Date);
 	PCounterBeginDate.save();
@@ -403,5 +396,23 @@ void AddChildTuneValue(char* text, MenuElementBase* elembase)
 	MenuElement* elemchilde = (MenuElement*)elembase->ChildItem;
 	AddIntChars(text, elemchilde->Parametr, 3, ' ');
 }
+
+bool ChangePumpMode(uint16_t* param)
+{
+	if (*param != 5)
+	{
+		PumpOnOffTune._setVal(1);
+		PumpOnOffTune.save();
+		PumpMode._setVal(*param);
+		PumpMode.save();
+	}
+	else
+	{
+		PumpOnOffTune._setVal(0);
+		PumpOnOffTune.save();
+	}
+	return true;
+}
+;
 
 #endif
