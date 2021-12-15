@@ -62,6 +62,7 @@ protected:
 				Menu_PrevString->Render();
 				Menu_CurrentString->Render();
 				Menu_NextString->Render();
+				Menu_NextNextString->Render();
 				Menu_CurrentScreen_Border->Render();
 				Menu_Header_Border->Render();
 			}

@@ -159,7 +159,7 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 	}
 }
 
-void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
+void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght, char fchar)
 {
 	char dstr[lenght];
 	
@@ -171,7 +171,7 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 		while (udint > 0)
 		{
 			udint = udint / 10;
-			rsigns ++;
+			rsigns++;
 		}
 	
 		inttoabase10(dnum, dstr);
@@ -181,7 +181,7 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 			uint8_t zeros = lenght - rsigns;
 			for (uint8_t i = 0; i < zeros; i++)
 			{
-				Text[textLenght] = ' ';
+				Text[textLenght] = fchar;
 				textLenght++;
 			}
 		}
@@ -197,7 +197,7 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 	{
 		for (uint8_t i = 0; i < lenght - 1; i++)
 		{
-			Text[textLenght] = ' ';	
+			Text[textLenght] = fchar;	
 			textLenght++;
 		}
 		
@@ -206,6 +206,12 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
 			
 		Text[textLenght + 1] = '\0';
 	}
+
+}
+
+void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght)
+{
+	SetIntText(dnum, lenght, ' ');
 }
 
 void Text_ScreenElement::FillEndBySpaces()
@@ -248,3 +254,6 @@ void BaseScreenElement::_setUpdated(bool Updated)
 {
 	updated = Updated;
 }
+
+
+

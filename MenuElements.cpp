@@ -8,6 +8,7 @@
 #include "Auxiliary.hpp"
 #include "PauseObjectsExt.hpp"
 #include "TimeProfileObjectsExt.hpp"
+#include "ModeObjectsExt.hpp"
 
 #ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
@@ -58,6 +59,65 @@ bool restorePauses(uint16_t* param)
 	PausesVector.at(*param - 1)->saveToTunes();
 	mashingDVPC->ResetPeriodes();
 	boilingTempDVPC->ResetPeriodes();
+	
+	return true;
+}
+
+bool startPauses(uint16_t* param)
+{
+	
+	switch (*param)
+	{
+	case 1:
+		{
+			if (beerModeIndex._getVal() == 0)
+			{
+				BeerPreparingMode->mashingControl->DPVCollection->ResetPeriodes();
+				BeerPreparingMode->mashingControl->setOn(true);
+			}
+			else
+			{
+				BeerPreparingMode->boilingControl->DPVCollection->ResetPeriodes();
+				BeerPreparingMode->mashingControl->setOn(true);
+			}
+		break;
+		}
+	case 2:
+		{
+			if (beerModeIndex._getVal() == 0)
+			{
+				BeerPreparingMode->mashingControl->DPVCollection->RestorePeriodsStates(0xff);
+				BeerPreparingMode->mashingControl->setOn(true);
+			}
+			else
+			{
+				BeerPreparingMode->boilingControl->DPVCollection->RestorePeriodsStates(0xff);
+				BeerPreparingMode->boilingControl->setOn(true);
+			}
+			break;
+		}
+	case 3:
+		{
+			if (beerModeIndex._getVal() == 0)
+			{
+				uint16_t currval = BeerPreparingMode->mashingControl->_get_current_val();
+				BeerPreparingMode->mashingControl->DPVCollection->RestorePeriodsStates(currval);
+				BeerPreparingMode->mashingControl->setOn(true);
+			}
+			else
+			{
+				uint16_t currval = BeerPreparingMode->boilingControl->_get_current_val();
+				BeerPreparingMode->boilingControl->DPVCollection->RestorePeriodsStates(currval);
+				BeerPreparingMode->boilingControl->setOn(true);
+			}
+			break;
+		}
+	default:
+		{
+			break;
+		}
+	}
+		
 	
 	return true;
 }

@@ -144,7 +144,7 @@ void GetWeekDayStr(uint8_t weekDayNumber, char* outStr)
 	{
 	case 1:
 		{
-			strcpy(outStr, "SN"); 
+			strcpy(outStr, "DC"); 
 			break;
 		}
 	case 2:

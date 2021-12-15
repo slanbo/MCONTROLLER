@@ -138,6 +138,13 @@ Text_ScreenElement* Menu_NextString = new Text_ScreenElement(SCREEN_GAP,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	FONT_12_MAX_SIMVOLS_IN_STRING);
+Text_ScreenElement* Menu_NextNextString = new Text_ScreenElement(SCREEN_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 6,
+	&GRAY0_BLACK_VERANDA12,
+	&YELLOW_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING);
+
+
 Rect_ScreenElement* Menu_Header_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) - BORDER_GAP,
@@ -152,6 +159,7 @@ std::vector<BaseScreenElement*> Menu_Screen = {
 	Menu_PrevString,
 	Menu_CurrentString,
 	Menu_NextString,
+	Menu_NextNextString,
 	Menu_CurrentScreen_Border,
 	Menu_Header_Border
 		

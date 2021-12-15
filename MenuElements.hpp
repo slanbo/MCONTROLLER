@@ -32,4 +32,6 @@ void AddBoilingPauseDescription(char* text, MenuElementBase* elembase);
 void AddChildTuneValue(char* text, MenuElementBase* elembase);
 bool ChangePumpMode(uint16_t* param);
 
+bool startPauses(uint16_t* param);
+
 #endif

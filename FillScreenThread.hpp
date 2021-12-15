@@ -45,16 +45,65 @@ protected:
 	{
 		while (true)
 		{
-			char dateStr[11] = { 0 };
-			addCurrentDateString(dateStr);
+			RTC_TimeTypeDef sTime = { 0 };
+			RTC_DateTypeDef sDate = { 0 };
+			HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+			HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+	
 			Date_FirstPart->ClearText();
-			Date_FirstPart->SetText(dateStr, true);
+			Date_FirstPart->SetIntText(sDate.Date, 2, '0');
+			Date_FirstPart->SetChars("/", false);
+			Date_FirstPart->SetIntText(sDate.Month, 2, '0');
+			Date_FirstPart->SetChars("/", false);
+			Date_FirstPart->SetIntText(sDate.Year, 2, '0');
+			Date_FirstPart->SetChars("/", false);
+			switch (sDate.WeekDay)
+			{
+			case 1:
+				{
+					Date_FirstPart->SetChars("ВС", true);
+					break;
+				}
+			case 2:
+				{
+					Date_FirstPart->SetChars("ПН", true);
+					break;
+				}	
+			case 3:
+				{
+					Date_FirstPart->SetChars("ВТ", true);
+					break;
+				}	
+			case 4:
+				{
+					Date_FirstPart->SetChars("СР", true);
+					break;
+				}
+			case 5:
+				{
+					Date_FirstPart->SetChars("ЧТ", true);
+					break;
+				}
+			case 6:
+				{
+					Date_FirstPart->SetChars("ПТ", true);
+					break;
+				}	
+			case 7:
+				{
+					Date_FirstPart->SetChars("СБ", true);
+					break;
+				}	
+		
+			}
 			Date_FirstPart->_setUpdated(true);
 
-			char timeStr[8] = { 0 };
-			addCurrentTimeString(timeStr);
 			Time->ClearText();
-			Time->SetText(timeStr, false);
+			Time->SetIntText(sTime.Hours, 2, '0');
+			Time->SetChars(":", false);
+			Time->SetIntText(sTime.Minutes, 2, '0');
+			Time->SetChars(":", false);
+			Time->SetIntText(sTime.Seconds, 2, '0');
 			Time->_setUpdated(true);
 			
 			if (SETUP_MODE == 0)

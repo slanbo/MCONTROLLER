@@ -337,7 +337,7 @@ void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 			{
 				TimePeriodValue* pval = (TimePeriodValue*)elem;
 				pval->Reset();
-				if (pval->Tune->_getVal()  + 2 < currentT)
+				if (pval->Tune->_getVal()  + 3 < currentT)
 				{
 					pval->setStayOnTime(pval->TimeTune->_getVal());
 					pval->setState(COMPLETED);

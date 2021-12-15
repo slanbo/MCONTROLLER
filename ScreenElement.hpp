@@ -78,6 +78,8 @@ public:
 	void SetText(std::string text, bool convertToCp1251);
 	void SetChars(const char* chars, bool convertToCp1251);
 	void SetIntText(int dnum, uint8_t lenght);
+	void SetIntText(int dnum, uint8_t lenght, char fchar);
+	
 	void FillEndBySpaces();
 	char Text[FONT_12_MAX_SIMVOLS_IN_STRING] = { 0 };
 	

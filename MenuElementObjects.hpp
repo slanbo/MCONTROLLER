@@ -60,9 +60,9 @@ MenuElement mi_31(&mi_3, &mi_30, "Освещенность");
 MenuElement mi_32(&mi_28, &mi_31, "Фиксир. t", 3, &airTempProfileIndex);
 MenuElementIntSelector mi_33(&mi_32, &mi_32, "Знач. температуры", 0, 0, 35, 1, &airFixTemp);
 	
-MenuElement mi_34(&mi_28, &mi_33, "Присутствие", 0, &airTempProfileIndex);
-MenuElement mi_35(&mi_28, &mi_34, "Отсутствие", 1, &airTempProfileIndex);
-MenuElement mi_36(&mi_28, &mi_35, "Выходные вт. пт.", 2, &airTempProfileIndex);
+MenuElement mi_34(&mi_28, &mi_33, "Присутствие", 0, &airTempControlTimeProfile);
+MenuElement mi_35(&mi_28, &mi_34, "Отсутствие", 1, &airTempControlTimeProfile);
+MenuElement mi_36(&mi_28, &mi_35, "Выходные вт. пт.", 2, &airTempControlTimeProfile);
 
 MenuElement mi_37(&mi_28, &mi_36, "Вкл./Выкл");
 MenuElement mi_38(&mi_37, &mi_37, "Включить", 1, &airTempControlOnOffTune);
@@ -71,7 +71,7 @@ MenuElement mi_40(&mi_37, &mi_39, "Вкл. по движ.", 2, &airTempControlOn
 MenuElementIntSelector mi_41(&mi_40, &mi_40, "Анализ за сек.", 1, 0, IR_MOTION_BUFFER_SIZE, 60, &airTempControlSwichOnIfMotionPeriod);
 	
 //"Температ. бат."
-MenuElement mi_42(&mi_29, &mi_41, "День ночь:", 0, &batTempProfileIndex);
+MenuElement mi_42(&mi_29, &mi_41, "День ночь:", 0, &batTempControlTimeProfile);
 MenuElement mi_183(&mi_42, &mi_42, "День:");
 MenuElementIntSelector mi_180(&mi_183, &mi_183, "Знач. дневн. t", 1, 0, 100, 1, &batDayFixTemp);
 MenuElement mi_184(&mi_42, &mi_180, "Ночь:");
@@ -93,10 +93,10 @@ MenuElement mi_181(&mi_49, &mi_51, "Вкл. по движ.", 2, &coControlOnOffT
 MenuElementIntSelector mi_182(&mi_49, &mi_181, "Анализ за сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &COControlSwichOnIfMotionPeriod);
 	
 //"Освещенность"
-MenuElement mi_52(&mi_31, &mi_182, "Ночь выключено.", 0, &LightProfileIndex);
+MenuElement mi_52(&mi_31, &mi_182, "Ночь выключено.", 0, &lightControlTimeProfile);
 MenuElementIntSelector mi_53(&mi_52, &mi_52, "Порог выключения", 1, 0, 4065, 5, &LightEdge);
 
-MenuElement mi_54(&mi_31, &mi_53, "Всегда включено", 1, &LightProfileIndex);
+MenuElement mi_54(&mi_31, &mi_53, "Всегда включено", 1, &lightControlTimeProfile);
 MenuElementIntSelector mi_55(&mi_54, &mi_54, "Порог выключения", 1, 0, 4065, 5, &LightEdge);
 
 MenuElement mi_56(&mi_31, &mi_55, "Задержка выключения");
@@ -117,8 +117,12 @@ MenuElement mi_Pause__45_52_68_72_79(&mi_63, &mi_63, "45_52_68_72_79", 1, restor
 MenuElement mi_Pause__62_68_72_81(&mi_63, &mi_Pause__45_52_68_72_79, "62_68_72_81", 2, restorePauses);
 MenuElement mi_Pause__30_100c(&mi_63, &mi_Pause__62_68_72_81, "30_100c", 3, restorePauses);
 
+MenuElement mi_StartFromBegin(&mi_63, &mi_Pause__30_100c, "Старт с начала", 1, startPauses);
+MenuElement mi_StartFromSaved(&mi_63, &mi_StartFromBegin, "Продолжить", 2, startPauses);
+MenuElement mi_StartFromTemperature(&mi_63, &mi_StartFromSaved, "Старт с темп.", 3, startPauses);
+
 //mashing Pause 1
-MenuElement mi_64(&mi_63, &mi_Pause__30_100c, "П1:", 1, AddMashingPauseDescription);
+MenuElement mi_64(&mi_63, &mi_StartFromTemperature, "П1:", 1, AddMashingPauseDescription);
 MenuElement mi_65(&mi_64, &mi_64, "П1 темп.", 1, AddChildTuneValue);
 MenuElementIntSelector mi_66(&mi_65, &mi_65, "П1 температ.", 1, 0, 100, 5, &mashingPause1Temp);
 MenuElement mi_67(&mi_64, &mi_66, "П1 время", 1, AddChildTuneValue);

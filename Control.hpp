@@ -39,6 +39,7 @@ public:
 	virtual void init();
 	virtual void ExecuteStep() = 0;
 	virtual bool isOn();
+	virtual void setOn(bool state);
 	virtual bool isActive();
 	virtual void FillScreen() = 0;
 	void clearLCD();

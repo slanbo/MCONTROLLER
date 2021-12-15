@@ -202,6 +202,12 @@
     <Filter Include="Source files\Socket">
       <UniqueIdentifier>{27e85642-2609-4365-a4bb-201c02a7a6a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header files\MENU">
+      <UniqueIdentifier>{6bb5f6cf-4eb6-4a75-bd2b-3e1cccd19538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source files\MENU">
+      <UniqueIdentifier>{3ee24d0d-be99-49e7-b436-63679b67390e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Src\gpio.c">
@@ -585,9 +591,6 @@
     <ClCompile Include="Devices\Src\Bizzer.cpp">
       <Filter>Source files\Devices</Filter>
     </ClCompile>
-    <ClCompile Include="MenuClass.cpp">
-      <Filter>Source files\Lib</Filter>
-    </ClCompile>
     <ClCompile Include="Devices\Src\Button.cpp">
       <Filter>Source files\Devices</Filter>
     </ClCompile>
@@ -617,12 +620,6 @@
     </ClCompile>
     <ClCompile Include="Devices\Src\ds1307_for_stm32_hal.c">
       <Filter>Source files\Devices</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuElement.cpp">
-      <Filter>Source files\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuElements.cpp">
-      <Filter>Source files\Lib</Filter>
     </ClCompile>
     <ClCompile Include="MotionControl.cpp">
       <Filter>Source files\Controls</Filter>
@@ -671,6 +668,15 @@
     </ClCompile>
     <ClCompile Include="BeerPause.cpp">
       <Filter>Source files\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuClass.cpp">
+      <Filter>Source files\MENU</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuElement.cpp">
+      <Filter>Source files\MENU</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuElements.cpp">
+      <Filter>Source files\MENU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -748,12 +754,6 @@
     </ClInclude>
     <ClInclude Include="Devices\Inc\ds1307_for_stm32_hal.h">
       <Filter>Header files\Devices</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuElement.hpp">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuElements.hpp">
-      <Filter>Header files\Lib</Filter>
     </ClInclude>
     <ClInclude Include="Control.hpp">
       <Filter>Header files\Controls</Filter>
@@ -872,9 +872,6 @@
     <ClInclude Include="Tune.hpp">
       <Filter>Header files\Tunes</Filter>
     </ClInclude>
-    <ClInclude Include="MenuClass.hpp">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
     <ClInclude Include="LCDFonts.hpp">
       <Filter>Header files\Lib</Filter>
     </ClInclude>
@@ -922,6 +919,15 @@
     </ClInclude>
     <ClInclude Include="PauseObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuElement.hpp">
+      <Filter>Header files\MENU</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuElements.hpp">
+      <Filter>Header files\MENU</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuClass.hpp">
+      <Filter>Header files\MENU</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

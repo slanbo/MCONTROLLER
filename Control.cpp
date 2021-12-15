@@ -224,27 +224,8 @@ void SensorsSocketsControl::init()
 void SensorsSocketsControl::ExecuteStep()
 {
 	
-	aim_val = DPVCollection->getValue(TimeProfileTune->_getVal());
-	uint16_t sum = 0;
-	for (auto sens : SensorsVector)
-	{
-		if (sens->sensorTypeIndex == TERMISTOR_TYPE_INDEX)
-		{
-			NTC_10K_B3950* termistorptr = (NTC_10K_B3950*)sens;
-			sum += termistorptr->getSensorUnits(); 
-		}
-		if (sens->sensorTypeIndex == CO_SENSOR_TYPE_INDEX)
-		{
-			MQ7* cosensptr = (MQ7*)sens;
-			sum += cosensptr->getSensorUnits(); 
-		}
-		if (sens->sensorTypeIndex == LIGHT_SENSOR_TYPE_INDEX)
-		{
-			LightSensor* lightsensptr = (LightSensor*)sens;
-			sum += lightsensptr->getSensorUnits(); 
-		}
-	}
-	current_val = sum / SensorsVector.size();
+	_get_aim_val();
+	_get_current_val();
 	
 	if (isActive())
 	{
@@ -343,11 +324,32 @@ void SensorsSocketsControl::FillScreen()
 
 uint16_t SensorsSocketsControl::_get_aim_val()
 {
+	aim_val = DPVCollection->getValue(TimeProfileTune->_getVal());
 	return aim_val;
 }
 
 uint16_t SensorsSocketsControl::_get_current_val()
 {
+	uint16_t sum = 0;
+	for (auto sens : SensorsVector)
+	{
+		if (sens->sensorTypeIndex == TERMISTOR_TYPE_INDEX)
+		{
+			NTC_10K_B3950* termistorptr = (NTC_10K_B3950*)sens;
+			sum += termistorptr->getSensorUnits(); 
+		}
+		if (sens->sensorTypeIndex == CO_SENSOR_TYPE_INDEX)
+		{
+			MQ7* cosensptr = (MQ7*)sens;
+			sum += cosensptr->getSensorUnits(); 
+		}
+		if (sens->sensorTypeIndex == LIGHT_SENSOR_TYPE_INDEX)
+		{
+			LightSensor* lightsensptr = (LightSensor*)sens;
+			sum += lightsensptr->getSensorUnits(); 
+		}
+	}
+	current_val = sum / SensorsVector.size();
 	return current_val;
 }
 
@@ -581,5 +583,15 @@ uint16_t SensorsSocketsControl::GetDownSocketsPowerVT()
 		if (sock->getSocketState())
 			sum = sum + sock->getLoadpowerVT();
 	return sum;
+	
+}
+
+
+void ControlBase::setOn(bool state)
+{
+	if (state)
+		OnOffTune->_setVal(1);
+	else
+		OnOffTune->_setVal(0);
 	
 }

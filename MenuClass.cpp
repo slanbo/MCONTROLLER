@@ -136,6 +136,26 @@ void Menu::FillScreen()
 		}
 	}		
 	
+	switch (CurrentItemBase->NextItem->NextItem->MenuElementTypeIndex)
+	{
+	case MENU_ELEMENT_TYPE_INDEX:
+		{
+			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem->NextItem;
+			NextItem->fillTextScreenElement(Menu_NextNextString);
+			break;
+		}
+	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
+		{
+			break;
+		}
+	default:
+		{
+			MenuElement* NextItem = (MenuElement*)CurrentItemBase->NextItem->NextItem;
+			NextItem->fillTextScreenElement(Menu_NextNextString);
+			break;
+		}
+	}		
+	
 	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 	
 }

@@ -72,14 +72,14 @@ void ControlsMode::FillScreen()
 		Info_SecondString->FillEndBySpaces();
 		Info_SecondString->_setUpdated(true);
 	
-		Info_ThirdString->SetChars("Нагр. повыш :\0", true);
+		Info_ThirdString->SetChars("Нагр. + :\0", true);
 		Info_ThirdString->SetIntText(sscontrol->GetSocketsPowerVT(), 5);
 		Info_ThirdString->SetChars(blank, false);
 		Info_ThirdString->SetChars("ВТ\0", true);
 		Info_ThirdString->FillEndBySpaces();
 		Info_ThirdString->_setUpdated(true);
 	
-		Info_FourthString->SetChars("Нагр. пониж :\0", true);
+		Info_FourthString->SetChars("Нагр. - :\0", true);
 		Info_FourthString->SetIntText(sscontrol->GetDownSocketsPowerVT(), 5);
 		Info_FourthString->SetChars(blank, false);
 		Info_FourthString->SetChars("ВТ\0", true);
@@ -111,7 +111,7 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
-	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 1, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
 	airTempControl = new SensorsSocketsControl
