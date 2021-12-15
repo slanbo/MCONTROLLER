@@ -402,6 +402,33 @@ void MenuElementIntSelector::fillTextScreenElement(Text_ScreenElement* element)
 		Menu_NextString->selected = false;
 	Menu_NextString->_setUpdated(true);
 	
+	Menu_NextNextString->ClearText();
+	if (Parametr + Step + Step <= MaxVal) 
+		Menu_NextNextString->SetIntText(Parametr + Step + Step, INT_SELECTOR_BLANKS);
+	else
+		Menu_NextNextString->SetIntText(MinVal, INT_SELECTOR_BLANKS);
+	Menu_NextNextString->FillEndBySpaces();
+	if (Tune != nullptr)
+	{
+		if (Parametr + Step + Step <= MaxVal) 
+		{
+			if (Parametr + Step + Step ==  Tune->_getVal())
+				Menu_NextNextString->selected = true;
+			else
+				Menu_NextNextString->selected = false;
+		}
+		else
+		{
+			if (MinVal ==  Tune->_getVal())
+				Menu_NextNextString->selected = true;
+			else
+				Menu_NextNextString->selected = false;
+		}
+	}
+	else
+		Menu_NextNextString->selected = false;
+	Menu_NextNextString->_setUpdated(true);
+	
 }
 
 void MenuElementIntSelector::init()

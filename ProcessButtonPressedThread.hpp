@@ -68,7 +68,7 @@ protected:
 			{
 				SETUP_MODE = 1;
 				
-				mainMenu->CurrentItemBase = &mi_2;
+				mainMenu->CurrentItemBase = &mi_0;
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;

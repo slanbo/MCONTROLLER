@@ -35,6 +35,7 @@ extern intTune coShowControlInfo;
 extern intTune lightShowControlInfo;
 
 extern intTune upSocketLoadPower;
+extern intTune midSocketLoadPower;
 extern intTune downSocketLoadPower;
 extern intTune v12LoadPower;
 	

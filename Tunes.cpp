@@ -38,27 +38,30 @@ void clearTunesInFlash()
 
 void setDefaultTuneVals()
 {
-
-	
 	std::vector<uint16_t> defs = { 0, 0 };
 	
+//sockets load power	
 	
 	upSocketLoadPower._setVal(1000);
 	upSocketLoadPower.save();
 	
-	downSocketLoadPower._setVal(18);
+	downSocketLoadPower._setVal(2000);
 	downSocketLoadPower.save();
 	
-	v12LoadPower._setVal(100);
+	v12LoadPower._setVal(18);
 	v12LoadPower.save();
 	
+	midSocketLoadPower._setVal(18);
+	midSocketLoadPower.save();
+	
+//pcounter	
 		defs[0] = 1;
 		defs[1] = 2;
 		PCounterSockets._setVal(defs);	
 		PCounterSockets.save();
 
-		
-		defs[0] = 2;
+//air		
+		/*defs[0] = 2;
 		defs[1] = 0xffff;
 		airTempControlSensors._setVal(defs);	
 		airTempControlSensors.save();
@@ -71,9 +74,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		airTempControlDownSockets._setVal(defs);
-		airTempControlDownSockets.save();
+		airTempControlDownSockets.save();*/
 	
-		defs[0] = 3;
+	//bat
+		/*defs[0] = 3;
 		defs[1] = 0xffff;
 		batTempControlSensors._setVal(defs);
 		batTempControlSensors.save();
@@ -86,9 +90,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		batTempControlDownSockets._setVal(defs);
-		batTempControlDownSockets.save();
+		batTempControlDownSockets.save();*/
 	
-		defs[0] = 4;
+	//light
+		/*defs[0] = 4;
 		defs[1] = 0xffff;
 		lightControlSensors._setVal(defs);	
 		lightControlSensors.save();
@@ -101,9 +106,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		lightControlDownSockets._setVal(defs);	
-		lightControlDownSockets.save();
+		lightControlDownSockets.save();*/
 	
-		defs[0] = 1;
+	//CO
+		/*defs[0] = 1;
 		defs[1] = 0xffff;
 		COControlSensors._setVal(defs);	
 		COControlSensors.save();
@@ -116,16 +122,20 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		COControlDownSockets._setVal(defs);	
-		COControlDownSockets.save();
+		COControlDownSockets.save();*/
 	
 	//beer
+	beerModeIndex._setVal(0);beerModeIndex.save();	
+	PausesVector.at(2)->saveToTunes();
+	
+	//boiling mashing
 	defs[0] = 2;
 	defs[1] = 3;
 	boilingMashingControlSensors._setVal(defs);	
 	boilingMashingControlSensors.save();
 	
 	defs[0] = 1;
-	defs[1] = 0xffff;
+	defs[1] = 2;
 	boilingMashingControlUpSockets._setVal(defs);	
 	boilingMashingControlUpSockets.save();
 	
@@ -134,26 +144,27 @@ void setDefaultTuneVals()
 	boilingMashingControlDownSockets._setVal(defs);	
 	boilingMashingControlDownSockets.save();
 	
-	beerModeIndex._setVal(0);beerModeIndex.save();	
-	PausesVector.at(2)->saveToTunes();
-	
-	MashingOnOffTune._setVal(1);
+	//mashing	
+	MashingOnOffTune._setVal(0);
 	MashingOnOffTune.save();
 	
-	BoilingOnOffTune._setVal(1);
+	//boiling
+	BoilingOnOffTune._setVal(0);
 	BoilingOnOffTune.save();
 
+	//pump
 	PumpOnOffTune._setVal(1); 
 	PumpOnOffTune.save();
 	
-	defs[0] = 2;
+	PumpMode._setVal(1); 
+	PumpMode.save();
+	
+	defs[0] = 4;
 	defs[1] = 0xffff;
 	pumpControlSockets._setVal(defs);
 	pumpControlSockets.save();
-		
-	PumpMode._setVal(1); 
-	PumpMode.save();
-		
+	
+	//pump periodes
 	SwitchedOnPumpTime._setVal(60); 
 	SwitchedOnPumpTime.save();
 	

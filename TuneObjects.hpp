@@ -23,7 +23,8 @@ intTune LightEdge(&batTempProfileIndex);
 intTune lightControlOnOffTune(&LightEdge);
 intTune LightProfileIndex(&lightControlOnOffTune);
 intTune upSocketLoadPower(&LightProfileIndex);
-intTune downSocketLoadPower(&upSocketLoadPower);
+intTune midSocketLoadPower(&upSocketLoadPower);
+intTune downSocketLoadPower(&midSocketLoadPower);
 intTune v12LoadPower(&downSocketLoadPower);
 
 //intTune dayPCounterFirstByte(&v12LoadPower);

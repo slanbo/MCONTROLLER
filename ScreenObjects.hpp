@@ -125,7 +125,7 @@ Text_ScreenElement* Menu_CurrentString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	FONT_12_MAX_SIMVOLS_IN_STRING - 2);
+	FONT_12_MAX_SIMVOLS_IN_STRING - 3);
 Rect_ScreenElement* Menu_CurrentScreen_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,

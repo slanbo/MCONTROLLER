@@ -328,7 +328,7 @@ void BeerPreparing::FillScreen()
 				Info_SecondString->SetChars( " ", false);
 				Info_SecondString->SetChars( CO, false);
 	
-				Info_SecondString->SetIntText(periodTemp, 4);
+				Info_SecondString->SetIntText(periodTime, 4);
 				Info_SecondString->SetChars(" сек.", true);
 			}
 			

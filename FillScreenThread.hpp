@@ -151,7 +151,7 @@ protected:
 				Buttom_Left->_setUpdated(true);
 				
 				Buttom_Right->ClearText();
-				Buttom_Right->SetChars("Вниз", true);
+				Buttom_Right->SetChars("Вниз ", true);
 				Buttom_Right->_setUpdated(true);
 			}
 			
