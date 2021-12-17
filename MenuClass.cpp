@@ -14,17 +14,24 @@ Menu::Menu(MenuElementBase* currentItem)
 
 void Menu::moveCurrentToChild()
 {
+	
 	if (CurrentItemBase->ChildItem != nullptr)
 	{
 			CurrentItemBase = CurrentItemBase->ChildItem;
 	}	
 	else
 	{
+		if (CurrentItemBase != SelectedItemBase)
+			SelectedItemBase = CurrentItemBase;
+		else
+			SelectedItemBase = nullptr;
+		
 		if (!CurrentItemBase->selected)
 			CurrentItemBase->selected = true;
 		else
 			CurrentItemBase->selected = false;
 	}
+	
 }
 
 void Menu::moveCurrentToParent()
@@ -80,6 +87,10 @@ void Menu::FillScreen()
 		{
 			MenuElement* CurrentItem = (MenuElement*)CurrentItemBase;
 			CurrentItem->fillTextScreenElement(Menu_CurrentString);
+			if (CurrentItemBase == SelectedItemBase)
+				Menu_CurrentString->marked = true;
+			else
+				Menu_CurrentString->marked = false;
 			break;
 		}
 	case INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX:
@@ -163,10 +174,10 @@ void Menu::FillScreen()
 
 void Menu::clearLCD()
 {
-	LCD_DrawFillRectangle(Left_X,
-		Top_Y,
-		Right_X,
-		Bottom_Y,
+	LCD_DrawFillRectangle(1,
+		1,
+		129,
+		129,
 		BackColor);
 }
 

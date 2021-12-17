@@ -97,7 +97,6 @@
     <ClCompile Include="MenuElements.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="MotionControl.cpp" />
-    <ClCompile Include="MixControl.cpp" />
     <ClCompile Include="ScreenElement.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="Core\Src\gpio.c" />
@@ -174,7 +173,6 @@
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c" />
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c" />
     <ClCompile Include="Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c" />
-    <ClCompile Include="DateControl.cpp" />
     <ClCompile Include="Tunes.cpp" />
     <ClCompile Include="Tune.cpp" />
     <ClCompile Include="BaseObject.cpp" />
@@ -183,8 +181,6 @@
     <ClInclude Include="ADCThread.hpp" />
     <ClInclude Include="BeerPause.hpp" />
     <ClInclude Include="BizzerThread.hpp" />
-    <ClInclude Include="ControlObjects.hpp" />
-    <ClInclude Include="ControlObjectsExt.hpp" />
     <ClInclude Include="Devices\Inc\ds1307_for_stm32_hal.h" />
     <ClInclude Include="Devices\Inc\Socket.hpp" />
     <ClInclude Include="ExecuteStepThread.hpp" />
@@ -201,9 +197,7 @@
     <ClInclude Include="PCounterObjectsExt.hpp" />
     <ClInclude Include="PCounterThread.hpp" />
     <ClInclude Include="ProcessButtonPressedThread.hpp" />
-    <ClInclude Include="MixControl.hpp" />
     <ClInclude Include="RenderInfoThread.hpp" />
-    <ClInclude Include="RenderTopBottomThread.hpp" />
     <ClInclude Include="ScreenElement.hpp" />
     <ClInclude Include="ScreenObjects.hpp" />
     <ClInclude Include="ScreenObjectsExt.hpp" />
@@ -222,10 +216,8 @@
     <ClInclude Include="Devices\Inc\Buttons.hpp" />
     <ClInclude Include="Lib\Inc\TimeProfile.hpp" />
     <ClInclude Include="SocketObjectsExt.hpp" />
-    <ClInclude Include="DateControl.hpp" />
     <ClInclude Include="TimeProfileObjects.hpp" />
     <ClInclude Include="TimeProfileObjectsExt.hpp" />
-    <ClInclude Include="TimeProfiles.hpp" />
     <ClInclude Include="TuneObjects.hpp" />
     <ClInclude Include="TuneObjectsExt.hpp" />
     <ClInclude Include="BaseObject.hpp" />

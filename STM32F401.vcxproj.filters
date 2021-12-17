@@ -624,14 +624,8 @@
     <ClCompile Include="MotionControl.cpp">
       <Filter>Source files\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="DateControl.cpp">
-      <Filter>Source files\Controls</Filter>
-    </ClCompile>
     <ClCompile Include="hooks.c">
       <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="MixControl.cpp">
-      <Filter>Source files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="ScreenElement.cpp">
       <Filter>Source files\Screen</Filter>
@@ -767,16 +761,10 @@
     <ClInclude Include="Devices\Inc\Bizzer.hpp">
       <Filter>Header files\Devices</Filter>
     </ClInclude>
-    <ClInclude Include="TimeProfiles.hpp">
-      <Filter>Header files\Lib</Filter>
-    </ClInclude>
     <ClInclude Include="Lib\Inc\TimeProfile.hpp">
       <Filter>Header files\Lib</Filter>
     </ClInclude>
     <ClInclude Include="MotionControl.hpp">
-      <Filter>Header files\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="DateControl.hpp">
       <Filter>Header files\Controls</Filter>
     </ClInclude>
     <ClInclude Include="UsartThread.hpp">
@@ -800,9 +788,6 @@
     <ClInclude Include="ADCThread.hpp">
       <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
-    <ClInclude Include="MixControl.hpp">
-      <Filter>Header files\Controls</Filter>
-    </ClInclude>
     <ClInclude Include="SensorObjects.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
@@ -810,9 +795,6 @@
       <Filter>Header files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="TimeProfileObjects.hpp">
-      <Filter>Header files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlObjects.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ModeObjects.hpp">
@@ -831,9 +813,6 @@
       <Filter>Header files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ScreenObjectsExt.hpp">
-      <Filter>Header files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Lib\Inc\PCounterControl.hpp">
@@ -895,9 +874,6 @@
     </ClInclude>
     <ClInclude Include="ADCDevObjectsExt.hpp">
       <Filter>Header files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTopBottomThread.hpp">
-      <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
     <ClInclude Include="RenderInfoThread.hpp">
       <Filter>Header files\FREERTOSThreads</Filter>

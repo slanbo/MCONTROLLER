@@ -7,8 +7,9 @@
 #include "Auxiliary.hpp"
 #include "Mode.hpp"
 #include "ModeObjectsExt.hpp"
+#include "Bizzer.hpp"
 
-
+extern Bizzer alarmBizzer;
 
 extern Menu* mainMenu;
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
@@ -54,7 +55,6 @@ protected:
 				
 				set_DS_From_RTC();
 				bothButtonsPressCounter -= 1;
-				mainMenu->clearLCD();
 				
 				Info_Header->_setUpdated(true);
 				Info_SubHeader->_setUpdated(true);
@@ -62,6 +62,11 @@ protected:
 				Info_SecondString->_setUpdated(true);
 				Info_ThirdString->_setUpdated(true);
 				Info_FourthString->_setUpdated(true);
+				
+				alarmBizzer.addLevelArray(1);
+				alarmBizzer.addLevelArray(0);
+				
+				mainMenu->clearLCD();
 
 			}
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
@@ -72,6 +77,12 @@ protected:
 				BothButtons_Short_Press.processButtonPress();
 				bothButtonsPressCounter -= 1;
 				processed = true;
+				
+				alarmBizzer.addLevelArray(1);
+				alarmBizzer.addLevelArray(0);
+				
+				mainMenu->clearLCD();
+
 			}
 			if (SETUP_MODE == 1)
 			{
@@ -124,6 +135,15 @@ protected:
 			}
 			if (processed)
 			{
+				mainMenu->FillScreen();
+				
+				Buttom_Left->ClearText();
+				Buttom_Left->SetChars("Вверх", true);
+				Buttom_Left->_setUpdated(true);
+				
+				Buttom_Right->ClearText();
+				Buttom_Right->SetChars("Вниз ", true);
+				Buttom_Right->_setUpdated(true);
 			}
 			//xSemaphoreGive(lcdmut_handle); 
 			

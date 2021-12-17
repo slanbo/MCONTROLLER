@@ -61,7 +61,7 @@ void setDefaultTuneVals()
 		PCounterSockets.save();
 
 //air		
-		/*defs[0] = 2;
+		defs[0] = 2;
 		defs[1] = 0xffff;
 		airTempControlSensors._setVal(defs);	
 		airTempControlSensors.save();
@@ -74,10 +74,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		airTempControlDownSockets._setVal(defs);
-		airTempControlDownSockets.save();*/
+		airTempControlDownSockets.save();
 	
 	//bat
-		/*defs[0] = 3;
+		defs[0] = 3;
 		defs[1] = 0xffff;
 		batTempControlSensors._setVal(defs);
 		batTempControlSensors.save();
@@ -90,10 +90,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		batTempControlDownSockets._setVal(defs);
-		batTempControlDownSockets.save();*/
+		batTempControlDownSockets.save();
 	
 	//light
-		/*defs[0] = 4;
+		defs[0] = 4;
 		defs[1] = 0xffff;
 		lightControlSensors._setVal(defs);	
 		lightControlSensors.save();
@@ -106,10 +106,10 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		lightControlDownSockets._setVal(defs);	
-		lightControlDownSockets.save();*/
+		lightControlDownSockets.save();
 	
 	//CO
-		/*defs[0] = 1;
+		defs[0] = 1;
 		defs[1] = 0xffff;
 		COControlSensors._setVal(defs);	
 		COControlSensors.save();
@@ -122,7 +122,7 @@ void setDefaultTuneVals()
 		defs[0] = 0xffff;
 		defs[1] = 0xffff;
 		COControlDownSockets._setVal(defs);	
-		COControlDownSockets.save();*/
+		COControlDownSockets.save();
 	
 	//beer
 	beerModeIndex._setVal(0);beerModeIndex.save();	
@@ -170,6 +170,17 @@ void setDefaultTuneVals()
 	
 	SwitchedOffPumpTime._setVal(60);
 	SwitchedOffPumpTime.save();
+	
+	/*std::vector<uint16_t> pcdefs = { 0, 0, 0, 0 };
+	
+	dayPCounterVal._setVal(pcdefs);
+	dayPCounterVal.save();
+	
+	nightPCounterVal._setVal(pcdefs);
+	nightPCounterVal.save();*/
+	
+	
+	
 	
 }
 

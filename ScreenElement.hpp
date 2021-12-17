@@ -22,6 +22,7 @@ public:
 	
 	bool selected = false;
 	
+	
 protected:
 	
 };
@@ -36,11 +37,25 @@ public:
 	
 	BaseScreenElement(uint8_t left_x,
 		uint8_t top_y,
+		screenStyle * mainStyle,
+		screenStyle * selectedStyle,
+		screenStyle * markedStyle);
+	
+	BaseScreenElement(uint8_t left_x,
+		uint8_t top_y,
 		uint8_t right_x,
 		uint8_t bottom_y,
 		screenStyle * mainStyle,
 		screenStyle * selectedStyle);
 	
+	BaseScreenElement(uint8_t left_x,
+		uint8_t top_y,
+		uint8_t right_x,
+		uint8_t bottom_y,
+		screenStyle * mainStyle,
+		screenStyle * selectedStyle,
+		screenStyle * markedStyle);
+		
 	~BaseScreenElement();
 	
 	virtual void Render() = 0;
@@ -54,6 +69,10 @@ public:
 	screenStyle * MainStyle;
 	screenStyle * SelectedStyle;
 
+	bool marked = false;
+	screenStyle * MarkedStyle = nullptr;
+	
+	
 	bool _getUpdated();
 	void _setUpdated(bool Updated);
 protected:
@@ -70,6 +89,14 @@ public:
 						screenStyle * mainStyle,
 						screenStyle * selectedStyle,
 						const uint8_t maxLenght);
+	
+	Text_ScreenElement(uint8_t left_x,
+		uint8_t top_y,
+		screenStyle * mainStyle,
+		screenStyle * selectedStyle,
+		screenStyle * markedStyle,
+		const uint8_t maxLenght);
+	
 	~Text_ScreenElement();
 	
 	virtual void Render();

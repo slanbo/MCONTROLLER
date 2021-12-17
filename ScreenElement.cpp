@@ -16,6 +16,20 @@ BaseScreenElement::BaseScreenElement(uint8_t left_x,
 
 BaseScreenElement::BaseScreenElement(uint8_t left_x, 
 	uint8_t top_y, 
+	screenStyle * mainStyle,
+	screenStyle * selectedStyle,
+	screenStyle * markedStyle)
+	: MainStyle(mainStyle)
+	, Left_X(left_x)
+	, Top_Y(top_y)
+	, SelectedStyle(selectedStyle)
+	, MarkedStyle(markedStyle)
+	
+{
+}
+
+BaseScreenElement::BaseScreenElement(uint8_t left_x, 
+	uint8_t top_y, 
 	uint8_t right_x, 
 	uint8_t bottom_y, 
 	screenStyle * mainStyle,
@@ -29,6 +43,24 @@ BaseScreenElement::BaseScreenElement(uint8_t left_x,
 {
 }
 
+BaseScreenElement::BaseScreenElement(uint8_t left_x, 
+	uint8_t top_y, 
+	uint8_t right_x, 
+	uint8_t bottom_y, 
+	screenStyle * mainStyle,
+	screenStyle * selectedStyle,
+	screenStyle * markedStyle)
+	: Left_X(left_x)
+	, Top_Y(top_y)
+	, Right_X(right_x)
+	, Bottom_Y(bottom_y)
+	, MainStyle(mainStyle)
+	, SelectedStyle(selectedStyle)
+	, MarkedStyle(markedStyle)
+{
+}
+
+
 
 BaseScreenElement::~BaseScreenElement()
 {
@@ -40,6 +72,19 @@ Text_ScreenElement::Text_ScreenElement(uint8_t left_x,
 	screenStyle * selectedStyle,
 	const uint8_t maxLenght)
 	: BaseScreenElement(left_x, top_y, mainStyle, selectedStyle) 
+	, MaxLenght(maxLenght)
+{
+	
+}
+
+Text_ScreenElement::Text_ScreenElement(uint8_t left_x, 
+	uint8_t top_y, 
+	screenStyle * mainStyle,
+	screenStyle * selectedStyle,
+	screenStyle * maekedStyle,
+	
+	const uint8_t maxLenght)
+	: BaseScreenElement(left_x, top_y, mainStyle, selectedStyle, maekedStyle) 
 	, MaxLenght(maxLenght)
 {
 }
@@ -55,6 +100,11 @@ void Text_ScreenElement::Render()
 		screenStyle* currentStyle = MainStyle;
 		if (selected)
 			currentStyle = SelectedStyle;
+		
+		
+		if (marked)
+			if(MarkedStyle != nullptr)
+			currentStyle = MarkedStyle;
 	
 		uint8_t deltaLenght = 0;
 	

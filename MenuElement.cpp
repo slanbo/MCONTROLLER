@@ -319,6 +319,7 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 	}
 	else
 		element->selected = false;	
+	
 	element->FillEndBySpaces();
 	element->_setUpdated(true);
 }

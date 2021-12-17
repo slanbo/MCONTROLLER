@@ -144,15 +144,6 @@ protected:
 			}
 			else
 			{
-				mainMenu->FillScreen();
-				
-				Buttom_Left->ClearText();
-				Buttom_Left->SetChars("Вверх", true);
-				Buttom_Left->_setUpdated(true);
-				
-				Buttom_Right->ClearText();
-				Buttom_Right->SetChars("Вниз ", true);
-				Buttom_Right->_setUpdated(true);
 			}
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

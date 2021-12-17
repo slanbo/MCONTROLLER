@@ -57,7 +57,7 @@ MenuElement mi_30(&mi_3, &mi_29, "Угарн. газ");
 MenuElement mi_31(&mi_3, &mi_30, "Освещенность");
 
 //"Температ. возд."
-MenuElement mi_32(&mi_28, &mi_31, "Фиксир. t", 3, &airTempProfileIndex);
+MenuElement mi_32(&mi_28, &mi_31, "Фиксир. t", 3, &airTempControlTimeProfile);
 MenuElementIntSelector mi_33(&mi_32, &mi_32, "Знач. температуры", 0, 0, 35, 1, &airFixTemp);
 	
 MenuElement mi_34(&mi_28, &mi_33, "Присутствие", 0, &airTempControlTimeProfile);
@@ -83,7 +83,7 @@ MenuElement mi_46(&mi_44, &mi_45, "Выключить", 0, &batTempControlOnOffT
 
 	
 //"Угарный газ"
-MenuElement mi_47(&mi_30, &mi_46, "Ноль. уров. CO");
+MenuElement mi_47(&mi_30, &mi_46, "Ноль. уров. CO", 0, &COControlTimeProfile);
 MenuElementIntSelector mi_48(&mi_47, &mi_47, "Опасн. ур. CO", 0, 0, 200, 1, &CODangerLevel);
 	
 MenuElement mi_49(&mi_30, &mi_48, "Вкл./Выкл");
@@ -111,11 +111,10 @@ MenuElementIntSelector mi_62(&mi_61, &mi_61, "Анализ за сек.", 2, 0, 
 //приготовление пива
 //mashing
 MenuElement mi_63(&mi_4, &mi_62, "Темп. паузы", 0, &beerModeIndex);
-	
 
-MenuElement mi_Pause__45_52_68_72_79(&mi_63, &mi_63, "45_52_68_72_79", 1, restorePauses);
-MenuElement mi_Pause__62_68_72_81(&mi_63, &mi_Pause__45_52_68_72_79, "62_68_72_81", 2, restorePauses);
-MenuElement mi_Pause__30_100c(&mi_63, &mi_Pause__62_68_72_81, "30_100c", 3, restorePauses);
+MenuElement mi_Pause__45_52_68_72_79(&mi_63, &mi_63, "45|48|57|62|70|79", 1, restorePauses);
+MenuElement mi_Pause__62_68_72_81(&mi_63, &mi_Pause__45_52_68_72_79, "48|57|68|79", 2, restorePauses);
+MenuElement mi_Pause__30_100c(&mi_63, &mi_Pause__62_68_72_81, "20_20c", 3, restorePauses);
 
 MenuElement mi_StartFromBegin(&mi_63, &mi_Pause__30_100c, "Старт с начала", 1, startPauses);
 MenuElement mi_StartFromSaved(&mi_63, &mi_StartFromBegin, "Продолжить", 2, startPauses);
@@ -185,13 +184,14 @@ MenuElementIntSelector mi_93(&mi_92, &mi_92, "П6 время", 1, 0, 7200, 100, 
 MenuElement p6_onoff(&mi_89, &mi_93, "Вкл/Выкл");
 MenuElement p6_on(&p6_onoff, &p6_onoff, "Вкл", 1, &mashingPause6Active);
 MenuElement p6_off(&p6_onoff, &p6_on, "Выкл", 0, &mashingPause6Active);
-
-	
 	
 MenuElement mi_94(&mi_4, &p6_off, "Варка", 1, &beerModeIndex);
+MenuElement mi_BoilingPause_98_15_98_60_98_60(&mi_94, &mi_94, "10|60|10", 4, restorePauses);
+MenuElement mi_BoilingStartFromBegin(&mi_94, &mi_BoilingPause_98_15_98_60_98_60, "Старт с начала", 1, startPauses);
+MenuElement mi_BoilingStartFromSaved(&mi_94, &mi_BoilingStartFromBegin, "Продолжить", 2, startPauses);
 
 //boiling Pause 1
-MenuElement mi_95(&mi_94, &mi_94, "П1:", 1, AddBoilingPauseDescription);
+MenuElement mi_95(&mi_94, &mi_BoilingStartFromSaved, "П1:", 1, AddBoilingPauseDescription);
 MenuElement mi_96(&mi_95, &mi_95, "П1 темп.", 1, AddChildTuneValue);
 MenuElementIntSelector mi_97(&mi_96, &mi_96, "П1 температ.", 1, 0, 100, 5, &boilingPause1Temp);
 MenuElement mi_98(&mi_95, &mi_97, "П1 время", 1, AddChildTuneValue);
@@ -288,7 +288,7 @@ MenuElement mi_137(&mi_125, &mi_136, "Вкл/Выкл");
 MenuElement mi_138(&mi_137, &mi_137, "Включить", 1, &delayEndOnOffTune);
 MenuElement mi_139(&mi_137, &mi_138, "Выключить", 0, &delayEndOnOffTune);
 	
-	
+/*	
 //контроль сушки
 MenuElement mi_140(&mi_5, &mi_139, "Температ. возд.");
 MenuElement mi_141(&mi_140, &mi_140, "Фиксированная t", 0, &dryingAirTempProfileIndex);
@@ -344,6 +344,6 @@ MenuElement mi_176(&mi_175, &mi_175, "Включен", 1, &longPeriodMotionContr
 MenuElement mi_177(&mi_175, &mi_176, "Выключен", 0, &longPeriodMotionControlOnOffTune);
 
 MenuElement mi_178(&mi_174, &mi_177, "Анализ. движ за.");
-MenuElementIntSelector mi_179(&mi_178, &mi_178, "Время сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &longPeriodOnIfMotionPeriod);
+MenuElementIntSelector mi_179(&mi_178, &mi_178, "Время сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &longPeriodOnIfMotionPeriod);*/
 
 #endif

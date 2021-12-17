@@ -189,7 +189,7 @@ void TimePeriodValue::Reset()
 
 bool TimePeriodValue::Completed()
 {
-	return StayOnTimeTune->_getVal() >= TimeTune->_getVal();
+	return StayOn >= TimeTune->_getVal();
 }
 
 bool TimePeriodValue::isActive()

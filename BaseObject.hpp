@@ -2,7 +2,7 @@
 #define __BASEBaseObject__H
 
 //#include "main.h"
-#include <string>
+//#include <string>
 
 class BaseObject
 {

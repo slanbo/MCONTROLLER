@@ -515,7 +515,11 @@ static uint16_t EE_VerifyPageFullWriteVariable(uint16_t VirtAddress, uint16_t Da
       /* If program operation was failed, a Flash error code is returned */
       if (HalFlashStatus != HAL_OK)
       {
-        return HalFlashStatus;
+	      HalFlashStatus = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, Address, Data);  
+	      if (HalFlashStatus != HAL_OK)
+	      {
+		      return HalFlashStatus;
+	      }
       }
       /* Set variable virtual address */
 	  HalFlashStatus = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, Address + 2, VirtAddress);  

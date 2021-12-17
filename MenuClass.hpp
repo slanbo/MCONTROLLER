@@ -47,7 +47,8 @@ public:
 	virtual void clearLCD();
 	
 	MenuElementBase* CurrentItemBase;
-	
+	MenuElementBase* SelectedItemBase;
+
 private:
 	
 };

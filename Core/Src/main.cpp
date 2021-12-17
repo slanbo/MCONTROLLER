@@ -101,8 +101,6 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "TimeProfileObjects.hpp"
 //+++++++++++++++++ PAUSES ++++++++++++++++++++++++++
 #include "PauseObjects.hpp"
-//++++++++++++++++ CONTROLS ++++++++++++++++++++++++++
-#include "ControlObjects.hpp"
 //+++++++++++++ MODES ++++++++++++++++
 #include "ModeObjects.hpp"
 //++++++++++++++++++ MENU ++++++++++++++++++++++++++++++++
@@ -113,7 +111,6 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
 #include "RenderInfoThread.hpp"
-#include "RenderTopBottomThread.hpp"
 #include "FillScreenThread.hpp"
 #include "ADCThread.hpp"
 #include "MotionDetectionThread.hpp"
@@ -142,13 +139,11 @@ ExecuteModeStep ems("ems", 4, EXECUTE_STEP_PERIOD_SEC, 5);
 processButtonsPressed pbp("pbp", 6, EXECUTE_STEP_PERIOD_SEC, 4);
 getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
 menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
-bizzerExecuteStep bes("bes", 8, 100, 1);
-
-
+bizzerExecuteStep bes("bes", 8, 100, 7);
 PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 
- SemaphoreHandle_t lcdmut_handle;
-
+SemaphoreHandle_t lcdmut_handle;
+SemaphoreHandle_t flashmut_handle;
 
  Menu* mainMenu;
 
@@ -161,8 +156,6 @@ PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
   */
 int main(void)
 {
-	
-	
 	/* USER CODE BEGIN 1 */
 	
 
@@ -196,10 +189,6 @@ int main(void)
 	MX_SPI1_Init();
 	/* USER CODE BEGIN 2 */
 	
-	/*HAL_GPIO_WritePin(SSD1_GPIO_Port, SSD1_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(SSD2_GPIO_Port, SSD2_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(SSD3_GPIO_Port, SSD3_Pin, GPIO_PIN_SET); //down socket
-	HAL_GPIO_WritePin(Socket12V_GPIO_Port, Socket12V_Pin, GPIO_PIN_SET);*/
 	
 	HAL_TIM_Base_Start(&htim1);
 	
@@ -227,7 +216,6 @@ int main(void)
 //#endif //USE_DS3231 
 	
 	set_RTC_From_DS();
-		
 	
 	//INITS 
 	Lcd_Init();	
@@ -242,15 +230,18 @@ int main(void)
 	EE_Init();
 	HAL_FLASH_Lock();
 		
+	lcdmut_handle = xSemaphoreCreateMutex();
+	xSemaphoreGive(lcdmut_handle);
+	
+	flashmut_handle = xSemaphoreCreateMutex();
+	xSemaphoreGive(flashmut_handle);
+	
 	readTunesFromFlash();
 	setDefaultTuneVals();
-	
-	postInitStaticMenuElements(&mi_167);
+	postInitStaticMenuElements(&mi_139);
 	
 	ModeObjectsInit();
 	mainMenu = new Menu(&mi_0);
-	
-	lcdmut_handle = xSemaphoreCreateMutex();
 	
 	mashingDVPC->RestorePeriodsStates(0xff);
 	boilingTempDVPC->RestorePeriodsStates(0xff);

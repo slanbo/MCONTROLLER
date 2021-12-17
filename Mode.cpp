@@ -53,6 +53,11 @@ void ControlsMode::FillScreen()
 		Info_Header->_setUpdated(true);
 	
 		Info_SubHeader->SetChars(controlsVector.at(currentControlIndex)->Name, false);
+		if (controlsVector.at(currentControlIndex)->isOn())
+			Info_SubHeader->SetChars(" +", true);
+		else
+			Info_SubHeader->SetChars(" -", true);
+		
 		Info_SubHeader->FillEndBySpaces();
 		Info_SubHeader->_setUpdated(true);
 	
@@ -111,7 +116,7 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
-	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 1, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
 	airTempControl = new SensorsSocketsControl
@@ -147,7 +152,7 @@ Habitat::Habitat(uint16_t ID,
 		batTempDVPC);
 	
 	PeriodValuesCollection* CODVPC = new PeriodValuesCollection(DATE_PERIOD);
-	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
 	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
 	coControl = new SensorsSocketsControl
@@ -162,7 +167,7 @@ Habitat::Habitat(uint16_t ID,
 		CODVPC);	
 	
 	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection(DATE_PERIOD);
-	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &LightEdge);
+	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge);
 	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
 	
 	lightControl = new SensorsSocketsControl
@@ -302,17 +307,15 @@ void BeerPreparing::FillScreen()
 			char strstate[] = "";
 			char strperiod[] = "";
 			
-			
-			
 			uint8_t currtpindex = sscontrol->DPVCollection->getCurrentPeriodIndex();
-			TimePeriodValue* tpValue = (TimePeriodValue*)sscontrol->DPVCollection->periodValues.at(currtpindex);
 			
-			uint16_t periodTime;
-			uint16_t periodTemp;
-			uint16_t StayOnTime;
+			uint16_t periodTime = 0;
+			uint16_t periodTemp = 0;
+			uint16_t StayOnTime = 0;
 			
 			if (currtpindex != 0xff)
 			{
+				TimePeriodValue* tpValue = (TimePeriodValue*)sscontrol->DPVCollection->periodValues.at(currtpindex);
 				periodTime = tpValue->TimeTune->_getVal();
 				periodTemp = tpValue->Tune->_getVal();
 				StayOnTime = tpValue->getStayOnTime();

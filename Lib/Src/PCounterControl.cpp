@@ -9,6 +9,8 @@
 #include "TuneObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
 
+extern SemaphoreHandle_t flashmut_handle;
+
 PCounterControl::PCounterControl(
 	std::string name,
 	intTune* onOffTune,
@@ -72,8 +74,12 @@ void PCounterControl::ExecuteStep()
 		}
 		uint16_t add_vt_hour = 0;
 		if (lastExecuteStepPower == currpower)
+		{
 			VT_Seconds = VT_Seconds + currpower * (curSeconds - lastExecuteStepSeconds);
-		
+		}
+		lastExecuteStepPower = currpower;
+		lastExecuteStepSeconds = curSeconds;
+
 		if (curSeconds - lastWriteFlashSeconds >= WRITE_FLASHE_PERIOD_SECONDS)
 		{
 
@@ -81,19 +87,23 @@ void PCounterControl::ExecuteStep()
 			lastWriteFlashSeconds = curSeconds;
 			
 		}
-		lastExecuteStepSeconds = curSeconds;
 	}
 }
 
 void PCounterControl::saveToFlash()
 {
+	
+	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
 	HAL_FLASH_Unlock();
 	uint16_t status = EE_Write_Int64(ValTune->getFlashAddress(), VT_Seconds);
 	HAL_FLASH_Lock();
+	xSemaphoreGive(flashmut_handle);
 }
 
 void PCounterControl::restoreFromFlash()
 {
+	uint64_t clval = 1;
+
 	VT_Seconds = EE_Read_Int64(ValTune->getFlashAddress());
 }
 

@@ -1,7 +1,8 @@
 #include "Tune.hpp"
+#include "FreeRTOS.h"
+#include "semphr.h"
 
-
-
+extern SemaphoreHandle_t flashmut_handle;
 
 //########################### flash tune
 uint16_t FlashTune::clear()
@@ -9,10 +10,12 @@ uint16_t FlashTune::clear()
 	uint16_t Status = 0;
 	for (uint8_t i = 0; i < size; i++)
 	{
+		xSemaphoreTake(flashmut_handle, portMAX_DELAY);
 		HAL_FLASH_Unlock();
 		Status = EE_WriteVariable(FlashAddress + i, 0);
 		HAL_FLASH_Lock();
-	}
+		xSemaphoreGive(flashmut_handle);
+		}
 	return Status;
 }
 
@@ -68,11 +71,13 @@ intTune::intTune(FlashTune * prevFlashTune)
 uint16_t intTune::save()
 {
 	uint16_t Status;
+	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
 	HAL_FLASH_Unlock();
 	Status = EE_WriteVariable(FlashAddress, val);
 	HAL_FLASH_Lock();
-	//val = 0;
-	//Status = EE_ReadVariable(FlashAddress, &val);
+	xSemaphoreGive(flashmut_handle);
+
+	
 	return Status;
 }
 
@@ -243,17 +248,17 @@ uint16_t IntVectorTune::save()
 	uint16_t Status;
 	uint16_t readval = 0;
 	
+	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
 	HAL_FLASH_Unlock();
 	uint8_t offset = 0;
 	for (auto item : val)
 	{
 		Status = EE_WriteVariable(FlashAddress + offset, item);
-		Status = EE_ReadVariable(FlashAddress + offset, &readval);
-		
 		offset++;
 	}
-	
 	HAL_FLASH_Lock();
+	xSemaphoreGive(flashmut_handle);
+	
 	return Status;
 	
 }

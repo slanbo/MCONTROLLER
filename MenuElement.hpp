@@ -4,6 +4,7 @@
 #include <string>
 #include "TuneObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
+#include "BaseObject.hpp"
 
 
 #define NAME_LENGHT 32
@@ -13,7 +14,7 @@
 using BaseItemLPfnc = bool(*)();
 using IntParamfnc = bool(*)(uint16_t* param);
 
-class MenuElementBase
+class MenuElementBase : public BaseObject
 {
 public:
 	
@@ -41,7 +42,7 @@ public:
 	virtual void init() = 0;
 	
 	
-	char Name[NAME_LENGHT] = { 0 };
+	//char Name[NAME_LENGHT] = { 0 };
 	
 	BaseItemLPfnc DownLongPressFnc = nullptr;
 	MenuElementBase* PrevInListItem = nullptr;
@@ -125,6 +126,7 @@ public:
 		std::string name,
 		IntParamfnc onSelectFnc,
 		IntParamfnc downLongPressFnc);	
+	
 	void invokeDownLongPress();
 	void invokeOnSelect();
 	

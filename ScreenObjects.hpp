@@ -1,13 +1,11 @@
-//#ifndef __SCREENOBJECTS__H
-//#define __SCREENOBJECTS__H
+#ifndef __SCREENOBJECTS__H
+#define __SCREENOBJECTS__H
 
 #include "ScreenElement.hpp"
 #include "Lcd_Driver.h"
 #include <vector>
 #include "LCDFonts.hpp"
 #include "mutex.hpp"
-
-
 
 #define VERTICAL_SCREEN_SIZE 130
 #define HORIZONTAL_SCREEN_SIZE 130
@@ -125,7 +123,8 @@ Text_ScreenElement* Menu_CurrentString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
-	FONT_12_MAX_SIMVOLS_IN_STRING - 3);
+	&RED_BLACK_VERANDA12,
+	FONT_12_MAX_SIMVOLS_IN_STRING - 2);
 Rect_ScreenElement* Menu_CurrentScreen_Border = new Rect_ScreenElement(
 	SCREEN_GAP - BORDER_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,
@@ -181,13 +180,6 @@ void getRectCoordinates(std::vector<BaseScreenElement*> &screen, uint8_t &left_x
 	
 }
 
-//char prefixStr[FONT_12_MAX_SIMVOLS_IN_STRING];
-
-//void* mutptr = pvPortMalloc(sizeof(cpp_freertos::MutexStandard));
 
 
-//cpp_freertos::MutexStandard* lcd_mutex =   new(mutptr)cpp_freertos::MutexStandard();
-
-
-
-//#endif
+#endif

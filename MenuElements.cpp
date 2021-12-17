@@ -9,9 +9,13 @@
 #include "PauseObjectsExt.hpp"
 #include "TimeProfileObjectsExt.hpp"
 #include "ModeObjectsExt.hpp"
+#include "FreeRTOS.h"
 
-#ifdef _MENU_
+//#ifdef _MENU_
 //extern MenuElement menuElements[MENU_ITEMS_QUANT];
+
+extern SemaphoreHandle_t flashmut_handle;
+
 
 extern std::vector < MenuElement *> menuElements;
 
@@ -59,6 +63,7 @@ bool restorePauses(uint16_t* param)
 	PausesVector.at(*param - 1)->saveToTunes();
 	mashingDVPC->ResetPeriodes();
 	boilingTempDVPC->ResetPeriodes();
+	
 	
 	return true;
 }
@@ -157,11 +162,12 @@ bool restoreDelayEndTunes(uint16_t* param)
 
 bool clearCounters(uint16_t* param)
 {
-	
+	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
 	HAL_FLASH_Unlock();
-	uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 0);
-	status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 0);
+	uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 1);
+	status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 1);
 	HAL_FLASH_Lock();
+	xSemaphoreGive(flashmut_handle);
 	
 	RTC_TimeTypeDef sTime = { 0 };
 	RTC_DateTypeDef sDate = { 0 };
@@ -475,4 +481,4 @@ bool ChangePumpMode(uint16_t* param)
 }
 ;
 
-#endif
+//#endif
