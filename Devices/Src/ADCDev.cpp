@@ -4,7 +4,7 @@
 #include "semphr.h"
 #include "task.h"
 
-ADCDev::ADCDev(uint16_t id, std::string name) : BaseObject(id, name)
+ADCDev::ADCDev(uint16_t id, const char* name) : BaseObject(id, name)
 {
 }
 ;

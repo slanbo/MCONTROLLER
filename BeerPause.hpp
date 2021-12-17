@@ -18,7 +18,7 @@ class Pause : public BaseObject
 {
 public:
 	
-	Pause(uint16_t ID, std::string name, uint8_t temperature, uint16_t time);
+	Pause(uint16_t ID, const char* name, uint8_t temperature, uint16_t time);
 	
 	uint8_t Temperature = 0;
 	uint16_t Time = 0;
@@ -28,7 +28,7 @@ public:
 class Pauses : public BaseObject
 {
 public:
-	Pauses(uint16_t ID, std::string name, pausestype type, std::vector<Pause*>& pausesVector);
+	Pauses(uint16_t ID, const char* name, pausestype type, std::vector<Pause*>& pausesVector);
 	std::vector<Pause*>& PausesVector;
 	void saveToTunes();
 	

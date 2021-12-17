@@ -17,7 +17,7 @@ class RenderInfoScreen : public Thread {
 
 public:
 
-	RenderInfoScreen(string name, 
+	RenderInfoScreen(const char* name, 
 		int i, 
 		int delayInSeconds, 
 		UBaseType_t Priority)

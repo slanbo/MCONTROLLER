@@ -33,7 +33,7 @@ public:
 	
 	uint64_t VT_Seconds = 0;
 	
-	PCounterControl(std::string name,
+	PCounterControl(const char* name,
 		intTune* onOffTune,
 		IntVectorTune* socketsTune, 
 		IntVectorTune*  valTune,

@@ -22,7 +22,7 @@ class processButtonsPressed : public Thread {
 
 public:
 
-	processButtonsPressed(string name, 
+	processButtonsPressed(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

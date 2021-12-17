@@ -16,7 +16,7 @@ private:
 public:
 	
 	plugSocket(uint16_t id,
-		std::string name,
+		const char* name,
 		GPIO_TypeDef* gPIOx,
 		uint16_t gPIO_Pin,
 		intTune &loadPowerVTTune);

@@ -1,12 +1,11 @@
 #include "TimeProfile.hpp"
 #include "rtc.h"
 #include "Auxiliary.hpp"
-#include <string>
 #include "time.h"
 
 DatePeriodValue::DatePeriodValue(
 	uint16_t ID,
-	std::string name,
+	const char* name,
 	uint8_t variant,
 	uint8_t hourBegin, 
 	uint8_t minuteBegin, 
@@ -133,7 +132,7 @@ PeriodValuesCollection::PeriodValuesCollection(PeriodType type)
 
 
 PeriodValue::PeriodValue(uint16_t ID, 
-	std::string name, 
+	const char* name, 
 	intTune* valTune)
 	: BaseObject(ID, name)
 	, Tune(valTune)
@@ -150,7 +149,7 @@ intTune* PeriodValue::_getTune()
 
 TimePeriodValue::TimePeriodValue(
 	uint16_t ID,
-	std::string name,
+	const char* name,
 	intTune* tune, 
 	intTune* timeTune,
 	intTune* stateTune,

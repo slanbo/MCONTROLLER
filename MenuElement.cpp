@@ -1,35 +1,27 @@
 #include "MenuElement.hpp"
 #include "Auxiliary.hpp"
-#include "string.h"
 
 
 //base
-MenuElementBase::MenuElementBase(std::string name,
+MenuElementBase::MenuElementBase(const char* name,
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem)
-	: ParentItem(parentItem)
+	: BaseObject(name)
+	, ParentItem(parentItem)
 	, PrevInListItem(prevInListItem)	
 {
-	for (uint8_t i = 0; i < NAME_LENGHT; i++)
-	{
-		if (name.c_str()[i] != 0)
-			Name[i] = name.c_str()[i];
-	}
 }
 
-MenuElementBase::MenuElementBase(std::string name,
+MenuElementBase::MenuElementBase(const char* name,
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem,
 	BaseItemLPfnc downLongPressFnc)
-	: ParentItem(parentItem)
+	: BaseObject(name)
+	, ParentItem(parentItem)
 	, PrevInListItem(prevInListItem)
 	, DownLongPressFnc(downLongPressFnc)
 {
-	for (uint8_t i = 0; i < NAME_LENGHT; i++)
-	{
-		if (name.c_str()[i] != 0)
-			Name[i] = name.c_str()[i];
-	}
+	
 }
 
 MenuElementBase* MenuElementIntSelector::GetPrevItem()
@@ -54,7 +46,7 @@ MenuElementBase* MenuElementIntSelector::GetNextItem()
 
 void MenuElementBase::FillScreen()
 {
-	char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
+	/*char str[MAX_CHARS_IN_SCREEN * 2] = { 0 };
 	
 	Menu_Header->SetText("Меню настроек:", 16);
 	
@@ -68,7 +60,7 @@ void MenuElementBase::FillScreen()
 	Menu_SubHeader->SetText(str, 16);
 	Menu_PrevString->SetText(PrevItem->Name, 16);
 	Menu_CurrentString->SetText(Name, 16);
-	Menu_NextString->SetText(NextItem->Name, 16);
+	Menu_NextString->SetText(NextItem->Name, 16);*/
 	
 }
 
@@ -95,7 +87,7 @@ void MenuElementBase::invokeOnSelect()
 MenuElement::MenuElement( 
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name)
+	const char* name)
 	: MenuElementBase(name,
 	parentItem, 
 	prevInListItem)
@@ -105,7 +97,7 @@ MenuElement::MenuElement(
 
 MenuElement::MenuElement(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	IntParamfnc downLongPressFnc)
 	:MenuElementBase(name,
 	parentItem, 
@@ -117,7 +109,7 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 
 MenuElement::MenuElement(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name,
+	const char* name,
 	uint16_t parametr, 
 	IntParamfnc downLongPressFnc)
 	: MenuElementBase(name,
@@ -131,7 +123,7 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 
 MenuElement::MenuElement(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	IntParamfnc onSelectFnc,
 	IntParamfnc downLongPressFnc)
 	: MenuElementBase(name,
@@ -146,7 +138,7 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 MenuElement::MenuElement( 
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name,
+	const char* name,
 	uint16_t parametr, 
 	intTune* tune)
 	: MenuElementBase(name,
@@ -162,7 +154,7 @@ MenuElement::MenuElement(
 MenuElement::MenuElement( 
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name,
+	const char* name,
 	uint16_t parametr, 
 	GetNameEndfnc addNameEndFnc)
 	: MenuElementBase(name,
@@ -179,7 +171,7 @@ MenuElement::MenuElement(
 MenuElement::MenuElement(
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	IntParamfnc downLongPressFnc, 
 	uint16_t parametr, 
 	intTune* tune)
@@ -196,7 +188,7 @@ MenuElement::MenuElement(
 MenuElement::MenuElement(
 	MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	IntParamfnc onSelectFnc,
 	IntParamfnc downLongPressFnc, 
 	uint16_t parametr, 
@@ -238,7 +230,7 @@ void MenuElement::invokeOnSelect()
 
 MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	uint16_t initVal, 
 	uint16_t minVal, 
 	uint16_t maxVal, 
@@ -256,7 +248,7 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 
 MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	uint16_t initVal, 
 	uint16_t minVal, 
 	uint16_t maxVal, 
@@ -274,7 +266,7 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 
 MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem, 
 	MenuElementBase* prevInListItem, 
-	std::string name, 
+	const char* name, 
 	uint16_t initVal, 
 	uint16_t minVal, 
 	uint16_t maxVal, 

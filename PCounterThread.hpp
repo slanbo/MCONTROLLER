@@ -11,7 +11,7 @@ class PCountersExecuteStep : public Thread {
 
 public:
 
-	PCountersExecuteStep(string name, 
+	PCountersExecuteStep(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

@@ -1,5 +1,5 @@
 #include "PCounterControl.hpp"
-#include <string.h>
+//#include <string.h>
 #include "rtc.h"
 #include "eeprom.h"
 #include "utf8_to_cp1251.h"
@@ -12,7 +12,7 @@
 extern SemaphoreHandle_t flashmut_handle;
 
 PCounterControl::PCounterControl(
-	std::string name,
+	const char* name,
 	intTune* onOffTune,
 	IntVectorTune* socketsTune, 
 	IntVectorTune*  valTune,

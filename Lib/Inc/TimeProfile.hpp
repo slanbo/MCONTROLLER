@@ -31,8 +31,8 @@ class PeriodValue: public BaseObject
 {
 private:
 public:
-	PeriodValue(uint16_t ID, std::string name, uint16_t val);
-	PeriodValue(uint16_t ID, std::string name, intTune* valTune);
+	PeriodValue(uint16_t ID, const char* name, uint16_t val);
+	PeriodValue(uint16_t ID, const char* name, intTune* valTune);
 	
 	intTune* _getTune();
 	
@@ -52,7 +52,7 @@ public:
 	
 	DatePeriodValue(
 		uint16_t ID,
-		std::string name,
+		const char* name,
 		uint8_t variant,
 		uint8_t hourBegin,
 		uint8_t minuteBegin,
@@ -103,7 +103,7 @@ public:
 	
 	TimePeriodValue(
 		uint16_t ID,
-		std::string name,
+		const char* name,
 		intTune* tune,
 		intTune* timeTune,
 		intTune* stateTune,

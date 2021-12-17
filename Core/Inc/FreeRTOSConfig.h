@@ -153,7 +153,8 @@ standard names. */
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
 #define configCHECK_FOR_STACK_OVERFLOW     1
-
+#define	CPP_FREERTOS_NO_CPP_STRINGS
+#define	CPP_FREERTOS_NO_EXCEPTIONS
 
 /* USER CODE END Defines */
 

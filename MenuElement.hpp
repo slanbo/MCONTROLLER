@@ -1,7 +1,6 @@
 #ifndef __MENUELEMENT__H
 #define __MENUELEMENT__H
 
-#include <string>
 #include "TuneObjectsExt.hpp"
 #include "ScreenObjectsExt.hpp"
 #include "BaseObject.hpp"
@@ -18,11 +17,11 @@ class MenuElementBase : public BaseObject
 {
 public:
 	
-	MenuElementBase(std::string name,
+	MenuElementBase(const char* name,
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem);
 	
-	MenuElementBase(std::string name,
+	MenuElementBase(const char* name,
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
 		BaseItemLPfnc downLongPressFnc);
@@ -70,13 +69,13 @@ public:
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name
+		const char* name
 		);
 	
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t parametr, 
 		intTune* tune
 		);
@@ -84,14 +83,14 @@ public:
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t parametr, 
 		GetNameEndfnc addNameEndFnc);
 	
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		IntParamfnc downLongPressFnc,
 		uint16_t parametr, 
 		intTune* tune
@@ -100,21 +99,21 @@ public:
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		IntParamfnc downLongPressFnc
 		);
 	
 	MenuElement(
 			MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t parametr, 
 		IntParamfnc downLongPressFnc);	
 	
 	MenuElement(
 			MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		IntParamfnc onSelectFnc,
 		IntParamfnc downLongPressFnc,
 		uint16_t parametr, 
@@ -123,7 +122,7 @@ public:
 	MenuElement(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		IntParamfnc onSelectFnc,
 		IntParamfnc downLongPressFnc);	
 	
@@ -158,7 +157,7 @@ public:
 	MenuElementIntSelector(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t initVal, 
 		uint16_t minVal, 
 		uint16_t maxVal,
@@ -168,7 +167,7 @@ public:
 	MenuElementIntSelector(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t initVal, 
 		uint16_t minVal, 
 		uint16_t maxVal,
@@ -179,7 +178,7 @@ public:
 	MenuElementIntSelector(
 		MenuElementBase* parentItem, 
 		MenuElementBase* prevInListItem,
-		std::string name,
+		const char* name,
 		uint16_t initVal, 
 		uint16_t minVal, 
 		uint16_t maxVal,

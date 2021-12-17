@@ -2,7 +2,7 @@
 #define __SCREENELEMENT__H
 
 #include "main.h"
-#include <string>
+//#include <string>
 #include "LCDFont.hpp"
 
 struct screenStyle
@@ -102,7 +102,7 @@ public:
 	virtual void Render();
 
 	void ClearText();
-	void SetText(std::string text, bool convertToCp1251);
+	void SetText(const char* text, bool convertToCp1251);
 	void SetChars(const char* chars, bool convertToCp1251);
 	void SetIntText(int dnum, uint8_t lenght);
 	void SetIntText(int dnum, uint8_t lenght, char fchar);

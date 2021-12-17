@@ -22,7 +22,7 @@ class FillScreen : public Thread {
 
 public:
 
-	FillScreen(string name, 
+	FillScreen(const char* name, 
 		int i, 
 		int delayInSeconds, 
 		UBaseType_t Priority)

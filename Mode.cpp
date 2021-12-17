@@ -3,7 +3,7 @@
 #include "TuneObjectsExt.hpp"
 #include "Auxiliary.hpp"
 
-ModeBase::ModeBase(uint16_t ID, std::string name)
+ModeBase::ModeBase(uint16_t ID, const char* name)
 	: BaseObject(ID, name) 
 {
 }
@@ -14,7 +14,7 @@ bool ModeBase::isActive()
 }
 
 //controls mode
-ControlsMode::ControlsMode(uint16_t ID, std::string name)
+ControlsMode::ControlsMode(uint16_t ID, const char* name)
 	: ModeBase(ID, name)
 {
 	
@@ -112,7 +112,7 @@ void ControlsMode::ExecuteStep()
 // habitat
 
 Habitat::Habitat(uint16_t ID, 
-	std::string name)
+	const char* name)
 	: ControlsMode(ID, name)
 {
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
@@ -210,7 +210,8 @@ void Habitat::init()
 }
 
 BeerPreparing::BeerPreparing(uint16_t ID, 
-	std::string name) : ControlsMode(ID, name)
+	const char* name)
+	: ControlsMode(ID, name)
 {
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_1);
 	mashingDVPC->addPeriodValue((PeriodValue*)mtp_2);

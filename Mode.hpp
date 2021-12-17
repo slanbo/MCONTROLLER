@@ -3,7 +3,7 @@
 
 #include "main.h"
 #include "Tune.hpp"
-#include <string>
+//#include <string>
 #include <vector>
 #include "Control.hpp"
 #include "BaseObject.hpp"
@@ -19,7 +19,7 @@ class ModeBase : public BaseObject
 {
 public:
 	
-	ModeBase(uint16_t ID, std::string name);
+	ModeBase(uint16_t ID, const char* name);
 	
 	virtual void FillScreen() = 0;
 	virtual void ExecuteStep() = 0;
@@ -48,7 +48,7 @@ protected:
 class ControlsMode : public ModeBase
 {
 public:
-	ControlsMode(uint16_t ID, std::string name);
+	ControlsMode(uint16_t ID, const char* name);
 	
 	virtual void FillScreen();
 	virtual void ExecuteStep();
@@ -65,7 +65,7 @@ protected:
 class Habitat : public ControlsMode
 {
 	public: 
-	Habitat(uint16_t ID, std::string name);
+	Habitat(uint16_t ID, const char* name);
 	virtual void init();
 
 	SensorsSocketsControl* airTempControl;
@@ -87,7 +87,7 @@ class BeerPreparing : public ControlsMode
 {
 public: 
 	BeerPreparing(uint16_t ID,
-		std::string name);
+		const char* name);
 	virtual void init();
 
 	SensorsSocketsControl* mashingControl;

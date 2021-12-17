@@ -11,7 +11,7 @@ class USARTTransmit : public Thread {
 
 public:
 
-	USARTTransmit(string name, 
+	USARTTransmit(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)
@@ -48,7 +48,7 @@ class USARTResive : public Thread {
 
 public:
 
-	USARTResive(string name, 
+	USARTResive(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

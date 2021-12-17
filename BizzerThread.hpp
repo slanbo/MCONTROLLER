@@ -17,7 +17,7 @@ class menuButtonPressBizzer : public Thread {
 
 public:
 
-	menuButtonPressBizzer(string name, 
+	menuButtonPressBizzer(const char* name, 
 		int i, 
 		int delayInTicks,
 		UBaseType_t Priority)
@@ -104,7 +104,7 @@ class bizzerExecuteStep : public Thread {
 
 public:
 
-	bizzerExecuteStep(string name, 
+	bizzerExecuteStep(const char* name, 
 		int i, 
 		int delayInTicks,
 		UBaseType_t Priority)

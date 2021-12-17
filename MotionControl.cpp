@@ -1,7 +1,7 @@
 #include "MotionControl.hpp"
 #include "SensorObjectsExt.hpp"
 
-MotionControl::MotionControl(std::string name, 
+MotionControl::MotionControl(const char* name, 
 	intTune* onOff, 
 	intTune* analizeMotionsPeriod, 
 	IntVectorTune* sensorsTune)

@@ -8,7 +8,7 @@
 class MotionControl : public ControlBase
 {
 public:
-	MotionControl(std::string name,
+	MotionControl(const char* name,
 		intTune* onOff,
 		intTune* analizeMotionsPeriod,
 		IntVectorTune* sensorsTune);

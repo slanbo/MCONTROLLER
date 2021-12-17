@@ -12,7 +12,7 @@ class MotionDetection : public Thread {
 
 public:
 
-	MotionDetection(string name, 
+	MotionDetection(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

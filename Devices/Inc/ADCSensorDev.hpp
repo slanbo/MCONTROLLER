@@ -3,7 +3,6 @@
 
 #include "main.h"
 #include "BaseObject.hpp"
-#include <string>
 #include <vector>
 #include "ADCDev.hpp"
 
@@ -23,7 +22,7 @@ private:
 	
 public:
 	
-	ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID, uint8_t SensorTypeIndex);
+	ADCSensor(uint16_t ID, const char* name, uint8_t ADCDevID, uint8_t SensorTypeIndex);
 	virtual uint16_t getSensorUnits();
 	uint8_t sensorTypeIndex;
 

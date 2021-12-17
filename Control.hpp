@@ -4,7 +4,7 @@
 	
 #include "main.h"
 #include "Tune.hpp"
-#include <string>
+//#include <string>
 #include "BaseObject.hpp"
 #include "TimeProfile.hpp"
 #include "Socket.hpp"
@@ -28,11 +28,11 @@ public:
 	ControlBase();
 	
 	ControlBase(uint16_t id,
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune);
 	
-	ControlBase(std::string name,
+	ControlBase(const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune);
 	
@@ -65,7 +65,7 @@ public:
 	SocketsControl
 		(
 		uint16_t id,
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
@@ -73,7 +73,7 @@ public:
 	
 	SocketsControl
 		(
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
@@ -106,7 +106,7 @@ public:
 	
 	SensorsSocketsControl(
 		uint16_t id,
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
@@ -117,7 +117,7 @@ public:
 		);
 	
 	SensorsSocketsControl(
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
@@ -168,7 +168,7 @@ class PumpControl : public SocketsControl
 {
 public:
 	PumpControl(uint16_t id,
-		std::string name,
+		const char* name,
 		intTune* onOffTune,
 		IntVectorTune* SocketsTune,
 		intTune* pumpModeTune,

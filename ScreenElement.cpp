@@ -187,9 +187,9 @@ void Text_ScreenElement::SetChars(const char* chars, bool convertToCp1251)
 }
 
 
-void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
+void Text_ScreenElement::SetText(const char* text, bool convertToCp1251)
 {
-	const char* charptr = text.c_str();
+	/*const char* charptr = text.c_str();
 	
 	if (convertToCp1251)
 	{
@@ -206,7 +206,7 @@ void Text_ScreenElement::SetText(std::string text, bool convertToCp1251)
 			textLenght++;
 		}
 		Text[textLenght + 1] = '\0';
-	}
+	}*/
 }
 
 void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght, char fchar)

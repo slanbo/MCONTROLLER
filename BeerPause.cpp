@@ -1,6 +1,6 @@
 #include "BeerPause.hpp"
 
-Pause::Pause(uint16_t ID, std::string name, uint8_t temperature, uint16_t time)
+Pause::Pause(uint16_t ID, const char* name, uint8_t temperature, uint16_t time)
 	: BaseObject(ID, name),
 	Temperature(temperature),
 	Time(time)
@@ -8,7 +8,7 @@ Pause::Pause(uint16_t ID, std::string name, uint8_t temperature, uint16_t time)
 }
 
 
-Pauses::Pauses(uint16_t ID, std::string name, pausestype type, std::vector<Pause*>& pausesVector)
+Pauses::Pauses(uint16_t ID, const char* name, pausestype type, std::vector<Pause*>& pausesVector)
 	: BaseObject(ID, name),
 	Type(type),
 	PausesVector(pausesVector)

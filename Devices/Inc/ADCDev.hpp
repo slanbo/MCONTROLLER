@@ -1,6 +1,6 @@
 #pragma once
 #include "main.h"
-#include <string>
+//#include <string>
 #include "BaseObject.hpp"
 
 #define MAX_RESULTS_ARRAY 6
@@ -17,7 +17,7 @@ private:
 	
 public:
 	
-	ADCDev(uint16_t id, std::string name);
+	ADCDev(uint16_t id, const char* name);
 	void addAdcResult(uint16_t adcResult);
 	uint16_t getAverageAdcResult();
 	

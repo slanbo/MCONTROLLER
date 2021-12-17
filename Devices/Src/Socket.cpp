@@ -1,7 +1,7 @@
 #include "Socket.hpp"
 
 plugSocket::plugSocket(uint16_t ID,
-	std::string name,
+	const char* name,
 	GPIO_TypeDef* gPIOx,
 	uint16_t gPIO_Pin,
 	intTune &loadPowerVTTune)

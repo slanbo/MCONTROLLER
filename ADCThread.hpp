@@ -17,7 +17,7 @@ class getADCVols : public Thread {
 
 public:
 
-	getADCVols(string name, 
+	getADCVols(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

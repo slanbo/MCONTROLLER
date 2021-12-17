@@ -1,18 +1,20 @@
 #ifndef __BASEBaseObject__H
 #define __BASEBaseObject__H
 
-//#include "main.h"
+#include "main.h"
 //#include <string>
+
+#define MAX_OBJECT_NAME_LEN 16
 
 class BaseObject
 {
 public:
 	
 	BaseObject();
-	BaseObject(uint16_t ID, std::string name);
-	BaseObject(std::string name);
+	BaseObject(uint16_t ID, const char *Name);
+	BaseObject(const char *Name);
 	uint16_t _getId();
-	char Name[16];
+	char Name[MAX_OBJECT_NAME_LEN];
 
 protected:	
 	

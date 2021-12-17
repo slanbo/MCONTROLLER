@@ -1,6 +1,6 @@
 #include "Control.hpp"
 #include "TuneObjectsExt.hpp"
-#include <string>
+//#include <string>
 #include "GUI.h"
 #include "Lcd_Driver.h"
 #include "SocketObjectsExt.hpp"
@@ -10,14 +10,14 @@
 #include "Auxiliary.hpp"
 #include "TimeProfile.hpp"
 
-ControlBase::ControlBase(uint16_t id, std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
+ControlBase::ControlBase(uint16_t id, const char* name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(id, name)
 	, OnOffTune(onOffTune)
 	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
 {
 }
 
-ControlBase::ControlBase(std::string name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
+ControlBase::ControlBase(const char* name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(name)
 	, OnOffTune(onOffTune)
 	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
@@ -120,7 +120,7 @@ void ControlBase::init()
 }
 
 SocketsControl::SocketsControl(uint16_t id, 
-	std::string name, 
+	const char* name, 
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
@@ -129,7 +129,7 @@ SocketsControl::SocketsControl(uint16_t id,
 {
 }
 
-SocketsControl::SocketsControl(std::string name, 
+SocketsControl::SocketsControl(const char* name, 
 	intTune* onOffTune, 
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
@@ -164,7 +164,7 @@ void SocketsControl::SwitchSockets(uint16_t powerVT)
 //sensors sockets control
 SensorsSocketsControl::SensorsSocketsControl(
 	uint16_t id,
-	std::string name,
+	const char* name,
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
@@ -181,7 +181,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 }
 
 SensorsSocketsControl::SensorsSocketsControl(
-	std::string name,
+	const char* name,
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
@@ -559,7 +559,7 @@ void PumpControl::FillScreen()
 }
 
 PumpControl::PumpControl(uint16_t id, 
-	std::string name, 
+	const char* name, 
 	intTune* onOffTune, 
 	IntVectorTune* SocketsTune, 
 	intTune* pumpModeTune, 

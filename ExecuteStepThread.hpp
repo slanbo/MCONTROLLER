@@ -14,7 +14,7 @@ class ExecuteModeStep : public Thread {
 
 public:
 
-	ExecuteModeStep(string name, 
+	ExecuteModeStep(const char* name, 
 		int i, 
 		int delayInSeconds,
 		UBaseType_t Priority)

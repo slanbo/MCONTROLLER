@@ -7,7 +7,7 @@
 
 
 
-ADCSensor::ADCSensor(uint16_t ID, std::string name, uint8_t ADCDevID, uint8_t SensorTypeIndex)
+ADCSensor::ADCSensor(uint16_t ID, const char* name, uint8_t ADCDevID, uint8_t SensorTypeIndex)
 	: BaseObject(ID, name),
 	sensorTypeIndex(SensorTypeIndex)
 {

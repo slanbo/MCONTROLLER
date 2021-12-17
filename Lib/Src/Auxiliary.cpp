@@ -6,7 +6,7 @@
 #include "rtc.h"
 #include "i2c.h"
 #include "tim.h"
-#include <string>
+//#include <string>
 //#include "stdlib.h"
 #include "cmsis_os.h"
 #include "time.h"

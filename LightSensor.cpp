@@ -1,6 +1,6 @@
 #include "LightSensor.hpp"
 
-LightSensor::LightSensor(uint16_t ID, std::string name, uint8_t ADCDevID)
+LightSensor::LightSensor(uint16_t ID, const char* name, uint8_t ADCDevID)
 	: ADCSensor(ID, name, ADCDevID, LIGHT_SENSOR_TYPE_INDEX)
 {
 	UNITS[0] = 'L';

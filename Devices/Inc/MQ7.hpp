@@ -12,7 +12,7 @@ class MQ7 : public ADCSensor
 private:
 public:
 	
-	MQ7(uint16_t ID, std::string name, uint8_t ADCDevID);
+	MQ7(uint16_t ID, const char* name, uint8_t ADCDevID);
 	virtual uint16_t getSensorUnits();
 		
 };
