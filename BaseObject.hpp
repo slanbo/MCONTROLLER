@@ -4,7 +4,7 @@
 #include "main.h"
 //#include <string>
 
-#define MAX_OBJECT_NAME_LEN 16
+#define MAX_OBJECT_NAME_LEN 32
 
 class BaseObject
 {

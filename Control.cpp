@@ -466,14 +466,21 @@ void PumpControl::ExecuteStep()
 {
 	if (isOn())
 	{	
+		
+		
+		TimePeriodState currState;
+		if (beerModeIndex._getVal() == 0)
+			currState = mashingDPVCollection->getCurrentState();
+		else
+			currState = boilingDPVCollection->getCurrentState();
+		
+		
 		switch (PumpModeTune->_getVal()) 
 		{
 		case 1: // period on /period off
 			{
 				
-				if (DPVCollection->getCurrentState() != STAYON &
-					DPVCollection->getCurrentState() != HEATING &
-					DPVCollection->getCurrentState() != COOLING)
+				if (currState != STAYON & currState != HEATING & currState != COOLING)
 				{
 					SwitchSockets(0);
 					break;
@@ -515,7 +522,7 @@ void PumpControl::ExecuteStep()
 			}
 		case 2: // on heating
 			{
-				if (DPVCollection->getCurrentState() == HEATING)
+				if (currState == HEATING)
 					SwitchSockets(0xffff);
 				else
 					SwitchSockets(0);
@@ -523,7 +530,7 @@ void PumpControl::ExecuteStep()
 			}
 		case 3: // on stay on
 			{
-				if (DPVCollection->getCurrentState() == STAYON)
+				if (currState == STAYON)
 					SwitchSockets(0xffff);
 				else
 					SwitchSockets(0);				
@@ -531,9 +538,7 @@ void PumpControl::ExecuteStep()
 			}
 		case 4: // alltime on
 			{
-				if (DPVCollection->getCurrentState() == STAYON |
-					DPVCollection->getCurrentState() == HEATING |
-					DPVCollection->getCurrentState() == COOLING)
+				if (currState == STAYON | currState == HEATING | currState == COOLING)
 					SwitchSockets(0xffff);
 				else
 					SwitchSockets(0);				
@@ -541,9 +546,7 @@ void PumpControl::ExecuteStep()
 			}	
 		default: // alltime on
 			{
-				if (DPVCollection->getCurrentState() == STAYON |
-					DPVCollection->getCurrentState() == HEATING |
-					DPVCollection->getCurrentState() == COOLING)
+				if (currState == STAYON | currState == HEATING | currState == COOLING)
 					SwitchSockets(0xffff);
 				else
 					SwitchSockets(0);				
@@ -565,12 +568,14 @@ PumpControl::PumpControl(uint16_t id,
 	intTune* pumpModeTune, 
 	intTune* periodOnTune, 
 	intTune* periodOffTune, 
-	PeriodValuesCollection* dpvcollection)
+	PeriodValuesCollection* mashingdpvcollection,
+	PeriodValuesCollection* boilingdpvcollection)
 	: SocketsControl(name, onOffTune, nullptr, SocketsTune)
 	, PumpModeTune(pumpModeTune)
 	, PeriodOnTune(periodOnTune)
 	, PeriodOffTune(periodOffTune)
-	, DPVCollection(dpvcollection)
+	, mashingDPVCollection(mashingdpvcollection)
+	, boilingDPVCollection(boilingdpvcollection)
 {
 }
 

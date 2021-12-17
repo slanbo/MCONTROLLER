@@ -293,7 +293,7 @@ void MenuElementBase::fillTextScreenElement(Text_ScreenElement* element)
 void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 {
 	element->ClearText();
-	element->SetChars(Name, true);
+	element->SetChars(Name, false);
 	if (AddNameEndFnc != nullptr)
 	{
 		element->SetChars(" ", false);

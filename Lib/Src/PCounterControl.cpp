@@ -120,7 +120,7 @@ void PCounterControl::FillScreen()
 	Info_ThirdString->ClearText();
 	Info_FourthString->ClearText();
 	
-	Info_SubHeader->SetText(Name, false);
+	Info_SubHeader->SetChars(Name, false);
 	Info_SubHeader->FillEndBySpaces();
 	Info_SubHeader->_setUpdated(true);
 	

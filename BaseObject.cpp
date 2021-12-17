@@ -4,27 +4,13 @@
 BaseObject::BaseObject(uint16_t ID, const char *name)
 	: id(ID)
 {
-	for(int i = 0 ; i < MAX_OBJECT_NAME_LEN - 1 ; i++) {
-		Name[i] = *name;
-		if (*name == 0)
-			break;
-		name++;
-	}
-	Name[MAX_OBJECT_NAME_LEN - 1] = 0;
-	
-	
+	uint16_t lenght = convertUtf8ToCp1251(name, Name);
 }
 
 BaseObject::BaseObject(const char *name)
 	: id(0xffff)
 {
-	for (int i = 0; i < MAX_OBJECT_NAME_LEN - 1; i++) {
-		Name[i] = *name;
-		if (*name == 0)
-			break;
-		name++;
-	}
-	Name[MAX_OBJECT_NAME_LEN - 1] = 0;
+	uint16_t lenght = convertUtf8ToCp1251(name, Name);
 }
 
 

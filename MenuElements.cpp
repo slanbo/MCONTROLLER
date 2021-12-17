@@ -10,10 +10,11 @@
 #include "TimeProfileObjectsExt.hpp"
 #include "ModeObjectsExt.hpp"
 #include "FreeRTOS.h"
+#include "MenuClass.hpp"
+#include "Bizzer.hpp"
 
-//#ifdef _MENU_
-//extern MenuElement menuElements[MENU_ITEMS_QUANT];
-
+extern Bizzer alarmBizzer;
+extern Menu* mainMenu; 
 extern SemaphoreHandle_t flashmut_handle;
 
 
@@ -83,7 +84,7 @@ bool startPauses(uint16_t* param)
 			else
 			{
 				BeerPreparingMode->boilingControl->DPVCollection->ResetPeriodes();
-				BeerPreparingMode->mashingControl->setOn(true);
+				BeerPreparingMode->boilingControl->setOn(true);
 			}
 		break;
 		}
@@ -123,6 +124,21 @@ bool startPauses(uint16_t* param)
 		}
 	}
 		
+	SETUP_MODE = 0;
+	set_DS_From_RTC();
+	Info_Header->_setUpdated(true);
+	Info_SubHeader->_setUpdated(true);
+	Info_FirstString->_setUpdated(true);
+	Info_SecondString->_setUpdated(true);
+	Info_ThirdString->_setUpdated(true);
+	Info_FourthString->_setUpdated(true);
+	
+	alarmBizzer.addLevelArray(1);
+	alarmBizzer.addLevelArray(0);
+				
+	mainMenu->clearLCD();
+
+
 	
 	return true;
 }

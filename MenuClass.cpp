@@ -17,7 +17,31 @@ void Menu::moveCurrentToChild()
 	
 	if (CurrentItemBase->ChildItem != nullptr)
 	{
-			CurrentItemBase = CurrentItemBase->ChildItem;
+		
+		
+		CurrentItemBase = CurrentItemBase->ChildItem;
+		
+		MenuElementBase* currItem = CurrentItemBase;
+		while(currItem != nullptr)
+		{
+			currItem = currItem->NextInListItem;
+			if (currItem->ParentItem == CurrentItemBase->ParentItem)
+			{
+				MenuElement* me = (MenuElement*)currItem;
+				if (me->Tune != nullptr)
+					if (me->Tune->_getVal() == me->Parametr)
+					{
+						CurrentItemBase = (MenuElementBase*)me;
+						break;
+					}
+				
+			}
+			
+		}
+			
+		
+		
+		
 	}	
 	else
 	{
@@ -72,11 +96,11 @@ void Menu::FillScreen()
 	else
 	{
 		if (CurrentItemBase->MenuElementTypeIndex == MENU_ELEMENT_TYPE_INDEX)
-			Menu_SubHeader->SetChars(CurrentItemBase->ParentItem->Name, true);
+			Menu_SubHeader->SetChars(CurrentItemBase->ParentItem->Name, false);
 		else if(CurrentItemBase->MenuElementTypeIndex == INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX)
-			Menu_SubHeader->SetChars(CurrentItemBase->Name, true);
+			Menu_SubHeader->SetChars(CurrentItemBase->Name, false);
 		else
-			Menu_SubHeader->SetChars(CurrentItemBase->Name, true);
+			Menu_SubHeader->SetChars(CurrentItemBase->Name, false);
 	}
 	Menu_SubHeader->FillEndBySpaces();
 	Menu_SubHeader->_setUpdated(true);

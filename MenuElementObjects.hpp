@@ -186,8 +186,8 @@ MenuElement p6_on(&p6_onoff, &p6_onoff, "Вкл", 1, &mashingPause6Active);
 MenuElement p6_off(&p6_onoff, &p6_on, "Выкл", 0, &mashingPause6Active);
 	
 MenuElement mi_94(&mi_4, &p6_off, "Варка", 1, &beerModeIndex);
-MenuElement mi_BoilingPause_98_15_98_60_98_60(&mi_94, &mi_94, "10|60|10", 4, restorePauses);
-MenuElement mi_BoilingStartFromBegin(&mi_94, &mi_BoilingPause_98_15_98_60_98_60, "Старт с начала", 1, startPauses);
+MenuElement mi_BoilingPause_98_10_60_10(&mi_94, &mi_94, "10|60|10", 4, restorePauses);
+MenuElement mi_BoilingStartFromBegin(&mi_94, &mi_BoilingPause_98_10_60_10, "Старт с начала", 1, startPauses);
 MenuElement mi_BoilingStartFromSaved(&mi_94, &mi_BoilingStartFromBegin, "Продолжить", 2, startPauses);
 
 //boiling Pause 1

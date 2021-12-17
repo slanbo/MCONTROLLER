@@ -256,7 +256,8 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 		&PumpMode,
 		&SwitchedOnPumpTime,
 		&SwitchedOffPumpTime,
-		mashingDVPC);
+		mashingDVPC,
+		boilingTempDVPC);
 	
 	controlsVector.push_back(mashingControl);
 	controlsVector.push_back(boilingControl);
@@ -293,10 +294,17 @@ void BeerPreparing::FillScreen()
 		Info_Header->FillEndBySpaces();
 		Info_Header->_setUpdated(true);
 	
-		Info_SubHeader->SetChars(controlsVector.at(beerModeIndex._getVal())->Name, false);
-		Info_SubHeader->FillEndBySpaces();
-		Info_SubHeader->_setUpdated(true);
+		if (currentScreenIndex == 0 | currentScreenIndex == 1)
+		{
+			Info_SubHeader->SetChars(controlsVector.at(beerModeIndex._getVal())->Name, false);
+			if (controlsVector.at(beerModeIndex._getVal())->isOn())
+				Info_SubHeader->SetChars(" +", true);
+			else
+				Info_SubHeader->SetChars(" -", true);
 		
+			Info_SubHeader->FillEndBySpaces();
+			Info_SubHeader->_setUpdated(true);
+		}
 		
 		SensorsSocketsControl* sscontrol = (SensorsSocketsControl*)controlsVector.at(beerModeIndex._getVal());
 		
@@ -389,6 +397,15 @@ void BeerPreparing::FillScreen()
 		}
 		else if (currentScreenIndex == 2)
 		{
+			Info_SubHeader->SetChars(pumpControl->Name, false);
+			if (pumpControl->isOn())
+				Info_SubHeader->SetChars(" +", true);
+			else
+				Info_SubHeader->SetChars(" -", true);
+		
+			Info_SubHeader->FillEndBySpaces();
+			Info_SubHeader->_setUpdated(true);
+			
 			Info_FirstString->SetChars("Режим насоса:\0", true);
 			Info_FirstString->FillEndBySpaces();
 			Info_FirstString->_setUpdated(true);
@@ -430,24 +447,10 @@ void BeerPreparing::FillScreen()
 			Info_ThirdString->FillEndBySpaces();
 			Info_ThirdString->_setUpdated(true);
 	
-			switch (PumpMode._getVal()) 
-			{
-			case 0: // period on /period off
-				{
-					Info_FourthString->SetChars("Выключен", true);
-							break;
-				}
-			case 1: // on heating
-				{
-					Info_FourthString->SetChars("Включен", true);
-							break;
-				}
-			default: // alltime on
-				{
-					Info_FourthString->SetChars("Выключен", true);
-							break;
-				}
-			}
+			if (pumpControl->GetSocketsPowerVT() > 0) 
+				Info_FourthString->SetChars("Включен", true);
+			else				
+				Info_FourthString->SetChars("Выключен", true);
 			Info_FourthString->FillEndBySpaces();
 			Info_FourthString->_setUpdated(true);
 		}
@@ -470,4 +473,28 @@ void BeerPreparing::ExecuteStep()
 		controlsVector.at(beerModeIndex._getVal())->ExecuteStep();
 		controlsVector.at(2)->ExecuteStep();
 	}
+}
+
+
+Drying::Drying(uint16_t ID, 
+	const char* name)
+	: ControlsMode(ID, name)
+{
+}
+
+
+void Drying::init()
+{
+}
+
+
+GreenHouse::GreenHouse(uint16_t ID, 
+	const char* name)
+	: ControlsMode(ID, name)
+{
+}
+
+
+void GreenHouse::init()
+{
 }

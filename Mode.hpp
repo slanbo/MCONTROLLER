@@ -107,4 +107,44 @@ protected:
 	
 private:
 };
+
+
+class Drying : public ControlsMode
+{
+public: 
+	Drying(uint16_t ID, const char* name);
+	virtual void init();
+
+	SensorsSocketsControl* airTempControl;
+	SensorsSocketsControl* humidityControl;
+	
+	~Drying();
+	
+protected:
+private:
+	
+};
+
+class GreenHouse : public ControlsMode
+{
+public: 
+	GreenHouse(uint16_t ID, const char* name);
+	virtual void init();
+
+	SensorsSocketsControl* airTempControl;
+	SensorsSocketsControl* humidityControl;
+	SensorsSocketsControl* lightControl;
+	
+	
+	~GreenHouse();
+	
+protected:
+private:
+	
+};
+
+
+
+
+
 #endif

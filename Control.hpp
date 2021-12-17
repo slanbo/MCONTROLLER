@@ -174,7 +174,8 @@ public:
 		intTune* pumpModeTune,
 		intTune* periodOnTune,
 		intTune* periodOffTune,
-		PeriodValuesCollection* dpvcollection);
+		PeriodValuesCollection* mashingdpvcollection,
+		PeriodValuesCollection* boilingdpvcollection);
 		
 	virtual void ExecuteStep();
 	virtual void FillScreen();
@@ -184,7 +185,8 @@ protected:
 	intTune* PumpModeTune;
 	intTune* PeriodOnTune;
 	intTune* PeriodOffTune;
-	PeriodValuesCollection* DPVCollection;
+	PeriodValuesCollection* mashingDPVCollection;
+	PeriodValuesCollection* boilingDPVCollection;
 
 	time_t swichedSeconds = 0;
 };
