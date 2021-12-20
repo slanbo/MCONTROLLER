@@ -86,7 +86,7 @@
   </ImportGroup>
   <ItemGroup>
     <ClCompile Include="BeerPause.cpp" />
-    <ClCompile Include="DateControl.cpp" />
+    <ClCompile Include="DelayDateControl.cpp" />
     <ClCompile Include="Devices\Src\ds1307_for_stm32_hal.c" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="hooks.c" />
@@ -182,7 +182,10 @@
     <ClInclude Include="ADCThread.hpp" />
     <ClInclude Include="BeerPause.hpp" />
     <ClInclude Include="BizzerThread.hpp" />
-    <ClInclude Include="DateControl.hpp" />
+    <ClInclude Include="DelayDateControl.hpp" />
+    <ClInclude Include="DelayDateObjects.hpp" />
+    <ClInclude Include="DelayDateObjectsExt.hpp" />
+    <ClInclude Include="DelayDateThread.hpp" />
     <ClInclude Include="Devices\Inc\ds1307_for_stm32_hal.h" />
     <ClInclude Include="Devices\Inc\Socket.hpp" />
     <ClInclude Include="ExecuteStepThread.hpp" />

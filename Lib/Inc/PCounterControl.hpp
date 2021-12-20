@@ -44,7 +44,7 @@ public:
 		);
 	
 	virtual void ExecuteStep();
-	virtual void FillScreen();
+	virtual void FillScreen(uint8_t snum);
 	void saveToFlash();
 	void restoreFromFlash();
 	

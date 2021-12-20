@@ -40,13 +40,17 @@ public:
 	virtual bool isOn();
 	virtual void setOn(bool state);
 	virtual bool isActive();
-	virtual void FillScreen() = 0;
+	virtual void FillScreen(uint8_t snum) = 0;
+	
+	uint8_t getScreensQuant();
 	
 private:
 	
 protected:
 	intTune* OnOffTune;
 	intTune* SwitchOnMotionPeriodTune;
+	
+	uint8_t screensQuant = 1;
 };
 	
 
@@ -122,7 +126,7 @@ public:
 	~SensorsSocketsControl();
 	
 	virtual void ExecuteStep();
-	virtual void FillScreen();
+	virtual void FillScreen(uint8_t snum);
 	
 	virtual uint16_t _get_aim_val();
 	virtual uint16_t _get_current_val();
@@ -171,7 +175,7 @@ public:
 		PeriodValuesCollection* boilingdpvcollection);
 		
 	virtual void ExecuteStep();
-	virtual void FillScreen();
+	virtual void FillScreen(uint8_t snum);
 
 	
 protected:

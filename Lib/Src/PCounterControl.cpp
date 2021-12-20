@@ -107,7 +107,7 @@ void PCounterControl::restoreFromFlash()
 	VT_Seconds = EE_Read_Int64(ValTune->getFlashAddress());
 }
 
-void PCounterControl::FillScreen()
+void PCounterControl::FillScreen(uint8_t snum)
 {
 	
 	char datedevider[] = "/\0";

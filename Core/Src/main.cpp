@@ -107,7 +107,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "MenuElementObjects.hpp"
 //++++++++++++++++++ PCOUNTERS ++++++++++++++++++++++++++++++++
 #include "PCounterObjects.hpp"
-
+//++++++++++++++++++ DELAYDATE ++++++++++++++++++++++++++++++++
+#include "DelayDateObjects.hpp"
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
 #include "RenderInfoThread.hpp"
@@ -119,6 +120,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "UsartThread.hpp"
 #include "BizzerThread.hpp"
 #include "ProcessButtonPressedThread.hpp"
+#include "DelayDateThread.hpp"
+
 
 uint32_t lastTimeTicksButtonsPressed = 0;
 uint8_t leftButtonShortPressCounter = 0;
@@ -130,7 +133,7 @@ uint8_t rightButtonLongLongPressCounter = 0;
 uint8_t bothButtonsPressCounter = 0;
 
 uint8_t showInfoCounter = 0;
-uint8_t currentPCounter = 0;
+uint8_t currenControlToFillScreen = 0;
 
 
 FillScreen* fscr = new FillScreen("fscr", 1, EXECUTE_STEP_PERIOD_SEC, 7);
@@ -141,6 +144,7 @@ getADCVols gADCV("gADCV", 5, EXECUTE_STEP_PERIOD_SEC, 3);
 menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 bizzerExecuteStep bes("bes", 8, 100, 7);
 PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
+DelayDateThread  dd("dd", 10, 60, 1);
 
 SemaphoreHandle_t lcdmut_handle;
 SemaphoreHandle_t flashmut_handle;
@@ -237,7 +241,7 @@ int main(void)
 	xSemaphoreGive(flashmut_handle);
 	
 	readTunesFromFlash();
-	//setDefaultTuneVals();
+	setDefaultTuneVals();
 	InitMenuElements(&mi_139);
 	
 	ModeObjectsInit();

@@ -171,7 +171,13 @@ void setDefaultTuneVals()
 	SwitchedOffPumpTime._setVal(60);
 	SwitchedOffPumpTime.save();
 	
+	dayPCounterOnOffTune._setVal(1);
+	dayPCounterOnOffTune.save();
+	
+	
 	/*std::vector<uint16_t> pcdefs = { 0, 0, 0, 0 };
+	
+	
 	
 	dayPCounterVal._setVal(pcdefs);
 	dayPCounterVal.save();

@@ -56,10 +56,10 @@ public:
 	virtual bool isOn();
 	virtual bool isActive();
 	
+	std::vector<SocketsControl*> controlsVector;
 
 protected:	
 	uint8_t currentControlIndex = 0;
-	std::vector<SocketsControl*> controlsVector;
 };
 
 class Habitat : public ControlsMode
@@ -95,7 +95,6 @@ public:
 	
 	PumpControl* pumpControl;
 	
-	virtual void FillScreen();
 	virtual void ExecuteStep();
 
 	

@@ -1,6 +1,5 @@
 #include "Control.hpp"
 #include "TuneObjectsExt.hpp"
-//#include <string>
 #include "GUI.h"
 #include "Lcd_Driver.h"
 #include "SocketObjectsExt.hpp"
@@ -9,6 +8,7 @@
 #include "NTC_10K_B3950.hpp"
 #include "Auxiliary.hpp"
 #include "TimeProfile.hpp"
+#include "DelayDateObjectsExt.hpp"
 
 ControlBase::ControlBase(uint16_t id, const char* name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
 	: BaseObject(id, name)
@@ -27,58 +27,13 @@ ControlBase::ControlBase(const char* name, intTune* onOffTune, intTune* switchOn
 bool ControlBase::isActive()
 {
 	bool active = true;
-	if (delayBeginOnOffTune._getVal() == 1 | delayEndOnOffTune._getVal() == 1)
-	{
-		RTC_TimeTypeDef sTime = { 0 };
-		RTC_DateTypeDef sDate = { 0 };
-		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-		RTC_TimeTypeDef savedTime = { 0 };
-		RTC_DateTypeDef savedDate = { 0 };
-		
-		if (delayBeginOnOffTune._getVal() == 1)
-		{
-			savedDate.Date = delayBeginDate._getVal();
-			savedDate.Month = delayBeginMonth._getVal();
-			savedDate.Year = delayBeginYear._getVal();
-		
-			savedTime.Hours = delayBeginHour._getVal();
-			savedTime.Minutes = delayBeginMinute._getVal();	
-			savedTime.Seconds = 0;	
-		
-			compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
-			if (res == MORE | res == EQUAL)
-				active =  true;
-			else
-				active =  false;
-		
-		}
 	
-		//delay end
-		if(delayEndOnOffTune._getVal() == 1)
-		{
+	if (delayBegin->isOn() & !delayBegin->isActive())
+		active = false;
 	
-			savedDate.Date = delayEndDate._getVal();
-			savedDate.Month = delayEndMonth._getVal();
-			savedDate.Year = delayEndYear._getVal();
+	if (delayEnd->isOn() & delayEnd->isActive())
+		active = false;
 		
-			savedTime.Hours = delayEndHour._getVal();
-			savedTime.Minutes = delayEndMinute._getVal();	
-			savedTime.Seconds = 0;	
-		
-			compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
-			if (res == LESS | res == EQUAL)
-				active =  true;
-			else
-				active =  false;
-		
-		}
-		
-	}
-	//delay start
-	
-	
-	
 	//motion detection 
 	if(OnOffTune->_getVal() == 2)
 	{
@@ -174,6 +129,8 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, TimeProfileTune(timeProfileTune)
 	, DPVCollection(dpvcollection)
 {
+	if (DPVCollection->Type == TIME_PERIOD)
+		screensQuant = 2;
 }
 
 SensorsSocketsControl::SensorsSocketsControl(
@@ -191,6 +148,8 @@ SensorsSocketsControl::SensorsSocketsControl(
 	, TimeProfileTune(timeProfileTune)
 	, DPVCollection(dpvcollection)
 {	
+	if (DPVCollection->Type == TIME_PERIOD)
+	screensQuant = 2;
 }
 
 void SensorsSocketsControl::init()
@@ -250,16 +209,16 @@ void SensorsSocketsControl::ExecuteStep()
 						}
 					else
 					{
-						downPower = 0;     //stay on
+						downPower = 0;      //stay on
 						SocketsState = STAYONAIM;
 					}
 				}
 				else
 				{
-					downPower = 0;     //stay on
+					downPower = 0;      //stay on
 					SocketsState = STAYONAIM;
 				}
-		}	
+			}	
 		else // switch sockets to increace val
 			{
 				downPower = 0;
@@ -317,9 +276,114 @@ void SensorsSocketsControl::ExecuteStep()
 	}
 }
 
-void SensorsSocketsControl::FillScreen()
+void SensorsSocketsControl::FillScreen(uint8_t snum)
 {
+	const char blank[2] = { ' ', 0 };
 	
+	Info_SubHeader->ClearText();
+	Info_FirstString->ClearText();
+	Info_SecondString->ClearText();
+	Info_ThirdString->ClearText();
+	Info_FourthString->ClearText();
+	
+	if (snum == 1)
+	{
+		Info_SubHeader->SetChars(Name, false);
+		if (isOn())
+			Info_SubHeader->SetChars(" +", true);
+		else
+			Info_SubHeader->SetChars(" -", true);
+		
+		Info_SubHeader->FillEndBySpaces();
+		Info_SubHeader->_setUpdated(true);
+	
+		Info_FirstString->SetChars("Текушая:\0", true);
+		Info_FirstString->SetIntText(_get_current_val(), 5);
+		Info_FirstString->SetChars(blank, false);	
+		Info_FirstString->SetChars(GetSensorsUnit(), false);
+		Info_FirstString->FillEndBySpaces();
+		Info_FirstString->_setUpdated(true);
+
+		Info_SecondString->SetChars("Целевая:\0", true);
+		Info_SecondString->SetIntText(_get_aim_val(), 5);
+		Info_SecondString->SetChars(blank, false);
+		Info_SecondString->SetChars(GetSensorsUnit(), false);
+		Info_SecondString->FillEndBySpaces();
+		Info_SecondString->_setUpdated(true);
+	
+		Info_ThirdString->SetChars("Нагр. + :\0", true);
+		Info_ThirdString->SetIntText(GetSocketsPowerVT(), 5);
+		Info_ThirdString->SetChars(blank, false);
+		Info_ThirdString->SetChars("ВТ\0", true);
+		Info_ThirdString->FillEndBySpaces();
+		Info_ThirdString->_setUpdated(true);
+	
+		Info_FourthString->SetChars("Нагр. - :\0", true);
+		Info_FourthString->SetIntText(GetDownSocketsPowerVT(), 5);
+		Info_FourthString->SetChars(blank, false);
+		Info_FourthString->SetChars("ВТ\0", true);
+		Info_FourthString->FillEndBySpaces();
+		Info_FourthString->_setUpdated(true);
+	}
+	else if (snum == 2)
+	{
+		if (DPVCollection->Type == TIME_PERIOD)
+		{
+			Info_FirstString->SetChars("Пауза:\0", true);
+			Info_FirstString->FillEndBySpaces();
+			Info_FirstString->_setUpdated(true);
+			char strstate[] = "";
+			char strperiod[] = "";
+			
+			uint8_t currtpindex = DPVCollection->getCurrentPeriodIndex();
+			
+			uint16_t periodTime = 0;
+			uint16_t periodTemp = 0;
+			uint16_t StayOnTime = 0;
+			
+			if (currtpindex != 0xff)
+			{
+				TimePeriodValue* tpValue = (TimePeriodValue*)DPVCollection->periodValues.at(currtpindex);
+				periodTime = tpValue->TimeTune->_getVal();
+				periodTemp = tpValue->Tune->_getVal();
+				StayOnTime = tpValue->getStayOnTime();
+			}
+			
+			if (currtpindex == 0xff)
+				Info_SecondString->SetChars("Завершены\0", true);
+			else
+			{
+				char CO[3] = { 67, 176, 0 };
+	
+				Info_SecondString->SetIntText(periodTemp, 2);
+				Info_SecondString->SetChars(" ", false);
+				Info_SecondString->SetChars(CO, false);
+	
+				Info_SecondString->SetIntText(periodTime, 4);
+				Info_SecondString->SetChars(" сек.", true);
+			}
+			
+			Info_SecondString->FillEndBySpaces();
+			Info_SecondString->_setUpdated(true);
+	
+			Info_ThirdString->SetChars("Выполнено(сек.)\0", true);
+			Info_ThirdString->FillEndBySpaces();
+			Info_ThirdString->_setUpdated(true);
+
+			if (currtpindex == 0xff)
+				Info_FourthString->SetChars("Завершены", true);
+			else
+			{
+				Info_FourthString->SetIntText(StayOnTime, 4);
+				Info_FourthString->SetChars(" из ", true);
+				Info_FourthString->SetIntText(periodTime, 4);
+				
+			}
+			
+			Info_FourthString->FillEndBySpaces();
+			Info_FourthString->_setUpdated(true);
+		}
+	}
 }
 
 uint16_t SensorsSocketsControl::_get_aim_val()
@@ -557,8 +621,64 @@ void PumpControl::ExecuteStep()
 	}
 }
 
-void PumpControl::FillScreen()
+void PumpControl::FillScreen(uint8_t snum)
 {
+	Info_SubHeader->SetChars(Name, false);
+	if (isOn())
+		Info_SubHeader->SetChars(" +", true);
+	else
+		Info_SubHeader->SetChars(" -", true);
+		
+	Info_SubHeader->FillEndBySpaces();
+	Info_SubHeader->_setUpdated(true);
+			
+	Info_FirstString->SetChars("Режим насоса:\0", true);
+	Info_FirstString->FillEndBySpaces();
+	Info_FirstString->_setUpdated(true);
+
+	switch (PumpMode._getVal()) 
+	{
+	case 1: // period on /period off
+		{
+			Info_SecondString->SetChars("Периодами", true);
+			break;
+		}
+	case 2: // on heating
+		{
+			Info_SecondString->SetChars("При нагреве", true);
+			break;
+		}
+	case 3: // on stay on
+		{
+			Info_SecondString->SetChars("При паузе", true);
+			break;
+		}
+	case 4: // alltime on
+		{	
+			Info_SecondString->SetChars("Все время", true);
+			break;
+		}	
+	default: // alltime on
+		{
+			Info_SecondString->SetChars("Неопрелено", true);
+			break;
+		}
+	}
+			
+			
+	Info_SecondString->FillEndBySpaces();
+	Info_SecondString->_setUpdated(true);
+	
+	Info_ThirdString->SetChars("Cocт. насоса:\0", true);
+	Info_ThirdString->FillEndBySpaces();
+	Info_ThirdString->_setUpdated(true);
+	
+	if (GetSocketsPowerVT() > 0) 
+		Info_FourthString->SetChars("Включен", true);
+	else				
+		Info_FourthString->SetChars("Выключен", true);
+	Info_FourthString->FillEndBySpaces();
+	Info_FourthString->_setUpdated(true);
 }
 
 PumpControl::PumpControl(uint16_t id, 
@@ -599,4 +719,10 @@ void ControlBase::setOn(bool state)
 	else
 		OnOffTune->_setVal(0);
 	
+}
+
+
+uint8_t ControlBase::getScreensQuant()
+{
+	return screensQuant;
 }

@@ -672,7 +672,7 @@
     <ClCompile Include="MenuElements.cpp">
       <Filter>Source files\MENU</Filter>
     </ClCompile>
-    <ClCompile Include="DateControl.cpp">
+    <ClCompile Include="DelayDateControl.cpp">
       <Filter>Source files\Controls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -908,8 +908,17 @@
     <ClInclude Include="MenuClass.hpp">
       <Filter>Header files\MENU</Filter>
     </ClInclude>
-    <ClInclude Include="DateControl.hpp">
+    <ClInclude Include="DelayDateControl.hpp">
       <Filter>Header files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="DelayDateObjects.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DelayDateObjectsExt.hpp">
+      <Filter>Header files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="DelayDateThread.hpp">
+      <Filter>Header files\FREERTOSThreads</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

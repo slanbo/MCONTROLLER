@@ -8,9 +8,10 @@
 #include "ScreenObjectsExt.hpp"
 #include "MenuClass.hpp"
 #include "PCounterObjectsExt.hpp"
+#include "DelayDateObjectsExt.hpp"
 
 extern uint8_t showInfoCounter;
-extern uint8_t currentPCounter;
+extern uint8_t currenControlToFillScreen;
 
 
 using namespace cpp_freertos;
@@ -113,24 +114,51 @@ protected:
 
 				if (showInfoCounter == 0)
 				{
-					bool ModeScreenFilled = false;
-					bool PCounterScreenFilled = false;
-					if (!Modes.at(modeIndex._getVal())->allscreensfilled) 
+					Modes.at(modeIndex._getVal())->FillScreen();
+					
+					struct ControlScreen
 					{
-						ControlsMode* mode  = Modes.at(modeIndex._getVal());
-						mode->FillScreen();
-						ModeScreenFilled = true;
-					}
-					if (!ModeScreenFilled)
-					{
-						PCountersVector.at(currentPCounter)->FillScreen();
-						currentPCounter++;
-						if (currentPCounter == PCountersVector.size())
+						ControlBase* Control;
+						uint8_t snum = 1;
+					};
+					
+					std::vector<ControlScreen> controlsVectorToShow;
+					
+					for (auto elem : Modes.at(modeIndex._getVal())->controlsVector)
+						if (elem->isOn())
 						{
-							currentPCounter = 0;	
+							for (uint8_t i = 1; i <= elem->getScreensQuant(); i++)
+							{
+								ControlScreen scr = { elem, i };
+								controlsVectorToShow.push_back(scr);
+							}
 						}
-						Modes.at(modeIndex._getVal())->allscreensfilled = false;	
-					}
+					
+					for (auto elem : PCountersVector)
+						if (elem->isOn())
+						{
+							for (uint8_t i = 1; i <= elem->getScreensQuant(); i++)
+							{
+								ControlScreen scr = { elem, i };
+								controlsVectorToShow.push_back(scr);
+							}
+						}	
+					
+					for (auto elem : DelayDateVector)
+						if (elem->isOn())
+						{
+							for (uint8_t i = 1; i <= elem->getScreensQuant(); i++)
+							{
+								ControlScreen scr = { elem, i };
+								controlsVectorToShow.push_back(scr);
+							}
+						}	
+					
+					controlsVectorToShow.at(currenControlToFillScreen).Control->FillScreen(controlsVectorToShow.at(currenControlToFillScreen).snum);
+					
+					currenControlToFillScreen++;
+					if (currenControlToFillScreen == controlsVectorToShow.size())
+						currenControlToFillScreen = 0;
 				}
 				
 				showInfoCounter++;
