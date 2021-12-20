@@ -4,7 +4,6 @@
 	
 #include "main.h"
 #include "Tune.hpp"
-//#include <string>
 #include "BaseObject.hpp"
 #include "TimeProfile.hpp"
 #include "Socket.hpp"
@@ -42,18 +41,12 @@ public:
 	virtual void setOn(bool state);
 	virtual bool isActive();
 	virtual void FillScreen() = 0;
-	void clearLCD();
 	
 private:
 	
 protected:
 	intTune* OnOffTune;
 	intTune* SwitchOnMotionPeriodTune;
-	uint8_t Left_X = 0;
-	uint8_t Top_Y = 0;
-	uint8_t Right_X = 0;
-	uint8_t Bottom_Y = 0;
-	uint16_t BackColor = 0;
 };
 	
 

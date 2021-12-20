@@ -30,6 +30,17 @@ void Bizzer::addLevelArray(uint8_t level)
 }
 
 
+void Bizzer::addHighLowLevelPeriods(uint8_t HihgLevelQuant, uint8_t LowLevelasQuant, uint8_t periods)
+{
+	for (uint8_t i = 0; i < periods; i++)
+	{
+		for (uint8_t j = 0; j < HihgLevelQuant; j++)
+			addLevelArray(1);
+		for(uint8_t k = 0 ; k < LowLevelasQuant ; k++)
+			addLevelArray(0);
+	}
+}
+
 uint8_t Bizzer::getLevelArray()
 {
 	uint8_t level = levels[0];

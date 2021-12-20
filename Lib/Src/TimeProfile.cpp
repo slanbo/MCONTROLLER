@@ -125,9 +125,15 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 }
 ;
 
-PeriodValuesCollection::PeriodValuesCollection(PeriodType type)
-	: Type(type)
+PeriodValuesCollection::PeriodValuesCollection()
 {
+	Type = DATE_PERIOD;
+}
+
+PeriodValuesCollection::PeriodValuesCollection(intTune* stayOnDeltaTune)
+	: StayOnDeltaTune(stayOnDeltaTune)
+{
+	Type = TIME_PERIOD;
 }
 
 
@@ -180,6 +186,7 @@ uint16_t TimePeriodValue::getCoolingTime()
 void TimePeriodValue::Reset()
 {
 	StayOnTimeTune->_setVal(0);
+	StayOnTimeTune->save();
 	StayOn  = 0;
 	Heating = 0;
 	Cooling = 0;
@@ -208,7 +215,7 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 	 
 	if (lastUpdateSeconds > 0)
 	{
-		if (state == STAYON & lastUpdateState == STAYON)
+		if (state == STAYON & lastUpdateState == STAYON )
 		{
 			StayOn = StayOn + (currentSeconds - lastUpdateSeconds);
 			if (StayOn - StayOnTimeTune->_getVal() >= STAY_ON_WRITE_FLASH_PERIOD) 
@@ -222,7 +229,7 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 				StayOnTimeTune->save();
 				lastUpdateState = COMPLETED;
 			}
-		}	
+		}
 		else if (state == HEATING & lastUpdateState == HEATING)
 		{
 			Heating = Heating + (currentSeconds - lastUpdateSeconds);
@@ -311,7 +318,28 @@ TimePeriodState TimePeriodValue::getState()
 	return lastUpdateState;
 }
 
-
+void PeriodValuesCollection::SetBeforePausesCompleted(uint16_t pauseNum)
+{
+	if (Type == TIME_PERIOD)
+	{
+		uint8_t i = 0;
+		for (auto elem : periodValues) 
+		{
+			TimePeriodValue* pval = (TimePeriodValue*)elem;
+			pval->Reset();			
+			if (i < pauseNum - 1)
+			{
+				pval->setStayOnTime(pval->TimeTune->_getVal());
+				pval->StayOnTimeTune->_setVal(pval->TimeTune->_getVal());
+				pval->StayOnTimeTune->save();
+				pval->setState(COMPLETED);
+	}
+			i++;
+		}
+	}
+}
+	
+	
 void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 {
 	if (Type == TIME_PERIOD)
@@ -321,7 +349,9 @@ void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 			for (auto elem : periodValues) 
 			{
 				TimePeriodValue* pval = (TimePeriodValue*)elem;
-				pval->Reset();
+				//pval->Reset();
+				pval->setState(NULLSTATE);
+
 				pval->StayOnTimeTune->restore();	
 				pval->setStayOnTime(pval->StayOnTimeTune->_getVal());
 				if (pval->getStayOnTime() >= pval->TimeTune->_getVal())

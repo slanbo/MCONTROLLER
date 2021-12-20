@@ -47,14 +47,17 @@ protected:
 		while (true)
 		{
 			
-			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			bool processed = false;
 			if(SETUP_MODE != 0 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 0;
 				
 				set_DS_From_RTC();
-				bothButtonsPressCounter -= 1;
+				bothButtonsPressCounter = 0;
+				
+				xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+				
+				alarmBizzer.addHighLowLevelPeriods(1, 1, 1);
 				
 				Info_Header->_setUpdated(true);
 				Info_SubHeader->_setUpdated(true);
@@ -63,25 +66,24 @@ protected:
 				Info_ThirdString->_setUpdated(true);
 				Info_FourthString->_setUpdated(true);
 				
-				alarmBizzer.addLevelArray(1);
-				alarmBizzer.addLevelArray(0);
-				
 				mainMenu->clearLCD();
-
-			}
+				
+				xSemaphoreGive(lcdmut_handle);
+				}
 			if (SETUP_MODE != 1 & bothButtonsPressCounter > 0)
 			{
 				SETUP_MODE = 1;
 				
 				mainMenu->CurrentItemBase = &mi_0;
 				BothButtons_Short_Press.processButtonPress();
-				bothButtonsPressCounter -= 1;
+				bothButtonsPressCounter = 0;
 				processed = true;
 				
-				alarmBizzer.addLevelArray(1);
-				alarmBizzer.addLevelArray(0);
+				alarmBizzer.addHighLowLevelPeriods(1, 1, 1);
 				
+				xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 				mainMenu->clearLCD();
+				xSemaphoreGive(lcdmut_handle);
 
 			}
 			if (SETUP_MODE == 1)
@@ -135,6 +137,7 @@ protected:
 			}
 			if (processed)
 			{
+				xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 				mainMenu->FillScreen();
 				
 				Buttom_Left->ClearText();
@@ -144,8 +147,9 @@ protected:
 				Buttom_Right->ClearText();
 				Buttom_Right->SetChars("Вниз ", true);
 				Buttom_Right->_setUpdated(true);
+				xSemaphoreGive(lcdmut_handle); 
+				
 			}
-			//xSemaphoreGive(lcdmut_handle); 
 			
 				
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);

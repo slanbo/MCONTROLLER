@@ -114,6 +114,8 @@ extern intTune PumpMode;
 extern intTune SwitchedOnPumpTime;
 extern intTune SwitchedOffPumpTime;	
 	
+extern intTune mashboilStayOnDelta;
+
 extern intTune dryingAirTempProfileIndex;
 extern intTune DryingFixTemp;
 extern intTune dryingAirDryProfileIndex;

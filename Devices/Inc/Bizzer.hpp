@@ -17,4 +17,5 @@ public:
 	void ExecuteStep();
 	void addLevelArray(uint8_t level);
 	uint8_t getLevelArray();
+	void addHighLowLevelPeriods(uint8_t HihgLevelQuant, uint8_t LowLevelasQuant, uint8_t periods);
 };

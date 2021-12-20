@@ -22,7 +22,10 @@ extern std::vector < MenuElement *> menuElements;
 
 bool setDefaults(uint16_t* param)
 {
+	
 	clearTunesInFlash();
+	setDefaultTuneVals();
+	
 	return true;
 }
 ;
@@ -356,7 +359,7 @@ bool setV12SocketLoadPower(uint16_t* param)
 }
 ;
 	
-void postInitStaticMenuElements(MenuElement* lastElement)
+void InitMenuElements(MenuElement* lastElement)
 {
 	
 	MenuElementBase* firstItem = nullptr;
@@ -476,7 +479,7 @@ void AddBoilingPauseDescription(char* text, MenuElementBase* elembase)
 void AddChildTuneValue(char* text, MenuElementBase* elembase)
 {
 	MenuElement* elemchilde = (MenuElement*)elembase->ChildItem;
-	AddIntChars(text, elemchilde->Parametr, 3, ' ');
+	AddIntChars(text, elemchilde->Parametr, 4, ' ');
 }
 
 bool ChangePumpMode(uint16_t* param)
@@ -497,4 +500,49 @@ bool ChangePumpMode(uint16_t* param)
 }
 ;
 
+bool MashingPauseStart(uint16_t* param)
+{
+	BeerPreparingMode->mashingControl->DPVCollection->SetBeforePausesCompleted(*param);
+	BeerPreparingMode->mashingControl->setOn(true);
+	
+	SETUP_MODE = 0;
+	set_DS_From_RTC();
+	Info_Header->_setUpdated(true);
+	Info_SubHeader->_setUpdated(true);
+	Info_FirstString->_setUpdated(true);
+	Info_SecondString->_setUpdated(true);
+	Info_ThirdString->_setUpdated(true);
+	Info_FourthString->_setUpdated(true);
+	
+	alarmBizzer.addLevelArray(1);
+	alarmBizzer.addLevelArray(0);
+				
+	mainMenu->clearLCD();
+	
+	return true;
+}
+;
+
+bool BoilingPauseStart(uint16_t* param)
+{
+	BeerPreparingMode->boilingControl->DPVCollection->SetBeforePausesCompleted(*param);
+	BeerPreparingMode->boilingControl->setOn(true);
+
+	SETUP_MODE = 0;
+	set_DS_From_RTC();
+	Info_Header->_setUpdated(true);
+	Info_SubHeader->_setUpdated(true);
+	Info_FirstString->_setUpdated(true);
+	Info_SecondString->_setUpdated(true);
+	Info_ThirdString->_setUpdated(true);
+	Info_FourthString->_setUpdated(true);
+	
+	alarmBizzer.addLevelArray(1);
+	alarmBizzer.addLevelArray(0);
+				
+	mainMenu->clearLCD();
+	
+	return true;
+}
+;
 //#endif

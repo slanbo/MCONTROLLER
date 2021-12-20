@@ -115,7 +115,7 @@ Habitat::Habitat(uint16_t ID,
 	const char* name)
 	: ControlsMode(ID, name)
 {
-	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection();
 	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
@@ -131,7 +131,7 @@ Habitat::Habitat(uint16_t ID,
 		airTempDVPC);
 	
 	
-	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection();
 	DatePeriodValue *bdpv1 = new DatePeriodValue(1, "Night time 1", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv1);
 	DatePeriodValue *bdpv2 = new DatePeriodValue(2, "Day time", 0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp);
@@ -151,7 +151,7 @@ Habitat::Habitat(uint16_t ID,
 		&batTempControlTimeProfile,
 		batTempDVPC);
 	
-	PeriodValuesCollection* CODVPC = new PeriodValuesCollection(DATE_PERIOD);
+	PeriodValuesCollection* CODVPC = new PeriodValuesCollection();
 	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
 	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
@@ -166,7 +166,7 @@ Habitat::Habitat(uint16_t ID,
 		&COControlTimeProfile,
 		CODVPC);	
 	
-	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection(DATE_PERIOD);
+	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection();
 	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge);
 	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
 	

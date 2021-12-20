@@ -42,6 +42,7 @@ protected:
 		{
 			//xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			
+			xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
 			for (auto element : TopBottom_FirstScreen)
 				element->Render();
 			
@@ -52,6 +53,7 @@ protected:
 				Info_SubHeader->Render();
 				Info_FirstString->Render();
 				Info_SecondString->Render();
+				Info_SecondScreen_Border->Render();
 				Info_ThirdString->Render();
 				Info_FourthString->Render();
 			}
@@ -66,6 +68,8 @@ protected:
 				Menu_CurrentScreen_Border->Render();
 				Menu_Header_Border->Render();
 			}
+			xSemaphoreGive(lcdmut_handle);
+			
 			
 			
 			//xSemaphoreGive(lcdmut_handle); 

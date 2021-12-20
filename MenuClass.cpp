@@ -198,11 +198,11 @@ void Menu::FillScreen()
 
 void Menu::clearLCD()
 {
-	LCD_DrawFillRectangle(1,
+	/*LCD_DrawFillRectangle(1,
 		1,
 		129,
 		129,
-		BackColor);
+		BackColor);*/
 }
 
 

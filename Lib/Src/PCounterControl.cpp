@@ -150,7 +150,6 @@ void PCounterControl::FillScreen()
 	Info_FourthString->FillEndBySpaces();
 	Info_FourthString->_setUpdated(true);
 	
-	getRectCoordinates(Info_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 }
 
 uint32_t PCounterControl::get_VT_HOUR()

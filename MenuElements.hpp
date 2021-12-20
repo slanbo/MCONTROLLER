@@ -25,7 +25,7 @@ bool restoreWeekDay(uint16_t* param);
 bool setUpSocketLoadPower(uint16_t* param);
 bool setDownSocketLoadPower(uint16_t* param);
 bool setV12SocketLoadPower(uint16_t* param);
-void postInitStaticMenuElements(MenuElement* lastElement);
+void InitMenuElements(MenuElement* lastElement);
 
 void AddMashingPauseDescription(char* text, MenuElementBase* elembase);
 void AddBoilingPauseDescription(char* text, MenuElementBase* elembase);
@@ -33,5 +33,8 @@ void AddChildTuneValue(char* text, MenuElementBase* elembase);
 bool ChangePumpMode(uint16_t* param);
 
 bool startPauses(uint16_t* param);
+
+bool MashingPauseStart(uint16_t* param);
+bool BoilingPauseStart(uint16_t* param);
 
 #endif

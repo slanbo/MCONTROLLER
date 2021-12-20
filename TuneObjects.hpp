@@ -102,8 +102,10 @@ intTune PumpMode(&boilingMashingControlDownSockets);
 intTune SwitchedOnPumpTime(&PumpMode);
 intTune SwitchedOffPumpTime(&SwitchedOnPumpTime);	
 
+intTune mashboilStayOnDelta(&SwitchedOffPumpTime);
+
 //drying
-intTune dryingAirTempProfileIndex(&SwitchedOffPumpTime);
+intTune dryingAirTempProfileIndex(&mashboilStayOnDelta);
 intTune DryingFixTemp(&dryingAirTempProfileIndex);
 intTune dryingAirDryProfileIndex(&DryingFixTemp);
 intTune DryingDryLevel(&dryingAirDryProfileIndex);	

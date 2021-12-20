@@ -672,6 +672,9 @@
     <ClCompile Include="MenuElements.cpp">
       <Filter>Source files\MENU</Filter>
     </ClCompile>
+    <ClCompile Include="DateControl.cpp">
+      <Filter>Source files\Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FRWrapper\include\condition_variable.hpp">
@@ -904,6 +907,9 @@
     </ClInclude>
     <ClInclude Include="MenuClass.hpp">
       <Filter>Header files\MENU</Filter>
+    </ClInclude>
+    <ClInclude Include="DateControl.hpp">
+      <Filter>Header files\Controls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

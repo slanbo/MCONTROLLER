@@ -42,7 +42,7 @@ void setDefaultTuneVals()
 	
 //sockets load power	
 	
-	/*upSocketLoadPower._setVal(1000);
+	upSocketLoadPower._setVal(1000);
 	upSocketLoadPower.save();
 	
 	downSocketLoadPower._setVal(2000);
@@ -142,7 +142,7 @@ void setDefaultTuneVals()
 	defs[0] = 0xffff;
 	defs[1] = 0xffff;
 	boilingMashingControlDownSockets._setVal(defs);	
-	boilingMashingControlDownSockets.save();*/
+	boilingMashingControlDownSockets.save();
 	
 	//mashing	
 	MashingOnOffTune._setVal(0);
@@ -156,10 +156,10 @@ void setDefaultTuneVals()
 	PumpOnOffTune._setVal(0); 
 	PumpOnOffTune.save();
 	
-	//PumpMode._setVal(1); 
-	//PumpMode.save();
+	PumpMode._setVal(1); 
+	PumpMode.save();
 	
-	/*defs[0] = 4;
+	defs[0] = 4;
 	defs[1] = 0xffff;
 	pumpControlSockets._setVal(defs);
 	pumpControlSockets.save();
@@ -169,7 +169,7 @@ void setDefaultTuneVals()
 	SwitchedOnPumpTime.save();
 	
 	SwitchedOffPumpTime._setVal(60);
-	SwitchedOffPumpTime.save();*/
+	SwitchedOffPumpTime.save();
 	
 	/*std::vector<uint16_t> pcdefs = { 0, 0, 0, 0 };
 	

@@ -19,6 +19,8 @@ screenStyle GRAY0_BLACK_VERANDA12 = { GRAY0, BLACK, Verdana12x12 };
 screenStyle GREEN_BLACK_VERANDA12 = { GREEN, BLACK, Verdana12x12 };
 screenStyle YELLOW_BLACK_VERANDA12 = { YELLOW, BLACK, Verdana12x12 };
 screenStyle RED_BLACK_VERANDA12 = { RED, BLACK, Verdana12x12 };
+screenStyle BLACK_BLACK_VERANDA12 = { BLACK, BLACK, Verdana12x12 };
+
 
 
 //top bottom screen
@@ -77,6 +79,16 @@ Text_ScreenElement* Info_SecondString = new Text_ScreenElement(SCREEN_GAP,
 	&GRAY0_BLACK_VERANDA12,
 	&YELLOW_BLACK_VERANDA12,
 	FONT_12_MAX_SIMVOLS_IN_STRING);
+
+Rect_ScreenElement* Info_SecondScreen_Border = new Rect_ScreenElement(
+	SCREEN_GAP - BORDER_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 - BORDER_GAP,
+	HORIZONTAL_SCREEN_SIZE - SCREEN_GAP + BORDER_GAP,
+	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 4 + Verdana12x12.Size + BORDER_GAP,
+	&BLACK_BLACK_VERANDA12,
+	&BLACK_BLACK_VERANDA12);
+
+
 Text_ScreenElement* Info_ThirdString = new Text_ScreenElement(SCREEN_GAP,
 	SCREEN_GAP + (Verdana12x12.Size + STRINGS_GAP) * 5,
 	&GRAY0_BLACK_VERANDA12,
@@ -95,6 +107,7 @@ std::vector<BaseScreenElement*> Info_Screen = {
 	Info_SubHeader,
 	Info_FirstString,
 	Info_SecondString,
+	Info_SecondScreen_Border,
 	Info_ThirdString,
 	Info_FourthString
 };

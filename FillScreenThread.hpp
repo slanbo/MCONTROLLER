@@ -45,6 +45,8 @@ protected:
 	{
 		while (true)
 		{
+			xSemaphoreTake(lcdmut_handle, portMAX_DELAY);
+			
 			RTC_TimeTypeDef sTime = { 0 };
 			RTC_DateTypeDef sDate = { 0 };
 			HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
@@ -108,27 +110,29 @@ protected:
 			
 			if (SETUP_MODE == 0)
 			{
+
 				if (showInfoCounter == 0)
 				{
-					bool screenFilled = false;
+					bool ModeScreenFilled = false;
+					bool PCounterScreenFilled = false;
 					if (!Modes.at(modeIndex._getVal())->allscreensfilled) 
 					{
 						ControlsMode* mode  = Modes.at(modeIndex._getVal());
 						mode->FillScreen();
-						screenFilled = true;
+						ModeScreenFilled = true;
 					}
-					if (!screenFilled)
+					if (!ModeScreenFilled)
 					{
 						PCountersVector.at(currentPCounter)->FillScreen();
 						currentPCounter++;
 						if (currentPCounter == PCountersVector.size())
 						{
-							currentPCounter = 0;
-							Modes.at(modeIndex._getVal())->allscreensfilled = false;	
+							currentPCounter = 0;	
 						}
+						Modes.at(modeIndex._getVal())->allscreensfilled = false;	
 					}
 				}
-			
+				
 				showInfoCounter++;
 				if (showInfoCounter == SHOW_INFO_PERIOD_SEC)
 					showInfoCounter = 0;
@@ -144,7 +148,10 @@ protected:
 			}
 			else
 			{
+				
+				
 			}
+			xSemaphoreGive(lcdmut_handle);
 			
 			TickType_t ticks = Ticks::SecondsToTicks(DelayInSeconds);
 			if (ticks)

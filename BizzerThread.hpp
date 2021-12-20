@@ -60,30 +60,22 @@ protected:
 				
 				if (ticksKey1Pressed >= FIRST_PRESSING_EDGE_MS & ticksKey1Pressed <= FIRST_PRESSING_EDGE_MS + DelayInTicks - 1)
 				{
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
-				}
+					alarmBizzer.addHighLowLevelPeriods(1, 1, 1);
+					}
 				
 				if (ticksKey2Pressed >= FIRST_PRESSING_EDGE_MS & ticksKey2Pressed <= FIRST_PRESSING_EDGE_MS + DelayInTicks - 1)
 				{
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
+					alarmBizzer.addHighLowLevelPeriods(1, 1, 1);
 				}
 				
 				if (ticksKey1Pressed >= SECOND_PRESSING_EDGE_MS & ticksKey1Pressed <= SECOND_PRESSING_EDGE_MS + DelayInTicks - 1)
 				{
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
+					alarmBizzer.addHighLowLevelPeriods(1, 1, 2);
 				}
 				
 				if (ticksKey2Pressed >= SECOND_PRESSING_EDGE_MS & ticksKey2Pressed <= SECOND_PRESSING_EDGE_MS + DelayInTicks - 1)
 				{
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
-					alarmBizzer.addLevelArray(1);
-					alarmBizzer.addLevelArray(0);
+					alarmBizzer.addHighLowLevelPeriods(1, 1, 2);
 				}
 			}
 			

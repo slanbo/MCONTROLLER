@@ -6,11 +6,12 @@
 #include "BaseObject.hpp"
 #include <vector>
 #include "time.h"
+#include "Tune.hpp"
 
 
 
 #define ANTIFROST_TEMP 2
-#define STAY_ON_WRITE_FLASH_PERIOD 120
+#define STAY_ON_WRITE_FLASH_PERIOD 60
 
 enum PeriodType
 {
@@ -140,7 +141,9 @@ private:
 	
 public:
 	
-	PeriodValuesCollection(PeriodType Type);
+	PeriodValuesCollection();
+	PeriodValuesCollection(intTune* stayOnDeltaTune);
+	
 	void addPeriodValue(PeriodValue* pval);
 	
 	PeriodType Type;
@@ -159,7 +162,11 @@ public:
 	
 	void ResetPeriodes();
 
+	void SetBeforePausesCompleted(uint16_t pauseNum);
+	
 	PeriodValue* currentPeriodValue = nullptr;
+	
+	intTune* StayOnDeltaTune;
 
 };
 

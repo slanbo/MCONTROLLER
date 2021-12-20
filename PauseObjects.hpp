@@ -19,9 +19,9 @@ std::vector<Pause*> pausesVector_2 = {new Pause(0, "48|600", 48, 600),  //бел
 Pauses* pauses_62_68_72_81 = new Pauses(1, "48|57|68|79", MASHING, pausesVector_2);
 
 std::vector<Pause*> pausesVector_3 = { 
-	new Pause(0, "20|20", 20, 20)
+	new Pause(0, "25|180", 25, 180)
 };
-Pauses* pauses_20_20c = new Pauses(2, "20-20c", MASHING, pausesVector_3); //test
+Pauses* pauses_25 = new Pauses(2, "25-180c", MASHING, pausesVector_3); //test
 
 
 std::vector<Pause*> boilingPausesVector_1 = { 
@@ -31,7 +31,7 @@ std::vector<Pause*> boilingPausesVector_1 = {
 
 Pauses* boilingPauses_1 = new Pauses(1, "98|98|98", BOILING, boilingPausesVector_1);
 
-std::vector<Pauses*> PausesVector = { pauses_45_52_68_72_79, pauses_62_68_72_81, pauses_20_20c, boilingPauses_1};
+std::vector<Pauses*> PausesVector = { pauses_45_52_68_72_79, pauses_62_68_72_81, pauses_25, boilingPauses_1};
 
 
 #endif

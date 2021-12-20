@@ -237,8 +237,8 @@ int main(void)
 	xSemaphoreGive(flashmut_handle);
 	
 	readTunesFromFlash();
-	setDefaultTuneVals();
-	postInitStaticMenuElements(&mi_139);
+	//setDefaultTuneVals();
+	InitMenuElements(&mi_139);
 	
 	ModeObjectsInit();
 	mainMenu = new Menu(&mi_0);

@@ -101,10 +101,6 @@ bool ControlBase::isActive()
 	return active;
 }
 
-void ControlBase::clearLCD()
-{
-	LCD_DrawFillRectangle(Left_X, Top_Y, Right_X, Bottom_Y, BackColor); 
-}
 
 bool ControlBase::isOn()
 {
@@ -297,12 +293,16 @@ void SensorsSocketsControl::ExecuteStep()
 		if (DPVCollection->Type == TIME_PERIOD)
 		{
 			bool result = false;
-			if (SocketsState == INCREASEMAX | SocketsState == INCREASEMID | SocketsState == INCREASEMIN)
-				result = DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
-			else if (SocketsState == STAYONAIM)
+			
+			if (current_val >= aim_val - DPVCollection->StayOnDeltaTune->_getVal() && 
+				current_val <= aim_val + DPVCollection->StayOnDeltaTune->_getVal())
 				result = DPVCollection->UpdateCurrentPeriotStateTime(STAYON);
-			else if (SocketsState ==  DECREASEMAX | SocketsState == DECREASEMID | SocketsState == DECREASEMIN)
+			else if (current_val < aim_val - DPVCollection->StayOnDeltaTune->_getVal())
+				result = DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
+			else if (current_val > aim_val + DPVCollection->StayOnDeltaTune->_getVal())
 				result = DPVCollection->UpdateCurrentPeriotStateTime(COOLING);
+						
+			
 			if (!result)
 			{
 				OnOffTune->_setVal(0);
