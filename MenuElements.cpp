@@ -12,11 +12,12 @@
 #include "FreeRTOS.h"
 #include "MenuClass.hpp"
 #include "Bizzer.hpp"
+#include "DelayDateObjectsExt.hpp"
 
 extern Bizzer alarmBizzer;
 extern Menu* mainMenu; 
 extern SemaphoreHandle_t flashmut_handle;
-
+extern MenuElement mi_125;
 
 extern std::vector < MenuElement *> menuElements;
 
@@ -32,31 +33,12 @@ bool setDefaults(uint16_t* param)
 
 bool restoreDelayBeginTunes(uint16_t* param)
 {
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
 
-	RTC_TimeTypeDef savedTime = { 0 };
-	RTC_DateTypeDef savedDate = { 0 };
-	
-	savedDate.Date = delayBeginDate._getVal();
-	savedDate.Month = delayBeginMonth._getVal();
-	savedDate.Year = delayBeginYear._getVal();
-		
-	savedTime.Hours = delayBeginHour._getVal();
-	savedTime.Minutes = delayBeginMinute._getVal();	
-	savedTime.Seconds = 0;	
-		
-	compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+	compareRes res = delayBegin->CompareDelayAndCurrentDate();
 	
 	if (res == LESS)
 	{
-		delayBeginYear._setVal(sDate.Year);
-		delayBeginMonth._setVal(sDate.Month);
-		delayBeginDate._setVal(sDate.Date);
-		delayBeginHour._setVal(sTime.Hours);
-		delayBeginMinute._setVal(sTime.Minutes);
+		delayBegin->SeveCurrentToDelayDate();
 	}
 	return true;
 }
@@ -148,31 +130,11 @@ bool startPauses(uint16_t* param)
 
 bool restoreDelayEndTunes(uint16_t* param)
 {
-	RTC_TimeTypeDef sTime = { 0 };
-	RTC_DateTypeDef sDate = { 0 };
-	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-
-	RTC_TimeTypeDef savedTime = { 0 };
-	RTC_DateTypeDef savedDate = { 0 };
-	
-	savedDate.Date = delayEndDate._getVal();
-	savedDate.Month = delayEndMonth._getVal();
-	savedDate.Year = delayEndYear._getVal();
-		
-	savedTime.Hours = delayEndHour._getVal();
-	savedTime.Minutes = delayEndMinute._getVal();	
-	savedTime.Seconds = 0;	
-		
-	compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+	compareRes res = delayEnd->CompareDelayAndCurrentDate();
 	
 	if (res == LESS)
 	{
-		delayEndYear._setVal(sDate.Year);
-		delayEndMonth._setVal(sDate.Month);
-		delayEndDate._setVal(sDate.Date);
-		delayEndHour._setVal(sTime.Hours);
-		delayEndMinute._setVal(sTime.Minutes);
+		delayEnd->SeveCurrentToDelayDate();
 	}
 	return true;
 }
@@ -377,7 +339,6 @@ void InitMenuElements(MenuElement* lastElement)
 			currItem->init();
 	}
 	
-	
 	//childItem
 	currItem = firstItem;
 	while (currItem != nullptr)
@@ -404,7 +365,7 @@ void InitMenuElements(MenuElement* lastElement)
 			{
 				cursor = cursor->PrevInListItem;
 			}
-			if (cursor->ParentItem == currItem->ParentItem)
+			if (cursor != nullptr & cursor->ParentItem == currItem->ParentItem)
 			{
 				found = true;
 				currItem->PrevItem = cursor;
@@ -413,11 +374,11 @@ void InitMenuElements(MenuElement* lastElement)
 		if (!found)
 		{
 			cursor = lastItem;
-			while (cursor->ParentItem != currItem->ParentItem)
+			while (cursor != nullptr & cursor->ParentItem != currItem->ParentItem)
 			{
 				cursor = cursor->PrevInListItem;
 			}
-			if (cursor->ParentItem == currItem->ParentItem)
+			if (cursor != nullptr & cursor->ParentItem == currItem->ParentItem)
 			{
 				found = true;
 				currItem->PrevItem = cursor;
@@ -430,28 +391,36 @@ void InitMenuElements(MenuElement* lastElement)
 	currItem = firstItem;
 	while (currItem != nullptr)
 	{
+		//if (currItem == &mi_125)
+		//{
+		//	found = false;
+		//}
+		
+		
 		found = false;
 		cursor = currItem->NextInListItem;
+				
 		if (cursor != nullptr)
 		{
 			while (cursor != nullptr & cursor->ParentItem != currItem->ParentItem)
 			{
 				cursor = cursor->NextInListItem;
 			}
-			if (cursor->ParentItem == currItem->ParentItem)
+			if (cursor != nullptr & cursor->ParentItem == currItem->ParentItem)
 			{
 				found = true;
 				currItem->NextItem = cursor;
 			}
+			
 		}	
 		if (!found)
 		{
 			cursor = firstItem;
-			while (cursor->ParentItem != currItem->ParentItem)
+			while (cursor != nullptr & cursor->ParentItem != currItem->ParentItem)
 			{
 				cursor = cursor->NextInListItem;
 			}
-			if (cursor->ParentItem == currItem->ParentItem)
+			if (cursor != nullptr & cursor->ParentItem == currItem->ParentItem)
 			{
 				found = true;
 				currItem->NextItem = cursor;
@@ -479,7 +448,7 @@ void AddBoilingPauseDescription(char* text, MenuElementBase* elembase)
 void AddChildTuneValue(char* text, MenuElementBase* elembase)
 {
 	MenuElement* elemchilde = (MenuElement*)elembase->ChildItem;
-	AddIntChars(text, elemchilde->Parametr, 4, ' ');
+	AddIntChars(text, elemchilde->Tune->_getVal(), 4, ' ');
 }
 
 bool ChangePumpMode(uint16_t* param)
@@ -545,4 +514,42 @@ bool BoilingPauseStart(uint16_t* param)
 	return true;
 }
 ;
+
+bool DelayBeginOnOff(uint16_t* param)
+{
+		
+	compareRes res = delayBegin->CompareDelayAndCurrentDate();
+	
+	if (res == MORE)
+	{
+		delayBeginOnOffTune._setVal(1);
+		delayBeginOnOffTune.save();
+		return true;
+	}
+	else
+	{
+		delayBeginOnOffTune._setVal(0);
+		delayBeginOnOffTune.save();
+		return false;
+	}
+}
+;
+
+bool DelayEndOnOff(uint16_t* param)
+{
+		
+	compareRes res = delayEnd->CompareDelayAndCurrentDate();
+	if (res == MORE)
+	{
+		delayEndOnOffTune._setVal(1);
+		return true;
+	}
+	else
+	{
+		delayEndOnOffTune._setVal(0);
+		return false;
+	}
+}
+;
+
 //#endif

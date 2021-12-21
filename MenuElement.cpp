@@ -99,10 +99,10 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 	MenuElementBase* prevInListItem, 
 	const char* name, 
 	IntParamfnc downLongPressFnc)
-	:MenuElementBase(name,
+	: MenuElementBase(name,
 	parentItem, 
-	prevInListItem),
-	DownLongPressFnc(downLongPressFnc)
+	prevInListItem)
+	, DownLongPressFnc(downLongPressFnc)
 {
 	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
@@ -128,9 +128,9 @@ MenuElement::MenuElement(MenuElementBase* parentItem,
 	IntParamfnc downLongPressFnc)
 	: MenuElementBase(name,
 	parentItem, 
-	prevInListItem),
-	OnSelectFnc(onSelectFnc),
-	DownLongPressFnc(downLongPressFnc)
+	prevInListItem)
+	, OnSelectFnc(onSelectFnc)
+	, DownLongPressFnc(downLongPressFnc)
 {
 	MenuElementTypeIndex = MENU_ELEMENT_TYPE_INDEX;
 }
@@ -206,16 +206,16 @@ MenuElement::MenuElement(
 
 void MenuElement::saveParametr()
 {
-	Tune->_setVal(Parametr) ;
+	Tune->_setVal(Parametr);
 	Tune->save();
 }
 
 void MenuElement::invokeDownLongPress()
 {
 	if (Tune != nullptr)
-	saveParametr();
+		saveParametr();
 	if (DownLongPressFnc != nullptr)
-	DownLongPressFnc(&Parametr);
+		DownLongPressFnc(&Parametr);
 }
 
 void MenuElement::invokeOnSelect()
@@ -255,11 +255,11 @@ MenuElementIntSelector::MenuElementIntSelector(MenuElementBase* parentItem,
 	uint16_t step, 
 	intTune* tune, 
 	IntParamfnc downLongPressFnc)
-	: MenuElement(parentItem, prevInListItem, name, downLongPressFnc, 0, tune),
-	InitVal(initVal), 
-	MinVal(minVal), 
-	MaxVal(maxVal), 
-	Step(step) 
+	: MenuElement(parentItem, prevInListItem, name, downLongPressFnc, 0, tune)
+	, InitVal(initVal)
+	, MinVal(minVal)
+	, MaxVal(maxVal)
+	, Step(step) 
 {
 	MenuElementTypeIndex = INT_SELECTOR_MENU_ELEMENT_TYPE_INDEX;
 }
@@ -298,7 +298,7 @@ void MenuElement::fillTextScreenElement(Text_ScreenElement* element)
 	{
 		element->SetChars(" ", false);
 		char addstr[FONT_12_MAX_SIMVOLS_IN_STRING] = { 0 };
-		AddNameEndFnc(addstr, this) ;
+		AddNameEndFnc(addstr, this);
 		element->SetChars(addstr, false);
 	}
 		

@@ -21,13 +21,16 @@ public:
 	virtual void ExecuteStep();
 	virtual bool isActive();
 	virtual void FillScreen(uint8_t snum);
+
+	compareRes CompareDelayAndCurrentDate();
+	void SeveCurrentToDelayDate();
+	
 	
 	bool getType();
 
 private:
 protected:
 	
-	intTune* onOffTune;
 	intTune* DateTune;
 	intTune* MonthTune;
 	intTune* YearTune;
@@ -38,3 +41,8 @@ protected:
 	
 	bool Active;
 };
+
+
+
+
+

@@ -9,6 +9,7 @@
 #include "MenuClass.hpp"
 #include "PCounterObjectsExt.hpp"
 #include "DelayDateObjectsExt.hpp"
+#include "DelayDateControl.hpp"
 
 extern uint8_t showInfoCounter;
 extern uint8_t currenControlToFillScreen;
@@ -147,10 +148,15 @@ protected:
 					for (auto elem : DelayDateVector)
 						if (elem->isOn())
 						{
-							for (uint8_t i = 1; i <= elem->getScreensQuant(); i++)
+							DelayDateControl* ddc = (DelayDateControl*) elem;
+							compareRes res = ddc->CompareDelayAndCurrentDate();
+							if (res == MORE)
 							{
-								ControlScreen scr = { elem, i };
-								controlsVectorToShow.push_back(scr);
+								for (uint8_t i = 1; i <= elem->getScreensQuant(); i++) 
+								{
+									ControlScreen scr = { elem, i };
+									controlsVectorToShow.push_back(scr);
+								}
 							}
 						}	
 					

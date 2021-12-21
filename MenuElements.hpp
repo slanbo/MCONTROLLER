@@ -37,4 +37,7 @@ bool startPauses(uint16_t* param);
 bool MashingPauseStart(uint16_t* param);
 bool BoilingPauseStart(uint16_t* param);
 
+bool DelayBeginOnOff(uint16_t* param);
+bool DelayEndOnOff(uint16_t* param);
+
 #endif

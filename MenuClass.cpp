@@ -20,6 +20,7 @@ void Menu::moveCurrentToChild()
 		
 		
 		CurrentItemBase = CurrentItemBase->ChildItem;
+		CurrentItemBase->init();
 		
 		MenuElementBase* currItem = CurrentItemBase;
 		while(currItem != nullptr)
@@ -64,6 +65,8 @@ void Menu::moveCurrentToParent()
 	if (CurrentItemBase->ParentItem != nullptr)
 	{
 			CurrentItemBase = CurrentItemBase->ParentItem;
+			CurrentItemBase->init();
+
 	}
 }
 
@@ -191,7 +194,6 @@ void Menu::FillScreen()
 		}
 	}		
 	
-	getRectCoordinates(Menu_Screen, Left_X, Top_Y, Right_X, Bottom_Y);
 	
 }
 

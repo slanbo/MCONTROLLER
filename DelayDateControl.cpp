@@ -23,27 +23,11 @@ void DelayDateControl::ExecuteStep()
 {
 	if (isOn())
 	{
-		RTC_TimeTypeDef sTime = { 0 };
-		RTC_DateTypeDef sDate = { 0 };
-		HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
-		HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
-		
-		RTC_TimeTypeDef savedTime = { 0 };
-		RTC_DateTypeDef savedDate = { 0 };
-			
-		savedDate.Date = DateTune->_getVal();
-		savedDate.Month = MonthTune->_getVal();
-		savedDate.Year = YearTune->_getVal();
-		
-		savedTime.Hours = HourTune->_getVal();
-		savedTime.Minutes = MinuteTune->_getVal();	
-		savedTime.Seconds = 0;	
-		
-		compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+		compareRes res = CompareDelayAndCurrentDate();
 		if (res == MORE | res == EQUAL)
-			Active =  ON_OFF_type;
-		else
 			Active =  !ON_OFF_type;
+		else
+			Active =  ON_OFF_type;
 		
 	}
 	else
@@ -106,4 +90,45 @@ void DelayDateControl::FillScreen(uint8_t snum)
 bool DelayDateControl::getType()
 {
 	return ON_OFF_type;
+}
+
+compareRes DelayDateControl::CompareDelayAndCurrentDate()
+{
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+	RTC_TimeTypeDef savedTime = { 0 };
+	RTC_DateTypeDef savedDate = { 0 };
+	
+	savedDate.Date = DateTune->_getVal();
+	savedDate.Month = MonthTune->_getVal();
+	savedDate.Year = YearTune->_getVal();
+		
+	savedTime.Hours = HourTune->_getVal();
+	savedTime.Minutes = MinuteTune->_getVal();	
+	savedTime.Seconds = 0;	
+		
+	compareRes res = CompareDates(&savedDate, &savedTime, &sDate, &sTime);
+	
+	return res;
+	
+}
+
+void DelayDateControl::SeveCurrentToDelayDate()
+{
+	
+	RTC_TimeTypeDef sTime = { 0 };
+	RTC_DateTypeDef sDate = { 0 };
+	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+	HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
+
+	
+	DateTune->_setVal(sDate.Date); DateTune->save();
+	MonthTune->_setVal(sDate.Month); MonthTune->save();
+	YearTune->_setVal(sDate.Year); YearTune->save();
+	HourTune->_setVal(sTime.Hours); HourTune->save();
+	MinuteTune->_setVal(sTime.Minutes); MinuteTune->save();
+
 }

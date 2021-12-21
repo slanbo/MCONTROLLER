@@ -246,25 +246,25 @@ MenuElement mi_stay_on_delta(&mi_4, &mi_pumpoffmode, "Дельта");
 MenuElementIntSelector mi_stay_on_delta_vals(&mi_stay_on_delta, &mi_stay_on_delta, "Дельта. (сек.)", 1, 0, 10, 1, &mashboilStayOnDelta);
 
 //отложенный старт
-MenuElement mi_110(nullptr, &mi_stay_on_delta_vals, "Отлож. старт");
+MenuElement mi_110(nullptr, &mi_stay_on_delta_vals, "Отлож. старт", restoreDelayBeginTunes);
 	
 //дата начала 
-MenuElement mi_111(&mi_110, &mi_110, "Дата старт", restoreDelayBeginTunes);
+//MenuElement mi_111(&mi_110, &mi_110, "Дата старт", restoreDelayBeginTunes);
 	
-MenuElement mi_112(&mi_111, &mi_111, "Год");
-MenuElementIntSelector mi_113(&mi_112, &mi_112, "Знач. года", 21, 21, 31, 1, &delayBeginYear);
+MenuElement mi_112(&mi_110, &mi_110, "Год", 1, AddChildTuneValue);
+MenuElementIntSelector mi_113(&mi_112, &mi_112, "Знач. года", 21, 21, 31, 1, &delayBeginYear, nullptr, DelayBeginOnOff);
 	
-MenuElement mi_114(&mi_111, &mi_113, "Месяц");
-MenuElementIntSelector mi_115(&mi_114, &mi_114, "Знач. месяца", 1, 1, 12, 1, &delayBeginMonth);
+MenuElement mi_114(&mi_110, &mi_113, "Месяц", 1, AddChildTuneValue);
+MenuElementIntSelector mi_115(&mi_114, &mi_114, "Знач. месяца", 1, 1, 12, 1, &delayBeginMonth, nullptr, DelayBeginOnOff);
 	
-MenuElement mi_116(&mi_111, &mi_115, "День");
-MenuElementIntSelector mi_117(&mi_116, &mi_116, "Знач. дня", 1, 1, 31, 1, &delayBeginDate);
+MenuElement mi_116(&mi_110, &mi_115, "День", 1, AddChildTuneValue);
+MenuElementIntSelector mi_117(&mi_116, &mi_116, "Знач. дня", 1, 1, 31, 1, &delayBeginDate, nullptr, DelayBeginOnOff);
 	
-MenuElement mi_118(&mi_111, &mi_117, "Час");
-MenuElementIntSelector mi_119(&mi_118, &mi_118, "Знач. часа", 0, 0, 24, 1, &delayBeginHour);
+MenuElement mi_118(&mi_110, &mi_117, "Час", 1, AddChildTuneValue);
+MenuElementIntSelector mi_119(&mi_118, &mi_118, "Знач. часа", 0, 0, 24, 1, &delayBeginHour, nullptr, DelayBeginOnOff);
 	
-MenuElement mi_120(&mi_111, &mi_119, "Минута");
-MenuElementIntSelector mi_121(&mi_120, &mi_120, "Знач. минуты", 1, 0, 60, 1, &delayBeginMinute);
+MenuElement mi_120(&mi_110, &mi_119, "Минута", 1, AddChildTuneValue);
+MenuElementIntSelector mi_121(&mi_120, &mi_120, "Знач. минуты", 1, 0, 60, 1, &delayBeginMinute, nullptr, DelayBeginOnOff);
 	
 	
 //вкл выкл
@@ -274,25 +274,25 @@ MenuElement mi_123(&mi_122, &mi_122, "Включить", 1, &delayBeginOnOffTune
 MenuElement mi_124(&mi_122, &mi_123, "Выключить", 0, &delayBeginOnOffTune);
 	
 //отложенный стоп
-MenuElement mi_125(nullptr, &mi_124, "Отлож. стоп");
+MenuElement mi_125(nullptr, &mi_124, "Отлож. стоп", restoreDelayEndTunes);
 	
 //дата стоп 
-MenuElement mi_126(&mi_125, &mi_125, "Дата стоп", restoreDelayEndTunes);
+//MenuElement mi_126(&mi_125, &mi_125, "Дата стоп", restoreDelayEndTunes);
 	
-MenuElement mi_127(&mi_126, &mi_126, "Год");
-MenuElementIntSelector mi_128(&mi_127, &mi_127, "Знач. года", 21, 21, 31, 1, &delayEndYear);
+MenuElement mi_127(&mi_125, &mi_125, "Год", 1, AddChildTuneValue);
+MenuElementIntSelector mi_128(&mi_127, &mi_127, "Знач. года", 21, 21, 31, 1, &delayEndYear, nullptr ,DelayEndOnOff);
 	
-MenuElement mi_129(&mi_126, &mi_128,"Месяц");
-MenuElementIntSelector mi_130(&mi_129, &mi_129, "Знач. месяца", 1, 1, 12, 1, &delayEndMonth);
+MenuElement mi_129(&mi_125, &mi_128, "Месяц", 1, AddChildTuneValue);
+MenuElementIntSelector mi_130(&mi_129, &mi_129, "Знач. месяца", 1, 1, 12, 1, &delayEndMonth, nullptr, DelayEndOnOff);
 	
-MenuElement mi_131(&mi_126, &mi_130, "День");
-MenuElementIntSelector mi_132(&mi_131, &mi_131, "Знач. дня", 1, 1, 31, 1, &delayEndDate);
+MenuElement mi_131(&mi_125, &mi_130, "День", 1, AddChildTuneValue);
+MenuElementIntSelector mi_132(&mi_131, &mi_131, "Знач. дня", 1, 1, 31, 1, &delayEndDate, nullptr, DelayEndOnOff);
 	
-MenuElement mi_133(&mi_126, &mi_132, "Час");
-MenuElementIntSelector mi_134(&mi_133, &mi_133, "Знач. часа", 1, 0, 24, 1, &delayEndHour);
+MenuElement mi_133(&mi_125, &mi_132, "Час", 1, AddChildTuneValue);
+MenuElementIntSelector mi_134(&mi_133, &mi_133, "Знач. часа", 1, 0, 24, 1, &delayEndHour, nullptr, DelayEndOnOff);
 	
-MenuElement mi_135(&mi_126, &mi_134, "Минута");
-MenuElementIntSelector mi_136(&mi_135, &mi_135, "Знач. минуты", 1, 0, 60, 1, &delayEndMinute);
+MenuElement mi_135(&mi_125, &mi_134, "Минута", 1, AddChildTuneValue);
+MenuElementIntSelector mi_136(&mi_135, &mi_135, "Знач. минуты", 1, 0, 60, 1, &delayEndMinute, nullptr, DelayEndOnOff);
 	
 //вкл выкл
 
