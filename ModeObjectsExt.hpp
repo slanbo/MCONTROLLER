@@ -7,6 +7,8 @@
 
 extern Habitat* HabitatMode;
 extern BeerPreparing* BeerPreparingMode;
+extern Drying* DryingMode;
+
 extern std::vector<ControlsMode*> Modes;
 
 void ModeObjectsInit();

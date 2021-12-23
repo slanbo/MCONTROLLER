@@ -93,7 +93,7 @@ public:
 	SensorsSocketsControl* mashingControl;
 	SensorsSocketsControl* boilingControl;
 	
-	PumpControl* pumpControl;
+	MixControl* pumpControl;
 	
 	virtual void ExecuteStep();
 
@@ -116,6 +116,7 @@ public:
 
 	SensorsSocketsControl* airTempControl;
 	SensorsSocketsControl* humidityControl;
+	MixControl* ventControl;
 	
 	~Drying();
 	

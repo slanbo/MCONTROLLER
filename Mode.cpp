@@ -59,7 +59,7 @@ Habitat::Habitat(uint16_t ID,
 	: ControlsMode(ID, name)
 {
 	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection();
-	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp);
+	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp, &airFixTemp);
 	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
 	
 	airTempControl = new SensorsSocketsControl
@@ -75,11 +75,11 @@ Habitat::Habitat(uint16_t ID,
 	
 	
 	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection();
-	DatePeriodValue *bdpv1 = new DatePeriodValue(1, "Night time 1", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	DatePeriodValue *bdpv1 = new DatePeriodValue(1, "Night time 1", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp, &batNightFixTemp);
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv1);
-	DatePeriodValue *bdpv2 = new DatePeriodValue(2, "Day time", 0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp);
+	DatePeriodValue *bdpv2 = new DatePeriodValue(2, "Day time", 0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp, &batDayFixTemp);
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv2);
-	DatePeriodValue *bdpv3 = new DatePeriodValue(3, "Night time 2", 0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp);
+	DatePeriodValue *bdpv3 = new DatePeriodValue(3, "Night time 2", 0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp, &batNightFixTemp);
 	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
 	
 	
@@ -95,7 +95,7 @@ Habitat::Habitat(uint16_t ID,
 		batTempDVPC);
 	
 	PeriodValuesCollection* CODVPC = new PeriodValuesCollection();
-	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel);
+	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel, &CODangerLevel);
 	CODVPC->addPeriodValue((PeriodValue*)cdpv);
 
 	coControl = new SensorsSocketsControl
@@ -110,7 +110,7 @@ Habitat::Habitat(uint16_t ID,
 		CODVPC);	
 	
 	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection();
-	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge);
+	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge, &LightEdge);
 	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
 	
 	lightControl = new SensorsSocketsControl
@@ -133,6 +133,7 @@ Habitat::Habitat(uint16_t ID,
 Habitat::~Habitat()
 {
 	delete airTempControl;
+	delete batTempControl;
 	delete coControl;
 	delete lightControl;
 }
@@ -192,15 +193,14 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 		boilingTempDVPC);
 	
 	
-	pumpControl = new PumpControl(1,
+	pumpControl = new MixControl(1,
 		"Насос",
 		&PumpOnOffTune,
 		&pumpControlSockets,
 		&PumpMode,
 		&SwitchedOnPumpTime,
 		&SwitchedOffPumpTime,
-		mashingDVPC,
-		boilingTempDVPC);
+		mashingDVPC);
 	
 	controlsVector.push_back(mashingControl);
 	controlsVector.push_back(boilingControl);
@@ -232,6 +232,8 @@ Drying::Drying(uint16_t ID,
 	const char* name)
 	: ControlsMode(ID, name)
 {
+	
+	
 }
 
 

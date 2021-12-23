@@ -16,8 +16,9 @@ DatePeriodValue::DatePeriodValue(
 	uint8_t week, 
 	uint8_t month, 
 	uint8_t year, 
-	intTune* tune)
-	: PeriodValue(ID, name, tune)
+	intTune* lowleveltune,
+	intTune* highleveltune)
+	: PeriodValue(ID, name, lowleveltune, highleveltune)
 	, Variant(variant)
 	, HourBegin(hourBegin)
 	, MinuteBegin(minuteBegin)
@@ -36,9 +37,8 @@ void PeriodValuesCollection::addPeriodValue(PeriodValue* pval)
 	periodValues.push_back(pval);
 }
 
-uint16_t PeriodValuesCollection::getValue(uint8_t variant)
+uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 {
-	
 	if (Type == DATE_PERIOD)
 	{
 		RTC_TimeTypeDef sTime = { 0 };
@@ -63,7 +63,10 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 				uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
 				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
 				{
-						return pval->_getTune()->_getVal();
+					if (type == LOW_LEVEL)
+						return pval->_getLowLevelTune()->_getVal();
+					else if (type == HIGH_LEVEL)
+						return pval->_getHighLevelTune()->_getVal();
 				}
 			}
 		}
@@ -84,7 +87,10 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 				uint16_t minutesEnd = pval->HourEnd * 60 + pval->MinuteEnd;
 				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
 				{
-						return pval->_getTune()->_getVal();
+					if (type == LOW_LEVEL)
+						return pval->_getLowLevelTune()->_getVal();
+					else if (type == HIGH_LEVEL)
+						return pval->_getHighLevelTune()->_getVal();
 				}
 			}
 		}
@@ -106,7 +112,10 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 			
 				if (minutesCurrent >= minutesBegin & minutesCurrent <= minutesEnd)
 				{
-						return pval->_getTune()->_getVal();
+					if (type == LOW_LEVEL)
+						return pval->_getLowLevelTune()->_getVal();
+					else if (type == HIGH_LEVEL)
+						return pval->_getHighLevelTune()->_getVal();
 				}
 			}
 		}
@@ -117,7 +126,12 @@ uint16_t PeriodValuesCollection::getValue(uint8_t variant)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (!pval->Completed() && pval->isActive())
-				return pval->_getTune()->_getVal();
+			{
+				if (type == LOW_LEVEL)
+					return pval->_getLowLevelTune()->_getVal();
+				else if (type == HIGH_LEVEL)
+					return pval->_getHighLevelTune()->_getVal();
+			}
 		}
 		return 0;
 	}
@@ -139,28 +153,36 @@ PeriodValuesCollection::PeriodValuesCollection(intTune* stayOnDeltaTune)
 
 PeriodValue::PeriodValue(uint16_t ID, 
 	const char* name, 
-	intTune* valTune)
+	intTune* lowLevelTune,
+	intTune* highLevelTune)
 	: BaseObject(ID, name)
-	, Tune(valTune)
+	, LowLevelTune(lowLevelTune)
+	, HighLevelTune(highLevelTune)
 {
 }
 
 
 
-intTune* PeriodValue::_getTune()
+intTune* PeriodValue::_getLowLevelTune()
 {
-	return Tune;
+	return LowLevelTune;
+}
+
+intTune* PeriodValue::_getHighLevelTune()
+{
+	return HighLevelTune;
 }
 
 
 TimePeriodValue::TimePeriodValue(
 	uint16_t ID,
 	const char* name,
-	intTune* tune, 
+	intTune* lowleveltune, 
+	intTune* highleveltune, 
 	intTune* timeTune,
 	intTune* stateTune,
 	intTune* stayOnTimeTune)
-	: PeriodValue(ID, name, tune)
+	: PeriodValue(ID, name, lowleveltune, highleveltune)
 	, TimeTune(timeTune)
 	, StateTune(stateTune)
 	, StayOnTimeTune(stayOnTimeTune)
@@ -211,11 +233,11 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 	if (lastUpdateState == COMPLETED)
 		return;
 
-	time_t currentSeconds =  getCurrentSecondsFromBegin(); // tim
+	time_t currentSeconds =  getCurrentSecondsFromBegin();  // tim
 	 
-	if (lastUpdateSeconds > 0)
+	if(lastUpdateSeconds > 0)
 	{
-		if (state == STAYON & lastUpdateState == STAYON )
+		if (state == STAYON & lastUpdateState == STAYON)
 		{
 			StayOn = StayOn + (currentSeconds - lastUpdateSeconds);
 			if (StayOn - StayOnTimeTune->_getVal() >= STAY_ON_WRITE_FLASH_PERIOD) 
@@ -241,37 +263,7 @@ void TimePeriodValue::UpdateStateTime(TimePeriodState state)
 	}
 	lastUpdateSeconds = currentSeconds;  
 	if (lastUpdateState != COMPLETED)
-	lastUpdateState = state;
-}
-
-
-void DatePeriodValue::getPeriodDescription(char* descr)
-{
-	
-}
-
-void DatePeriodValue::getStateDescription(char* descr)
-{
-	
-}
-
-void TimePeriodValue::getPeriodDescription(char* descr)
-{
-	char CO[3] = { 67, 176, 0};
-	
-	AddIntChars(descr, Tune->_getVal(), 2, ' ');
-	AddChars(descr, " ", false);
-	AddChars(descr, CO, false);
-	
-	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
-	AddChars(descr, " с.", true);
-}
-
-void TimePeriodValue::getStateDescription(char* descr)
-{
-	AddIntChars(descr, StayOn, 4, ' ');
-	AddChars(descr, " из ", true);
-	AddIntChars(descr, TimeTune->_getVal(), 4, ' ');
+		lastUpdateState = state;
 }
 
 uint8_t PeriodValuesCollection::getCurrentPeriodIndex()
@@ -333,7 +325,7 @@ void PeriodValuesCollection::SetBeforePausesCompleted(uint16_t pauseNum)
 				pval->StayOnTimeTune->_setVal(pval->TimeTune->_getVal());
 				pval->StayOnTimeTune->save();
 				pval->setState(COMPLETED);
-	}
+			}
 			i++;
 		}
 	}
@@ -366,7 +358,7 @@ void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 			{
 				TimePeriodValue* pval = (TimePeriodValue*)elem;
 				pval->Reset();
-				if (pval->Tune->_getVal()  + 3 < currentT)
+				if (pval->_getLowLevelTune()->_getVal()  + 3 < currentT)
 				{
 					pval->setStayOnTime(pval->TimeTune->_getVal());
 					pval->setState(COMPLETED);

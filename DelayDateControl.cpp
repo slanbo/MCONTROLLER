@@ -27,7 +27,9 @@ void DelayDateControl::ExecuteStep()
 		if (res == MORE | res == EQUAL)
 			Active =  !ON_OFF_type;
 		else
+		{
 			Active =  ON_OFF_type;
+		}
 		
 	}
 	else

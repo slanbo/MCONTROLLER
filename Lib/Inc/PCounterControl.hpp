@@ -26,10 +26,15 @@ private:
 	uint16_t lastExecuteStepPower = 0;
 	
 	
-	uint32_t get_VT_HOUR();
 	
 	
 public:
+	
+	uint32_t get_VT_HOUR();
+	
+	uint64_t get_VT_Seconds();
+	void set_VT_Seconds(uint32_t vthour);
+	
 	
 	uint64_t VT_Seconds = 0;
 	

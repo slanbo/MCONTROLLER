@@ -34,4 +34,14 @@ Pauses* boilingPauses_1 = new Pauses(1, "98|98|98", BOILING, boilingPausesVector
 std::vector<Pauses*> PausesVector = { pauses_45_52_68_72_79, pauses_62_68_72_81, pauses_25, boilingPauses_1};
 
 
+std::vector<Pause*> DryingPausesVector_1 = { 
+	new Pause(0, "40|3600", 40, 3600), 
+	new Pause(0, "50|36000", 50, 36000), 
+	new Pause(0, "60|3600", 60, 3600)
+ }; 
+
+Pauses* dryingPauses_1 = new Pauses(1, "40|50|50", BOILING, DryingPausesVector_1);
+
+std::vector<Pauses*> DryingPausesVector = { dryingPauses_1 };
+
 #endif

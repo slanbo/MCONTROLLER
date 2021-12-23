@@ -41,7 +41,6 @@ public:
 	virtual void setOn(bool state);
 	virtual bool isActive();
 	virtual void FillScreen(uint8_t snum) = 0;
-	
 	uint8_t getScreensQuant();
 	
 private:
@@ -49,11 +48,9 @@ private:
 protected:
 	intTune* OnOffTune;
 	intTune* SwitchOnMotionPeriodTune;
-	
 	uint8_t screensQuant = 1;
 };
 	
-
 class SocketsControl : public ControlBase
 {
 public:
@@ -128,7 +125,9 @@ public:
 	virtual void ExecuteStep();
 	virtual void FillScreen(uint8_t snum);
 	
-	virtual uint16_t _get_aim_val();
+	virtual uint16_t _get_low_aim_val();
+	virtual uint16_t _get_high_aim_val();
+	
 	virtual uint16_t _get_current_val();
 	
 	virtual void _set_aim_val(uint16_t val);
@@ -157,34 +156,32 @@ protected:
 	std::vector< ADCSensor*> SensorsVector;
 	
 	uint16_t current_val = 0;
-	uint16_t aim_val = 0;
+	uint16_t low_aim_val = 0;
+	uint16_t high_aim_val = 0;
 	
 };
 
-class PumpControl : public SocketsControl
+class MixControl : public SocketsControl
 {
 public:
-	PumpControl(uint16_t id,
+	MixControl(uint16_t id,
 		const char* name,
 		intTune* onOffTune,
 		IntVectorTune* SocketsTune,
 		intTune* pumpModeTune,
 		intTune* periodOnTune,
 		intTune* periodOffTune,
-		PeriodValuesCollection* mashingdpvcollection,
-		PeriodValuesCollection* boilingdpvcollection);
+		PeriodValuesCollection* dpvcollection);
 		
 	virtual void ExecuteStep();
 	virtual void FillScreen(uint8_t snum);
 
 	
 protected:
-	intTune* PumpModeTune;
+	intTune* ModeTune;
 	intTune* PeriodOnTune;
 	intTune* PeriodOffTune;
-	PeriodValuesCollection* mashingDPVCollection;
-	PeriodValuesCollection* boilingDPVCollection;
-
+	PeriodValuesCollection* DPVCollection;
 	time_t swichedSeconds = 0;
 };
 

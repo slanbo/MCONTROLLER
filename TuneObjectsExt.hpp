@@ -115,49 +115,24 @@ extern intTune SwitchedOnPumpTime;
 extern intTune SwitchedOffPumpTime;	
 	
 extern intTune mashboilStayOnDelta;
-
 extern intTune dryingAirTempProfileIndex;
 extern intTune DryingFixTemp;
 extern intTune dryingAirDryProfileIndex;
 extern intTune DryingDryLevel;	
-
 extern intTune MashingOnOffTune;	
 extern intTune BoilingOnOffTune;	
 extern intTune PumpOnOffTune;
-
 extern IntVectorTune pumpControlSockets;	
-
 extern intTune delayBeginOnOffTune;	
 extern intTune delayEndOnOffTune;	
-
-extern intTune dryingTempOnOffTune;	
-extern intTune dryingTempProfileIndex;	
-
-extern intTune dryingHumidityOnOffTune;	
 extern intTune humiditiNullLevelTune;	
-
 extern intTune MotionControlOnOffTune; 
 extern intTune OnIfMotionPeriod;
-
-extern intTune dryingFixTemp;
-
-extern intTune dryingFixTempDay;
-extern intTune dryingFixTempNight;
-
-extern intTune dryingVentMode;
-
-extern intTune dryingVentOnPeriod;	
-extern intTune dryingVentOffPeriod;
-
-extern intTune dryingVentOnOffTune;
 extern intTune longPeriodMotionControlOnOffTune;
 extern intTune longPeriodOnIfMotionPeriod;
-
 extern std::vector <intTune*> flashTunesV;
-
 extern intTune dayPCounterOnOffTune;
 extern intTune nightPCounterOnOffTune;
-
 extern IntVectorTune airTempControlSensors;
 extern IntVectorTune airTempControlUpSockets;
 extern IntVectorTune airTempControlDownSockets;
@@ -204,6 +179,34 @@ extern intTune delayEndHour;
 extern intTune delayEndMinute;	
 extern IntVectorTune PCounterSockets;
 
+extern intTune  dryingPause1Temp;
+extern intTune  dryingPause1Time;
+extern intTune  dryingPause1Active;
+extern intTune  dryingPause1StayOn;
+
+extern intTune  dryingPause2Temp;
+extern intTune  dryingPause2Time;
+extern intTune  dryingPause2Active;
+extern intTune  dryingPause2StayOn;
+	
+extern intTune  dryingPause3Temp;
+extern intTune  dryingPause3Time;
+extern intTune  dryingPause3Active;
+extern intTune  dryingPause3StayOn;
+	
+extern IntVectorTune dryingControlSensors;
+extern IntVectorTune dryingControlUpSockets;
+extern IntVectorTune  dryingControlDownSockets;
+
+
+extern intTune VentMode;
+extern intTune SwitchedOnVentTime;
+extern intTune SwitchedOffVentTime;	
+	
+extern intTune dryingStayOnDelta;
+
+
+
 extern FlashTune* lastFlashTune;
 
 void writesTunesToFlash();
@@ -221,5 +224,9 @@ extern std::vector<intTune*> boilingTimeTunesVector;
 extern std::vector<intTune*> boilingActivityTunesVector;
 extern std::vector<intTune*> boilingStayOnTunesVector;
 
+extern std::vector<intTune*> dryingTemperatureTunesVector;
+extern std::vector<intTune*> dryingTimeTunesVector;
+extern std::vector<intTune*> dryingActivityTunesVector;
+extern std::vector<intTune*> dryingStayOnTunesVector;
 
 #endif 

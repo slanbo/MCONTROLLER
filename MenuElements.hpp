@@ -40,4 +40,10 @@ bool BoilingPauseStart(uint16_t* param);
 bool DelayBeginOnOff(uint16_t* param);
 bool DelayEndOnOff(uint16_t* param);
 
+bool startDryingPauses(uint16_t* param);
+bool restoreDryingPauses(uint16_t* param);
+void AddDryingPauseDescription(char* text, MenuElementBase* elembase);
+bool DryingPauseStart(uint16_t* param);
+void EXIT_SETUP_MODE();
+
 #endif

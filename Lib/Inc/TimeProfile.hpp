@@ -13,6 +13,12 @@
 #define ANTIFROST_TEMP 2
 #define STAY_ON_WRITE_FLASH_PERIOD 60
 
+enum ValueType
+{
+	LOW_LEVEL,
+	HIGH_LEVEL
+};
+
 enum PeriodType
 {
 	DATE_PERIOD,
@@ -33,14 +39,14 @@ class PeriodValue: public BaseObject
 private:
 public:
 	PeriodValue(uint16_t ID, const char* name, uint16_t val);
-	PeriodValue(uint16_t ID, const char* name, intTune* valTune);
+	PeriodValue(uint16_t ID, const char* name, intTune* lowLevelTune, intTune* highLevelTune);
 	
-	intTune* _getTune();
+	intTune* _getLowLevelTune();
+	intTune* _getHighLevelTune();
+		
+	intTune* LowLevelTune;
+	intTune* HighLevelTune;
 	
-	virtual void getPeriodDescription(char* descr) = 0;
-	virtual void getStateDescription(char* descr) = 0;
-	
-	intTune* Tune;
 	
 protected:	
 };
@@ -64,7 +70,8 @@ public:
 		uint8_t week,
 		uint8_t month,
 		uint8_t year,
-		intTune* tune);
+		intTune* lowLeveltune,
+		intTune* highLeveltune);
 	
 	~DatePeriodValue();
 	
@@ -79,9 +86,6 @@ public:
 	uint8_t Month;
 	uint8_t Year;
 	
-	virtual void getPeriodDescription(char* descr);
-	virtual void getStateDescription(char* descr);
-
 	
 };
 
@@ -105,7 +109,8 @@ public:
 	TimePeriodValue(
 		uint16_t ID,
 		const char* name,
-		intTune* tune,
+		intTune* lowleveltune,
+		intTune* highleveltune,
 		intTune* timeTune,
 		intTune* stateTune,
 		intTune* stayOnTimeTune);
@@ -126,8 +131,6 @@ public:
 	
 	bool isActive();
 	
-	virtual void getPeriodDescription(char* descr);
-	virtual void getStateDescription(char* descr);
 
 	intTune* StayOnTimeTune;
 	intTune* TimeTune;
@@ -147,7 +150,7 @@ public:
 	void addPeriodValue(PeriodValue* pval);
 	
 	PeriodType Type;
-	uint16_t getValue(uint8_t variant);
+	uint16_t getValue(ValueType type, uint8_t variant);
 	std::vector<PeriodValue*> periodValues;
 	
 	uint8_t getCurrentPeriodIndex();

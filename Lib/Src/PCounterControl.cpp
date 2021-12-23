@@ -163,3 +163,14 @@ void PCounterControl::init()
 	SocketsControl::init();
 	restoreFromFlash();
 }
+
+
+void PCounterControl::set_VT_Seconds(uint32_t val)
+{
+	VT_Seconds = val;
+}
+
+uint64_t PCounterControl::get_VT_Seconds()
+{
+	return VT_Seconds;
+}

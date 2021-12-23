@@ -15,3 +15,9 @@ extern TimePeriodValue* btp_2;
 extern TimePeriodValue* btp_3;
 
 extern PeriodValuesCollection* boilingTempDVPC;
+
+extern TimePeriodValue* dtp_1;
+extern TimePeriodValue* dtp_2;
+extern TimePeriodValue* dtp_3;
+
+extern PeriodValuesCollection* dryingTempDVPC;

@@ -13,6 +13,7 @@
 #include "MenuClass.hpp"
 #include "Bizzer.hpp"
 #include "DelayDateObjectsExt.hpp"
+#include "PCounterObjectsExt.hpp"
 
 extern Bizzer alarmBizzer;
 extern Menu* mainMenu; 
@@ -53,6 +54,17 @@ bool restorePauses(uint16_t* param)
 	
 	return true;
 }
+
+bool restoreDryingPauses(uint16_t* param)
+{
+	DryingPausesVector.at(*param - 1)->saveToTunes();
+	dryingTempDVPC->ResetPeriodes();
+	
+	
+	return true;
+}
+
+
 
 bool startPauses(uint16_t* param)
 {
@@ -109,24 +121,46 @@ bool startPauses(uint16_t* param)
 		}
 	}
 		
-	SETUP_MODE = 0;
-	set_DS_From_RTC();
-	Info_Header->_setUpdated(true);
-	Info_SubHeader->_setUpdated(true);
-	Info_FirstString->_setUpdated(true);
-	Info_SecondString->_setUpdated(true);
-	Info_ThirdString->_setUpdated(true);
-	Info_FourthString->_setUpdated(true);
-	
-	alarmBizzer.addLevelArray(1);
-	alarmBizzer.addLevelArray(0);
-				
-	mainMenu->clearLCD();
+	EXIT_SETUP_MODE();
 
-
-	
 	return true;
 }
+
+bool startDryingPauses(uint16_t* param)
+{
+	
+	switch (*param)
+	{
+	case 1:
+		{
+			DryingMode->airTempControl->DPVCollection->ResetPeriodes();
+			DryingMode->airTempControl->setOn(true);
+			break;
+		}
+	case 2:
+		{
+			DryingMode->airTempControl->DPVCollection->RestorePeriodsStates(0xff);
+			DryingMode->airTempControl->setOn(true);
+			break;
+		}
+	case 3:
+		{
+			uint16_t currval = DryingMode->airTempControl->_get_current_val();
+			DryingMode->airTempControl->DPVCollection->RestorePeriodsStates(currval);
+			DryingMode->airTempControl->setOn(true);
+			break;
+		}
+	default:
+		{
+			break;
+		}
+	}
+		
+	EXIT_SETUP_MODE();
+
+	return true;
+}
+
 
 bool restoreDelayEndTunes(uint16_t* param)
 {
@@ -144,11 +178,18 @@ bool restoreDelayEndTunes(uint16_t* param)
 bool clearCounters(uint16_t* param)
 {
 	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
-	HAL_FLASH_Unlock();
-	uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 1);
-	status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 1);
-	HAL_FLASH_Lock();
+	//HAL_FLASH_Unlock();
+	//uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 1);
+	//status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 1);
+	//HAL_FLASH_Lock();
+	
+	dayPCounter->set_VT_Seconds(0);
+	dayPCounter->saveToFlash();
+	nightPCounter->set_VT_Seconds(0);
+	nightPCounter->saveToFlash();
+
 	xSemaphoreGive(flashmut_handle);
+	
 	
 	RTC_TimeTypeDef sTime = { 0 };
 	RTC_DateTypeDef sDate = { 0 };
@@ -445,6 +486,13 @@ void AddBoilingPauseDescription(char* text, MenuElementBase* elembase)
 	AddIntChars(text, boilingTimeTunesVector.at(elem->Parametr - 1)->_getVal(), 5, ' ');
 }
 
+void AddDryingPauseDescription(char* text, MenuElementBase* elembase)
+{
+	MenuElement* elem = (MenuElement*)elembase;
+	AddIntChars(text, dryingTemperatureTunesVector.at(elem->Parametr - 1)->_getVal(), 2, ' ');
+	AddIntChars(text, dryingTimeTunesVector.at(elem->Parametr - 1)->_getVal(), 5, ' ');
+}
+
 void AddChildTuneValue(char* text, MenuElementBase* elembase)
 {
 	MenuElement* elemchilde = (MenuElement*)elembase->ChildItem;
@@ -474,19 +522,7 @@ bool MashingPauseStart(uint16_t* param)
 	BeerPreparingMode->mashingControl->DPVCollection->SetBeforePausesCompleted(*param);
 	BeerPreparingMode->mashingControl->setOn(true);
 	
-	SETUP_MODE = 0;
-	set_DS_From_RTC();
-	Info_Header->_setUpdated(true);
-	Info_SubHeader->_setUpdated(true);
-	Info_FirstString->_setUpdated(true);
-	Info_SecondString->_setUpdated(true);
-	Info_ThirdString->_setUpdated(true);
-	Info_FourthString->_setUpdated(true);
-	
-	alarmBizzer.addLevelArray(1);
-	alarmBizzer.addLevelArray(0);
-				
-	mainMenu->clearLCD();
+	EXIT_SETUP_MODE();
 	
 	return true;
 }
@@ -497,6 +533,14 @@ bool BoilingPauseStart(uint16_t* param)
 	BeerPreparingMode->boilingControl->DPVCollection->SetBeforePausesCompleted(*param);
 	BeerPreparingMode->boilingControl->setOn(true);
 
+	EXIT_SETUP_MODE();
+	
+	return true;
+}
+;
+
+void EXIT_SETUP_MODE()
+{
 	SETUP_MODE = 0;
 	set_DS_From_RTC();
 	Info_Header->_setUpdated(true);
@@ -510,6 +554,14 @@ bool BoilingPauseStart(uint16_t* param)
 	alarmBizzer.addLevelArray(0);
 				
 	mainMenu->clearLCD();
+}
+
+bool DryingPauseStart(uint16_t* param)
+{
+	DryingMode->airTempControl->DPVCollection->SetBeforePausesCompleted(*param);
+	DryingMode->airTempControl->setOn(true);
+
+	EXIT_SETUP_MODE();
 	
 	return true;
 }

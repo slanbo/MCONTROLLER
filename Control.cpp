@@ -28,12 +28,14 @@ bool ControlBase::isActive()
 {
 	bool active = true;
 	
-	if (delayBegin->isOn() & !delayBegin->isActive())
-		active = false;
 	
-	if (delayEnd->isOn() & delayEnd->isActive())
-		active = false;
-		
+	if (delayBegin->isOn())
+		active = delayBegin->isActive();
+	
+	if (active & delayEnd->isOn())
+		active = delayEnd->isActive();
+	
+	
 	//motion detection 
 	if(OnOffTune->_getVal() == 2)
 	{
@@ -179,7 +181,8 @@ void SensorsSocketsControl::init()
 void SensorsSocketsControl::ExecuteStep()
 {
 	
-	_get_aim_val();
+	_get_low_aim_val();
+	_get_high_aim_val();
 	_get_current_val();
 	
 	if (isActive())
@@ -187,22 +190,22 @@ void SensorsSocketsControl::ExecuteStep()
 		uint16_t upPower = 0;
 		uint16_t downPower = 0;
 		
-		if (current_val > aim_val) // switch sockets to decriace val
+		if (current_val > high_aim_val) // switch sockets to decriace val
 			{
 				upPower = 0;
 				if (DownSocketsVector.size() > 0)
 				{
-					if (current_val > aim_val + 2) //cooling max
+					if (current_val > high_aim_val + 2) //cooling max
 						{
 							downPower = 0xffff;
 							SocketsState = DECREASEMAX;
 						}
-					else if (current_val > aim_val + 1) //cooling 2/3
+					else if (current_val > high_aim_val + 1) //cooling 2/3
 						{
 							downPower = 2000;
 							SocketsState = DECREASEMID;
 						}
-					else if (current_val > aim_val) //cooling  1/3
+					else if (current_val > high_aim_val) //cooling  1/3
 						{
 							downPower = 1000;
 							SocketsState = DECREASEMIN;
@@ -224,17 +227,17 @@ void SensorsSocketsControl::ExecuteStep()
 				downPower = 0;
 				if (SocketsVector.size() > 0)
 				{
-					if (current_val < aim_val - 2) 
+					if (current_val < low_aim_val - 2) 
 					{
 						upPower = 0xffff;
 						SocketsState = INCREASEMAX;
 					}
-					else if (current_val < aim_val - 1)
+					else if (current_val < low_aim_val - 1)
 					{
 						upPower = 2000;
 						SocketsState = INCREASEMID;
 					}
-					else if (current_val < aim_val)
+					else if (current_val < low_aim_val)
 					{
 						upPower = 1000;
 						SocketsState = INCREASEMIN;
@@ -253,12 +256,12 @@ void SensorsSocketsControl::ExecuteStep()
 		{
 			bool result = false;
 			
-			if (current_val >= aim_val - DPVCollection->StayOnDeltaTune->_getVal() && 
-				current_val <= aim_val + DPVCollection->StayOnDeltaTune->_getVal())
+			if (current_val >= low_aim_val - DPVCollection->StayOnDeltaTune->_getVal() && 
+				current_val <= low_aim_val + DPVCollection->StayOnDeltaTune->_getVal())
 				result = DPVCollection->UpdateCurrentPeriotStateTime(STAYON);
-			else if (current_val < aim_val - DPVCollection->StayOnDeltaTune->_getVal())
+			else if (current_val < low_aim_val - DPVCollection->StayOnDeltaTune->_getVal())
 				result = DPVCollection->UpdateCurrentPeriotStateTime(HEATING);
-			else if (current_val > aim_val + DPVCollection->StayOnDeltaTune->_getVal())
+			else if (current_val > low_aim_val + DPVCollection->StayOnDeltaTune->_getVal())
 				result = DPVCollection->UpdateCurrentPeriotStateTime(COOLING);
 						
 			
@@ -297,29 +300,30 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 		Info_SubHeader->FillEndBySpaces();
 		Info_SubHeader->_setUpdated(true);
 	
-		Info_FirstString->SetChars("Текушая:\0", true);
-		Info_FirstString->SetIntText(_get_current_val(), 5);
+		Info_FirstString->SetChars("Текушая: \0", true);
+		Info_FirstString->SetIntText(_get_current_val(), 0);
 		Info_FirstString->SetChars(blank, false);	
 		Info_FirstString->SetChars(GetSensorsUnit(), false);
 		Info_FirstString->FillEndBySpaces();
 		Info_FirstString->_setUpdated(true);
 
-		Info_SecondString->SetChars("Целевая:\0", true);
-		Info_SecondString->SetIntText(_get_aim_val(), 5);
-		Info_SecondString->SetChars(blank, false);
+		Info_SecondString->SetChars("Целевая: \0", true);
+		Info_SecondString->SetIntText(_get_low_aim_val(), 0);
+		Info_SecondString->SetChars("-", false);
+		Info_SecondString->SetIntText(_get_high_aim_val(), 0);
 		Info_SecondString->SetChars(GetSensorsUnit(), false);
 		Info_SecondString->FillEndBySpaces();
 		Info_SecondString->_setUpdated(true);
 	
-		Info_ThirdString->SetChars("Нагр. + :\0", true);
-		Info_ThirdString->SetIntText(GetSocketsPowerVT(), 5);
+		Info_ThirdString->SetChars("Нагр. + : \0", true);
+		Info_ThirdString->SetIntText(GetSocketsPowerVT(), 0);
 		Info_ThirdString->SetChars(blank, false);
 		Info_ThirdString->SetChars("ВТ\0", true);
 		Info_ThirdString->FillEndBySpaces();
 		Info_ThirdString->_setUpdated(true);
 	
-		Info_FourthString->SetChars("Нагр. - :\0", true);
-		Info_FourthString->SetIntText(GetDownSocketsPowerVT(), 5);
+		Info_FourthString->SetChars("Нагр. - : \0", true);
+		Info_FourthString->SetIntText(GetDownSocketsPowerVT(), 0);
 		Info_FourthString->SetChars(blank, false);
 		Info_FourthString->SetChars("ВТ\0", true);
 		Info_FourthString->FillEndBySpaces();
@@ -345,7 +349,7 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 			{
 				TimePeriodValue* tpValue = (TimePeriodValue*)DPVCollection->periodValues.at(currtpindex);
 				periodTime = tpValue->TimeTune->_getVal();
-				periodTemp = tpValue->Tune->_getVal();
+				periodTemp = tpValue->_getLowLevelTune()->_getVal();
 				StayOnTime = tpValue->getStayOnTime();
 			}
 			
@@ -355,11 +359,11 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 			{
 				char CO[3] = { 67, 176, 0 };
 	
-				Info_SecondString->SetIntText(periodTemp, 2);
+				Info_SecondString->SetIntText(periodTemp, 0);
 				Info_SecondString->SetChars(" ", false);
 				Info_SecondString->SetChars(CO, false);
 	
-				Info_SecondString->SetIntText(periodTime, 4);
+				Info_SecondString->SetIntText(periodTime, 0);
 				Info_SecondString->SetChars(" сек.", true);
 			}
 			
@@ -374,9 +378,9 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 				Info_FourthString->SetChars("Завершены", true);
 			else
 			{
-				Info_FourthString->SetIntText(StayOnTime, 4);
+				Info_FourthString->SetIntText(StayOnTime, 0);
 				Info_FourthString->SetChars(" из ", true);
-				Info_FourthString->SetIntText(periodTime, 4);
+				Info_FourthString->SetIntText(periodTime, 0);
 				
 			}
 			
@@ -386,10 +390,16 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 	}
 }
 
-uint16_t SensorsSocketsControl::_get_aim_val()
+uint16_t SensorsSocketsControl::_get_low_aim_val()
 {
-	aim_val = DPVCollection->getValue(TimeProfileTune->_getVal());
-	return aim_val;
+	low_aim_val = DPVCollection->getValue(LOW_LEVEL ,TimeProfileTune->_getVal());
+	return low_aim_val;
+}
+
+uint16_t SensorsSocketsControl::_get_high_aim_val()
+{
+	high_aim_val = DPVCollection->getValue(HIGH_LEVEL, TimeProfileTune->_getVal());
+	return high_aim_val;
 }
 
 uint16_t SensorsSocketsControl::_get_current_val()
@@ -512,9 +522,7 @@ void SocketsControl::SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t 
 				}
 		}
 	}
-	
 }
-
 
 uint16_t SocketsControl::GetSocketsPowerVT()
 {
@@ -526,24 +534,18 @@ uint16_t SocketsControl::GetSocketsPowerVT()
 	return sum;
 }
 
-void PumpControl::ExecuteStep()
+void MixControl::ExecuteStep()
 {
 	if (isOn())
 	{	
-		
-		
 		TimePeriodState currState;
-		if (beerModeIndex._getVal() == 0)
-			currState = mashingDPVCollection->getCurrentState();
-		else
-			currState = boilingDPVCollection->getCurrentState();
+		currState = DPVCollection->getCurrentState();
 		
 		
-		switch (PumpModeTune->_getVal()) 
+		switch (ModeTune->_getVal()) 
 		{
 		case 1: // period on /period off
 			{
-				
 				if (currState != STAYON & currState != HEATING & currState != COOLING)
 				{
 					SwitchSockets(0);
@@ -621,7 +623,7 @@ void PumpControl::ExecuteStep()
 	}
 }
 
-void PumpControl::FillScreen(uint8_t snum)
+void MixControl::FillScreen(uint8_t snum)
 {
 	Info_SubHeader->SetChars(Name, false);
 	if (isOn())
@@ -681,21 +683,18 @@ void PumpControl::FillScreen(uint8_t snum)
 	Info_FourthString->_setUpdated(true);
 }
 
-PumpControl::PumpControl(uint16_t id, 
+MixControl::MixControl(uint16_t id, 
 	const char* name, 
 	intTune* onOffTune, 
 	IntVectorTune* SocketsTune, 
-	intTune* pumpModeTune, 
+	intTune* modeTune, 
 	intTune* periodOnTune, 
 	intTune* periodOffTune, 
-	PeriodValuesCollection* mashingdpvcollection,
-	PeriodValuesCollection* boilingdpvcollection)
+	PeriodValuesCollection* dpvcollection)
 	: SocketsControl(name, onOffTune, nullptr, SocketsTune)
-	, PumpModeTune(pumpModeTune)
+	, ModeTune(modeTune)
 	, PeriodOnTune(periodOnTune)
 	, PeriodOffTune(periodOffTune)
-	, mashingDPVCollection(mashingdpvcollection)
-	, boilingDPVCollection(boilingdpvcollection)
 {
 }
 

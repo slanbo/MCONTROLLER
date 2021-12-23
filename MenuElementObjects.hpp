@@ -301,6 +301,65 @@ MenuElement mi_137(&mi_125, &mi_136, "Вкл/Выкл");
 MenuElement mi_138(&mi_137, &mi_137, "Включить", 1, &delayEndOnOffTune);
 MenuElement mi_139(&mi_137, &mi_138, "Выключить", 0, &delayEndOnOffTune);
 	
+//drying
+
+MenuElement mi_DryingPause_40_50_60(&mi_5, &mi_139, "40|50|60", 4, restoreDryingPauses);
+MenuElement mi_DryingStartFromBegin(&mi_5, &mi_DryingPause_40_50_60, "Старт с начала", 1, startDryingPauses);
+MenuElement mi_DryingStartFromSaved(&mi_5, &mi_DryingStartFromBegin, "Продолжить", 2, startDryingPauses);
+
+
+MenuElement mi_140(&mi_5, &mi_DryingStartFromSaved, "П1:", 1, AddDryingPauseDescription);
+MenuElement mi_141(&mi_140, &mi_140, "П1 темп.", 1, AddChildTuneValue);
+MenuElementIntSelector mi_142(&mi_141, &mi_141, "П1 температ.", 1, 0, 100, 5, &dryingPause1Temp);
+MenuElement mi_143(&mi_140, &mi_142, "П1 время", 1, AddChildTuneValue);
+MenuElementIntSelector mi_P1_time(&mi_143, &mi_143, "П1 время", 1, 0, 7200, 100, &dryingPause1Time);
+MenuElement dp1_onoff(&mi_140, &mi_P1_time, "Вкл/Выкл");
+MenuElement dp1_on(&dp1_onoff, &dp1_onoff, "Вкл", 1, &dryingPause1Active);
+MenuElement dp1_off(&dp1_onoff, &dp1_on, "Выкл", 0, &dryingPause1Active);
+MenuElement dp1_start(&mi_140, &dp1_off, "Старт с паузы", 1, DryingPauseStart);
+
+
+
+//boiling Pause 2
+MenuElement mi_144(&mi_5, &dp1_start, "П2:", 2, AddDryingPauseDescription);
+MenuElement mi_145(&mi_100, &mi_144, "П2 темп.", 2, AddChildTuneValue);
+MenuElementIntSelector mi_146(&mi_101, &mi_145, "П2 температ.", 1, 0, 100, 5, &dryingPause2Temp);
+MenuElement mi_147(&mi_100, &mi_146, "П2 время", 2, AddChildTuneValue);
+MenuElementIntSelector mi_148(&mi_103, &mi_147, "П2 время", 1, 0, 7200, 100, &dryingPause2Time);
+MenuElement dp2_onoff(&mi_100, &mi_148, "Вкл/Выкл");
+MenuElement dp2_on(&bp2_onoff, &dp2_onoff, "Вкл", 1, &dryingPause2Active);
+MenuElement dp2_off(&bp2_onoff, &dp2_on, "Выкл", 0, &dryingPause2Active);
+MenuElement dp2_start(&mi_100, &dp2_off, "Старт с паузы", 2, DryingPauseStart);
+
+
+//boiling Pause 3
+MenuElement mi_149(&mi_5, &dp2_start, "П3:", 3, AddDryingPauseDescription);
+MenuElement mi_150(&mi_105, &mi_149, "П3 темп.", 3, AddChildTuneValue);
+MenuElementIntSelector mi_152(&mi_106, &mi_150, "П3 температ.", 1, 0, 100, 5, &dryingPause3Temp);
+MenuElement mi_153(&mi_105, &mi_152, "П3 время", 3, AddChildTuneValue);
+MenuElementIntSelector mi_154(&mi_108, &mi_153, "П3 время", 1, 0, 7200, 100, &dryingPause3Time);
+MenuElement dp3_onoff(&mi_105, &mi_154, "Вкл/Выкл");
+MenuElement dp3_on(&bp3_onoff, &dp3_onoff, "Вкл", 1, &dryingPause3Active);
+MenuElement dp3_off(&bp3_onoff, &dp3_on, "Выкл", 0, &dryingPause3Active);
+MenuElement dp3_start(&mi_105, &dp3_off, "Старт с паузы", 2, DryingPauseStart);
+
+//pump
+MenuElement mi_vent(&mi_5, &dp3_start, "Вентилятор");
+MenuElement mi_ventpausesmode(&mi_pump, &mi_vent, "Паузами", ChangePumpMode, 1, &VentMode);
+MenuElement mi_venton(&mi_pumppausesmode, &mi_ventpausesmode, "Пауза вкл.");
+MenuElementIntSelector mi_ventonperiod(&mi_pumpon, &mi_venton, "Пер. вкл. (сек.)", 5, 0, 1200, 5, &SwitchedOnVentTime);
+MenuElement mi_ventoff(&mi_pumppausesmode, &mi_ventonperiod, "Пауза выкл.");
+MenuElementIntSelector mi_ventoffperiod(&mi_pumpoff, &mi_ventoff, "Пер. выкл. (сек.)", 5, 0, 1200, 5, &SwitchedOffVentTime);
+MenuElement mi_ventheatingmode(&mi_pump, &mi_ventoffperiod, "При нагреве", ChangePumpMode, 2, &VentMode);
+MenuElement mi_ventstayonmode(&mi_pump, &mi_ventheatingmode, "При паузе", ChangePumpMode, 3, &VentMode);
+MenuElement mi_ventalltimeonmode(&mi_pump, &mi_ventstayonmode, "Всегда вкл.", ChangePumpMode, 4, &VentMode);
+MenuElement mi_ventoffmode(&mi_pump, &mi_ventalltimeonmode, "Выкл.", ChangePumpMode, 5, &VentMode);
+
+MenuElement mi_drying_stay_on_delta(&mi_5, &mi_ventoffmode, "Дельта");
+MenuElementIntSelector mi_drying_stay_on_delta_vals(&mi_stay_on_delta, &mi_drying_stay_on_delta, "Дельта. (сек.)", 1, 0, 10, 1, &dryingStayOnDelta);
+
+
+
 /*	
 //контроль сушки
 MenuElement mi_140(&mi_5, &mi_139, "Температ. возд.");

@@ -104,14 +104,18 @@ intTune SwitchedOffPumpTime(&SwitchedOnPumpTime);
 
 intTune mashboilStayOnDelta(&SwitchedOffPumpTime);
 
+
+
+
+
 //drying
-intTune dryingAirTempProfileIndex(&mashboilStayOnDelta);
-intTune DryingFixTemp(&dryingAirTempProfileIndex);
-intTune dryingAirDryProfileIndex(&DryingFixTemp);
-intTune DryingDryLevel(&dryingAirDryProfileIndex);	
+//intTune dryingAirTempProfileIndex(&mashboilStayOnDelta);
+//intTune DryingFixTemp(&dryingAirTempProfileIndex);
+//intTune dryingAirDryProfileIndex(&DryingFixTemp);
+//intTune DryingDryLevel(&dryingAirDryProfileIndex);	
 
 //on off
-intTune MashingOnOffTune(&DryingDryLevel);	
+intTune MashingOnOffTune(&mashboilStayOnDelta);	
 intTune BoilingOnOffTune(&MashingOnOffTune);	
 intTune PumpOnOffTune(&BoilingOnOffTune);	
 
@@ -122,28 +126,28 @@ intTune delayBeginOnOffTune(&pumpControlSockets);
 intTune delayEndOnOffTune(&delayBeginOnOffTune);	
 
 //drying temp
-intTune dryingTempOnOffTune(&delayEndOnOffTune);	
-intTune dryingTempProfileIndex(&dryingTempOnOffTune);	
-intTune OnIfMotionPeriod(&dryingTempProfileIndex);
-intTune dryingFixTemp(&OnIfMotionPeriod);
+//intTune dryingTempOnOffTune(&delayEndOnOffTune);	
+//intTune dryingTempProfileIndex(&dryingTempOnOffTune);	
+//intTune OnIfMotionPeriod(&dryingTempProfileIndex);
+// dryingFixTemp(&OnIfMotionPeriod);
 
-intTune dryingFixTempDay(&dryingFixTemp);
-intTune dryingFixTempNight(&dryingFixTempDay);
+//intTune dryingFixTempDay(&dryingFixTemp);
+//intTune dryingFixTempNight(&dryingFixTempDay);
 
-intTune dryingVentMode(&dryingFixTempNight);
+//intTune dryingVentMode(&dryingFixTempNight);
 
 
 //drying humidity
-intTune dryingHumidityOnOffTune(&dryingVentMode);	
-intTune humiditiNullLevelTune(&dryingHumidityOnOffTune);	
+//intTune dryingHumidityOnOffTune(&dryingVentMode);	
+intTune humiditiNullLevelTune(&delayEndOnOffTune);	
 
 //drying vent
-intTune dryingVentOnOffTune(&humiditiNullLevelTune);
+//intTune dryingVentOnOffTune(&humiditiNullLevelTune);
 
-intTune dryingVentOnPeriod(&dryingVentOnOffTune);	
-intTune dryingVentOffPeriod(&dryingVentOnPeriod);
+//intTune dryingVentOnPeriod(&dryingVentOnOffTune);	
+//intTune dryingVentOffPeriod(&dryingVentOnPeriod);
 
-intTune MotionControlOnOffTune(&dryingVentOffPeriod);
+intTune MotionControlOnOffTune(&humiditiNullLevelTune);
 
 intTune longPeriodMotionControlOnOffTune(&MotionControlOnOffTune);
 intTune longPeriodOnIfMotionPeriod(&longPeriodMotionControlOnOffTune);
@@ -213,7 +217,36 @@ IntVectorTune IRMSensorsTune(&weekDayTune, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
 
 IntVectorTune PCounterSockets(&IRMSensorsTune, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 
-FlashTune* lastFlashTune = &PCounterSockets;
+intTune  dryingPause1Temp(&PCounterSockets);
+intTune  dryingPause1Time(&dryingPause1Temp);
+intTune  dryingPause1Active(&dryingPause1Time);
+intTune  dryingPause1StayOn(&dryingPause1Active);
+
+
+intTune  dryingPause2Temp(&dryingPause1StayOn);
+intTune  dryingPause2Time(&dryingPause2Temp);
+intTune  dryingPause2Active(&dryingPause2Time);
+intTune  dryingPause2StayOn(&dryingPause2Active);
+	
+intTune  dryingPause3Temp(&dryingPause2StayOn);
+intTune  dryingPause3Time(&dryingPause3Temp);
+intTune  dryingPause3Active(&dryingPause3Time);
+intTune  dryingPause3StayOn(&dryingPause3Active);
+
+IntVectorTune dryingControlSensors(&dryingPause3StayOn, MAX_CONTROL_CONNECTED_SENSORS_SIZE);
+IntVectorTune dryingControlUpSockets(&dryingControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+IntVectorTune  dryingControlDownSockets(&dryingControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
+
+//pump
+intTune VentMode(&dryingControlDownSockets);
+intTune SwitchedOnVentTime(&VentMode);
+intTune SwitchedOffVentTime(&SwitchedOnVentTime);	
+
+intTune dryingStayOnDelta(&SwitchedOffVentTime);
+
+
+
+FlashTune* lastFlashTune = &dryingStayOnDelta;
 
 std::vector<intTune*> mashingTemperatureTunesVector = { &mashingPause1Temp, &mashingPause2Temp, &mashingPause3Temp, 
 														&mashingPause4Temp, &mashingPause5Temp, &mashingPause6Temp};
@@ -229,3 +262,9 @@ std::vector<intTune*> boilingTemperatureTunesVector = {&boilingPause1Temp, &boil
 std::vector<intTune*> boilingTimeTunesVector = { &boilingPause1Time, &boilingPause2Time, &boilingPause3Time};
 std::vector<intTune*> boilingActivityTunesVector = {&boilingPause1Active, &boilingPause2Active, &boilingPause3Active};
 std::vector<intTune*> boilingStayOnTunesVector = { &boilingPause1StayOn, &boilingPause2StayOn, &boilingPause3StayOn };
+
+std::vector<intTune*> dryingTemperatureTunesVector = { &dryingPause1Temp, &dryingPause2Temp, &dryingPause3Temp };
+std::vector<intTune*> dryingTimeTunesVector = { &dryingPause1Time, &dryingPause2Time, &dryingPause3Time };
+std::vector<intTune*> dryingActivityTunesVector = { &dryingPause1Active, &dryingPause2Active, &dryingPause3Active };
+std::vector<intTune*> dryingStayOnTunesVector = { &dryingPause1StayOn, &dryingPause2StayOn, &dryingPause3StayOn };
+
