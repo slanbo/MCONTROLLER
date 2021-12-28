@@ -7,6 +7,7 @@
 
 PCounterControl* dayPCounter = new PCounterControl(
 	"Счетчик день",
+	"DAY_PCOUNT",
 	&dayPCounterOnOffTune,
 	&PCounterSockets, 
 	&dayPCounterVal,
@@ -17,6 +18,7 @@ PCounterControl* dayPCounter = new PCounterControl(
 
 PCounterControl* nightPCounter = new PCounterControl(
 	"Счетчик ночь",
+	"NIGHT_PCOUNT",
 	&nightPCounterOnOffTune,
 	&PCounterSockets, 
 	&nightPCounterVal,

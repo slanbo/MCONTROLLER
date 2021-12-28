@@ -109,6 +109,8 @@ LCDFont Verdana12x12(Verdana12x12Rus, Verdana12x12Eng, 12);
 #include "PCounterObjects.hpp"
 //++++++++++++++++++ DELAYDATE ++++++++++++++++++++++++++++++++
 #include "DelayDateObjects.hpp"
+//++++++++++++++++++ USART ++++++++++++++++++++++++++++++++
+#include "UsartObjects.hpp"
 
 //+++++++++++++++++++++ THREADS ++++++++++++++++++++++++++++
 #include "RenderInfoThread.hpp"
@@ -145,9 +147,11 @@ menuButtonPressBizzer mbpb("mbpb", 6, 100, 2);
 bizzerExecuteStep bes("bes", 8, 100, 7);
 PCountersExecuteStep pcES("pcES", 9, EXECUTE_STEP_PERIOD_SEC, 1);
 DelayDateThread  dd("dd", 10, 60, 1);
+USARTTransmit usartt("usartt", 11, 1, 1);
 
 SemaphoreHandle_t lcdmut_handle;
 SemaphoreHandle_t flashmut_handle;
+SemaphoreHandle_t usart_handle;
 
  Menu* mainMenu;
 
@@ -240,9 +244,12 @@ int main(void)
 	flashmut_handle = xSemaphoreCreateMutex();
 	xSemaphoreGive(flashmut_handle);
 	
+	usart_handle = xSemaphoreCreateMutex();
+	xSemaphoreGive(usart_handle);
+	
 	readTunesFromFlash();
 	setDefaultTuneVals();
-	InitMenuElements(&mi_139);
+	InitMenuElements(&mi_drying_stay_on_delta_vals);
 	
 	ModeObjectsInit();
 	mainMenu = new Menu(&mi_0);

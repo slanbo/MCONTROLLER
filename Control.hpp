@@ -9,6 +9,15 @@
 #include "Socket.hpp"
 #include "ADCSensorDev.hpp"
 
+#define MAX_UID_LENGHT 16
+
+enum aimValSupportType
+{
+	ON_BORDERS,
+	IN_BORDERS,
+	ON_CENTER
+};
+
 enum socketsState
 {
 	INCREASEMAX,
@@ -28,10 +37,13 @@ public:
 	
 	ControlBase(uint16_t id,
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune);
 	
-	ControlBase(const char* name,
+	ControlBase(
+		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune);
 	
@@ -41,11 +53,16 @@ public:
 	virtual void setOn(bool state);
 	virtual bool isActive();
 	virtual void FillScreen(uint8_t snum) = 0;
+	
+	virtual void GetUsartMessage(uint8_t messagenum);
+	
 	uint8_t getScreensQuant();
 	
 private:
 	
 protected:
+	char UID[MAX_UID_LENGHT];
+	
 	intTune* OnOffTune;
 	intTune* SwitchOnMotionPeriodTune;
 	uint8_t screensQuant = 1;
@@ -60,6 +77,7 @@ public:
 		(
 		uint16_t id,
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
@@ -68,6 +86,7 @@ public:
 	SocketsControl
 		(
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* socketsTune
@@ -78,15 +97,14 @@ public:
 	
 	virtual void init();
 	socketsState SocketsState;
-	
-	
+		
 private:
 	
 protected:
 	
+	
+	
 	void SwitchToPower(std::vector< plugSocket*> &sockets, uint16_t powerVT);
-	
-	
 	IntVectorTune* SocketsTune;
 	std::vector< plugSocket*> SocketsVector;
 	
@@ -101,6 +119,7 @@ public:
 	SensorsSocketsControl(
 		uint16_t id,
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
@@ -112,6 +131,7 @@ public:
 	
 	SensorsSocketsControl(
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* switchOnMotionPeriodTune,
 		IntVectorTune* sensorsTune,
@@ -124,6 +144,7 @@ public:
 	
 	virtual void ExecuteStep();
 	virtual void FillScreen(uint8_t snum);
+
 	
 	virtual uint16_t _get_low_aim_val();
 	virtual uint16_t _get_high_aim_val();
@@ -134,14 +155,12 @@ public:
 	virtual void _set_current_val(uint16_t val);
 	
 	virtual char* GetSensorsUnit();
-	
 	uint16_t GetDownSocketsPowerVT();
 	void SwitchDownSockets(uint16_t powerVT);
 	
 	PeriodValuesCollection* DPVCollection = nullptr;
 	
 	virtual void init();
-
 
 private:
 	
@@ -166,9 +185,10 @@ class MixControl : public SocketsControl
 public:
 	MixControl(uint16_t id,
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		IntVectorTune* SocketsTune,
-		intTune* pumpModeTune,
+		intTune* modeTune,
 		intTune* periodOnTune,
 		intTune* periodOffTune,
 		PeriodValuesCollection* dpvcollection);
@@ -176,7 +196,6 @@ public:
 	virtual void ExecuteStep();
 	virtual void FillScreen(uint8_t snum);
 
-	
 protected:
 	intTune* ModeTune;
 	intTune* PeriodOnTune;

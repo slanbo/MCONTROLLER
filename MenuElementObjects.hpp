@@ -303,7 +303,7 @@ MenuElement mi_139(&mi_137, &mi_138, "Выключить", 0, &delayEndOnOffTune
 	
 //drying
 
-MenuElement mi_DryingPause_40_50_60(&mi_5, &mi_139, "40|50|60", 4, restoreDryingPauses);
+MenuElement mi_DryingPause_40_50_60(&mi_5, &mi_139, "40|50|60", 1, restoreDryingPauses);
 MenuElement mi_DryingStartFromBegin(&mi_5, &mi_DryingPause_40_50_60, "Старт с начала", 1, startDryingPauses);
 MenuElement mi_DryingStartFromSaved(&mi_5, &mi_DryingStartFromBegin, "Продолжить", 2, startDryingPauses);
 
@@ -343,79 +343,20 @@ MenuElement dp3_on(&bp3_onoff, &dp3_onoff, "Вкл", 1, &dryingPause3Active);
 MenuElement dp3_off(&bp3_onoff, &dp3_on, "Выкл", 0, &dryingPause3Active);
 MenuElement dp3_start(&mi_105, &dp3_off, "Старт с паузы", 2, DryingPauseStart);
 
-//pump
+//vent
 MenuElement mi_vent(&mi_5, &dp3_start, "Вентилятор");
-MenuElement mi_ventpausesmode(&mi_pump, &mi_vent, "Паузами", ChangePumpMode, 1, &VentMode);
-MenuElement mi_venton(&mi_pumppausesmode, &mi_ventpausesmode, "Пауза вкл.");
-MenuElementIntSelector mi_ventonperiod(&mi_pumpon, &mi_venton, "Пер. вкл. (сек.)", 5, 0, 1200, 5, &SwitchedOnVentTime);
-MenuElement mi_ventoff(&mi_pumppausesmode, &mi_ventonperiod, "Пауза выкл.");
-MenuElementIntSelector mi_ventoffperiod(&mi_pumpoff, &mi_ventoff, "Пер. выкл. (сек.)", 5, 0, 1200, 5, &SwitchedOffVentTime);
-MenuElement mi_ventheatingmode(&mi_pump, &mi_ventoffperiod, "При нагреве", ChangePumpMode, 2, &VentMode);
-MenuElement mi_ventstayonmode(&mi_pump, &mi_ventheatingmode, "При паузе", ChangePumpMode, 3, &VentMode);
-MenuElement mi_ventalltimeonmode(&mi_pump, &mi_ventstayonmode, "Всегда вкл.", ChangePumpMode, 4, &VentMode);
-MenuElement mi_ventoffmode(&mi_pump, &mi_ventalltimeonmode, "Выкл.", ChangePumpMode, 5, &VentMode);
+MenuElement mi_ventpausesmode(&mi_vent, &mi_vent, "Паузами", ChangeVentMode, 1, &dryingVentMode);
+MenuElement mi_venton(&mi_ventpausesmode, &mi_ventpausesmode, "Пауза вкл.");
+MenuElementIntSelector mi_ventonperiod(&mi_venton, &mi_venton, "Пер. вкл. (сек.)", 5, 0, 1200, 5, &SwitchedOnVentTime);
+MenuElement mi_ventoff(&mi_ventpausesmode, &mi_ventonperiod, "Пауза выкл.");
+MenuElementIntSelector mi_ventoffperiod(&mi_ventoff, &mi_ventoff, "Пер. выкл. (сек.)", 5, 0, 1200, 5, &SwitchedOffVentTime);
+MenuElement mi_ventheatingmode(&mi_vent, &mi_ventoffperiod, "При нагреве", ChangeVentMode, 2, &dryingVentMode);
+MenuElement mi_ventstayonmode(&mi_vent, &mi_ventheatingmode, "При паузе", ChangeVentMode, 3, &dryingVentMode);
+MenuElement mi_ventalltimeonmode(&mi_vent, &mi_ventstayonmode, "Всегда вкл.", ChangeVentMode, 4, &dryingVentMode);
+MenuElement mi_ventoffmode(&mi_vent, &mi_ventalltimeonmode, "Выкл.", ChangeVentMode, 5, &dryingVentMode);
 
 MenuElement mi_drying_stay_on_delta(&mi_5, &mi_ventoffmode, "Дельта");
 MenuElementIntSelector mi_drying_stay_on_delta_vals(&mi_stay_on_delta, &mi_drying_stay_on_delta, "Дельта. (сек.)", 1, 0, 10, 1, &dryingStayOnDelta);
 
-
-
-/*	
-//контроль сушки
-MenuElement mi_140(&mi_5, &mi_139, "Температ. возд.");
-MenuElement mi_141(&mi_140, &mi_140, "Фиксированная t", 0, &dryingAirTempProfileIndex);
-MenuElementIntSelector mi_142(&mi_141, &mi_141, "Температура = ", 50, 20, 80, 5, &dryingFixTemp);
-	
-MenuElement mi_143(&mi_140, &mi_142, "День ночь", 1, &dryingAirTempProfileIndex);
-MenuElement mi_144(&mi_143, &mi_143, "Темпер. день");
-MenuElementIntSelector mi_145(&mi_144, &mi_144, "Температура = ", 20, 20, 80, 5, &dryingFixTempDay);	
-	
-MenuElement mi_146(&mi_143, &mi_145, "Темпер. ночь");
-MenuElementIntSelector mi_147(&mi_146, &mi_146, "Температура = ", 20, 20, 80, 5, &dryingFixTempNight);
-	
-MenuElement mi_148(&mi_140, &mi_147, "Вкл./Выкл.");
-MenuElement mi_149(&mi_148, &mi_148, "Включен", 1, &dryingTempOnOffTune);
-MenuElement mi_150(&mi_148, &mi_149, "Выключен", 0, &dryingTempOnOffTune);
-
-MenuElement mi_151(&mi_5, &mi_150, "Влажность. возд.");
-MenuElement mi_152(&mi_151, &mi_151, "Влажность меньш. ");
-MenuElementIntSelector mi_153(&mi_152, &mi_152, "Влажность < ", 1, 1, 4065, 100, &DryingDryLevel);
-	
-MenuElement mi_154(&mi_151, &mi_153, "Вкл./Выкл.");
-MenuElement mi_155(&mi_154, &mi_154, "Включен", 1, &dryingHumidityOnOffTune);
-MenuElement mi_156(&mi_154, &mi_155, "Выключен", 0, &dryingHumidityOnOffTune);
-	
-MenuElement mi_157(&mi_5, &mi_156, "Вентилятор");
-	
-MenuElement mi_158(&mi_157, &mi_157, "Всегда вкл.", 0, &dryingVentMode);
-MenuElement mi_159(&mi_157, &mi_158, "Вкл при нагр.", 1, &dryingVentMode);
-	
-MenuElement mi_160(&mi_157, &mi_159, "Вкл паузами.", 2, &dryingVentMode);
-MenuElement mi_161(&mi_160, &mi_160, "Период вкл.");
-MenuElementIntSelector mi_162(&mi_161, &mi_161, "Сек. включено", 600, 1, 4065, 10, &dryingVentOnPeriod);
-MenuElement mi_163(&mi_160, &mi_162, "Период выкл");
-MenuElementIntSelector mi_164(&mi_163, &mi_163, "Сек. выключено", 600, 1, 4065, 10, &dryingVentOffPeriod);
-	
-MenuElement mi_165(&mi_157, &mi_164, "Вкл./Выкл.");
-MenuElement mi_166(&mi_165, &mi_165, "Включен", 1, &dryingVentOnOffTune);
-MenuElement mi_167(&mi_165, &mi_166, "Выключен", 0, &dryingVentOnOffTune);
-
-MenuElement mi_168(&mi_31, &mi_167, "Активир. по движ."); //habitat light ->
-
-MenuElement mi_169(&mi_168, &mi_168, "Вкл./Выкл.");
-MenuElement mi_170(&mi_169, &mi_169, "Включен", 1, &MotionControlOnOffTune);
-MenuElement mi_171(&mi_169, &mi_170, "Выключен", 0, &MotionControlOnOffTune);
-
-MenuElement mi_172(&mi_168, &mi_171, "Анализ. движ за.");
-MenuElementIntSelector mi_173(&mi_172, &mi_172, "Время сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &OnIfMotionPeriod);
-
-MenuElement mi_174(&mi_28, &mi_173, "Активир. по движ.");   //habitat air temp ->
-
-MenuElement mi_175(&mi_174, &mi_174, "Вкл./Выкл.");
-MenuElement mi_176(&mi_175, &mi_175, "Включен", 1, &longPeriodMotionControlOnOffTune);
-MenuElement mi_177(&mi_175, &mi_176, "Выключен", 0, &longPeriodMotionControlOnOffTune);
-
-MenuElement mi_178(&mi_174, &mi_177, "Анализ. движ за.");
-MenuElementIntSelector mi_179(&mi_178, &mi_178, "Время сек.", 2, 0, IR_MOTION_BUFFER_SIZE, 1, &longPeriodOnIfMotionPeriod);*/
 
 #endif

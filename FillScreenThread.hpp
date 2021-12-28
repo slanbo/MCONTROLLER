@@ -148,19 +148,16 @@ protected:
 					for (auto elem : DelayDateVector)
 						if (elem->isOn())
 						{
-							//DelayDateControl* ddc = (DelayDateControl*) elem;
-							//compareRes res = ddc->CompareDelayAndCurrentDate();
-							//if (res == MORE)
-							//{
-								for (uint8_t i = 1; i <= elem->getScreensQuant(); i++) 
-								{
-									ControlScreen scr = { elem, i };
-									controlsVectorToShow.push_back(scr);
-								}
-							//}
+							for (uint8_t i = 1; i <= elem->getScreensQuant(); i++) 
+							{
+								ControlScreen scr = { elem, i };
+								controlsVectorToShow.push_back(scr);
+							}
 						}	
 					
 					controlsVectorToShow.at(currenControlToFillScreen).Control->FillScreen(controlsVectorToShow.at(currenControlToFillScreen).snum);
+					controlsVectorToShow.at(currenControlToFillScreen).Control->AddUsart();
+					
 					
 					currenControlToFillScreen++;
 					if (currenControlToFillScreen == controlsVectorToShow.size())
@@ -182,7 +179,6 @@ protected:
 			}
 			else
 			{
-				
 				
 			}
 			xSemaphoreGive(lcdmut_handle);

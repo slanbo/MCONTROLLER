@@ -7,13 +7,21 @@ Pause::Pause(uint16_t ID, const char* name, uint8_t temperature, uint16_t time)
 {
 }
 
-
-Pauses::Pauses(uint16_t ID, const char* name, pausestype type, std::vector<Pause*>& pausesVector)
+Pauses::Pauses(uint16_t ID,
+	const char* name,
+	std::vector<Pause*>& pausesVector,
+	std::vector<intTune*>& tempTunesVector,
+	std::vector<intTune*>& timeTunesVector,
+	std::vector<intTune*>& activityTunesVector,
+	std::vector<intTune*>& savedStayOnTimeVector
+	)
 	: BaseObject(ID, name),
-	Type(type),
-	PausesVector(pausesVector)
+	PausesVector(pausesVector),
+	TempTunesVector(tempTunesVector),
+	TimeTunesVector(timeTunesVector),
+	ActivityTunesVector(activityTunesVector),
+	SavedStayOnTimeVector(savedStayOnTimeVector)	
 {
-	
 }
 
 void Pauses::saveToTunes()
@@ -21,84 +29,32 @@ void Pauses::saveToTunes()
 	uint8_t i = 0;
 	for (auto pause : PausesVector)
 	{
-		if (Type == MASHING)
-		{
-			mashingTemperatureTunesVector.at(i)->_setVal(pause->Temperature); 
-			mashingTemperatureTunesVector.at(i)->save();
+		TempTunesVector.at(i)->_setVal(pause->Temperature); 
+		TempTunesVector.at(i)->save();
 			
-			mashingTimeTunesVector.at(i)->_setVal(pause->Time); 
-			mashingTimeTunesVector.at(i)->save();
+		TimeTunesVector.at(i)->_setVal(pause->Time); 
+		TimeTunesVector.at(i)->save();
 			
-			mashingActivityTunesVector.at(i)->_setVal(1); 
-			mashingActivityTunesVector.at(i)->save();
+		ActivityTunesVector.at(i)->_setVal(1); 
+		ActivityTunesVector.at(i)->save();
 			
-			mashingStayOnTunesVector.at(i)->_setVal(0); 
-			mashingStayOnTunesVector.at(i)->save();
+		SavedStayOnTimeVector.at(i)->_setVal(0); 
+		SavedStayOnTimeVector.at(i)->save();
 			
-			MashingOnOffTune._setVal(1);
-			MashingOnOffTune.save();
-		}
-		else if (Type == BOILING)
-		{
-			boilingTemperatureTunesVector.at(i)->_setVal(pause->Temperature); 
-			boilingTemperatureTunesVector.at(i)->save();
-			
-			boilingTimeTunesVector.at(i)->_setVal(pause->Time); 
-			boilingTimeTunesVector.at(i)->save();
-			
-			boilingActivityTunesVector.at(i)->_setVal(1); 
-			boilingActivityTunesVector.at(i)->save();
-			
-			boilingStayOnTunesVector.at(i)->_setVal(0); 
-			boilingStayOnTunesVector.at(i)->save();
-			
-			BoilingOnOffTune._setVal(1);
-			BoilingOnOffTune.save();
-			
-		}
 		i++;
 	}
-	
-	if (Type == MASHING)
-	{
-		for (uint8_t i = PausesVector.size(); i < mashingTemperatureTunesVector.size(); i++)
+		for (uint8_t i = PausesVector.size(); i < TempTunesVector.size(); i++)
 		{
-			mashingTemperatureTunesVector.at(i)->_setVal(0); 
-			mashingTemperatureTunesVector.at(i)->save();
+			TempTunesVector.at(i)->_setVal(0); 
+			TempTunesVector.at(i)->save();
 			
-			mashingTimeTunesVector.at(i)->_setVal(0); 
-			mashingTimeTunesVector.at(i)->save();
+			TimeTunesVector.at(i)->_setVal(0); 
+			TimeTunesVector.at(i)->save();
 			
-			mashingActivityTunesVector.at(i)->_setVal(0); 
-			mashingActivityTunesVector.at(i)->save();
+			ActivityTunesVector.at(i)->_setVal(0); 
+			ActivityTunesVector.at(i)->save();
 			
-			mashingStayOnTunesVector.at(i)->_setVal(0); 
-			mashingStayOnTunesVector.at(i)->save();
+			SavedStayOnTimeVector.at(i)->_setVal(0); 
+			SavedStayOnTimeVector.at(i)->save();
 		}
-			
-	}
-	else if (Type == BOILING)
-	{
-		for (uint8_t i = PausesVector.size(); i < boilingTemperatureTunesVector.size(); i++)
-		{
-			boilingTemperatureTunesVector.at(i)->_setVal(0); 
-			boilingTemperatureTunesVector.at(i)->save();
-			
-			boilingTimeTunesVector.at(i)->_setVal(0); 
-			boilingTimeTunesVector.at(i)->save();
-			
-			boilingActivityTunesVector.at(i)->_setVal(0); 
-			boilingActivityTunesVector.at(i)->save();
-			
-			boilingStayOnTunesVector.at(i)->_setVal(0); 
-			boilingStayOnTunesVector.at(i)->save();
-		}
-	}
-	
-}
-
-
-void Pauses::addPause(Pause* pause)
-{
-	PausesVector.push_back(pause);
 }

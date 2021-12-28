@@ -226,6 +226,8 @@
     <ClInclude Include="TuneObjects.hpp" />
     <ClInclude Include="TuneObjectsExt.hpp" />
     <ClInclude Include="BaseObject.hpp" />
+    <ClInclude Include="UsartObjects.hpp" />
+    <ClInclude Include="UsartObjectsExt.hpp" />
     <ClInclude Include="UsartThread.hpp" />
     <None Include="stm32.props" />
     <ClCompile Include="$(BSP_ROOT)\STM32F4xxxx\StartupFiles\startup_stm32f401xc.c" />

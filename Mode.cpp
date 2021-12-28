@@ -58,13 +58,10 @@ Habitat::Habitat(uint16_t ID,
 	const char* name)
 	: ControlsMode(ID, name)
 {
-	PeriodValuesCollection* airTempDVPC = new PeriodValuesCollection();
-	DatePeriodValue *adpv = new DatePeriodValue(1, "All time", 3, 0, 1, 23, 59, 0, 0, 0, 0, 0, &airFixTemp, &airFixTemp);
-	airTempDVPC->addPeriodValue((PeriodValue*)adpv);
-	
 	airTempControl = new SensorsSocketsControl
 		(
 		"Темпер. возд:", 
+		"HAB_AIR_T",
 		&airTempControlOnOffTune,
 		&airTempControlSwichOnIfMotionPeriod,
 		&airTempControlSensors,
@@ -73,19 +70,10 @@ Habitat::Habitat(uint16_t ID,
 		&airTempControlTimeProfile,
 		airTempDVPC);
 	
-	
-	PeriodValuesCollection* batTempDVPC = new PeriodValuesCollection();
-	DatePeriodValue *bdpv1 = new DatePeriodValue(1, "Night time 1", 0, 0, 1, 6, 59, 0, 0, 0, 0, 0, &batNightFixTemp, &batNightFixTemp);
-	batTempDVPC->addPeriodValue((PeriodValue*)bdpv1);
-	DatePeriodValue *bdpv2 = new DatePeriodValue(2, "Day time", 0, 7, 0, 22, 59, 0, 0, 0, 0, 0, &batDayFixTemp, &batDayFixTemp);
-	batTempDVPC->addPeriodValue((PeriodValue*)bdpv2);
-	DatePeriodValue *bdpv3 = new DatePeriodValue(3, "Night time 2", 0, 23, 0, 23, 59, 0, 0, 0, 0, 0, &batNightFixTemp, &batNightFixTemp);
-	batTempDVPC->addPeriodValue((PeriodValue*)bdpv3);
-	
-	
 	batTempControl = new SensorsSocketsControl
 			(
 		"Темпер. бат:", 
+		"HAB_BAT_T",
 		&batTempControlOnOffTune,
 		nullptr,
 		&batTempControlSensors,
@@ -94,13 +82,10 @@ Habitat::Habitat(uint16_t ID,
 		&batTempControlTimeProfile,
 		batTempDVPC);
 	
-	PeriodValuesCollection* CODVPC = new PeriodValuesCollection();
-	DatePeriodValue *cdpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &CODangerLevel, &CODangerLevel);
-	CODVPC->addPeriodValue((PeriodValue*)cdpv);
-
 	coControl = new SensorsSocketsControl
 		(
 		"Газ:", 
+		"HAB_GAS",
 		&coControlOnOffTune,
 		&COControlSwichOnIfMotionPeriod,
 		&COControlSensors,
@@ -109,13 +94,10 @@ Habitat::Habitat(uint16_t ID,
 		&COControlTimeProfile,
 		CODVPC);	
 	
-	PeriodValuesCollection* lightDVPC = new PeriodValuesCollection();
-	DatePeriodValue *ldpv = new DatePeriodValue(1, "All day", 0, 0, 1, 23, 59, 0, 0, 0, 0, 0, &LightEdge, &LightEdge);
-	lightDVPC->addPeriodValue((PeriodValue*)ldpv);
-	
 	lightControl = new SensorsSocketsControl
 		(
 		"Освещение:", 
+		"HAB_LIGHT",
 		&lightControlOnOffTune,
 		&lightControlSwichOnIfMotionPeriod,
 		&lightControlSensors,
@@ -157,16 +139,11 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 	const char* name)
 	: ControlsMode(ID, name)
 {
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_1);
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_2);
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_3);
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_4);
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_5);
-	mashingDVPC->addPeriodValue((PeriodValue*)mtp_6);
 	
 	mashingControl = new SensorsSocketsControl
 		(
 		"Темпер. паузы:", 
+		"BEER_MASH_PAUS",
 		&MashingOnOffTune,
 		nullptr,
 		&boilingMashingControlSensors,
@@ -175,15 +152,10 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 		nullptr,
 		mashingDVPC);
 	
-	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_1);
-	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_2);
-	boilingTempDVPC->addPeriodValue((PeriodValue*)btp_3);
-
-	
-	
 	boilingControl = new SensorsSocketsControl
 			(
 		"Варка:", 
+		"BEER_BOIL_PAUS",
 		&batTempControlOnOffTune,
 		nullptr,
 		&boilingMashingControlSensors,
@@ -195,6 +167,7 @@ BeerPreparing::BeerPreparing(uint16_t ID,
 	
 	pumpControl = new MixControl(1,
 		"Насос",
+		"BEER_PUMP",
 		&PumpOnOffTune,
 		&pumpControlSockets,
 		&PumpMode,
@@ -227,18 +200,45 @@ void BeerPreparing::ExecuteStep()
 	}
 }
 
-
 Drying::Drying(uint16_t ID, 
 	const char* name)
 	: ControlsMode(ID, name)
 {
+	airTempControl = new SensorsSocketsControl
+			(
+		"Контр. темпер.:", 
+		"DRY_AIR_T",
+		&dryingTempOnOffTune,
+		nullptr,
+		&dryingControlSensors,
+		&dryingControlUpSockets,
+		&dryingControlDownSockets,
+		nullptr,
+		dryingTempDVPC);
 	
+	ventControl = new MixControl(1,
+		"Вентилятор",
+		"DRY_VENT",
+		&dryingVentOnOffTune,
+		&dryingVentControlSockets,
+		&dryingVentMode,
+		&SwitchedOnVentTime,
+		&SwitchedOffVentTime,
+		dryingTempDVPC);
+	
+	controlsVector.push_back(airTempControl);
+	controlsVector.push_back(ventControl);
 	
 }
 
 
 void Drying::init()
 {
+	for (auto elem : controlsVector)
+	{
+		SensorsSocketsControl* control = (SensorsSocketsControl*)elem;
+		control->init();
+	}
 }
 
 

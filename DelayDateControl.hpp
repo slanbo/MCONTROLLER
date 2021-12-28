@@ -9,6 +9,7 @@ public:
 	DelayDateControl(
 		uint16_t id,
 		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		intTune* dateTune,
 		intTune* monthTune,

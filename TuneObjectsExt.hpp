@@ -199,7 +199,7 @@ extern IntVectorTune dryingControlUpSockets;
 extern IntVectorTune  dryingControlDownSockets;
 
 
-extern intTune VentMode;
+extern intTune dryingVentMode;
 extern intTune SwitchedOnVentTime;
 extern intTune SwitchedOffVentTime;	
 	
@@ -228,5 +228,10 @@ extern std::vector<intTune*> dryingTemperatureTunesVector;
 extern std::vector<intTune*> dryingTimeTunesVector;
 extern std::vector<intTune*> dryingActivityTunesVector;
 extern std::vector<intTune*> dryingStayOnTunesVector;
+
+extern intTune dryingTempOnOffTune;	
+extern intTune dryingVentOnOffTune;	
+
+extern IntVectorTune dryingVentControlSockets;
 
 #endif 

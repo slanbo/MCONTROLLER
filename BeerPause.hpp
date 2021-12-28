@@ -28,13 +28,23 @@ public:
 class Pauses : public BaseObject
 {
 public:
-	Pauses(uint16_t ID, const char* name, pausestype type, std::vector<Pause*>& pausesVector);
+	Pauses(uint16_t ID,
+		const char* name,
+		std::vector<Pause*>& pausesVector,
+		std::vector<intTune*>& TempTunesVector,
+		std::vector<intTune*>& TimeTunesVector,
+		std::vector<intTune*>& ActivityTunesVector,
+		std::vector<intTune*>& SavedStayOnTimeVector
+		);
 	std::vector<Pause*>& PausesVector;
+	std::vector<intTune*>& TempTunesVector;
+	std::vector<intTune*>& TimeTunesVector;
+	std::vector<intTune*>& ActivityTunesVector;
+	std::vector<intTune*>& SavedStayOnTimeVector;
+	
 	void saveToTunes();
 	
-	pausestype Type;
 	
 protected:
-	void addPause(Pause* pause);
 	
 };

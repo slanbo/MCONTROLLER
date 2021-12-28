@@ -174,19 +174,31 @@ void setDefaultTuneVals()
 	dayPCounterOnOffTune._setVal(1);
 	dayPCounterOnOffTune.save();
 	
+	dryingVentOnOffTune._setVal(0); 
+	dryingVentOnOffTune.save();
 	
-	/*std::vector<uint16_t> pcdefs = { 0, 0, 0, 0 };
+	dryingVentMode._setVal(1); 
+	dryingVentMode.save();
 	
+	defs[0] = 4;
+	defs[1] = 0xffff;
+	dryingVentControlSockets._setVal(defs);
+	dryingVentControlSockets.save();
 	
+	defs[0] = 2;
+	defs[1] = 3;
+	dryingControlSensors._setVal(defs);	
+	dryingControlSensors.save();
 	
-	dayPCounterVal._setVal(pcdefs);
-	dayPCounterVal.save();
+	defs[0] = 1;
+	defs[1] = 2;
+	dryingControlUpSockets._setVal(defs);	
+	dryingControlUpSockets.save();
 	
-	nightPCounterVal._setVal(pcdefs);
-	nightPCounterVal.save();*/
-	
-	
-	
+	defs[0] = 0xffff;
+	defs[1] = 0xffff;
+	dryingControlDownSockets._setVal(defs);	
+	dryingControlDownSockets.save();
 	
 }
 

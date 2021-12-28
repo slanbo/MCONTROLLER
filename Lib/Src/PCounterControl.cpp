@@ -13,6 +13,7 @@ extern SemaphoreHandle_t flashmut_handle;
 
 PCounterControl::PCounterControl(
 	const char* name,
+	const char* uid,
 	intTune* onOffTune,
 	IntVectorTune* socketsTune, 
 	IntVectorTune*  valTune,
@@ -20,7 +21,7 @@ PCounterControl::PCounterControl(
 	uint8_t beginMinute, 
 	uint8_t endHour, 
 	uint8_t endMinute)
-	: SocketsControl(name, onOffTune, nullptr, socketsTune)
+	: SocketsControl(name, uid, onOffTune, nullptr, socketsTune)
 	, BeginHour(beginHour)
 	, BeginMinute(beginMinute)
 	, EndHour(endHour)

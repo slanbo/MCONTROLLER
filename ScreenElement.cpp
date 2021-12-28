@@ -82,7 +82,6 @@ Text_ScreenElement::Text_ScreenElement(uint8_t left_x,
 	screenStyle * mainStyle,
 	screenStyle * selectedStyle,
 	screenStyle * maekedStyle,
-	
 	const uint8_t maxLenght)
 	: BaseScreenElement(left_x, top_y, mainStyle, selectedStyle, maekedStyle) 
 	, MaxLenght(maxLenght)
@@ -179,9 +178,14 @@ void Text_ScreenElement::SetChars(const char* chars, bool convertToCp1251)
 	counter = 0;
 	while (converted_charptr[counter] != 0)
 	{
-		Text[textLenght] = converted_charptr[counter];
-		counter++;
-		textLenght++;
+		if (textLenght < MaxLenght - 1)
+		{
+			Text[textLenght] = converted_charptr[counter];
+			counter++;
+			textLenght++;
+		}
+		else
+			break;
 	}
 	Text[textLenght + 1] = '\0';
 }
@@ -231,15 +235,25 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght, char fchar)
 			uint8_t zeros = lenght - rsigns;
 			for (uint8_t i = 0; i < zeros; i++)
 			{
-				Text[textLenght] = fchar;
-				textLenght++;
+				if (textLenght < MaxLenght - 1)
+				{
+					Text[textLenght] = fchar;
+					textLenght++;
+				}
+				else
+					break;
 			}
 		}
 		
 		for (uint8_t i = 0; i < rsigns; i++)
 		{
-			Text[textLenght] = dstr[i];
-			textLenght++;
+			if (textLenght < MaxLenght - 1)
+			{
+				Text[textLenght] = dstr[i];
+				textLenght++;
+			}
+			else
+				break;
 		}
 		Text[textLenght + 1] = '\0';
 	}
@@ -247,12 +261,20 @@ void Text_ScreenElement::SetIntText(int dnum, uint8_t lenght, char fchar)
 	{
 		for (uint8_t i = 0; i < lenght - 1; i++)
 		{
-			Text[textLenght] = fchar;	
-			textLenght++;
+			if (textLenght < MaxLenght - 1)
+			{
+				Text[textLenght] = fchar;	
+				textLenght++;
+			}
+			else
+				break;
 		}
 		
-		Text[textLenght] = '0';	
-		textLenght++;
+		if (textLenght < MaxLenght - 1)
+		{
+			Text[textLenght] = '0';	
+			textLenght++;
+		}
 			
 		Text[textLenght + 1] = '\0';
 	}

@@ -1,11 +1,13 @@
 #include "MotionControl.hpp"
 #include "SensorObjectsExt.hpp"
 
-MotionControl::MotionControl(const char* name, 
+MotionControl::MotionControl(
+	const char* name, 
+	const char* uid,
 	intTune* onOff, 
 	intTune* analizeMotionsPeriod, 
 	IntVectorTune* sensorsTune)
-	: ControlBase(name,  onOff, nullptr),
+	: ControlBase(name, uid, onOff, nullptr),
 	AnalizeMotionsPeriod(analizeMotionsPeriod)
 {
 	Sensors.clear();

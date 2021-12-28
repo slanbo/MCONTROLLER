@@ -13,4 +13,5 @@ void ModeObjectsInit()
 {
 	HabitatMode->init();
 	BeerPreparingMode->init();
+	DryingMode->init();
 }

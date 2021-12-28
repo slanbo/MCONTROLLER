@@ -9,19 +9,50 @@
 #include "Auxiliary.hpp"
 #include "TimeProfile.hpp"
 #include "DelayDateObjectsExt.hpp"
+#include "UsartObjectsExt.hpp"
+#include "usart.h"
 
-ControlBase::ControlBase(uint16_t id, const char* name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
+extern SemaphoreHandle_t usart_handle;
+
+
+ControlBase::ControlBase(
+	uint16_t id,
+	const char* name,
+	const char* uid,
+	intTune* onOffTune,
+	intTune* switchOnMotionPeriodTune)
 	: BaseObject(id, name)
 	, OnOffTune(onOffTune)
 	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
 {
+	for (int i = 0; i < MAX_UID_LENGHT - 1; i++)
+	{
+		UID[i] = *uid;
+		if (*uid == 0)
+			break;
+		uid++;
+	}
+	UID[MAX_UID_LENGHT - 1] = 0;
 }
 
-ControlBase::ControlBase(const char* name, intTune* onOffTune, intTune* switchOnMotionPeriodTune)
+ControlBase::ControlBase(
+	const char* name,
+	const char* uid,
+	intTune* onOffTune,
+	intTune* switchOnMotionPeriodTune)
 	: BaseObject(name)
 	, OnOffTune(onOffTune)
 	, SwitchOnMotionPeriodTune(switchOnMotionPeriodTune)
 {
+	for (int i = 0; i < MAX_UID_LENGHT - 1; i++)
+	{
+		UID[i] = *uid;
+		if (*uid == 0)
+			break;
+		uid++;
+	}
+	UID[MAX_UID_LENGHT - 1] = 0;
+	
 }
 
 bool ControlBase::isActive()
@@ -72,21 +103,25 @@ void ControlBase::init()
 {
 }
 
-SocketsControl::SocketsControl(uint16_t id, 
+SocketsControl::SocketsControl(
+	uint16_t id, 
 	const char* name, 
+	const char* uid,
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
-	: ControlBase(id, name, onOffTune, switchOnMotionPeriodTune)
+	: ControlBase(id, name, uid, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune(socketsTune)
 {
 }
 
-SocketsControl::SocketsControl(const char* name, 
+SocketsControl::SocketsControl(
+	const char* name, 
+	const char* uid,
 	intTune* onOffTune, 
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* socketsTune)
-	: ControlBase(name, onOffTune, switchOnMotionPeriodTune)
+	: ControlBase(name, uid, onOffTune, switchOnMotionPeriodTune)
 	, SocketsTune(socketsTune)
 
 {	
@@ -118,6 +153,7 @@ void SocketsControl::SwitchSockets(uint16_t powerVT)
 SensorsSocketsControl::SensorsSocketsControl(
 	uint16_t id,
 	const char* name,
+	const char* uid,
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
@@ -125,7 +161,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
 	PeriodValuesCollection* dpvcollection)
-	: SocketsControl(id, name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
+	: SocketsControl(id, name, uid, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
 	, TimeProfileTune(timeProfileTune)
@@ -137,6 +173,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 
 SensorsSocketsControl::SensorsSocketsControl(
 	const char* name,
+	const char* uid,
 	intTune* onOffTune,
 	intTune* switchOnMotionPeriodTune,
 	IntVectorTune* sensorsTune,
@@ -144,7 +181,7 @@ SensorsSocketsControl::SensorsSocketsControl(
 	IntVectorTune* downSocketsTune,
 	intTune* timeProfileTune,
 	PeriodValuesCollection* dpvcollection)
-	: SocketsControl(name, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
+	: SocketsControl(name, uid, onOffTune, switchOnMotionPeriodTune, upSocketsTune)
 	, SensorsTune(sensorsTune)
 	, DownSocketsTune(downSocketsTune)
 	, TimeProfileTune(timeProfileTune)
@@ -311,6 +348,7 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 		Info_SecondString->SetIntText(_get_low_aim_val(), 0);
 		Info_SecondString->SetChars("-", false);
 		Info_SecondString->SetIntText(_get_high_aim_val(), 0);
+		Info_SecondString->SetChars(blank, false);	
 		Info_SecondString->SetChars(GetSensorsUnit(), false);
 		Info_SecondString->FillEndBySpaces();
 		Info_SecondString->_setUpdated(true);
@@ -347,7 +385,7 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 			
 			if (currtpindex != 0xff)
 			{
-				TimePeriodValue* tpValue = (TimePeriodValue*)DPVCollection->periodValues.at(currtpindex);
+				TimePeriodValue* tpValue = (TimePeriodValue*)DPVCollection->PeriodValues.at(currtpindex);
 				periodTime = tpValue->TimeTune->_getVal();
 				periodTemp = tpValue->_getLowLevelTune()->_getVal();
 				StayOnTime = tpValue->getStayOnTime();
@@ -362,7 +400,7 @@ void SensorsSocketsControl::FillScreen(uint8_t snum)
 				Info_SecondString->SetIntText(periodTemp, 0);
 				Info_SecondString->SetChars(" ", false);
 				Info_SecondString->SetChars(CO, false);
-	
+				Info_SecondString->SetChars(" ", false);
 				Info_SecondString->SetIntText(periodTime, 0);
 				Info_SecondString->SetChars(" сек.", true);
 			}
@@ -617,7 +655,6 @@ void MixControl::ExecuteStep()
 				else
 					SwitchSockets(0);				
 				break;
-				break;
 			}
 		}
 	}
@@ -625,6 +662,13 @@ void MixControl::ExecuteStep()
 
 void MixControl::FillScreen(uint8_t snum)
 {
+	Info_SubHeader->ClearText();
+	Info_FirstString->ClearText();
+	Info_SecondString->ClearText();
+	Info_ThirdString->ClearText();
+	Info_FourthString->ClearText();
+
+	
 	Info_SubHeader->SetChars(Name, false);
 	if (isOn())
 		Info_SubHeader->SetChars(" +", true);
@@ -634,11 +678,11 @@ void MixControl::FillScreen(uint8_t snum)
 	Info_SubHeader->FillEndBySpaces();
 	Info_SubHeader->_setUpdated(true);
 			
-	Info_FirstString->SetChars("Режим насоса:\0", true);
+	Info_FirstString->SetChars("Режим:\0", true);
 	Info_FirstString->FillEndBySpaces();
 	Info_FirstString->_setUpdated(true);
 
-	switch (PumpMode._getVal()) 
+	switch (ModeTune->_getVal()) 
 	{
 	case 1: // period on /period off
 		{
@@ -671,7 +715,7 @@ void MixControl::FillScreen(uint8_t snum)
 	Info_SecondString->FillEndBySpaces();
 	Info_SecondString->_setUpdated(true);
 	
-	Info_ThirdString->SetChars("Cocт. насоса:\0", true);
+	Info_ThirdString->SetChars("Cocтояние:\0", true);
 	Info_ThirdString->FillEndBySpaces();
 	Info_ThirdString->_setUpdated(true);
 	
@@ -685,17 +729,19 @@ void MixControl::FillScreen(uint8_t snum)
 
 MixControl::MixControl(uint16_t id, 
 	const char* name, 
+	const char* uid,
 	intTune* onOffTune, 
 	IntVectorTune* SocketsTune, 
 	intTune* modeTune, 
 	intTune* periodOnTune, 
 	intTune* periodOffTune, 
 	PeriodValuesCollection* dpvcollection)
-	: SocketsControl(name, onOffTune, nullptr, SocketsTune)
+	: SocketsControl(name, uid, onOffTune, nullptr, SocketsTune)
 	, ModeTune(modeTune)
 	, PeriodOnTune(periodOnTune)
 	, PeriodOffTune(periodOffTune)
 {
+	screensQuant = 1;
 }
 
 
@@ -717,11 +763,35 @@ void ControlBase::setOn(bool state)
 		OnOffTune->_setVal(1);
 	else
 		OnOffTune->_setVal(0);
-	
 }
 
 
 uint8_t ControlBase::getScreensQuant()
 {
 	return screensQuant;
+}
+
+void ControlBase::GetUsartMessage(uint8_t messagenum, uint8_t* data, uint16_t lenght)
+{
+	
+	switch (messagenum)
+	{
+	case 1:
+		{
+			uint8_t i = 0; uint8_t j = 0;
+			char MessageType[] = "CONTROL_NAME_\0";
+			while (MessageType[i] != 0){data[i] = MessageType[i]; i++; }
+			while (Name[j] != 0){data[i + j] = Name[j]; j++; }
+			data[i + j] = 0;
+			lenght = i + j;
+			break;
+		}
+		
+	default:
+		{
+			
+		}
+	}
+	
+
 }

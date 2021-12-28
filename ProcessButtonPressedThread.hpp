@@ -1,3 +1,5 @@
+#pragma once
+
 #include "FreeRTOS.h"
 #include "thread.hpp"
 #include "ticks.hpp"

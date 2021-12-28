@@ -38,7 +38,9 @@ public:
 	
 	uint64_t VT_Seconds = 0;
 	
-	PCounterControl(const char* name,
+	PCounterControl(
+		const char* name,
+		const char* uid,
 		intTune* onOffTune,
 		IntVectorTune* socketsTune, 
 		IntVectorTune*  valTune,

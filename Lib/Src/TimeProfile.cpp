@@ -32,10 +32,7 @@ DatePeriodValue::DatePeriodValue(
 {
 }
 
-void PeriodValuesCollection::addPeriodValue(PeriodValue* pval)
-{
-	periodValues.push_back(pval);
-}
+
 
 uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 {
@@ -48,7 +45,7 @@ uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 	
 		uint16_t minutesCurrent = sTime.Hours * 60 + sTime.Minutes;
 	
-		for (auto elem : periodValues)
+		for (auto elem : PeriodValues)
 		{
 			DatePeriodValue* pval = (DatePeriodValue*)elem;
 			if (
@@ -72,7 +69,7 @@ uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 		}
 	
 		//find period weekday
-		for(auto elem : periodValues)
+		for(auto elem : PeriodValues)
 		{
 			DatePeriodValue* pval = (DatePeriodValue*)elem;
 			if (
@@ -96,7 +93,7 @@ uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 		}
 	
 		//find period eachday
-		for(auto elem : periodValues)
+		for(auto elem : PeriodValues)
 		{
 			DatePeriodValue* pval = (DatePeriodValue*)elem;
 			if (
@@ -122,7 +119,7 @@ uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 	}
 	else if (Type == TIME_PERIOD)
 	{
-		for (auto elem : periodValues)
+		for (auto elem : PeriodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (!pval->Completed() && pval->isActive())
@@ -139,13 +136,15 @@ uint16_t PeriodValuesCollection::getValue(ValueType type, uint8_t variant)
 }
 ;
 
-PeriodValuesCollection::PeriodValuesCollection()
+PeriodValuesCollection::PeriodValuesCollection(std::vector<PeriodValue*>& periodValues)
+:PeriodValues(periodValues)	
 {
 	Type = DATE_PERIOD;
 }
 
-PeriodValuesCollection::PeriodValuesCollection(intTune* stayOnDeltaTune)
-	: StayOnDeltaTune(stayOnDeltaTune)
+PeriodValuesCollection::PeriodValuesCollection(std::vector<PeriodValue*>& periodValues, intTune* stayOnDeltaTune)
+	: StayOnDeltaTune(stayOnDeltaTune),
+	PeriodValues(periodValues)
 {
 	Type = TIME_PERIOD;
 }
@@ -271,7 +270,7 @@ uint8_t PeriodValuesCollection::getCurrentPeriodIndex()
 	if (Type == TIME_PERIOD)
 	{
 		uint8_t i = 0;
-		for (auto elem : periodValues)
+		for (auto elem : PeriodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (!pval->Completed() && pval->isActive())
@@ -290,7 +289,7 @@ bool PeriodValuesCollection::UpdateCurrentPeriotStateTime(TimePeriodState state)
 {
 	if (Type == TIME_PERIOD)
 	{
-		for (auto elem : periodValues)
+		for (auto elem : PeriodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (pval->isActive() && pval->getState() != COMPLETED)
@@ -315,7 +314,7 @@ void PeriodValuesCollection::SetBeforePausesCompleted(uint16_t pauseNum)
 	if (Type == TIME_PERIOD)
 	{
 		uint8_t i = 0;
-		for (auto elem : periodValues) 
+		for (auto elem : PeriodValues) 
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			pval->Reset();			
@@ -338,7 +337,7 @@ void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 	{
 		if (currentT == 0xff)
 		{
-			for (auto elem : periodValues) 
+			for (auto elem : PeriodValues) 
 			{
 				TimePeriodValue* pval = (TimePeriodValue*)elem;
 				//pval->Reset();
@@ -354,7 +353,7 @@ void PeriodValuesCollection::RestorePeriodsStates(uint8_t currentT = 0xff)
 		}
 		else
 		{
-			for (auto elem : periodValues) 
+			for (auto elem : PeriodValues) 
 			{
 				TimePeriodValue* pval = (TimePeriodValue*)elem;
 				pval->Reset();
@@ -384,7 +383,7 @@ void TimePeriodValue::setState(TimePeriodState state)
 
 void PeriodValuesCollection::ResetPeriodes()
 {
-	for (auto elem : periodValues) 
+	for (auto elem : PeriodValues) 
 	{
 		TimePeriodValue* pval = (TimePeriodValue*)elem;
 		pval->Reset();
@@ -396,7 +395,7 @@ TimePeriodState PeriodValuesCollection::getCurrentState()
 {
 	if (Type == TIME_PERIOD)
 	{
-		for (auto elem : periodValues)
+		for (auto elem : PeriodValues)
 		{
 			TimePeriodValue* pval = (TimePeriodValue*)elem;
 			if (!pval->Completed() && pval->isActive())

@@ -6,6 +6,7 @@
 
 DelayDateControl* delayBegin = new DelayDateControl(1,
 	"Отлож. старт",
+	"DELAY_START",
 	&delayBeginOnOffTune,
 	&delayBeginYear,
 	&delayBeginMonth,
@@ -16,6 +17,7 @@ DelayDateControl* delayBegin = new DelayDateControl(1,
 
 DelayDateControl* delayEnd = new DelayDateControl(1,
 	"Отлож. стоп",
+	"DELAY_STOP",
 	&delayEndOnOffTune,
 	&delayEndYear,
 	&delayEndMonth,

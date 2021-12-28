@@ -45,5 +45,6 @@ bool restoreDryingPauses(uint16_t* param);
 void AddDryingPauseDescription(char* text, MenuElementBase* elembase);
 bool DryingPauseStart(uint16_t* param);
 void EXIT_SETUP_MODE();
+bool ChangeVentMode(uint16_t* param);
 
 #endif

@@ -2,6 +2,7 @@
 
 DelayDateControl::DelayDateControl(uint16_t id, 
 	const char* name, 
+	const char* uid,
 	intTune* onOffTune, 
 	intTune* dateTune, 
 	intTune* monthTune, 
@@ -9,7 +10,7 @@ DelayDateControl::DelayDateControl(uint16_t id,
 	intTune* hourTune, 
 	intTune* minuteTune, 
 	bool on_off_type)
-	: ControlBase(name, onOffTune, nullptr)
+	: ControlBase(name, uid, onOffTune, nullptr)
 	, DateTune(dateTune)
 	, MonthTune(monthTune)
 	, YearTune(yearTune)

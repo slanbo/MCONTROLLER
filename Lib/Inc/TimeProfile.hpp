@@ -141,17 +141,15 @@ class PeriodValuesCollection
 {
 private:
 	
-	
 public:
 	
-	PeriodValuesCollection();
-	PeriodValuesCollection(intTune* stayOnDeltaTune);
+	PeriodValuesCollection(std::vector<PeriodValue*>& periodValues);
+	PeriodValuesCollection(std::vector<PeriodValue*>& periodValues, intTune* stayOnDeltaTune);
 	
-	void addPeriodValue(PeriodValue* pval);
 	
 	PeriodType Type;
 	uint16_t getValue(ValueType type, uint8_t variant);
-	std::vector<PeriodValue*> periodValues;
+	std::vector<PeriodValue*>& PeriodValues;
 	
 	uint8_t getCurrentPeriodIndex();
 	

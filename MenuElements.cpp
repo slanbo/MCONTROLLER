@@ -177,20 +177,12 @@ bool restoreDelayEndTunes(uint16_t* param)
 
 bool clearCounters(uint16_t* param)
 {
-	xSemaphoreTake(flashmut_handle, portMAX_DELAY);
-	//HAL_FLASH_Unlock();
-	//uint16_t status = EE_Write_Int64(dayPCounterVal.getFlashAddress(), 1);
-	//status = EE_Write_Int64(nightPCounterVal.getFlashAddress(), 1);
-	//HAL_FLASH_Lock();
 	
 	dayPCounter->set_VT_Seconds(0);
 	dayPCounter->saveToFlash();
 	nightPCounter->set_VT_Seconds(0);
 	nightPCounter->saveToFlash();
 
-	xSemaphoreGive(flashmut_handle);
-	
-	
 	RTC_TimeTypeDef sTime = { 0 };
 	RTC_DateTypeDef sDate = { 0 };
 	HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
@@ -512,6 +504,24 @@ bool ChangePumpMode(uint16_t* param)
 	{
 		PumpOnOffTune._setVal(0);
 		PumpOnOffTune.save();
+	}
+	return true;
+}
+;
+
+bool ChangeVentMode(uint16_t* param)
+{
+	if (*param != 5)
+	{
+		dryingVentOnOffTune._setVal(1);
+		dryingVentOnOffTune.save();
+		dryingVentMode._setVal(*param);
+		dryingVentMode.save();
+	}
+	else
+	{
+		dryingVentOnOffTune._setVal(0);
+		dryingVentOnOffTune.save();
 	}
 	return true;
 }

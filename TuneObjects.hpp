@@ -27,12 +27,6 @@ intTune midSocketLoadPower(&upSocketLoadPower);
 intTune downSocketLoadPower(&midSocketLoadPower);
 intTune v12LoadPower(&downSocketLoadPower);
 
-//intTune dayPCounterFirstByte(&v12LoadPower);
-//intTune dayPCounterSecondByte(&dayPCounterFirstByte);
-
-//intTune nightPCounterFirstByte(&dayPCounterSecondByte);
-//intTune nightPCounterSecondByte(&nightPCounterFirstByte);
-
 IntVectorTune dayPCounterVal(&v12LoadPower, 4);
 IntVectorTune nightPCounterVal(&dayPCounterVal, 4);
 
@@ -104,16 +98,6 @@ intTune SwitchedOffPumpTime(&SwitchedOnPumpTime);
 
 intTune mashboilStayOnDelta(&SwitchedOffPumpTime);
 
-
-
-
-
-//drying
-//intTune dryingAirTempProfileIndex(&mashboilStayOnDelta);
-//intTune DryingFixTemp(&dryingAirTempProfileIndex);
-//intTune dryingAirDryProfileIndex(&DryingFixTemp);
-//intTune DryingDryLevel(&dryingAirDryProfileIndex);	
-
 //on off
 intTune MashingOnOffTune(&mashboilStayOnDelta);	
 intTune BoilingOnOffTune(&MashingOnOffTune);	
@@ -125,27 +109,7 @@ IntVectorTune pumpControlSockets(&PumpOnOffTune, MAX_CONTROL_CONNECTED_SOCKETS_S
 intTune delayBeginOnOffTune(&pumpControlSockets);	
 intTune delayEndOnOffTune(&delayBeginOnOffTune);	
 
-//drying temp
-//intTune dryingTempOnOffTune(&delayEndOnOffTune);	
-//intTune dryingTempProfileIndex(&dryingTempOnOffTune);	
-//intTune OnIfMotionPeriod(&dryingTempProfileIndex);
-// dryingFixTemp(&OnIfMotionPeriod);
-
-//intTune dryingFixTempDay(&dryingFixTemp);
-//intTune dryingFixTempNight(&dryingFixTempDay);
-
-//intTune dryingVentMode(&dryingFixTempNight);
-
-
-//drying humidity
-//intTune dryingHumidityOnOffTune(&dryingVentMode);	
 intTune humiditiNullLevelTune(&delayEndOnOffTune);	
-
-//drying vent
-//intTune dryingVentOnOffTune(&humiditiNullLevelTune);
-
-//intTune dryingVentOnPeriod(&dryingVentOnOffTune);	
-//intTune dryingVentOffPeriod(&dryingVentOnPeriod);
 
 intTune MotionControlOnOffTune(&humiditiNullLevelTune);
 
@@ -237,16 +201,21 @@ IntVectorTune dryingControlSensors(&dryingPause3StayOn, MAX_CONTROL_CONNECTED_SE
 IntVectorTune dryingControlUpSockets(&dryingControlSensors, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 IntVectorTune  dryingControlDownSockets(&dryingControlUpSockets, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 
-//pump
-intTune VentMode(&dryingControlDownSockets);
-intTune SwitchedOnVentTime(&VentMode);
+//vent
+
+intTune dryingVentOnOffTune(&dryingControlDownSockets);
+intTune dryingVentMode(&dryingVentOnOffTune);
+intTune SwitchedOnVentTime(&dryingVentMode);
 intTune SwitchedOffVentTime(&SwitchedOnVentTime);	
 
 intTune dryingStayOnDelta(&SwitchedOffVentTime);
 
+intTune dryingTempOnOffTune(&dryingStayOnDelta);	
+
+IntVectorTune dryingVentControlSockets(&dryingTempOnOffTune, MAX_CONTROL_CONNECTED_SOCKETS_SIZE);
 
 
-FlashTune* lastFlashTune = &dryingStayOnDelta;
+FlashTune* lastFlashTune = &dryingVentControlSockets;
 
 std::vector<intTune*> mashingTemperatureTunesVector = { &mashingPause1Temp, &mashingPause2Temp, &mashingPause3Temp, 
 														&mashingPause4Temp, &mashingPause5Temp, &mashingPause6Temp};

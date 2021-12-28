@@ -108,7 +108,7 @@ public:
 	void SetIntText(int dnum, uint8_t lenght, char fchar);
 	
 	void FillEndBySpaces();
-	char Text[FONT_12_MAX_SIMVOLS_IN_STRING] = { 0 };
+	char Text[FONT_12_MAX_SIMVOLS_IN_STRING + 1] = { 0 };
 	
 	
 protected:

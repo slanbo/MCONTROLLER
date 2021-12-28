@@ -8,7 +8,9 @@
 class MotionControl : public ControlBase
 {
 public:
-	MotionControl(const char* name,
+	MotionControl(
+		const char* name,
+		const char* uid,
 		intTune* onOff,
 		intTune* analizeMotionsPeriod,
 		IntVectorTune* sensorsTune);
